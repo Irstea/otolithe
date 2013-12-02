@@ -5,8 +5,8 @@
 * 
 * Parametres par defaut de l'application
 */
-$APPLI_version = "0.8";
-$APPLI_versiondate = "24/09/2013";
+$APPLI_version = "1.0";
+$APPLI_versiondate = "02/12/2013";
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*
@@ -17,15 +17,16 @@ $navigationxml = "param/actions.xml";
  * Duree de la session par defaut
  * @var unknown_type
  */
-
+// 4 heures
 $APPLI_session_ttl = 14400;
-$APPLI_cookie_ttl = 2592000;
+// 3 mois
+$APPLI_cookie_ttl = 7776000; 
 /*
  * 
  * Nom du chemin de stockage des sessions
  * @var unknown_type
  */
-$APPLI_path_stockage_session = "prototypephp";
+$APPLI_path_stockage_session = "otolithe";
 /*
  * Type d'identification
  * 

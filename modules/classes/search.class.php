@@ -63,7 +63,7 @@ class SearchParam {
 	}
 }
 /**
- * Classe de gestion des parametres de recherche de la table Personnel
+ * Classe de gestion des parametres de recherche des poissons
  * @author Eric Quinton
  *
  */
@@ -73,4 +73,16 @@ class SearchIndividu extends SearchParam {
 		parent::__construct();
 	}
 }
+/**
+ * Classe de recherche des lectures de pieces
+ * @author quinton
+ *
+ */
+class SearchLecture extends SearchParam {
+	function __construct() {
+		$this->param = array("codeindividu"=>"", "exp_id"=>"", "site"=>"", "zonesite"=>"", "lecteur_id"=>"");
+		parent::__construct();
+	}
+}
+
 ?>

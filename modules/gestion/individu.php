@@ -9,6 +9,10 @@ switch ($t_module["param"]) {
 		 * Display the list of all records of the table
 		 */
 		/*
+		 * Mise a jour du module d'affichage de la liste
+		*/
+		$_SESSION["moduleListe"]="individuList";
+		/*
 		 * Gestion des criteres de recherche
 		*/
 		$searchIndividu->setParam ( $_REQUEST );

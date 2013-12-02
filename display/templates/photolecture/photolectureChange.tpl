@@ -39,11 +39,32 @@ function drawIntro(svg) {
 		   var relX = e.pageX - parentOffset.left;
 		   var relY = e.pageY - parentOffset.top;
 		   var svg = $('#container').svg('get');
-		   setCircle(svg, relX, relY);
+		   setCircle(svg, relX, relY, 0);
 		});
+	/*
+     * Generation des points existants (mode modification)
+     */
+	{/literal}
+{if $data.photolecture_id > 0}
+$("#modeLecture").val(1);
+{section name="lst" loop=$data.points}
+{if $smarty.section.lst.index == 0 }
+var rayon_initial = 1;
+{else}
+var rayon_initial = 0;
+{/if}
+setCircle(svg,{$data.points[lst].x},{$data.points[lst].y},rayon_initial);
+{/section}
+$("#modeLecture").val(2);
+{section name="lst" loop=$data.points_ref_lecture}
+setCircle(svg,{$data.points_ref_lecture[lst].x},{$data.points_ref_lecture[lst].y},0);
+{/section}
+$("#modeLecture").val(1);
+{/if}
+	{literal}
 	};
 
-function setCircle(svg, x, y) {
+function setCircle(svg, x, y, rayon_initial) {
 	var ident = "circle"+compteur;
 	var valeurCompteur = compteur; 
 	compteur++;
@@ -61,10 +82,16 @@ function setCircle(svg, x, y) {
 	} else {
 		var couleur = 'red';
 	};
-		svg.circle(myCircle, X, Y, 7, {
-		id: ident, stroke: couleur, fill: 'rgba(0,0,0,0.3)'}	);
+		if (modeLecture == 0 || rayon_initial == 1) {
+			var rayon = $("#rayon_cercle").val();
+		} else {
+			var rayon = 7;
+		}
+		svg.circle(myCircle, X, Y, rayon, {
+		id: ident, stroke: couleur, fill: 'rgba(0,0,0,0)'});
 		svg.line(myCircle, X, Y - 7, X, Y + 7, {stroke: couleur, strokeWidth: 1});
 		svg.line(myCircle, X - 7, Y, X + 7, Y, {stroke: couleur, strokeWidth: 1});
+		svg.text(myCircle, X + 20, Y + 20, valeurCompteur+"", { 'text-anchor':'middle', 'fill':couleur, 'pointer-events': 'none'});
 	;
 	if (modeLecture != 3) {
 	/*
@@ -76,7 +103,7 @@ function setCircle(svg, x, y) {
 	var rang = '<td><input type="text" size="10" name="rang'+valeurCompteur+'" id="rang'+valeurCompteur+'" value="'+ valeurCompteur * 10 +'" ></td>';
 	var pointReference ="<td></td>";
 	if (modeLecture == 2) {
-		pointReference = '<td><input type="text" size="10" name=pointRef'+valeurCompteur+'" id=pointRef'+valeurCompteur+'" value="1" ></td>';
+		pointReference = '<td><input type="text" size="10" name="pointRef'+valeurCompteur+'" id="pointRef'+valeurCompteur+'" value="1" ></td>';
 	};
 	var ligneFin = "</tr>";
 	 $('#tableData').append(ligneDebut + pointX + pointY + rang + pointReference + ligneFin);
@@ -102,8 +129,14 @@ function setCircle(svg, x, y) {
 	 */
 	$(myCircle)
 	.hover(function() {
-		$(this).css("cursor","pointer");
+		$(this).css({"cursor":"pointer"});
 	})
+/*	.mouseenter(function() {
+		$("#text"+valeurCompteur).attr("disable","false");
+	})
+	.mouseleave(function() {
+		$("#text"+valeurCompteur).attr("disable","true");
+	})*/
 	 /*
   	 * Supprime le point 
   	 */
@@ -140,26 +173,46 @@ function setCircle(svg, x, y) {
 };
 {/literal}
 </script>
+<h2>Mesure d'un otolithe</h2>
+<a href="index.php?module={$moduleListe}">Retour à la liste</a> > 
+<a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}">Retour au détail du poisson</a> > 
+<a href="index.php?module=pieceDisplay&piece_id={$piece.piece_id}">Retour au détail de la pièce</a> >
+<a href="index.php?module=photoDisplay&photo_id={$data.photo_id}">Retour à la photo</a>
+<table class="tablemulticolonne">
+<tr>
+<td>
+{include file="gestion/individuCartouche.tpl"}
+</td>
+<td>
+{include file="gestion/pieceCartouche.tpl"}
+</td>
+</tr>
+</table>
 <div id="container">
 </div>
 Type de lecture pour le prochain point :
 <select id="modeLecture">
+<option value="0">Point initial avec cercle élargi</option>
 <option value="1">Lecture des points</option>
 <option value="2">Mesure de la longueur de référence</option>
 <option value="3">Tracé d'une ligne sur la photo (aide à la mesure)</option>
 </select>
 <form name="myForm" id="myForm" action="index.php" method="POST">
 <input type="hidden" name="photo_id" id="photo_id" value="{$data.photo_id}">
-<input type="hidden" name="module" value="photolectureWrite"}
-<input type="hidden" name="lecteur_id" value="{$data.lecteur_id}">
+<input type="hidden" name="module" value="photolectureWrite"}>
+<input type="hidden" name="lecteur_id" id="lecteur_id" value="{$data.lecteur_id}">
+<input type="hidden" name="photolecture_date" value="{$data.photolecture_date}">
+<input type="hidden" name="photolecture_id" value="{$data.photolecture_id}">
 Taille originale de la photo : 
 <input name="photo_width" id="photo_width" value="{$photo.photo_width}" readonly>x
 <input name="photo_height" id="photo_height" value="{$photo.photo_height}" readonly>
 <br>Taille de lecture de la photo :
-<input name="image_width" id="image_width" value="{$image_width}" readonly>x
-<input name="image_height" id="image_height" value="{$image_height}" readonly>
+<input name="photolecture_width" id="image_width" value="{$image_width}" readonly>x
+<input name="photolecture_height" id="image_height" value="{$image_height}" readonly>
 <br>Coefficient de correction de la taille : 
 <input name="coef_correcteur" id="coef_correcteur" value="{$coef_correcteur}" readonly>
+<br>Rayon (en pixels) du cercle élargi : 
+<input id="rayon_cercle" name="rayon_point_initial" value="{$data.rayon_point_initial}">
 <h3>Points sélectionnés</h3>
 <table id="tableData">
 <tr>

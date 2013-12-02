@@ -4,7 +4,7 @@
 <style type="text/css">@import url(display/javascript/calendar/aqua/theme.css);</style>
 
 <h2>Modification d'une photo</h2>
-<a href="index.php?module=individuList">Retour à la liste</a> > 
+<a href="index.php?module={$moduleListe}">Retour à la liste</a> > 
 <a href="index.php?module=individuDisplay&individu_id={$individu.individu_id}">Retour au détail du poisson</a> > 
 <a href="index.php?module=pieceDisplay&piece_id={$data.piece_id}">Retour au détail de la pièce</a>
 {include file="gestion/individuCartouche.tpl"}

@@ -1,4 +1,4 @@
-<h1><img src="display/images/tux-lamp.jpg" width="40">{$LANG.message.1}
+<h1><img src="favicon.png" width="40">{$LANG.message.1}
 <span style="text-align:right;display:inline">
 <a href='index.php?module=setlanguage&langue=fr'>
 <img src='display/images/drapeau_francais.png' height='20' border='0'>

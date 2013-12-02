@@ -1,5 +1,5 @@
 <h2>Modification d'une pièce</h2>
-<a href="index.php?module=individuList">Retour à la liste</a> > 
+<a href="index.php?module={$moduleListe}">Retour à la liste</a> > 
 <a href="index.php?module=individuDisplay&individu_id={$data.individu_id}">Retour au détail du poisson</a>
 {if $data.piece_id > 0}
 > <a href="index.php?module=pieceDisplay&piece_id={$data.piece_id}">Retour au détail de la pièce</a>

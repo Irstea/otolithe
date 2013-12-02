@@ -1,5 +1,5 @@
 <h2>Affichage du détail d'un individu</h2>
-<a href="index.php?module=individuList">Retour à la liste</a>
+<a href="index.php?module={$moduleListe}">Retour à la liste</a>
 <table class="tablemulticolonne">
 <tr>
 <td>

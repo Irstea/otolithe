@@ -1,5 +1,5 @@
 <h2>Affichage d'une pièce</h2>
-<a href="index.php?module=individuList">Retour à la liste</a> > 
+<a href="index.php?module={$moduleListe}">Retour à la liste</a> > 
 <a href="index.php?module=individuDisplay&individu_id={$data.individu_id}">Retour au détail du poisson</a>
 {include file="gestion/individuCartouche.tpl"}
 <h3>Détail de la pièce</h3>

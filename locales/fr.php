@@ -45,6 +45,8 @@ $LANG["menu"][50] = "Liste des poissons";
 $LANG["menu"][51] = "Rechercher les poissons capturés...";
 $LANG["menu"][52] = "Liste des lecteurs";
 $LANG["menu"][53] = "Personnes susceptible de réaliser des lectures sur les pièces...";
+$LANG["menu"][54] = "Liste des lectures";
+$LANG["menu"][55] = "Afficher la liste les lectures de pièces...";
 
 
 $LANG["menu"]["example1"] = "Example";
@@ -75,8 +77,8 @@ $LANG["message"][19] = "Valider";
 $LANG["message"][20] = "Supprimer";
 $LANG["message"][21] = "Rechercher";
 $LANG["message"][22] = "Echec de connexion à la base de données principale";
-$LANG["message"][23] = "Copyright (c) 2007-2012 - Tous droits réservés.";
-$LANG["message"][24] = "Logiciel diffusé sous licence LGPL.";
+$LANG["message"][23] = "Copyright (c) 2013 - Tous droits réservés.";
+$LANG["message"][24] = "Propriété de l'IRSTEA de Bordeaux-CESTAS";
 $LANG["message"][25] = "Pour tout problème : ";
 $LANG["message"][26] = "Vous n'avez pas accès à cette fonction. Veuillez vous identifier, le cas échéant...";
 $LANG["message"][27] = "Vous n'êtes pas identifié.";

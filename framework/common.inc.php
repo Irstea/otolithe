@@ -18,6 +18,8 @@ include_once ("param/param.inc.php");
  * Gestion de la session
  */
 // ini_set('session.cookie_secure', 1);
+ini_set('session.gc_probability', 1);
+ini_set('session.cookie_lifetime', $APPLI_session_ttl);
 ini_set ( 'session.gc_maxlifetime', $APPLI_session_ttl );
 // $session_path = ini_get('session.save_path').'/'.$APPLI_path_stockage_session;
 // if (!is_dir($session_path)) mkdir($session_path);
@@ -68,6 +70,10 @@ include_once "modules/beforesession.inc.php";
  * Demarrage de la session
  */
 @session_start ();
+/*
+ * Regeneration du cookie de session
+ */
+setcookie(session_name(),session_id(),time()+$APPLI_session_ttl, '/');
 $identification = new Identification ();
 $identification->setidenttype ( $ident_type );
 if ($ident_type == "CAS") {
@@ -200,6 +206,9 @@ if (isset ( $_SESSION ["gestionDroit"] ) && $APPLI_modeDeveloppement == false) {
  * Chargement des fonctions specifiques
  */
 include_once 'modules/fonctions.php';
+if ($APPLI_modeDeveloppement == true) {
+	include_once 'framework/functionsDebug.php';
+}
 /*
  * Chargement des traitements communs specifiques a l'application
  */

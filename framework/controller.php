@@ -202,6 +202,7 @@ if ($t_module ["ajax"] != 1) {
 		$texteDeveloppement = $LANG ["message"] [32] . " : " . $BDDDEV_server . '/' . $BDDDEV_database;
 		$smarty->assign ( "developpementMode", $texteDeveloppement );
 	}
+	$smarty->assign("moduleListe",$_SESSION["moduleListe"]);
 	$smarty->display ( $SMARTY_principal );
 }
 ?>
