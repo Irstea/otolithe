@@ -20,4 +20,9 @@ if (!isset($_SESSION["searchLecture"])) {
 } else {
 	$searchLecture = $_SESSION["searchLecture"];
 }
+/*
+ * Suppression des anciennes photos
+*/
+if (! isset($_SESSION["login"]))
+	include "gestion/photoDeleteFile.php";
 ?>

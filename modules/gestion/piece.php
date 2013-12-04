@@ -21,7 +21,14 @@ switch ($t_module["param"]) {
 		include_once 'modules/classes/individu.class.php';
 		$individu = new Individu($bdd, $ObjetBDDParam);
 		$smarty->assign("individu", $individu->getDetail($data["individu_id"]));
-		$smarty->assign("photo", $photo->getListePhotoFromPiece($id));
+		$listePhoto = $photo->getListePhotoFromPiece($id);
+		/*
+		 * Rajout du lien vers l'image
+		 */
+		foreach($listePhoto as $key=>$value) {
+			$listePhoto[$key]["photoPath"] = $photo->writeFilePhoto($value["photo_id"],1);
+		}
+		$smarty->assign("photo", $listePhoto);
 		$smarty->assign("corps", "gestion/pieceDisplay.tpl");
 		break;
 	case "change":

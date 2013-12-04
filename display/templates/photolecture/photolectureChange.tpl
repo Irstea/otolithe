@@ -30,7 +30,10 @@ function drawIntro(svg) {
 	var image_width = $('#image_width').val();
 	var image_height = $('#image_height').val();
 	var photo_id = $('#photo_id').val();
-	var lien = "index.php?module=photoGetPhoto&photo_id="+photo_id+"&sizeX="+image_width+"&sizeY="+image_height;
+	//var lien = "index.php?module=photoGetPhoto&photo_id="+photo_id+"&sizeX="+image_width+"&sizeY="+image_height;
+	{/literal}
+	var lien = "{$photo.photoPath}";
+	{literal}
 	var myImage = svg.image(0, 0, image_width, image_height, lien);
 	$(myImage).click(function(e){
 		   //var parentOffset = $(this).parent().offset(); 
@@ -213,6 +216,10 @@ Taille originale de la photo :
 <input name="coef_correcteur" id="coef_correcteur" value="{$coef_correcteur}" readonly>
 <br>Rayon (en pixels) du cercle élargi : 
 <input id="rayon_cercle" name="rayon_point_initial" value="{$data.rayon_point_initial}">
+<br>Recalcul automatique de l'ordre des points ? 
+<input type="radio" name="calculAuto" value="1" checked>Oui
+<input type="radio" name="calculAuto" value="0" >Non
+
 <h3>Points sélectionnés</h3>
 <table id="tableData">
 <tr>
@@ -235,3 +242,5 @@ Pour supprimer un point, réalisez un double-clic sur celui-ci.
 Vous pouvez modifier manuellement l'ordre de lecture d'un point, si nécessaire.
 <br>
 Pour tracer une ligne, positionnez le premier point, puis le second. Pour supprimer la ligne, supprimez d'abord le second point, avant de toucher au premier point.
+<br>
+Le recalcul automatique de l'ordre des points ne fonctionne que si le premier point (origine) est saisi en premier (valeur "ordre de lecture" la plus faible de la série).

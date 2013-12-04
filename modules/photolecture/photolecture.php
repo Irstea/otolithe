@@ -1,5 +1,5 @@
 <?php
-include_once 'modules/example/example.class.php';
+include_once 'modules/classes/photo.class.php';
 $dataClass = new Photolecture ( $bdd, $ObjetBDDParam );
 $id = $_REQUEST ["photolecture_id"];
 
@@ -37,6 +37,10 @@ switch ($t_module ["param"]) {
 		$smarty->assign("image_width", $image_width);
 		$smarty->assign("image_height", $image_height);
 		$smarty->assign("coef_correcteur", $coef);
+		/*
+		 * Generation de la photo dans le dossier temporaire, et du lien associe
+		 */
+		$dataPhoto["photoPath"] = $photo->writeFilePhoto($dataPhoto["photo_id"],0, $image_width, $image_height);
 		/*
 		 * Recuperation des lectures effectuees
 		 */
@@ -167,6 +171,10 @@ switch ($t_module ["param"]) {
 			 * Reecriture de data dans smarty
 			*/
 			$smarty->assign("data", $data);
+			/*
+			 * Generation de la photo dans le dossier temporaire, et du lien associe
+			*/
+			$dataPhoto["photoPath"] = $photo->writeFilePhoto($dataPhoto["photo_id"],0, $image_width, $image_height);
 			$smarty->assign("photo", $dataPhoto);
 		}
 		break;

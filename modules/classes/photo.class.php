@@ -59,7 +59,7 @@ class Photo extends ObjetBDD {
 				),
 				"long_reference" => array (
 						"type" => 0,
-						"defaultValue" => 100
+						"defaultValue" => 100 
 				),
 				"photo_height" => array (
 						"type" => 1 
@@ -103,6 +103,32 @@ class Photo extends ObjetBDD {
 			$image->resizeImage ( $this->format_thumbnail, $this->format_thumbnail, imagick::FILTER_LANCZOS, 1, true );
 			$image->setformat ( "jpeg" );
 			$dataPhoto ["photo_thumbnail"] = pg_escape_bytea ( $image->getimageblob () );
+			/*
+			 * Suppression le cas echeant de la photo dans le dossier img
+			 */
+			if ($data ["photo_id"] > 0) {
+				global $APPLI_photoStockage;
+				$dossier = opendir ( $APPLI_photoStockage );
+				while ( false !== ($entry = readdir ( $dossier )) ) {
+					$racineFichier = "photo" . $data ["photo_id"] . "-";
+					if (substr ( $entry, 0, strlen ( $racineFichier ) ) == $racineFichier) {
+						/*
+						 * On supprime le fichier
+						 */
+						unlink ( $APPLI_photoStockage . "/" . $entry );
+					}
+					/*
+					 * Meme chose pour la miniature
+					 */
+					$racineFichier = "thumbnail" . $data ["photo_id"] . "-";
+					if (substr ( $entry, 0, strlen ( $racineFichier ) ) == $racineFichier) {
+						/*
+						 * On supprime le fichier
+						 */
+						unlink ( $APPLI_photoStockage . "/" . $entry );
+					}
+				}
+			}
 		}
 		$id = parent::ecrire ( $data );
 		if ($id > 0 && $flag_photo == 1) {
@@ -173,8 +199,65 @@ class Photo extends ObjetBDD {
 		}
 	}
 	/**
+	 * Fonction permettant d'ecrire la photo dans un dossier temporaire, pour telechargement depuis le navigateur
+	 *
+	 * @param unknown $id        	
+	 * @param number $thumbnail        	
+	 * @param number $sizeX        	
+	 * @param number $sizeY        	
+	 * @param string $chemin        	
+	 * @return string
+	 */
+	function writeFilePhoto($id, $thumbnail = 0, $sizeX = 0, $sizeY = 0, $chemin = "img") {
+		if ($id > 0) {
+			$this->UTF8 = false;
+			$this->codageHtml = false;
+			if ($thumbnail == 1) {
+				$sql = "select photo_thumbnail as image ";
+				$nomPhoto = "thumbnail";
+			} else {
+				$sql = "select photo_data as image ";
+				$nomPhoto = "photo";
+			}
+			$nomPhoto .= $id . '-' . $sizeX . 'x' . $sizeY . ".jpg";
+			/*
+			 * On recherche si la photo existe ou non
+			 */
+			$path = $chemin . '/' . $nomPhoto;
+			if (! file_exists ( $path )) {
+				/*
+				 * On cree la photo
+				 */
+				$sql .= " from " . $this->table;
+				$where = " where photo_id = " . $id;
+				$data = $this->executeSQL ( $sql . $where );
+				$photo = $data->fields ["image"];
+				$image = new Imagick ();
+				$image->readImageBlob ( $photo );
+				if (strlen ( $photo ) > 0) {
+					if ($sizeX > 0 && $sizeY > 0) {
+						/*
+						 * Mise a l'image de la photo
+						 */
+						$geo = $image->getimagegeometry ();
+						if ($geo ["width"] > $sizeX || $geo ["height"] > $sizeY) {
+							$image->resizeImage ( $sizeX, $sizeY, imagick::FILTER_LANCZOS, 1, true );
+							$image->setformat ( "JPEG" );
+						}
+					}
+					/*
+					 * Ecriture de la photo
+					 */
+					$image->writeimage ( $path );
+				}
+			}
+			return ($path);
+		}
+	}
+	
+	/**
 	 * Lit les informations generales d'une photo
-	 * 
+	 *
 	 * @param int $id        	
 	 * @return array
 	 */
@@ -254,7 +337,7 @@ class Lecteur extends ObjetBdd {
 	}
 	/**
 	 * Retourne l'identifiant du lecteur
-	 * 
+	 *
 	 * @param int $login        	
 	 * @return number
 	 */
@@ -270,12 +353,12 @@ class Lecteur extends ObjetBdd {
 	/**
 	 * Reecriture de la fonction liste pour trier la table
 	 * (non-PHPdoc)
+	 *
 	 * @see ObjetBDD::getListe()
 	 */
 	function getListe() {
-		$sql = "select * from ".$this->table
-		." order by lecteur_nom, lecteur_prenom";
-		return $this->getListeParam($sql);
+		$sql = "select * from " . $this->table . " order by lecteur_nom, lecteur_prenom";
+		return $this->getListeParam ( $sql );
 	}
 }
 /**
@@ -336,10 +419,10 @@ class Photolecture extends ObjetBdd {
 				"long_totale_reel" => array (
 						"type" => 1 
 				),
-				"rayon_point_initial" => array(
+				"rayon_point_initial" => array (
 						"type" => 1,
-						"defaultValue" => 7
-				)
+						"defaultValue" => 7 
+				) 
 		);
 		if (! is_array ( $param ))
 			$param == array ();
@@ -350,7 +433,7 @@ class Photolecture extends ObjetBdd {
 	/**
 	 * Reecriture de la fonction ecrire, pour preparer les points et realiser les calculs
 	 * (non-PHPdoc)
-	 * 
+	 *
 	 * @see ObjetBDD::ecrire()
 	 */
 	function ecrire($dataBrute) {
@@ -370,7 +453,7 @@ class Photolecture extends ObjetBdd {
 		/*
 		 * Mise a jour de l'heure
 		 */
-		$data["photolecture_date"] = $this->getDateHeure();
+		$data ["photolecture_date"] = $this->getDateHeure ();
 		/*
 		 * Traitement des points
 		 */
@@ -380,7 +463,7 @@ class Photolecture extends ObjetBdd {
 		/*
 		 * Calcul du rayon du cercle initial
 		 */
-		$data["rayon_point_initial"] = $data["rayon_point_initial"] * $coef;
+		$data ["rayon_point_initial"] = $data ["rayon_point_initial"] * $coef;
 		/*
 		 * Gestion des points
 		 */
@@ -394,17 +477,17 @@ class Photolecture extends ObjetBdd {
 				/*
 				 * Recalcul des coordonnees exactes
 				 */
-				//$X = floor ( $dataBrute ["pointx" . $num] * $coef );
-				//$Y = floor ( $dataBrute ["pointy" . $num] * $coef );
+				// $X = floor ( $dataBrute ["pointx" . $num] * $coef );
+				// $Y = floor ( $dataBrute ["pointy" . $num] * $coef );
 				/*
 				 * Mise en tableau
 				 */
 				if ($dataBrute ["pointRef" . $num] == 1) {
-					$pointsMesure [$dataBrute["rang" . $num]] ["x"] = $dataBrute ["pointx" . $num];
-					$pointsMesure [$dataBrute["rang" . $num]] ["y"] = $dataBrute["pointy" . $num];
+					$pointsMesure [$dataBrute ["rang" . $num]] ["x"] = $dataBrute ["pointx" . $num];
+					$pointsMesure [$dataBrute ["rang" . $num]] ["y"] = $dataBrute ["pointy" . $num];
 				} else {
-					$points [$dataBrute["rang" . $num]] ["x"] = $dataBrute ["pointx" . $num];
-					$points [$dataBrute["rang" . $num]] ["y"] = $dataBrute ["pointy" . $num];
+					$points [$dataBrute ["rang" . $num]] ["x"] = $dataBrute ["pointx" . $num];
+					$points [$dataBrute ["rang" . $num]] ["y"] = $dataBrute ["pointy" . $num];
 				}
 			}
 		}
@@ -413,6 +496,55 @@ class Photolecture extends ObjetBdd {
 		 */
 		ksort ( $points, SORT_NUMERIC );
 		ksort ( $pointsMesure, SORT_NUMERIC );
+		if ($dataBrute ["calculAuto"] == 1) {
+			/*
+			 * Recalcul automatique de l'ordonnancement des points
+			 */
+			$pointTemp = $points;
+			$points = array ();
+			/*
+			 * Recuperation de la premiere position
+			 */
+			foreach ( $pointTemp as $key => $value ) {
+				$points [0] ["x"] = $value ["x"];
+				$points [0] ["y"] = $value ["y"];
+				/*
+				 * Suppression du premier point dans $pointTemp
+				 */
+				unset ( $pointTemp [$key] );
+				break;
+			}
+			/*
+			 * Traitement de chaque point successivement
+			 */
+			$nbPoint = count ( $pointTemp );
+			$i = 1;
+			for($i = 1; $i <= $nbPoint; $i ++) {
+				$x = $points [$i - 1] ["x"];
+				$y = $points [$i - 1] ["y"];
+				$min = 999999;
+				$ref = "";
+				/*
+				 * Calcul de la distance de chaque point par rapport au point precedent
+				 */
+				foreach ( $pointTemp as $key => $value ) {
+					$dist = $this->calculDistance ( $x, $y, $value ["x"], $value ["y"] );
+					if ($dist < $min) {
+						$min = $dist;
+						$ref = $key;
+					}
+				}
+				/*
+				 * Ecriture du point le plus pres
+				 */
+				$points [$i] ["x"] = $pointTemp [$ref] ["x"];
+				$points [$i] ["y"] = $pointTemp [$ref] ["y"];
+				/*
+				 * Suppression du point traite
+				 */
+				unset ( $pointTemp [$ref] );
+			}
+		}
 		/*
 		 * Mise en forme des coordonnees
 		 */
@@ -424,7 +556,7 @@ class Photolecture extends ObjetBdd {
 			$i = 0;
 			$longueur_totale = 0;
 			foreach ( $points as $key => $value ) {
-				$data ["points"] .= $virgule . floor($value ["x"] * $coef) . " " . floor($value ["y"]*$coef);
+				$data ["points"] .= $virgule . floor ( $value ["x"] * $coef ) . " " . floor ( $value ["y"] * $coef );
 				/*
 				 * Calcul de la longueur par rapport au point precedent
 				 */
@@ -439,7 +571,7 @@ class Photolecture extends ObjetBdd {
 				$virgule = ",";
 			}
 			$data ["points"] .= ')';
-			$data["long_totale_lue"] = $longueur_totale * $coef; 
+			$data ["long_totale_lue"] = $longueur_totale * $coef;
 		}
 		
 		/*
@@ -452,7 +584,7 @@ class Photolecture extends ObjetBdd {
 			$mesure = array ();
 			foreach ( $pointsMesure as $key => $value ) {
 				$i ++;
-				$data ["points_ref_lecture"] .= $virgule . floor($value ["x"] * $coef) . " " . floor($value ["y"]*$coef);
+				$data ["points_ref_lecture"] .= $virgule . floor ( $value ["x"] * $coef ) . " " . floor ( $value ["y"] * $coef );
 				$mesure [$i] ["x"] = $value ["x"];
 				$mesure [$i] ["y"] = $value ["y"];
 				$virgule = ",";
@@ -462,7 +594,7 @@ class Photolecture extends ObjetBdd {
 			 * Calcul de la distance de la lecture de reference
 			 */
 			if ($i >= 2) {
-				$data ["long_ref_mesuree"] = $this->calculDistance ( $mesure [1] ["x"], $mesure [1] ["y"], $mesure [2] ["x"], $mesure [2] ["y"] )* $coef;
+				$data ["long_ref_mesuree"] = $this->calculDistance ( $mesure [1] ["x"], $mesure [1] ["y"], $mesure [2] ["x"], $mesure [2] ["y"] ) * $coef;
 			}
 			/*
 			 * Calcul de la distance reelle
@@ -483,7 +615,7 @@ class Photolecture extends ObjetBdd {
 	}
 	/**
 	 * Calcul de la distance geometrique entre deux points
-	 * 
+	 *
 	 * @param number $x1        	
 	 * @param number $y1        	
 	 * @param number $x2        	
@@ -497,7 +629,7 @@ class Photolecture extends ObjetBdd {
 	
 	/**
 	 * Retourne la liste des lectures realisees sur une photo
-	 * 
+	 *
 	 * @param int $photo_id        	
 	 * @return array
 	 */
@@ -515,7 +647,7 @@ class Photolecture extends ObjetBdd {
 	/**
 	 * Retourne la liste des lectures effectuees
 	 * $id contient soit le numero unique de phototolecture_id, soit un tableau contenant la liste des identifiants a traiter
-	 * 
+	 *
 	 * @param <int|array> $id        	
 	 * @param number $coef        	
 	 * @return array
@@ -547,8 +679,18 @@ class Photolecture extends ObjetBdd {
 			}
 			$where .= ")";
 		}
-		$couleur = array("0"=>"red","1"=>"green", "2"=>"magenta", "3"=>"blue", "4"=>"purple", 
-				"5"=>"darkred", "6"=>"darkgreen", "7"=>"darkmagenta", "8"=>"darkblue", "8"=>"darkpurple");
+		$couleur = array (
+				"0" => "red",
+				"1" => "green",
+				"2" => "magenta",
+				"3" => "blue",
+				"4" => "purple",
+				"5" => "darkred",
+				"6" => "darkgreen",
+				"7" => "darkmagenta",
+				"8" => "darkblue",
+				"8" => "darkpurple" 
+		);
 		/*
 		 * Lecture de la liste concernee
 		 */
@@ -556,35 +698,36 @@ class Photolecture extends ObjetBdd {
 		$data = $this->getListeParam ( $sql . $where );
 		foreach ( $data as $key => $value ) {
 			if (strlen ( $data [$key] ["listepoint"] ) > 0) {
-				$data[$key]["points"] = $this->calculPointsAffichage($data[$key]["listepoint"], $coef);
+				$data [$key] ["points"] = $this->calculPointsAffichage ( $data [$key] ["listepoint"], $coef );
 				/*
 				 * Rajout de la couleur
 				 */
-				$data[$key]["couleur"] = $couleur[$icolor];
-				$icolor++;
+				$data [$key] ["couleur"] = $couleur [$icolor];
+				$icolor ++;
 			}
 			/*
 			 * Recalcul du rayon initial
 			 */
-			$data[$key]["rayon_point_initial"] = floor($data[$key]["rayon_point_initial"] / $coef);
+			$data [$key] ["rayon_point_initial"] = floor ( $data [$key] ["rayon_point_initial"] / $coef );
 		}
 		return $data;
 	}
 	/**
 	 * Calcule la position des points en pixels, pour affichage dans la resolution consideree
 	 * $listepoint contient la valeur de st_astext(champ_postgis_concerne)
-	 * @param string $listepoint
-	 * @param number $coef
+	 *
+	 * @param string $listepoint        	
+	 * @param number $coef        	
 	 * @return array
 	 */
-	function calculPointsAffichage($listepoint, $coef){
+	function calculPointsAffichage($listepoint, $coef) {
 		/*
 		 * Nettoyage des donnees
-		*/
+		 */
 		$lpt = preg_replace ( '#[^0-9 .,]#', "", $listepoint );
 		$alpt = explode ( ",", $lpt );
 		$i = 0;
-		$data = array();
+		$data = array ();
 		foreach ( $alpt as $key1 => $value1 ) {
 			/*
 			 * Separation des valeurs x et y
@@ -601,20 +744,21 @@ class Photolecture extends ObjetBdd {
 	}
 	/**
 	 * Retourne les points saisis en format lisible (st_astext)
-	 * @param integer $id
+	 *
+	 * @param integer $id        	
 	 * @return array
 	 */
 	function lirePoints($id) {
 		$sql = "select photolecture_id,
 		st_astext(points) as points,
 		st_astext(points_ref_lecture) as points_ref_lecture
-		from ".$this->table
-		." where photolecture_id = ".$id;
-		return $this->lireParam($sql);
+		from " . $this->table . " where photolecture_id = " . $id;
+		return $this->lireParam ( $sql );
 	}
 	/**
 	 * Retourne la liste des lectures effectuees en fonction des criteres de recherche indiques
-	 * @param array $param
+	 *
+	 * @param array $param        	
 	 * @return array
 	 */
 	function getListSearch($param) {
@@ -629,8 +773,7 @@ class Photolecture extends ObjetBdd {
 				photo_nom, photo_date, color, long_reference, photo_height, photo_width,
 				piecetype_libelle, traitementpiece_libelle,
 				codeindividu, tag, rayon_point_initial
-				from ".$this->table
-				." left join lecteur using(lecteur_id)
+				from " . $this->table . " left join lecteur using(lecteur_id)
 					left join photo using (photo_id)
 					left join piece using (piece_id)
 					left join individu using (individu_id)
@@ -640,39 +783,40 @@ class Photolecture extends ObjetBdd {
 				";
 		$where = " where ";
 		$and = "";
-		if (strlen($param["codeindividu"]) > 0) {
-			$where .= $and."(upper(codeindividu) like upper('%".$param["codeindividu"]."%')
-					or upper(tag) like upper('%".$param["codeindividu"]."%'))";
+		if (strlen ( $param ["codeindividu"] ) > 0) {
+			$where .= $and . "(upper(codeindividu) like upper('%" . $param ["codeindividu"] . "%')
+					or upper(tag) like upper('%" . $param ["codeindividu"] . "%'))";
 			$and = " and ";
 		}
-		if ($param["exp_id"] > 0) {
-			$where .= $and."exp_id=".$param["exp_id"];
+		if ($param ["exp_id"] > 0) {
+			$where .= $and . "exp_id=" . $param ["exp_id"];
 			$and = " and ";
 		}
-		if (strlen($param["site"])>0) {
-			$where .= $and."site = '".pg_escape_string($param["site"])."'";
+		if (strlen ( $param ["site"] ) > 0) {
+			$where .= $and . "site = '" . pg_escape_string ( $param ["site"] ) . "'";
 			$and = " and ";
 		}
-		if (strlen($param["zonesite"])>0) {
-			$where .= $and."zonesite = '".pg_escape_string($param["zonesite"])."'";
+		if (strlen ( $param ["zonesite"] ) > 0) {
+			$where .= $and . "zonesite = '" . pg_escape_string ( $param ["zonesite"] ) . "'";
 			$and = " and ";
 		}
-		if ($param["lecteur_id"]>0) {
-			$where .= $and."lecteur_id = ".$param["lecteur_id"];
+		if ($param ["lecteur_id"] > 0) {
+			$where .= $and . "lecteur_id = " . $param ["lecteur_id"];
 			$and = " and ";
 		}
 		/*
 		 * On verifie qu'on ait bien une clause where...
 		 */
-		if ($where == " where ") $where = "";
+		if ($where == " where ")
+			$where = "";
 		$order = " order by codeindividu, tag, piece_id, photo_id, photolecture_date";
-		$data = $this->getListeParam($sql.$where.$order);
+		$data = $this->getListeParam ( $sql . $where . $order );
 		/*
 		 * Mise au format des dates
 		 */
-		foreach ($data as $key=>$value) {
-			if (strlen($data[$key]["photo_date"] > 1))
-			$data[$key]["photo_date"] = $this->formatDateDBversLocal($value["photo_date"]);
+		foreach ( $data as $key => $value ) {
+			if (strlen ( $data [$key] ["photo_date"] > 1 ))
+				$data [$key] ["photo_date"] = $this->formatDateDBversLocal ( $value ["photo_date"] );
 		}
 		return ($data);
 	}

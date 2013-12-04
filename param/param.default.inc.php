@@ -5,8 +5,8 @@
 * 
 * Parametres par defaut de l'application
 */
-$APPLI_version = "1.0";
-$APPLI_versiondate = "02/12/2013";
+$APPLI_version = "1.1";
+$APPLI_versiondate = "04/12/2013";
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*
@@ -118,4 +118,8 @@ $OBJETBDD_debugmode = 1;
 $APPLI_moduleDroitKO = "droitko";
 $APPLI_moduleErrorBefore = "errorbefore";
 $APPLI_moduleNoLogin = "errorlogin";
+/*
+ * Dossier de stockage des photos temporaires
+ */
+$APPLI_photoStockage = "img";
 ?>

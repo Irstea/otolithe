@@ -1,7 +1,13 @@
-Nouveautes
+Nouveautés
 ===========
+Version 1.1, du 4 décembre 2013
+-------------------------------
+- Modification de l'affichage des photos : les photos sont générées dans un dossier temporaire, puis chargées depuis le navigateur à partir de ce dossier temporaire. Cela permet d'accélérer le temps de téléchargement quand la photo a été traitée au moins une fois. Le programme supprime les photos automatiquement si elles n'ont pas été lues dans les dernières 24 heures.
+- Lors de la saisie des points, le programme recalcule maintenant automatiquement l'ordre des points (plus faible distance par rapport au point précédent). Ce recalcul automatique peut être inhibé.
+- Lors de l'affichage d'une pièce, un clic sur une miniature entraîne l'affichage du détail de la photo, et non plus l'affichage de la photo originale. 
+
 Version 1.0 du 2 décembre 2013
---------------
+------------------------------
 Version initiale, permettant de :
 - rajouter une pièce à analyser à un poisson ;
 - rajouter une photo à une pièce ;

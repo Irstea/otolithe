@@ -7,9 +7,16 @@
 <a href="index.php?module={$moduleListe}">Retour à la liste</a> > 
 <a href="index.php?module=individuDisplay&individu_id={$individu.individu_id}">Retour au détail du poisson</a> > 
 <a href="index.php?module=pieceDisplay&piece_id={$data.piece_id}">Retour au détail de la pièce</a>
+<table class="tablemulticolonne">
+<tr>
+<td>
 {include file="gestion/individuCartouche.tpl"}
+</td>
+<td>
 {include file="gestion/pieceCartouche.tpl"}
-
+</td>
+</tr>
+</table>
 <form method="post" action="index.php" enctype="multipart/form-data" onSubmit='return validerForm("dateExample:la date est obligatoire,comment:le commentaire est obligatoire")'>
 <input type="hidden" name="piece_id" value="{$data.piece_id}">
 <input type="hidden" name="photo_id" value="{$data.photo_id}">

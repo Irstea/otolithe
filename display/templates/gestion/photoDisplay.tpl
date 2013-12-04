@@ -73,7 +73,7 @@ Modifier la photo...
 </td>
 <td>
 <a href="index.php?module=photoDisplayPhoto&photo_id={$data.photo_id}" title="Attention : le temps de chargement peut être (très) long, selon la taille originale de la photo !">
-<img src="index.php?module=photoGetThumbnail&photo_id={$data.photo_id}">
+<img src="{$photoPath}">
 </a>
 </td>
 </tr>

@@ -99,7 +99,7 @@ class Individu extends ObjetBdd {
 		/*
 		 * Preparation du group by
 		*/
-		$group = " group by individu_id, codeindividu, nom_id, sexe_libellecourt, peche_date, site, zonesite, exp_nom";
+		$group = " group by individu_id, codeindividu, nom_id, sexe_libellecourt, peche_date, site, zonesite, exp_nom, tag";
 		/*
 		 * Preparation de la clause de tri
 		 */
