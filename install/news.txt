@@ -1,5 +1,9 @@
 Nouveautés
 ===========
+Version 1.1.1 du 13 décembre 2013
+---------------------------------
+- Correction d'une anomalie : si la photo téléchargée était vide (problème de téléchargement, entre autres), le programme plantait au moment de la création des photos dédiées à l'affichage
+
 Version 1.1, du 4 décembre 2013
 -------------------------------
 - Modification de l'affichage des photos : les photos sont générées dans un dossier temporaire, puis chargées depuis le navigateur à partir de ce dossier temporaire. Cela permet d'accélérer le temps de téléchargement quand la photo a été traitée au moins une fois. Le programme supprime les photos automatiquement si elles n'ont pas été lues dans les dernières 24 heures.

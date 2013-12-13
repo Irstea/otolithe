@@ -232,9 +232,9 @@ class Photo extends ObjetBDD {
 				$where = " where photo_id = " . $id;
 				$data = $this->executeSQL ( $sql . $where );
 				$photo = $data->fields ["image"];
-				$image = new Imagick ();
-				$image->readImageBlob ( $photo );
-				if (strlen ( $photo ) > 0) {
+				if (strlen ( $photo ) > 0 ) {
+					$image = new Imagick ();
+					$image->readImageBlob ( $photo );
 					if ($sizeX > 0 && $sizeY > 0) {
 						/*
 						 * Mise a l'image de la photo
