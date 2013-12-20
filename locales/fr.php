@@ -88,6 +88,7 @@ $LANG["message"][29] = "Echec de connexion à la base de données de gestion des
 $LANG["message"][30] = "Champ obligatoire";
 $LANG["message"][31] = "Confirmez-vous la suppression ?";
 $LANG["message"][32] = "Mode développement - base de données";
+$LANG["message"][33] = "Les modifications apportées dans cette page vont être perdues. Confirmez-vous cette opération ?";
 
 $LANG["login"][0] = "Login";
 $LANG["login"][1] = "Mot de passe";

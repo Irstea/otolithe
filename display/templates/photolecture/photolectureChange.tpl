@@ -177,10 +177,10 @@ function setCircle(svg, x, y, rayon_initial) {
 {/literal}
 </script>
 <h2>Mesure d'un otolithe</h2>
-<a href="index.php?module={$moduleListe}">Retour à la liste</a> > 
-<a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}">Retour au détail du poisson</a> > 
-<a href="index.php?module=pieceDisplay&piece_id={$piece.piece_id}">Retour au détail de la pièce</a> >
-<a href="index.php?module=photoDisplay&photo_id={$data.photo_id}">Retour à la photo</a>
+<a href="index.php?module={$moduleListe}" onclick="return confirm('{$LANG["message"][33]}')">Retour à la liste</a> > 
+<a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}" onclick="return confirm('{$LANG["message"][33]}')">Retour au détail du poisson</a> > 
+<a href="index.php?module=pieceDisplay&piece_id={$piece.piece_id}" onclick="return confirm('{$LANG["message"][33]}')">Retour au détail de la pièce</a> >
+<a href="index.php?module=photoDisplay&photo_id={$data.photo_id}" onclick="return confirm('{$LANG["message"][33]}')">Retour à la photo</a>
 <table class="tablemulticolonne">
 <tr>
 <td>
@@ -191,6 +191,9 @@ function setCircle(svg, x, y, rayon_initial) {
 </td>
 </tr>
 </table>
+<form name="myForm" id="myForm" action="index.php" method="POST">
+Enregistrez les points positionnés : 
+<input type="submit">
 <div id="container">
 </div>
 Type de lecture pour le prochain point :
@@ -200,7 +203,6 @@ Type de lecture pour le prochain point :
 <option value="2">Mesure de la longueur de référence</option>
 <option value="3">Tracé d'une ligne sur la photo (aide à la mesure)</option>
 </select>
-<form name="myForm" id="myForm" action="index.php" method="POST">
 <input type="hidden" name="photo_id" id="photo_id" value="{$data.photo_id}">
 <input type="hidden" name="module" value="photolectureWrite"}>
 <input type="hidden" name="lecteur_id" id="lecteur_id" value="{$data.lecteur_id}">

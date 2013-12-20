@@ -1,5 +1,9 @@
 Nouveautés
 ===========
+Version 1.1.2 du 20 décembre 2013
+---------------------------------
+- Correction d'un point d'ergonomie : lors de la saisie des points, le bouton valider a été dupliqué en haut d'écran, et les liens de retour vers la photo, pièce, etc. sont précédés d'un message de confirmation
+
 Version 1.1.1 du 13 décembre 2013
 ---------------------------------
 - Correction d'une anomalie : si la photo téléchargée était vide (problème de téléchargement, entre autres), le programme plantait au moment de la création des photos dédiées à l'affichage
