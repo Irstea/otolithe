@@ -89,6 +89,8 @@ $LANG["message"][30] = "Champ obligatoire";
 $LANG["message"][31] = "Confirmez-vous la suppression ?";
 $LANG["message"][32] = "Mode développement - base de données";
 $LANG["message"][33] = "Les modifications apportées dans cette page vont être perdues. Confirmez-vous cette opération ?";
+$LANG["message"]["yes"] = "oui";
+$LANG["message"]["no"] = "non";
 
 $LANG["login"][0] = "Login";
 $LANG["login"][1] = "Mot de passe";
@@ -101,6 +103,14 @@ $LANG["login"][9] = "Nom";
 $LANG["login"][10] = "Prénom";
 $LANG["login"][11] = "Date";
 $LANG["login"][12] = "Répétez le mot de passe";
+$LANG["login"][13] = "actif";
+$LANG["login"][14] = "Le mot de passe a déjà été utilisé";
+$LANG["login"][15] = "Le mot de passe n'est pas assez complexe";
+$LANG["login"][16] = "Le mot de passe est trop court";
+$LANG["login"][17] = "Le mot de passe n'est pas identique dans les deux zones";
+$LANG["login"][18] = "Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application";
+$LANG["login"][19] = "L'ancien mot de passe est incorrect";
+$LANG["login"][20] = "Le mot de passe a été modifié";
 
 $LANG["ObjetBDDError"][0] = "Le champ ";
 $LANG["ObjetBDDError"][1] = " n'est pas numerique.";

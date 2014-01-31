@@ -78,7 +78,7 @@ $identification = new Identification ();
 $identification->setidenttype ( $ident_type );
 if ($ident_type == "CAS") {
 	$identification->init_CAS ( $CAS_address, $CAS_port, $CAS_uri );
-} elseif ($ident_type == "LDAP") {
+} elseif ($ident_type == "LDAP"||$ident_type == "LDAP-BDD") {
 	$identification->init_LDAP ( $LDAP_address, $LDAP_port, $LDAP_basedn, $LDAP_user_attrib, $LDAP_v3, $LDAP_tls );
 }
 /**
@@ -185,6 +185,10 @@ if (isset ( $_SESSION ["navigation"] ) && $APPLI_modeDeveloppement == false) {
 	unset ( $_SESSION ["menu"] );
 	$_SESSION ['navigation'] = $navigation;
 }
+/*
+ * Activation de la classe d'enregistrement des traces
+ */
+$log = new Log($bdd_gacl,$ObjetBDDParam);
 /*
  * Preparation de la gestion des droits
  */

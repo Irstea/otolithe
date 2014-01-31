@@ -34,9 +34,20 @@
 		<td>{$LANG.login.12} :</td>
 		<td><input type="password" name="pass2" onchange="verifieMdp(this.form.pass1, this.form.pass2)"></td>
 	</tr>
-</table>
-<div align="center">
+	<tr>
+		<td>{$LANG.login.13} :</td>
+		<td><input type="radio" name="actif" value="1" {if $list.actif == 1}checked{/if}>{$LANG.message.yes}<br>
+		<input type="radio" name="actif" value="0" {if $list.actif == 0}checked{/if}>{$LANG.message.no}
+		</td>
+	</tr>
+	<tr>
+	<td colspan=2>
+	<div align="center">
 <input type="submit" name="valid" value="{$LANG.message.19}"/>
  <input type="submit" name="suppr" value="{$LANG.message.20}" onClick="javascript:setAction(this.form, this.form.action,'S')"/>
  </div>
+ </td>
+ </tr>
+</table>
+
 </form>

@@ -33,6 +33,7 @@ $APPLI_path_stockage_session = "otolithe";
  * BDD : mot de passe en base de donnees
  * CAS : utilisation d'un serveur CAS
  * LDAP : utilisation d'un serveur LDAP
+ * LDAP-BDD : test d'abord aupres du serveur LDAP, puis du serveur BDD
  */
 $ident_type = "BDD";
 //$CAS_plugin="plugins/phpcas-simple/phpcas.php";
