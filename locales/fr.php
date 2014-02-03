@@ -111,6 +111,11 @@ $LANG["login"][17] = "Le mot de passe n'est pas identique dans les deux zones";
 $LANG["login"][18] = "Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application";
 $LANG["login"][19] = "L'ancien mot de passe est incorrect";
 $LANG["login"][20] = "Le mot de passe a été modifié";
+$LANG["login"][21] = "Générez un mot de passe aléatoire";
+$LANG["login"][22] = "Générez";
+$LANG["login"][23] = "Ancien mot de passe";
+$LANG["login"][24] = "Nouveau mot de passe";
+
 
 $LANG["ObjetBDDError"][0] = "Le champ ";
 $LANG["ObjetBDDError"][1] = " n'est pas numerique.";

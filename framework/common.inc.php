@@ -170,6 +170,7 @@ $smarty->assign ( "entete", $SMARTY_entete );
 $smarty->assign ( "enpied", $SMARTY_enpied );
 $smarty->assign ( "corps", $SMARTY_corps );
 $smarty->assign ( "LANG", $LANG );
+$smarty->assign ("ident_type", $ident_type);
 
 /*
  * Prepositionnement de idFocus, qui permet de positionner le focus automatiquement a l'ouverture d'une page web

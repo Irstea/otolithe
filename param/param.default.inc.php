@@ -28,6 +28,10 @@ $APPLI_cookie_ttl = 7776000;
  */
 $APPLI_path_stockage_session = "otolithe";
 /*
+ * Duree de conservation des traces (en jours) dans la table log
+ */
+$LOG_duree = 365;
+/*
  * Type d'identification
  * 
  * BDD : mot de passe en base de donnees

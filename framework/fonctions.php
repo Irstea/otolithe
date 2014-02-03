@@ -67,7 +67,7 @@ function dataDelete($dataClass, $id) {
 		if ($ret>0) {
 			$message= $LANG["message"][4];
 			$module_coderetour=2;
-			$log -> setLog($_SESSION["login"], $getClass($dataClass)."-delete",$id);
+			$log -> setLog($_SESSION["login"], get_class($dataClass)."-delete",$id);
 		}else{
 			/*
 			 * Mise en forme du message d'erreur

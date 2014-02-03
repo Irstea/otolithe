@@ -103,9 +103,13 @@ class Identification {
 				// if (phpCAS::isAuthenticated()==FALSE) {
 				phpCAS::forceAuthentication ();
 				// }
-				global $log;
+				global $log, $LOG_duree;
 				$_SESSION ["login"] = phpCAS::getUser ();
 				$log->setLog ( $_SESSION ["login"], "connexion", "cas-ok - ip:" . $_SESSION ["remoteIP"] );
+				/*
+				 * Purge des anciens enregistrements dans log
+				 */
+				$log->purge($LOG_duree);
 			}
 		}
 		
@@ -138,10 +142,14 @@ class Identification {
 		}
 		$dn = $this->LDAP_user_attrib . "=" . $login . "," . $this->LDAP_basedn;
 		$rep = ldap_bind ( $ldap, $dn, $password );
-		global $log;
+		global $log, $LOG_duree;
 		if ($rep == 1) {
 			$_SESSION ["login"] = $login;
 			$log->setLog ( $login, "connexion", "ldap-ok - ip:" . $_SESSION ["remoteIP"] );
+			/*
+			 * Purge des anciens enregistrements dans log
+			*/
+			$log->purge($LOG_duree);
 			return $login;
 		} else {
 			$log->setLog ( $login, "connexion", "ldap-ko - ip:" . $_SESSION ["remoteIP"] );
@@ -216,15 +224,12 @@ class LoginGestion extends ObjetBDD {
 		$this->param = $param;
 		if (is_array ( $param ) == false)
 			$param = array ();
-		$param ["table"] = "LoginGestion";
-		$param ["id_auto"] = 1;
-		$param ["cle"] = "id";
-		// $this->table="LoginGestion";
-		// $this->id_auto=1;
-		// $this->cle="id";
+		$this->table="LoginGestion";
+		$this->id_auto=1;
 		$this->colonnes = array (
 				"id" => array (
-						"type" => 1 
+						"type" => 1,
+						"key"=>1
 				),
 				"datemodif" => array (
 						"type" => 2,
@@ -239,7 +244,11 @@ class LoginGestion extends ObjetBDD {
 				"actif" => array (
 						'type' => 1,
 						'defaultValue' => 1 
-				) 
+				),
+				"password" => array(
+						'type' => 0,
+						'longueur' => 256
+				)
 		);
 		$param ["fullDescription"] = 1;
 		parent::__construct ( $link, $param );
@@ -249,9 +258,13 @@ class LoginGestion extends ObjetBDD {
 		$password = hash ( "sha256", $password );
 		$sql = "select login from LoginGestion where login ='" . $login . "' and password = '" . $password . "' and actif = 1";
 		$res = ObjetBDD::lireParam ( $sql );
-		global $log;
+		global $log, $LOG_duree;
 		if ($res ["login"] == $login) {
 			$log->setLog ( $login, "connexion", "db-ok - ip:" . $_SESSION ["remoteIP"] );
+			/*
+			 * Purge des anciens enregistrements dans log
+			*/
+			$log->purge($LOG_duree);
 			return TRUE;
 		} else {
 			$log->setLog ( $login, "connexion", "db-ko - ip:" . $_SESSION ["remoteIP"] );
@@ -275,12 +288,19 @@ class LoginGestion extends ObjetBDD {
 	 */
 	function ecrire($liste) {
 		if (isset ( $liste ["pass1"] ) && isset ( $liste ["pass2"] ) && $liste ["pass1"] == $liste ["pass2"] && strlen ( $liste ["pass1"] ) > 3) {
-			$liste ["password"] = hash ( "sha256", ($liste ["pass1"]) );
+			$liste ["password"] = hash ( "sha256", $liste ["pass1"] );
 		}
 		$liste ["datemodif"] = date ( 'd-m-y' );
-		return ObjetBDD::ecrire ( $liste );
+		return parent::ecrire ( $liste );
 	}
-	function changeLogin($oldpassword, $pass1, $pass2) {
+	/**
+	 * Fonction de validation de changement du mot de passe
+	 * @param string $oldpassword
+	 * @param string $pass1
+	 * @param string $pass2
+	 * @return number
+	 */
+	function changePassword($oldpassword, $pass1, $pass2) {
 		$retour = 0;
 		if (isset ( $_SESSION ["login"] )) {
 			global $LANG;
@@ -297,7 +317,7 @@ class LoginGestion extends ObjetBDD {
 						/*
 						 * Verification de la longueur - minimum : 8 caracteres
 						 */
-						if (strlen ( $pass1 >= 8 )) {
+						if (strlen ( $pass1 ) > 7) {
 							/*
 							 * Verification de la complexite du mot de passe
 							 */
@@ -319,8 +339,11 @@ class LoginGestion extends ObjetBDD {
 									if ($oldData ["id"] > 0) {
 										$data = $oldData;
 										$data ["password"] = $password_hash;
+										$data ["datemodif"] = date ('d-m-y');
 										if ($this->ecrire ( $data ) > 0) {
 											$retour = 1;
+											global $log;
+											$log->setLog ( $login, "password_change", "ip:" . $_SESSION ["remoteIP"] );
 											/*
 											 * Ecriture de l'ancien mot de passe dans la table des anciens mots de passe
 											 */
@@ -367,10 +390,10 @@ class LoginGestion extends ObjetBDD {
 		);
 		for($i = 0; $i < $long; $i ++) {
 			$car = substr ( $password, $i, 1 );
-			$type ["min"] = preg_match ( "/[a-z]/", $car );
-			$type ["maj"] = preg_match ( "/[A-Z]/", $car );
-			$type ["chiffre"] = preg_match ( "/[0-9]/", $car );
-			$type ["other"] = preg_match ( "/[^0-9a-zA-Z]/", $car );
+			if ($type ["min"] == 0) $type ["min"] = preg_match ( "/[a-z]/", $car );
+			if ($type ["maj"] == 0) $type ["maj"] = preg_match ( "/[A-Z]/", $car );
+			if ($type ["chiffre"] == 0) $type ["chiffre"] = preg_match ( "/[0-9]/", $car );
+			if ($type ["other"] == 0) $type ["other"] = preg_match ( "/[^0-9a-zA-Z]/", $car );	
 		}
 		$complexite = $type ["min"] + $type ["maj"] + $type ["chiffre"] + $type ["other"];
 		return $complexite;
@@ -383,7 +406,7 @@ class LoginGestion extends ObjetBDD {
 	 */
 	function lireByLogin($login) {
 		$sql = "select * from " . $this->table . "
-				where login = " . $login;
+				where login = '" . $login."'";
 		return $this->lireParam ( $sql );
 	}
 }
@@ -537,6 +560,18 @@ class Log extends ObjetBDD {
 		$data ["log_date"] = date ( "d/m/Y H:i:s" );
 		return $this->ecrire ( $data );
 	}
+	/**
+	 * Fonction de purge du fichier de traces
+	 * @param int $nbJours : nombre de jours de conservation
+	 * @return int
+	 */
+	function purge($nbJours) {
+		if ($nbJours > 0) {
+			$sql = "delete from ".$this->table." 
+					where log_date < current_date - interval '".$nbJours." day'";
+			return $this->executeSQL($sql);
+		}
+	}
 }
 /**
  * Classe de gestion de l'enregistrement des anciens mots de passe
@@ -587,7 +622,7 @@ class LoginOldPassword extends ObjetBDD {
 	function testPassword($login, $password_hash) {
 		$sql = 'select count(o.login_oldpassword_id) as "nb" 
 				from ' . $this->table . " o 
-				join logingestion on logingestion.id = login_oldpassword.id
+				join logingestion on logingestion.id = o.id
 				where login = '" . $login . "'
 					and o.password = '" . $password_hash . "'";
 		$res = $this->lireParam ( $sql );
