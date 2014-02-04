@@ -777,6 +777,7 @@ class Photolecture extends ObjetBdd {
 					left join photo using (photo_id)
 					left join piece using (piece_id)
 					left join individu using (individu_id)
+					LEFT OUTER JOIN individu_experimentation using (individu_id)
 					left outer join piecetype using (piecetype_id)
 					left outer join traitementpiece using (traitementpiece_id)
 					left outer join peche using (peche_id)
@@ -789,11 +790,11 @@ class Photolecture extends ObjetBdd {
 			$and = " and ";
 		}
 		if ($param ["exp_id"] > 0) {
-			$where .= $and . "exp_id=" . $param ["exp_id"];
+			$where .= $and . " exp_id = " . $param ["exp_id"];
 			$and = " and ";
 		}
 		if (strlen ( $param ["site"] ) > 0) {
-			$where .= $and . "site = '" . pg_escape_string ( $param ["site"] ) . "'";
+			$where .= $and . " site = '" . pg_escape_string ( $param ["site"] ) . "'";
 			$and = " and ";
 		}
 		if (strlen ( $param ["zonesite"] ) > 0) {
