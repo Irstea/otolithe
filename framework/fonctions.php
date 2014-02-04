@@ -112,6 +112,8 @@ function setlanguage($langue) {
 	 * Mise en session de la langue
 	*/
 	$_SESSION ['LANG'] = $LANG;
+	$language = $langue;
+	$_SESSION["langue"] = $langue;
 	/*
 	 * Ecriture du cookie
 	*/
