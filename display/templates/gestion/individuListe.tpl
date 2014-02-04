@@ -8,14 +8,14 @@ setDataTables("idListe",true , false, true);
 <table id="idListe" class="tableaffichage">
 <thead>
 <tr>
-<th>Code individu<br>TAG</th>
-<th>Espèce</th>
-<th>Age</th>
-<th>Sexe</th>
-<th>Nbre de<br>pièces</th>
-<th>Date de pêche</th>
-<th>Zone de pêche</th>
-<th>Expérimentation</th>
+<th>{$LANG["gestion"].45}<br>{$LANG["gestion"].2}</th>
+<th>{$LANG["gestion"].5}</th>
+<th>{$LANG["gestion"].12}</th>
+<th>{$LANG["gestion"].6}</th>
+<th>{$LANG["gestion"].46}<br>{$LANG["gestion"].47}</th>
+<th>{$LANG["gestion"].29}</th>
+<th>{$LANG["gestion"].48}</th>
+<th>{$LANG["gestion"].49}</th>
 </tr>
 </thead>
 <tdata>

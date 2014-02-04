@@ -5,11 +5,11 @@ body > iframe { display: none; }
 #container { {/literal} width: {$image_width}px; height: {$image_height}px; border: 0px ;{literal} }
 {/literal}
 </style>
-<h2>Affichage des mesures d'un otolithe</h2>
-<a href="index.php?module={$moduleListe}">Retour à la liste</a> > 
-<a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}">Retour au détail du poisson</a> > 
-<a href="index.php?module=pieceDisplay&piece_id={$piece.piece_id}">Retour au détail de la pièce</a> >
-<a href="index.php?module=photoDisplay&photo_id={$photo.photo_id}">Retour à la photo</a>
+<h2>{$LANG["gestion"].134}</h2>
+<a href="index.php?module={$moduleListe}">{$LANG["gestion"].0}</a> > 
+<a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}">{$LANG["gestion"].64}</a> > 
+<a href="index.php?module=pieceDisplay&piece_id={$piece.piece_id}">{$LANG["gestion"].65}</a> >
+<a href="index.php?module=photoDisplay&photo_id={$photo.photo_id}">{$LANG["gestion"].111}</a>
 <table class="tablemulticolonne">
 <tr>
 <td>
@@ -20,7 +20,7 @@ body > iframe { display: none; }
 </td>
 </tr>
 </table>
-Résolution d'affichage : {$image_width}x{$image_height}
+{$LANG["gestion"].135} : {$image_width}x{$image_height}
 <div id="container">
 <svg xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -39,13 +39,13 @@ Résolution d'affichage : {$image_width}x{$image_height}
 {/section}
 </svg>
 </div>
-<h3>Légende</h3>
+<h3>{$LANG["gestion"].136}</h3>
 {section name="lst" loop=$data}
 <div style="background-color:{$data[lst].couleur};display:inline">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 &nbsp;
-{$data[lst].lecteur_prenom} {$data[lst].lecteur_nom} - lecture du {$data[lst].photolecture_date}
- - résolution : {$data[lst].photolecture_width}x{$data[lst].photolecture_height}
+{$data[lst].lecteur_prenom} {$data[lst].lecteur_nom} - {$LANG["gestion"].151} {$data[lst].photolecture_date}
+ - {$LANG["gestion"].86} : {$data[lst].photolecture_width}x{$data[lst].photolecture_height}
 <br>
 {/section}

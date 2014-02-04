@@ -1,8 +1,8 @@
-<h2>Modification d'une pièce</h2>
-<a href="index.php?module={$moduleListe}">Retour à la liste</a> > 
-<a href="index.php?module=individuDisplay&individu_id={$data.individu_id}">Retour au détail du poisson</a>
+<h2>{$LANG["gestion"].97}</h2>
+<a href="index.php?module={$moduleListe}">{$LANG["gestion"].0}</a> > 
+<a href="index.php?module=individuDisplay&individu_id={$data.individu_id}">{$LANG["gestion"].64}</a>
 {if $data.piece_id > 0}
-> <a href="index.php?module=pieceDisplay&piece_id={$data.piece_id}">Retour au détail de la pièce</a>
+> <a href="index.php?module=pieceDisplay&piece_id={$data.piece_id}">{$LANG["gestion"].65}</a>
 {/if}
 {include file="gestion/individuCartouche.tpl"}
 <table class="tablesaisie">
@@ -11,7 +11,7 @@
 <input type="hidden" name="individu_id" value="{$data.individu_id}">
 
 <tr>
-<td class="libelleSaisie">Type de pièce :</td>
+<td class="libelleSaisie">{$LANG["gestion"].98} :</td>
 <td class="datamodif">
 <select name="piecetype_id">
 {section name="lst" loop=$piecetype}
@@ -24,14 +24,14 @@
 </tr>
 
 <tr>
-<td class="libelleSaisie">Code de la pièce :</td>
+<td class="libelleSaisie">{$LANG["gestion"].99} :</td>
 <td>
 <input id="piececode" name="piececode" value="{$data.piececode}" maxlengh="255" size="45">
 </td>
 </tr>
 
 <tr>
-<td class="libelleSaisie">Traitement effectué :</td>
+<td class="libelleSaisie">{$LANG["gestion"].100} :</td>
 <td class="datamodif">
 <select name="traitementpiece_id">
 {section name="lst" loop=$traitementpiece}
@@ -45,14 +45,14 @@
 
 <tr>
 <td colspan="2"><div align="center">
-<input type="submit" value="Enregistrer">
+<input type="submit" value="{$LANG["message"].19}">
 </form>
 {if $data.piece_id>0&&$droits["admin"] == 1}
 <form action="index.php" method="post" onSubmit='return confirmSuppression("{$LANG.message.31}")'>
 <input type="hidden" name="piece_id" value="{$data.piece_id}">
 <input type="hidden" name="individu_id" value="{$data.individu_id}">
 <input type="hidden" name="module" value="pieceDelete">
-<input type="submit" value="Supprimer">
+<input type="submit" value="{$LANG["message"].20}">
 </form>
 {/if}
 </div>

@@ -1,7 +1,7 @@
-<h2>Affichage d'une photo</h2>
-<a href="index.php?module={$moduleListe}">Retour à la liste</a> > 
-<a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}">Retour au détail du poisson</a> > 
-<a href="index.php?module=pieceDisplay&piece_id={$data.piece_id}">Retour au détail de la pièce</a>
+<h2>{$LANG["gestion"].79}</h2>
+<a href="index.php?module={$moduleListe}">{$LANG["gestion"].0}</a> > 
+<a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}">{$LANG["gestion"].64}</a> > 
+<a href="index.php?module=pieceDisplay&piece_id={$data.piece_id}">{$LANG["gestion"].65}</a>
 <table class="tablemulticolonne">
 <tr>
 <td>
@@ -14,7 +14,7 @@
 </table>
 {if $droits.gestion == 1}
 <a href="index.php?module=photoChange&photo_id={$data.photo_id}&piece_id={$data.piece_id}">
-Modifier la photo...
+{$LANG["gestion"].154}...
 </a>
 {/if}
 <table class="tablemulticolonne">
@@ -22,57 +22,57 @@ Modifier la photo...
 <td>
 <table class="tableaffichage">
 <tr>
-<td class="libelleSaisie">Nom de la photo : </td>
+<td class="libelleSaisie">{$LANG["gestion"].66} : </td>
 <td>
 {$data.photo_nom}
 </td>
 </tr>
 <tr>
-<td class="libelleSaisie">Description : </td>
+<td class="libelleSaisie">{$LANG["gestion"].67} : </td>
 <td>{$data.description}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">Nom du fichier : </td>
+<td class="libelleSaisie">{$LANG["gestion"].69} : </td>
 <td>{$data.photo_filename}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">Date de prise de vue : </td>
+<td class="libelleSaisie">{$LANG["gestion"].70} : </td>
 <td>{$data.photo_date}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">Couleur : </td>
+<td class="libelleSaisie">{$LANG["gestion"].71} : </td>
 <td>
-{if $data.color == "NB"}Noir et blanc{else}Couleur{/if}
+{if $data.color == "NB"}{$LANG["gestion"].72}{else}{$LANG["gestion"].71}{/if}
 </td>
 </tr>
 <tr>
-<td class="libelleSaisie">Type de lumière : </td>
+<td class="libelleSaisie">{$LANG["gestion"].73} : </td>
 <td>{$data.lumieretype_libelle}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">Grossissement : </td>
+<td class="libelleSaisie">{$LANG["gestion"].74} : </td>
 <td>{$data.grossissement}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">Repère : </td>
+<td class="libelleSaisie">{$LANG["gestion"].75} : </td>
 <td>{$data.repere}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">URI : </td>
+<td class="libelleSaisie">{$LANG["gestion"].80} : </td>
 <td>{$data.uri}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">Longueur de la référence : </td>
+<td class="libelleSaisie">{$LANG["gestion"].77} : </td>
 <td>{$data.long_reference}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">Taille de la photo : </td>
+<td class="libelleSaisie">{$LANG["gestion"].78} : </td>
 <td>{$data.photo_width}x{$data.photo_height}</td>
 </tr>
 </table>
 </td>
 <td>
-<a href="index.php?module=photoDisplayPhoto&photo_id={$data.photo_id}" title="Attention : le temps de chargement peut être (très) long, selon la taille originale de la photo !">
+<a href="index.php?module=photoDisplayPhoto&photo_id={$data.photo_id}" title="{$LANG["gestion"].81}">
 <img src="{$photoPath}">
 </a>
 </td>
@@ -83,13 +83,13 @@ Modifier la photo...
 <input type="hidden" name="module" value="photolectureChange">
 <input type="hidden" name="photo_id" value="{$data.photo_id}">
 <input type="hidden" name="photolecture_id" value="0">
-Résolution (approximative) de lecture : 
+{$LANG["gestion"].82} : 
 <select name="resolution">
 <option value="1">800x600</option>
 <option value="2">1024x768</option>
 <option value="3">1280x1024</option>
 </select>
-<input type="submit" value="Réaliser une nouvelle lecture">
+<input type="submit" value="{$LANG["gestion"].83}">
 </form>
 {/if}
 <form name="affichage" action="index.php" methode="get">
@@ -99,19 +99,19 @@ Résolution (approximative) de lecture :
 <thead>
 <tr>
 {if $droits.lecture == 1}
-<th>Modif</th>
+<th>{$LANG["gestion"].155}</th>
 {/if}
-<th>Lecteur</th>
-<th>Date de lecture</th>
-<th>Résolution</th>
-<th>Age (nb de points<br>positionnés)</th>
-<th>Longueur de<br>référence mesurée</th>
-<th>Longueur totale lue</th>
-<th>Longueur réelle<br>calculée</th>
+<th>{$LANG["gestion"].84}</th>
+<th>{$LANG["gestion"].85}</th>
+<th>{$LANG["gestion"].86}</th>
+<th>{$LANG["gestion"].87}<br>{$LANG["gestion"].88}</th>
+<th>{$LANG["gestion"].89}<br>{$LANG["gestion"].90}</th>
+<th>{$LANG["gestion"].91}</th>
+<th>{$LANG["gestion"].92}<br>{$LANG["gestion"].93}</th>
 {if $droits.admin == 1}
-<th>Supprimer</th>
+<th>{$LANG["message"].20}</th>
 {/if}
-<th>Consulter...</th>
+<th>{$LANG["gestion"].156}...</th>
 </tr>
 </thead>
 <tdata>
@@ -171,11 +171,11 @@ Résolution (approximative) de lecture :
 {/section}
 </tdata>
 </table>
-Résolution (approximative) d'affichage : 
+{$LANG["gestion"].94} : 
 <select name="resolution">
 <option value="1">800x600</option>
 <option value="2">1024x768</option>
 <option value="3">1280x1024</option>
 </select>
-<input type="submit" value="Déclencher l'affichage des lectures sélectionnées">
+<input type="submit" value="{$LANG["gestion"].95}">
 </form>

@@ -176,11 +176,11 @@ function setCircle(svg, x, y, rayon_initial) {
 };
 {/literal}
 </script>
-<h2>Mesure d'un otolithe</h2>
-<a href="index.php?module={$moduleListe}" onclick="return confirm('{$LANG["message"][33]}')">Retour à la liste</a> > 
-<a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}" onclick="return confirm('{$LANG["message"][33]}')">Retour au détail du poisson</a> > 
-<a href="index.php?module=pieceDisplay&piece_id={$piece.piece_id}" onclick="return confirm('{$LANG["message"][33]}')">Retour au détail de la pièce</a> >
-<a href="index.php?module=photoDisplay&photo_id={$data.photo_id}" onclick="return confirm('{$LANG["message"][33]}')">Retour à la photo</a>
+<h2>{$LANG["gestion"].110}</h2>
+<a href="index.php?module={$moduleListe}" onclick="return confirm('{$LANG["message"][33]}')">{$LANG["gestion"].0}</a> > 
+<a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}" onclick="return confirm('{$LANG["message"][33]}')">{$LANG["gestion"].64}</a> > 
+<a href="index.php?module=pieceDisplay&piece_id={$piece.piece_id}" onclick="return confirm('{$LANG["message"][33]}')">{$LANG["gestion"].65}</a> >
+<a href="index.php?module=photoDisplay&photo_id={$data.photo_id}" onclick="return confirm('{$LANG["message"][33]}')">{$LANG["gestion"].111}</a>
 <table class="tablemulticolonne">
 <tr>
 <td>
@@ -192,57 +192,57 @@ function setCircle(svg, x, y, rayon_initial) {
 </tr>
 </table>
 <form name="myForm" id="myForm" action="index.php" method="POST">
-Enregistrez les points positionnés : 
-<input type="submit">
+{$LANG["gestion"].112} : 
+<input type="submit" value="{$LANG["message"].19}">
 <div id="container">
 </div>
-Type de lecture pour le prochain point :
+{$LANG["gestion"].113} :
 <select id="modeLecture">
-<option value="0">Point initial avec cercle élargi</option>
-<option value="1">Lecture des points</option>
-<option value="2">Mesure de la longueur de référence</option>
-<option value="3">Tracé d'une ligne sur la photo (aide à la mesure)</option>
+<option value="0">{$LANG["gestion"].114}</option>
+<option value="1">{$LANG["gestion"].115}</option>
+<option value="2">{$LANG["gestion"].116}</option>
+<option value="3">{$LANG["gestion"].117}</option>
 </select>
 <input type="hidden" name="photo_id" id="photo_id" value="{$data.photo_id}">
 <input type="hidden" name="module" value="photolectureWrite"}>
 <input type="hidden" name="lecteur_id" id="lecteur_id" value="{$data.lecteur_id}">
 <input type="hidden" name="photolecture_date" value="{$data.photolecture_date}">
 <input type="hidden" name="photolecture_id" value="{$data.photolecture_id}">
-Taille originale de la photo : 
+{$LANG["gestion"].118} : 
 <input name="photo_width" id="photo_width" value="{$photo.photo_width}" readonly>x
 <input name="photo_height" id="photo_height" value="{$photo.photo_height}" readonly>
-<br>Taille de lecture de la photo :
+<br>{$LANG["gestion"].119} :
 <input name="photolecture_width" id="image_width" value="{$image_width}" readonly>x
 <input name="photolecture_height" id="image_height" value="{$image_height}" readonly>
-<br>Coefficient de correction de la taille : 
+<br>{$LANG["gestion"].120} : 
 <input name="coef_correcteur" id="coef_correcteur" value="{$coef_correcteur}" readonly>
-<br>Rayon (en pixels) du cercle élargi : 
+<br>{$LANG["gestion"].121} : 
 <input id="rayon_cercle" name="rayon_point_initial" value="{$data.rayon_point_initial}">
-<br>Recalcul automatique de l'ordre des points ? 
-<input type="radio" name="calculAuto" value="1" checked>Oui
-<input type="radio" name="calculAuto" value="0" >Non
+<br>{$LANG["gestion"].122} ? 
+<input type="radio" name="calculAuto" value="1" checked>{$LANG["message"]["yes"]}
+<input type="radio" name="calculAuto" value="0" >{$LANG["message"]["no"]}
 
-<h3>Points sélectionnés</h3>
+<h3>{$LANG["gestion"].123}</h3>
 <table id="tableData">
 <tr>
 <td colspan='5'>
-Enregistrez les points positionnés : 
-<input type="submit">
+{$LANG["gestion"].112} : 
+<input type="submit" value="{$LANG["message"].19}">
 </td>
 </tr>
 <tr>
-<th>N°</th>
+<th>{$LANG["gestion"].124}</th>
 <th>X</th>
 <th>Y</th>
-<th>Ordre de<br>lecture</th>
-<th>Point de mesure<br>de la longueur<br>de référence</th>
+<th>{$LANG["gestion"].125}<br>{$LANG["gestion"].126}</th>
+<th>{$LANG["gestion"].127}<br>{$LANG["gestion"].128}<br>{$LANG["gestion"].129}</th>
 </tr>
 </table>
 </form>
-Pour supprimer un point, réalisez un double-clic sur celui-ci.
+{$LANG["gestion"].130}.
 <br>
-Vous pouvez modifier manuellement l'ordre de lecture d'un point, si nécessaire.
+{$LANG["gestion"].131}.
 <br>
-Pour tracer une ligne, positionnez le premier point, puis le second. Pour supprimer la ligne, supprimez d'abord le second point, avant de toucher au premier point.
+{$LANG["gestion"].132}
 <br>
-Le recalcul automatique de l'ordre des points ne fonctionne que si le premier point (origine) est saisi en premier (valeur "ordre de lecture" la plus faible de la série).
+{$LANG["gestion"].133}
