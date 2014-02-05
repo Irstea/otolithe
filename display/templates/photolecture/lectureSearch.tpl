@@ -10,7 +10,6 @@
 <td>
 Expérimentation :
 <select name="exp_id">
-<option value="">{$LANG["gestion"].53}</option>
 {section name="lst" loop=$experimentation}
 <option value="{$experimentation[lst].exp_id}" {if $experimentation[lst].exp_id == $lectureSearch.exp_id}selected{/if}>
 {$experimentation[lst].exp_nom}
