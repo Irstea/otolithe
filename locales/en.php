@@ -286,6 +286,11 @@ $LANG["gestion"][153] = "Export the list in CSV format";
 $LANG["gestion"][154] = "Change photo";
 $LANG["gestion"][155] = "Change";
 $LANG["gestion"][156] = "Display";
-$LANG["gestion"][157] = "";
+$LANG["gestion"][157] = "Tranparency factor for circles displayed";
+$LANG["gestion"][158] = "Transparency";
+$LANG["gestion"][159] = "lightly shaded";
+$LANG["gestion"][160] = "Shaded";
+$LANG["gestion"][161] = "Semi-opaque";
+$LANG["gestion"][162] = "Opaque";
 
 ?>

@@ -177,5 +177,14 @@
 <option value="2">1024x768</option>
 <option value="3">1280x1024</option>
 </select>
+{$LANG["gestion"].157} :
+<select name="fill">
+<option value="0">{$LANG["gestion"].158}</option>
+<option value="0.1">{$LANG["gestion"].159}</option>
+<option value="0.3">{$LANG["gestion"].160}</option>
+<option value="0.5">{$LANG["gestion"].161}</option>
+<option value="1">{$LANG["gestion"].162}</option>
+</select>
+<br>
 <input type="submit" value="{$LANG["gestion"].95}">
 </form>

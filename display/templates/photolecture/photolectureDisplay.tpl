@@ -34,7 +34,7 @@ body > iframe { display: none; }
 {else}
 {assign var = 'r' value = '7'}
 {/if}
-<circle cx="{$data[lst].points[lst1].x}" cy="{$data[lst].points[lst1].y}" r="{$r}" style="stroke:{$data[lst].couleur}; fill:rgba(0,0,0,0)"/>
+<circle cx="{$data[lst].points[lst1].x}" cy="{$data[lst].points[lst1].y}" r="{$r}" style="stroke:{$data[lst].couleur}; fill:{$data[lst].couleur}; fill-opacity:{$fill}"/>
 {/section}
 {/section}
 </svg>

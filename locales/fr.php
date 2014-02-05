@@ -285,7 +285,12 @@ $LANG["gestion"][153] = "Exporter la liste au format CSV";
 $LANG["gestion"][154] = "Modifier la photo";
 $LANG["gestion"][155] = "Modif";
 $LANG["gestion"][156] = "Consulter";
-$LANG["gestion"][157] = "";
+$LANG["gestion"][157] = "Facteur de transparence des cercles affichés";
+$LANG["gestion"][158] = "Transparent";
+$LANG["gestion"][159] = "Légèrement ombré";
+$LANG["gestion"][160] = "Ombré";
+$LANG["gestion"][161] = "Semi-opaque";
+$LANG["gestion"][162] = "Opaque";
 
 
 

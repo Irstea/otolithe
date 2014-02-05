@@ -58,6 +58,11 @@ switch ($t_module ["param"]) {
 		$individu = new Individu($bdd, $ObjetBDDParam);
 		$smarty->assign("individu", $individu->getDetail($dataPiece["individu_id"]));
 		/*
+		 * Assignation du coefficient de transparence
+		 */
+		if (!isset($_REQUEST["fill"])) $_REQUEST["fill"] = 0;
+		$smarty->assign("fill", $_REQUEST["fill"]);
+		/*
 		 * Assignations finales
 		 */
 		$smarty->assign("photo", $dataPhoto);
