@@ -1,17 +1,21 @@
 /*
-Feuille de style modifiee le 18/11/11
+Feuille de style modifiee le 5/2/14
 Couleurs utilisees :
 bleu clair : 0ac7ff / B6cce2 / 98c1e9
 bleu : 078bb3 / 7fa2c6 / 4d91d2
 orange : ff950a
 bistre : b34c07 / a67833 / a66d1a
 */
+html{
+	height: 100%;
+}
 body {
 	border: 0px none;
 	background: #FFFFFF;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	font-family:Arial, Helvetica, sans-serif;
+	height: 100%;
 }
 p {
 	font-family:Arial, Helvetica, sans-serif;
@@ -511,20 +515,44 @@ div.bloc {
 }
 
 #footer {
+	position: absolute;
+	height: 50px;
 	bottom: 0;
+	width: 100%;
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
 	/*border: #999999 1px solid;*/
 	color: #999999;
-	margin-top: 60px;
+	/*margin-top:200px;*/
 	font-size: small;
+	padding-bottom: 20px;
+}
+.header_right {
+	position:absolute;
+	top:0px;
+	right:5px;
 }
 
-#global {
+/*#global {
 	top: 0;
 	bottom: 0;
 	height: 100%;
+}*/
+
+
+#superglobal{
+	position : relative;
+	min-height: 100%;
+	height:auto;
+}
+
+#global{
+	position: relative;
+	min-height: 100%;
+	margin: 0 auto;
+	padding-bottom: 70px;
+	width: 100%;
 }
 
 .bouton {

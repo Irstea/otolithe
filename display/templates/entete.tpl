@@ -1,6 +1,7 @@
 <h1><img src="favicon.png" width="40">{$LANG.message.1}
 
-<div style="position:absolute;top:15px;right:5px";width="100">
+
+<div class="header_right">
 <a href='index.php?module=setlanguage&langue=fr'>
 <img src='display/images/drapeau_francais.png' height='20' border='0'>
 </a>
