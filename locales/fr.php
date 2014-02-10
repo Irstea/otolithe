@@ -223,7 +223,7 @@ $LANG["gestion"][91] = "Longueur totale lue";
 $LANG["gestion"][92] = "Longueur réelle";
 $LANG["gestion"][93] = "calculée";
 $LANG["gestion"][94] = "Résolution (approximative) d'affichage";
-$LANG["gestion"][95] = "Déclencher l'affichage des lectures sélectionnées";
+$LANG["gestion"][95] = "Déclencher l'affichage des lectures sélectionnées, avec ou sans création/modification d'une lecture";
 $LANG["gestion"][96] = "Patientez pendant le chargement";
 $LANG["gestion"][97] = "Modification d'une pièce";
 $LANG["gestion"][98] = "Type de pièce";
@@ -283,7 +283,7 @@ $LANG["gestion"][151] = "lecture du";
 $LANG["gestion"][152] = "Séparateur : tabulation, UTF-8, chiffres décimaux avec points";
 $LANG["gestion"][153] = "Exporter la liste au format CSV";
 $LANG["gestion"][154] = "Modifier la photo";
-$LANG["gestion"][155] = "Modif";
+$LANG["gestion"][155] = "Modif<br>unique";
 $LANG["gestion"][156] = "Consulter";
 $LANG["gestion"][157] = "Facteur de transparence des cercles affichés";
 $LANG["gestion"][158] = "Transparent";
@@ -291,6 +291,12 @@ $LANG["gestion"][159] = "Légèrement ombré";
 $LANG["gestion"][160] = "Ombré";
 $LANG["gestion"][161] = "Semi-opaque";
 $LANG["gestion"][162] = "Opaque";
+$LANG["gestion"][163] = "Création d'une nouvelle lecture simple";
+$LANG["gestion"][164] = "Consultations individuelles, globales, modifications avec visualisation des points déjà tracés";
+$LANG["gestion"][165] = "Point à<br>modifier";
+$LANG["gestion"][166] = "Avec création d'une nouvelle lecture";
+$LANG["gestion"][167] = "Si coché, la lecture sélectionnée pourra être modifiée";
+
 
 
 

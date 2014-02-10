@@ -78,6 +78,16 @@ switch ($t_module ["param"]) {
 		 * Recuperation du lecteur
 		 */
 		$lecteur = new Lecteur ( $bdd, $ObjetBDDParam );
+		/*
+		 * Traitement du cas ou les mesures precedentes sont affichees
+		 * $id contient le tableau des lectures a afficher, $photolecture_id_modif la lecture a modifier
+		 */
+		if (isset ($_REQUEST["photolecture_id_modif"])) {
+			$mesurePrecId = $id;
+			$id = $_REQUEST["photolecture_id_modif"];
+		}
+		$data = $dataClass->getDetailLecture($id, $coef);
+		$smarty->assign("data", $data);
 		$lecteur_id = $lecteur->getIdFromLogin ( $_SESSION ["login"] );
 		if ($lecteur_id > 0) {
 			if ($id > 0) {
@@ -121,16 +131,16 @@ switch ($t_module ["param"]) {
 			 * Recuperation de la taille de l'image
 			 */
 			if ($data["photolecture_id"] == 0) {
-			if ($_REQUEST["resolution"] == 2) {
-				$image_width = 1024;
-				$image_height = 768;
-			}elseif ($_REQUEST["resolution"] == 3) {
-				$image_width = 1280;
-				$image_height = 1024;
-			}else {
-				$image_width = 800;
-				$image_height = 600;
-			}
+				if ($_REQUEST["resolution"] == 2) {
+					$image_width = 1024;
+					$image_height = 768;
+				}elseif ($_REQUEST["resolution"] == 3) {
+					$image_width = 1280;
+					$image_height = 1024;
+				}else {
+					$image_width = 800;
+					$image_height = 600;
+				}
 			} else {
 			$image_width = $data["photolecture_width"];
 			$image_height = $data["photolecture_height"];
@@ -154,9 +164,12 @@ switch ($t_module ["param"]) {
 			$smarty->assign("image_width", $image_width);
 			$smarty->assign("image_height", $image_height);
 			/*
-			 * Calcul du coefficient de correction
+			 * Recuperation des lectures precedentes
 			 */
-		
+			if (isset($mesurePrecId)) {
+				$mesurePrec = $dataClass->getDetailLecture($mesurePrecId, $coef, $id);
+				$smarty->assign("mesurePrec", $mesurePrec);
+			}
 			$smarty->assign("coef_correcteur", $coef);
 			/*
 			 * Calcul des points pour reaffichage en mode saisie
@@ -181,6 +194,11 @@ switch ($t_module ["param"]) {
 			*/
 			$dataPhoto["photoPath"] = $photo->writeFilePhoto($dataPhoto["photo_id"],0, $image_width, $image_height);
 			$smarty->assign("photo", $dataPhoto);
+			/*
+			 * Integration du facteur de transparence
+			 */
+			if (!isset($_REQUEST["fill"])) $_REQUEST["fill"] = 0;
+			$smarty->assign("fill", $_REQUEST["fill"]);
 		}
 		break;
 	case "write":
@@ -321,5 +339,14 @@ switch ($t_module ["param"]) {
 			
 		}
 		break;
+	case "swap":
+		/*
+		 * Permet de choisir le mode de visualisation : visualisation simple ou modification/creation d'une lecture
+		 */
+		if (isset($_REQUEST["photolecture_id_modif"])) {
+			$module_coderetour = 1;
+		} else {
+			$module_coderetour = 0;
+		}
 }
 ?>

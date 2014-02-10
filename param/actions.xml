@@ -66,6 +66,7 @@
 	<photolectureDelete action="modules/photolecture/photolecture.php" param="delete" droits="admin" retoursuppr="photoDisplay" retourko="photolectureChange" modulebefore="photoDisplay" />
 	<photolectureList action="modules/photolecture/photolecture.php" param="list" droits="lecture" menudroits="lecture" menuvalue="54" menutitle="55" menulevel="1" menuorder="2" menuparent="1" />
 	<photolectureExport action="modules/photolecture/photolecture.php" param="export" droits="gestion" ajax="1" />
+	<photolectureSwap action="modules/photolecture/photolecture.php" param="swap" droits="lecture" retournull="photolectureDisplay" retourok="photolectureChange" />
 	
 
 </navigation>

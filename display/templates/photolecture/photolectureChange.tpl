@@ -29,12 +29,39 @@ $(function(){
 function drawIntro(svg) {
 	var image_width = $('#image_width').val();
 	var image_height = $('#image_height').val();
-	var photo_id = $('#photo_id').val();
+	//var photo_id = $('#photo_id').val();
 	//var lien = "index.php?module=photoGetPhoto&photo_id="+photo_id+"&sizeX="+image_width+"&sizeY="+image_height;
+	var r = 0;
+	var cx = 0;
+	var cy = 0;
+	var couleur = "";
+	var fillOpacity = 0;
 	{/literal}
 	var lien = "{$photo.photoPath}";
 	{literal}
-	var myImage = svg.image(0, 0, image_width, image_height, lien);
+	var myImage = svg.group();
+	svg.image(myImage, 0, 0, image_width, image_height, lien);
+	//var myImage = svg.image(0, 0, image_width, image_height, "");
+	{/literal}
+	{section name="lst" loop=$mesurePrec}
+	{section name="lst1" loop=$mesurePrec[lst].points}
+{if $smarty.section.lst1.index == 0 }
+{assign var = 'r' value = $mesurePrec[lst].rayon_point_initial}
+{else}
+{assign var = 'r' value = '7'}
+{/if}
+cx = '{$mesurePrec[lst].points[lst1].x}';
+cy = '{$mesurePrec[lst].points[lst1].y}';
+r = '{$r}';
+couleur = '{$mesurePrec[lst].couleur}';
+fillOpacity = '{$fill}';
+{literal}
+svg.circle (myImage, cx, cy, r, {'stroke':couleur, 'fill':couleur, 'fill-opacity': fillOpacity});
+{/literal}
+{/section}
+{/section}
+	
+{literal}	
 	$(myImage).click(function(e){
 		   //var parentOffset = $(this).parent().offset(); 
 		   //or $(this).offset(); if you really just want the current element's offset
@@ -246,3 +273,13 @@ function setCircle(svg, x, y, rayon_initial) {
 {$LANG["gestion"].132}
 <br>
 {$LANG["gestion"].133}
+<h3>{$LANG["gestion"].136}</h3>
+{section name="lst" loop=$mesurePrec}
+<div style="background-color:{$mesurePrec[lst].couleur};display:inline">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
+&nbsp;
+{$mesurePrec[lst].lecteur_prenom} {$mesurePrec[lst].lecteur_nom} - {$LANG["gestion"].151} {$mesurePrec[lst].photolecture_date}
+ - {$LANG["gestion"].86} : {$mesurePrec[lst].photolecture_width}x{$mesurePrec[lst].photolecture_height}
+<br>
+{/section}

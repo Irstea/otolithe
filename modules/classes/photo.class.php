@@ -664,7 +664,8 @@ class Photolecture extends ObjetBdd {
 	 * @param number $coef        	
 	 * @return array
 	 */
-	function getDetailLecture($id, $coef) {
+	function getDetailLecture($id, $coef, $id_exclu = 0) {
+		if (is_array($id) || $id > 0) {
 		$sql = "select photolecture_id, photo_id, lecteur_id, lecteur_nom, lecteur_prenom, photolecture_date,
 				st_astext(points) as listepoint,
 				long_totale_lue,
@@ -686,22 +687,26 @@ class Photolecture extends ObjetBdd {
 			$where = " where photolecture_id in (";
 			$virgule = "";
 			foreach ( $id as $key => $value ) {
-				$where .= $virgule . $value;
-				$virgule = ",";
+				if ($value != $id_exclu) {
+					$where .= $virgule . $value;
+					$virgule = ",";
+				}
 			}
 			$where .= ")";
 		}
 		$couleur = array (
-				"0" => "red",
-				"1" => "green",
-				"2" => "magenta",
-				"3" => "blue",
-				"4" => "purple",
-				"5" => "darkred",
-				"6" => "darkgreen",
-				"7" => "darkmagenta",
-				"8" => "darkblue",
-				"8" => "darkpurple" 
+				"0" => "green",
+				"1" => "magenta",
+				"2" => "blue",
+				"3" => "orange",
+				"4" => "darkred",
+				"5" => "darkgreen",
+				"6" => "darkmagenta",
+				"7" => "darkblue",
+				"8" => "darkorange",
+				"9" => "darkcyan",
+				"10" => "darksalmon",
+				"11" => "darkseagreen"
 		);
 		/*
 		 * Lecture de la liste concernee
@@ -723,6 +728,7 @@ class Photolecture extends ObjetBdd {
 			$data [$key] ["rayon_point_initial"] = floor ( $data [$key] ["rayon_point_initial"] / $coef );
 		}
 		return $data;
+		}
 	}
 	/**
 	 * Calcule la position des points en pixels, pour affichage dans la resolution consideree

@@ -66,6 +66,9 @@
 <td>{$data.long_reference}</td>
 </tr>
 <tr>
+<td class="libelleSaisie">{$LANG["gestion"].163} : </td>
+<td>{$data.long_ref_pixel}</td>
+<tr>
 <td class="libelleSaisie">{$LANG["gestion"].78} : </td>
 <td>{$data.photo_width}x{$data.photo_height}</td>
 </tr>
@@ -79,6 +82,8 @@
 </tr>
 </table>
 {if $droits.lecture == 1}
+<div style="border-style:solid;border-width: 1px;padding:5px;">
+<h3>{$LANG["gestion"].163}</h3>
 <form name="lecture" action="index.php" method="get">
 <input type="hidden" name="module" value="photolectureChange">
 <input type="hidden" name="photo_id" value="{$data.photo_id}">
@@ -91,9 +96,13 @@
 </select>
 <input type="submit" value="{$LANG["gestion"].83}">
 </form>
+</div>
+<br>
 {/if}
+<div style="border-style:solid;border-width: 1px;padding:5px;">
+<h3>{$LANG["gestion"].164}</h3>
 <form name="affichage" action="index.php" methode="get">
-<input type="hidden" name="module" value="photolectureDisplay">
+<input type="hidden" name="module" value="photolectureSwap">
 <input type="hidden" name="photo_id" value="{$data.photo_id}">
 <table>
 <thead>
@@ -112,6 +121,7 @@
 <th>{$LANG["message"].20}</th>
 {/if}
 <th>{$LANG["gestion"].156}...</th>
+<th><div title="{$LANG["gestion"].167}">{$LANG["gestion"].165}</div></th>
 </tr>
 </thead>
 <tdata>
@@ -167,6 +177,12 @@
 <input type="checkbox" name="photolecture_id[]" value="{$photolecture[lst].photolecture_id}" checked>
 </div>
 </td>
+<td>
+<div class="center">
+<input type="radio" name="photolecture_id_modif" value="{$photolecture[lst].photolecture_id}">
+</div>
+</td>
+</div>
 </tr>
 {/section}
 </tdata>
@@ -186,5 +202,11 @@
 <option value="1">{$LANG["gestion"].162}</option>
 </select>
 <br>
+{$LANG["gestion"].166} : 
+<input type="checkbox" name="photolecture_id_modif" value="0">
+<br>
+<div style="text-align:center;">
 <input type="submit" value="{$LANG["gestion"].95}">
+</div>
 </form>
+</div>

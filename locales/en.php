@@ -284,7 +284,7 @@ $LANG["gestion"][151] = "Reading on";
 $LANG["gestion"][152] = "Separator : tabulation, UTF-8, decimal numbers with dots";
 $LANG["gestion"][153] = "Export the list in CSV format";
 $LANG["gestion"][154] = "Change photo";
-$LANG["gestion"][155] = "Change";
+$LANG["gestion"][155] = "Simple change";
 $LANG["gestion"][156] = "Display";
 $LANG["gestion"][157] = "Tranparency factor for circles displayed";
 $LANG["gestion"][158] = "Transparency";
@@ -292,5 +292,10 @@ $LANG["gestion"][159] = "lightly shaded";
 $LANG["gestion"][160] = "Shaded";
 $LANG["gestion"][161] = "Semi-opaque";
 $LANG["gestion"][162] = "Opaque";
+$LANG["gestion"][163] = "New simple reading";
+$LANG["gestion"][164] = "Individuals or globals consultations, changes with viewing points already plotted";
+$LANG["gestion"][165] = "Reading<br>to change";
+$LANG["gestion"][166] = "With new reading creation";
+$LANG["gestion"][167] = "If checked, the selected reading will be changed";
 
 ?>
