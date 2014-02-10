@@ -66,6 +66,9 @@ class Photo extends ObjetBDD {
 				),
 				"photo_width" => array (
 						"type" => 1 
+				),
+				"long_ref_pixel" => array (
+						"type" => 1 
 				) 
 		);
 		$this->format_thumbnail = 200;
@@ -232,7 +235,7 @@ class Photo extends ObjetBDD {
 				$where = " where photo_id = " . $id;
 				$data = $this->executeSQL ( $sql . $where );
 				$photo = $data->fields ["image"];
-				if (strlen ( $photo ) > 0 ) {
+				if (strlen ( $photo ) > 0) {
 					$image = new Imagick ();
 					$image->readImageBlob ( $photo );
 					if ($sizeX > 0 && $sizeY > 0) {
@@ -263,7 +266,7 @@ class Photo extends ObjetBDD {
 	 */
 	function getDetail($id) {
 		$sql = "select photo_id, piece_id, photo_nom, description, photo_filename, photo_date, color,
-				lumieretype_libelle, grossissement, repere, uri, long_reference, photo_width, photo_height
+				lumieretype_libelle, grossissement, repere, uri, long_reference, photo_width, photo_height, long_ref_pixel
 				from " . $this->table . "
 				left outer join lumieretype using(lumieretype_id)
 				where photo_id = " . $id;
@@ -596,20 +599,29 @@ class Photolecture extends ObjetBdd {
 			if ($i >= 2) {
 				$data ["long_ref_mesuree"] = $this->calculDistance ( $mesure [1] ["x"], $mesure [1] ["y"], $mesure [2] ["x"], $mesure [2] ["y"] ) * $coef;
 			}
-			/*
-			 * Calcul de la distance reelle
-			 */
-			if ($data ["long_ref_mesuree"] > 0 && $data ["long_totale_lue"] > 0) {
-				/*
-				 * Recuperation de la valeur de la longueur de reference dans la photo
-				 */
-				$photo = new Photo ( $this->connection, $this->paramori );
-				$dataPhoto = $photo->getDetail ( $data ["photo_id"] );
-				if ($dataPhoto ["long_reference"] > 0) {
-					$data ["long_totale_reel"] = $data ["long_totale_lue"] / $data ["long_ref_mesuree"] * $dataPhoto ["long_reference"];
-				}
+		}
+		/*
+		 * Recuperation de la valeur de la longueur de reference dans la photo et de la longueur en pixels
+		 */
+		$photo = new Photo ( $this->connection, $this->paramori );
+		$dataPhoto = $photo->getDetail ( $data ["photo_id"] );
+		/*
+		 * On traite le cas ou la longueur de reference n'a pas ete mesuree. La valeur est recuperee depuis les donnees de la photo
+		 */
+		if (($data ["long_ref_mesuree"] == 0 || is_null ( $data ["long_ref_mesuree"] )) && $dataPhoto ["long_ref_pixel"] > 0) {
+			$data ["long_ref_mesuree"] = $dataPhoto ["long_ref_pixel"];
+		}
+		
+		/*
+		 * Calcul de la distance reelle
+		 */
+		if ($data ["long_ref_mesuree"] > 0 && $data ["long_totale_lue"] > 0) {
+			
+			if ($dataPhoto ["long_reference"] > 0) {
+				$data ["long_totale_reel"] = $data ["long_totale_lue"] / $data ["long_ref_mesuree"] * $dataPhoto ["long_reference"];
 			}
 		}
+		
 		// print_r($data);
 		return parent::ecrire ( $data );
 	}

@@ -100,6 +100,12 @@
 </td>
 </tr>
 <tr>
+<td class="libelleSaisie">{$LANG["gestion"].163} : </td>
+<td>
+<input name="long_ref_pixel" value="{$data.long_ref_pixel}" maxlength="20" size="20">
+</td>
+</tr>
+<tr>
 <td class="libelleSaisie">{$LANG["gestion"].78} : </td>
 <td>
 <input name="photo_width" value="{$data.photo_width}" readonly>x 
