@@ -293,7 +293,7 @@ $LANG["gestion"][161] = "Semi-opaque";
 $LANG["gestion"][162] = "Opaque";
 $LANG["gestion"][163] = "Création d'une nouvelle lecture simple";
 $LANG["gestion"][164] = "Consultations individuelles, globales, modifications avec visualisation des points déjà tracés";
-$LANG["gestion"][165] = "Point à<br>modifier";
+$LANG["gestion"][165] = "Lecture à<br>modifier";
 $LANG["gestion"][166] = "Avec création d'une nouvelle lecture";
 $LANG["gestion"][167] = "Si coché, la lecture sélectionnée pourra être modifiée";
 

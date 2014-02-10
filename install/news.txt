@@ -1,5 +1,19 @@
 Nouveautés
 ===========
+Version 1.2 du 10 février 2014
+------------------------------
+Améliorations du fonctionnement intrinsèque
+- support du multilangage : tous les libellés ont été traduits en anglais
+- Saisie de la taille en pixels de la longueur de référence : dans chaque photo, une longueur de référence est donnée. Il est maintenant possible de saisir la taille en pixel de cette référence, qui sera ensuite reportée dans chaque lecture (uniquement si le calcul de la taille de référence n'est pas réalisé par le lecteur).
+- Saisie avec visualisation des points déjà tracés : il est maintenant possible de faire une nouvelle lecture, ou d'en modifier une existante, en affichant également les lectures déjà effectuées.
+- Opacifier le fond du disque en affichage : lors de la consultation des points, il est maintenant possible d'indiquer un facteur de transparence, qui permet de mieux visualiser les points (le fond des points peut être plus ou moins opaque)
+
+ Améliorations apportées à l'ergonomie générale
+- Support de l'identification multiple : l'application identifie les utilisateurs d'abord auprès de l'annuaire LDAP, puis à partir de la liste de comptes déclarés directement dans l'application
+- Les comptes stockés en base de données peuvent maintenant être verrouillés manuellement. Il est également possible de générer un mot de passe aléatoire pour les comptes créés localement.
+- Si le compte est stocké localement, l'utilisateur a maintenant la possibilité de changer son mot de passe en cliquant sur la clé, en haut à droite.
+- Enregistrement des logs : l'application enregistre maintenant les connexions (ratées ou réussies), ainsi que les opérations d'écritures standardisées.
+
 Version 1.1.2 du 20 décembre 2013
 ---------------------------------
 - Correction d'un point d'ergonomie : lors de la saisie des points, le bouton valider a été dupliqué en haut d'écran, et les liens de retour vers la photo, pièce, etc. sont précédés d'un message de confirmation
