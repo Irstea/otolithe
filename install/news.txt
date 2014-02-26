@@ -1,5 +1,11 @@
 Nouveautés
 ===========
+Version 1.2.1 du 26 février 2014
+--------------------------------
+Correction de bogues d'affichage :
+- la référence de la pièce ne s'affichait pas correctement dans la fenêtre de visualisation du poisson
+- le libellé concernant la "taille en pixels de la longueur de référence" était erroné, tant en affichage qu'en saisie
+
 Version 1.2 du 10 février 2014
 ------------------------------
 Améliorations du fonctionnement intrinsèque

@@ -85,7 +85,7 @@
 <td><a href="index.php?module=pieceDisplay&piece_id={$piece[lst].piece_id}&individu_id={$data.individu_id}">
 {$piece[lst].piecetype_libelle}
 </a></td>
-<td>{$piece[lst].code}</td>
+<td>{$piece[lst].piececode}</td>
 <td>{$piece[lst].traitementpiece_libelle}</td>
 <td><div class="center">{$piece[lst].nbphoto}</div></td>
 </tr>

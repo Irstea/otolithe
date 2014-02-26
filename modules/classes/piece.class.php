@@ -40,7 +40,7 @@ class Piece extends ObjetBdd {
 	 * @return array
 	 */
 	function getListFromIndividu($individu_id) {
-		$sql = "select piece_id, individu_id, 
+		$sql = "select piece_id, individu_id, piececode,
 				piecetype_libelle, traitementpiece_libelle, 
 				count(photo_id) as nbphoto
 				from ".$this->table." 

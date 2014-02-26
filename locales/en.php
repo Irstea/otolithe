@@ -297,5 +297,5 @@ $LANG["gestion"][164] = "Individuals or globals consultations, changes with view
 $LANG["gestion"][165] = "Reading<br>to change";
 $LANG["gestion"][166] = "With new reading creation";
 $LANG["gestion"][167] = "If checked, the selected reading will be changed";
-
+$LANG["gestion"][168] = "Size in pixels of reference length";
 ?>

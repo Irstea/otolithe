@@ -66,7 +66,7 @@
 <td>{$data.long_reference}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].163} : </td>
+<td class="libelleSaisie">{$LANG["gestion"].168} : </td>
 <td>{$data.long_ref_pixel}</td>
 <tr>
 <td class="libelleSaisie">{$LANG["gestion"].78} : </td>
