@@ -9,7 +9,9 @@ Elle a été conçue plus particulièrement pour analyser certaines pièces spé
 <p>
 L'application a été réalisée à partir du framework Prototypephp (<a href="http://prototypephp.sourceforge.net">http://prototypephp.sourceforge.net</a>), en version 0.8.
 </p>
-Réalisation : Eric Quinton pour l'IRSTEA de Bordeaux-Cestas - Copyright 2013 - Tous droits réservés
+<p>
+Réalisation : Eric Quinton pour l'IRSTEA de Bordeaux-Cestas
 </p>
-<h3>Pour tout problème, contactez <a href="mailto:{$melappli}">l'équipe d'assistance</a>
-</h3>
+<p>
+Ce logiciel a été homologué dans le cadre du RGS (Référentiel Général de Sécurité) par décision du 27 juin 2014.
+</p>

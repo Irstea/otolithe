@@ -93,6 +93,10 @@ $LANG["message"]["yes"] = "oui";
 $LANG["message"]["no"] = "non";
 $LANG["message"][34] = "Consulter";
 $LANG["message"][35] = "Retour";
+$LANG["message"][36] = "Ouvrez un ticket dans la forge";
+$LANG["message"][37] = "Envoyez un message à l'assistance";
+$LANG["message"]["ou"] = "ou";
+
 
 $LANG["login"][0] = "Login";
 $LANG["login"][1] = "Mot de passe";
@@ -215,8 +219,8 @@ $LANG["gestion"][83] = "Réaliser une nouvelle lecture";
 $LANG["gestion"][84] = "Lecteur";
 $LANG["gestion"][85] = "Date de lecture";
 $LANG["gestion"][86] = "Résolution";
-$LANG["gestion"][87] = "Age (nb de points";
-$LANG["gestion"][88] = "positionnés)";
+$LANG["gestion"][87] = "Age ou nb de segments<br>positionnés (nb points - 1)";
+$LANG["gestion"][88] = "Afficher l'age calculé (nbre de points positionnés - 1) par chaque lecteur";
 $LANG["gestion"][89] = "Longueur de";
 $LANG["gestion"][90] = "référence mesurée";
 $LANG["gestion"][91] = "Longueur totale lue";
@@ -297,6 +301,7 @@ $LANG["gestion"][165] = "Lecture à<br>modifier";
 $LANG["gestion"][166] = "Avec création d'une nouvelle lecture";
 $LANG["gestion"][167] = "Si coché, la lecture sélectionnée pourra être modifiée";
 $LANG["gestion"][168] = "Taille en pixels de la longueur de référence dans la photo";
+$LANG["gestion"][169] = "Masquer l'age calculé (nbre de points positionnés - 1) par chaque lecteur";
 
 
 

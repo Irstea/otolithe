@@ -34,6 +34,10 @@ switch ($t_module ["param"]) {
 		$photolecture = new Photolecture ( $bdd, $ObjetBDDParam );
 		$smarty->assign ( "photolecture", $photolecture->getListeFromPhoto ( $id ) );
 		/*
+		 * Recuperation de la demande d'affichage de l'age
+		 */
+		$smarty->assign("ageDisplay", $_REQUEST["ageDisplay"]);
+		/*
 		 * Preparation de l'affichage de la miniature
 		*/
 		$smarty->assign("photoPath", $dataClass->writeFilePhoto($id, 1));

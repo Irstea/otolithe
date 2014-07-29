@@ -78,7 +78,13 @@ while ( isset ( $module ) ) {
 					/*
 					 * Reinitialisation du menu
 					 */
-					if (isset ($_SESSION["login"])) unset ($_SESSION["menu"]);
+					if (isset ($_SESSION["login"])) {
+						unset ($_SESSION["menu"]);
+						/*
+						 * Traitement des operations "post login"
+						 */
+						include "modules/postLogin.php";
+					}
 				} else {
 					/*
 					 * Gestion de la saisie du login

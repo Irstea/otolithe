@@ -1,5 +1,9 @@
 Nouveautés
 ===========
+Version 1.2.2 du 29 juillet 2014
+--------------------------------
+Rajout du masquage par défaut du nombre de points positionnés par les lecteurs ; un lien permet de réactiver l'affichage initial
+
 Version 1.2.1 du 26 février 2014
 --------------------------------
 Correction de bogues d'affichage :

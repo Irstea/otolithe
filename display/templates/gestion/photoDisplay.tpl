@@ -100,7 +100,17 @@
 <br>
 {/if}
 <div style="border-style:solid;border-width: 1px;padding:5px;">
-<h3>{$LANG["gestion"].164}</h3>
+<h3>{$LANG["gestion"].164}
+{if $ageDisplay != 1}
+<a href="index.php?module=photoDisplay&photo_id={$data.photo_id}&ageDisplay=1">
+{$LANG["gestion"].88}
+</a>
+{else}
+<a href="index.php?module=photoDisplay&photo_id={$data.photo_id}&ageDisplay=0">
+{$LANG["gestion"].169}
+{/if}
+</a>
+</h3>
 <form name="affichage" action="index.php" methode="get">
 <input type="hidden" name="module" value="photolectureSwap">
 <input type="hidden" name="photo_id" value="{$data.photo_id}">
@@ -113,7 +123,9 @@
 <th>{$LANG["gestion"].84}</th>
 <th>{$LANG["gestion"].85}</th>
 <th>{$LANG["gestion"].86}</th>
-<th>{$LANG["gestion"].87}<br>{$LANG["gestion"].88}</th>
+{if $ageDisplay == 1}
+<th>{$LANG["gestion"].87}</th>
+{/if}
 <th>{$LANG["gestion"].89}<br>{$LANG["gestion"].90}</th>
 <th>{$LANG["gestion"].91}</th>
 <th>{$LANG["gestion"].92}<br>{$LANG["gestion"].93}</th>
@@ -149,11 +161,13 @@
 {$photolecture[lst].photolecture_width}x{$photolecture[lst].photolecture_height}
 </div>
 </td>
+{if $ageDisplay == 1}
 <td>
 <div class="center">
 {$photolecture[lst].age}
 </div>
 </td>
+{/if}
 <td>
 {$photolecture[lst].long_ref_mesuree}
 </td>

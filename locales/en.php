@@ -80,7 +80,7 @@ $LANG["message"][21] = "Search";
 $LANG["message"][22] = "Failed to connect to the main database";
 $LANG["message"][23] = "Copyright (c) 2013-2014 - All rights reserved.";
 $LANG["message"][24] = "Property of IRSTEA in Bordeaux-CESTAS";
-$LANG["message"][25] = "For all problems : ";
+$LANG["message"][25] = "For any problem : ";
 $LANG["message"][26] = "You are not granted to access at this software. Please log in, if any...";
 $LANG["message"][27] = "You are not logged.";
 $LANG["message"][28] = "Access to the module you ask does not comply with the kinematics of the application. 
@@ -94,6 +94,9 @@ $LANG["message"]["yes"] = "yes";
 $LANG["message"]["no"] = "no";
 $LANG["message"][34] = "Consult";
 $LANG["message"][35] = "Return";
+$LANG["message"][36] = "Open a ticket on the forge";
+$LANG["message"][37] = "Send an email to the support team";
+$LANG["message"]["ou"] = "or";
 
 $LANG["login"][0] = "Login";
 $LANG["login"][1] = "Password";
@@ -216,8 +219,8 @@ $LANG["gestion"][83] = "Make a new reading";
 $LANG["gestion"][84] = "Reader";
 $LANG["gestion"][85] = "Reading date";
 $LANG["gestion"][86] = "Resolution";
-$LANG["gestion"][87] = "Age (nb of<br> positionned points)";
-$LANG["gestion"][88] = "positionnés)";
+$LANG["gestion"][87] = "Age or number of segments<br>(number of points - 1)";
+$LANG["gestion"][88] = "Display calculated age (number of points - 1) for each reader";
 $LANG["gestion"][89] = "Length of";
 $LANG["gestion"][90] = "Mesuread reference";
 $LANG["gestion"][91] = "Total length reading";
@@ -298,4 +301,6 @@ $LANG["gestion"][165] = "Reading<br>to change";
 $LANG["gestion"][166] = "With new reading creation";
 $LANG["gestion"][167] = "If checked, the selected reading will be changed";
 $LANG["gestion"][168] = "Size in pixels of reference length";
+$LANG["gestion"][169] = "Hide calculated age (number of points - 1) for each reader";
+
 ?>
