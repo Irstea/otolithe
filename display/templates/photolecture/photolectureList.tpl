@@ -61,3 +61,4 @@ setDataTables("idListe",true , false, true);
 </table>
 
 {/if}
+<br>
