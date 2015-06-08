@@ -529,6 +529,7 @@ div.menu>ul li ul {
 	list-style-type: none;
 	position: absolute;
 	display: none;
+	z-index: 99;
 }
 
 div.menu>ul li:hover ul {
@@ -548,7 +549,7 @@ div.menu>ul li ul li {
 	background: #ffffff;
 	border-left: solid 1em #98c1e9;
 	color: #a66d1a;
-	z-index:99;
+	z-index: 99;
 
 }
 
