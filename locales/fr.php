@@ -47,7 +47,15 @@ $LANG["menu"][52] = "Liste des lecteurs";
 $LANG["menu"][53] = "Personnes susceptible de réaliser des lectures sur les pièces...";
 $LANG["menu"][54] = "Liste des lectures";
 $LANG["menu"][55] = "Afficher la liste les lectures de pièces...";
-
+/*
+ * Gestion des droits nouvelle formule
+ */
+$LANG["menu"]["appliliste"] = "ACL - droits";
+$LANG["menu"]["applilistetitle"] = "applications et droits gérés";
+$LANG["menu"]["aclloginliste"] = "ACL - logins";
+$LANG["menu"]["aclloginlistetitle"] = "Logins déclarés dans le module de gestion des droits";
+$LANG["menu"]["groupliste"] = "ACL - groupes de logins";
+$LANG["menu"]["grouplistetitle"] = "Groupes de logins et logins rattachés aux groupes";
 
 $LANG["menu"]["example1"] = "Example";
 $LANG["menu"]["example2"] = "It's an example !";

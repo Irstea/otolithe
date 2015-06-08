@@ -15,17 +15,23 @@ include_once ("param/param.default.inc.php");
 include_once ("param/param.inc.php");
 
 /**
+ * Protection contre les IFRAMES
+ */
+header ( "X-Frame-Options: SAMEORIGIN" );
+
+/**
  * Gestion de la session
  */
+$cookieParam = session_get_cookie_params ();
+$cookieParam ["lifetime"] = $APPLI_session_ttl;
+if ($APPLI_modeDeveloppement == false)
+	$cookieParam ["secure"] = true;
+$cookieParam ["httponly"] = true;
+// session_set_cookie_params ( $cookieParam ["lifetime"], $cookieParam ["path"], $cookieParam ["domain"], $cookieParam ["secure"], $cookieParam ["httponly"] );
 // ini_set('session.cookie_secure', 1);
-ini_set('session.gc_probability', 1);
-ini_set('session.cookie_lifetime', $APPLI_session_ttl);
+ini_set ( "session.use_strict_mode", true );
+ini_set ( 'session.gc_probability', 1 );
 ini_set ( 'session.gc_maxlifetime', $APPLI_session_ttl );
-// $session_path = ini_get('session.save_path').'/'.$APPLI_path_stockage_session;
-// if (!is_dir($session_path)) mkdir($session_path);
-// ini_set('session.save_path',$session_path);
-
-session_set_cookie_params ( $APPLI_session_ttl );
 /**
  * Integration de la bibliotheque ADODB
  */
@@ -36,16 +42,16 @@ include_once ('plugins/adodb5.18a/adodb.inc.php');
 /**
  * Integration de SMARTY
  */
-include_once ('plugins/Smarty-3.1.13/libs/Smarty.class.php');
+include_once ('plugins/smarty-3.1.24/libs/Smarty.class.php');
 
 /**
  * integration de la classe ObjetBDD et des scripts associes
  */
-include_once ('plugins/objetBDD-2.4.1/ObjetBDD.php');
-include_once ('plugins/objetBDD-2.4.1/ObjetBDD_functions.php');
+include_once ('plugins/objetBDD-2.5.1/ObjetBDD.php');
+include_once ('plugins/objetBDD-2.5.1/ObjetBDD_functions.php');
 if ($APPLI_utf8 == true)
 	$ObjetBDDParam ["UTF8"] = true;
-
+$ObjetBDDParam ["codageHtml"] = false;
 /**
  * Integration de la classe gerant la navigation dans les modules
  */
@@ -73,40 +79,40 @@ include_once "modules/beforesession.inc.php";
 /*
  * Regeneration du cookie de session
  */
-setcookie(session_name(),session_id(),time()+$APPLI_session_ttl, '/');
+setcookie ( session_name (), session_id (), time () + $APPLI_session_ttl, $cookieParam ["path"], $cookieParam ["domain"], $cookieParam ["secure"], $cookieParam ["httponly"] );
 $identification = new Identification ();
 $identification->setidenttype ( $ident_type );
 if ($ident_type == "CAS") {
 	$identification->init_CAS ( $CAS_address, $CAS_port, $CAS_uri );
-} elseif ($ident_type == "LDAP"||$ident_type == "LDAP-BDD") {
+} elseif ($ident_type == "LDAP" || $ident_type == "LDAP-BDD") {
 	$identification->init_LDAP ( $LDAP_address, $LDAP_port, $LDAP_basedn, $LDAP_user_attrib, $LDAP_v3, $LDAP_tls );
 }
 /*
  * Chargement des fonction generiques
-*/
+ */
 include_once 'framework/fonctions.php';
 /*
  * Gestion de la langue a afficher
-*/
+ */
 if (isset ( $_SESSION ["LANG"] ) && $APPLI_modeDeveloppement == false) {
 	$LANG = $_SESSION ["LANG"];
 } else {
 	/*
 	 * Recuperation le cas echeant du cookie
-	*/
+	 */
 	if (isset ( $_COOKIE ["langue"] )) {
 		$langue = $_COOKIE ["langue"];
 	} else {
 		/*
 		 * Recuperation de la langue du navigateur
-		*/
+		 */
 		$langue = explode ( ';', $_SERVER ['HTTP_ACCEPT_LANGUAGE'] );
 		$langue = substr ( $langue [0], 0, 2 );
 	}
 	/*
 	 * Mise a niveau du langage
-	*/
-	setlanguage($langue);
+	 */
+	setlanguage ( $langue );
 }
 /**
  * Verification du couple session/adresse IP
@@ -123,7 +129,6 @@ if (isset ( $_SESSION ["remoteIP"] )) {
 } else {
 	$_SESSION ["remoteIP"] = $_SERVER ['REMOTE_ADDR'];
 }
-
 /*
  * Connexion a la base de donnees
  */
@@ -171,7 +176,7 @@ $smarty->assign ( "entete", $SMARTY_entete );
 $smarty->assign ( "enpied", $SMARTY_enpied );
 $smarty->assign ( "corps", $SMARTY_corps );
 $smarty->assign ( "LANG", $LANG );
-$smarty->assign ("ident_type", $ident_type);
+$smarty->assign ( "ident_type", $ident_type );
 
 /*
  * Prepositionnement de idFocus, qui permet de positionner le focus automatiquement a l'ouverture d'une page web
@@ -190,31 +195,22 @@ if (isset ( $_SESSION ["navigation"] ) && $APPLI_modeDeveloppement == false) {
 /*
  * Activation de la classe d'enregistrement des traces
  */
-$log = new Log($bdd_gacl,$ObjetBDDParam);
+$log = new Log ( $bdd_gacl, $ObjetBDDParam );
 /*
  * Preparation de la gestion des droits
  */
-if (isset ( $_SESSION ["gestionDroit"] ) && $APPLI_modeDeveloppement == false) {
-	$gestionDroit = $_SESSION ["gestionDroit"];
-	$smarty->assign ( "droits", $gestionDroit->getDroits () );
+if (isset ( $_SESSION ["droits"] ) && $APPLI_modeDeveloppement == false) {
+	$smarty->assign ( "droits", $_SESSION ["droits"] );
 } else {
-	$gestionDroit = new GestionDroit ();
-	if ($APPLI_modeDeveloppement == false) {
-		$_SESSION ["gestionDroit"] = $gestionDroit;
-	} else {
-		/*
-		 * Traitement du mode developpement ; calcul a chaque appel
-		 */
-		include "framework/identification/setDroits.php";
-	}
+	include "framework/identification/setDroits.php";
 }
+
 /*
  * Chargement des fonctions specifiques
  */
 include_once 'modules/fonctions.php';
-if ($APPLI_modeDeveloppement == true) {
-	include_once 'framework/functionsDebug.php';
-}
+
+include_once 'framework/functionsDebug.php';
 /*
  * Chargement des traitements communs specifiques a l'application
  */
