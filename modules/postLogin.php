@@ -6,6 +6,10 @@
  *  Creation 7 avr. 2014
  *  Programme execute si necessaire apres identification
  */
- 
+/*
+ * Suppression des anciennes photos
+ */
+if (! isset($_SESSION["login"]))
+	include "gestion/photoDeleteFile.php";
 
 ?>

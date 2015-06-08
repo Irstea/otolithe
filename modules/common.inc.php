@@ -8,21 +8,31 @@
 /*
  * Initialisation des classes contenant les parametres de recherche
  */
-if (!isset($_SESSION["searchIndividu"])) {
-	$searchIndividu = new SearchIndividu();
-	$_SESSION["searchIndividu"] = $searchIndividu;
+if (! isset ( $_SESSION ["searchIndividu"] )) {
+	$searchIndividu = new SearchIndividu ();
+	$_SESSION ["searchIndividu"] = $searchIndividu;
 } else {
-	$searchIndividu = $_SESSION["searchIndividu"];
+	$searchIndividu = $_SESSION ["searchIndividu"];
 }
-if (!isset($_SESSION["searchLecture"])) {
-	$searchLecture = new SearchLecture();
-	$_SESSION["searchLecture"] = $searchLecture;
+if (! isset ( $_SESSION ["searchLecture"] )) {
+	$searchLecture = new SearchLecture ();
+	$_SESSION ["searchLecture"] = $searchLecture;
 } else {
-	$searchLecture = $_SESSION["searchLecture"];
+	$searchLecture = $_SESSION ["searchLecture"];
 }
+
 /*
- * Suppression des anciennes photos
-*/
-if (! isset($_SESSION["login"]))
-	include "gestion/photoDeleteFile.php";
+ * Initialisations des traducteurs d'identifiants
+ */
+$traducteurs = array (
+		"it_individu" => "individu_id",
+		"it_experimentation" => "experimentation_id",
+		"it_piece" => "piece_id",
+		"it_peche" => "peche_id",
+		"it_physicochimie" => "physicochimie_id"
+);
+foreach ( $traducteurs as $key => $value ) {
+	if (! isset ( $_SESSION [$key] ))
+		$_SESSION [$key] = new TranslateId ( $value );
+}
 ?>

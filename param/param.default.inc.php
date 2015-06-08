@@ -17,8 +17,8 @@ $navigationxml = "param/actions.xml";
  * Duree de la session par defaut
  * @var unknown_type
  */
-// 4 heures
-$APPLI_session_ttl = 14400;
+// 1 heure
+$APPLI_session_ttl = 3600;
 // 3 mois
 $APPLI_cookie_ttl = 7776000; 
 /*
