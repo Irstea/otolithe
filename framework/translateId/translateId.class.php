@@ -18,8 +18,20 @@ class TranslateId {
 	 * @var array[$this->cle] = $dbkey;
 	 */
 	private $corresp;
+	/**
+	 * Tableau inverse
+	 * @var array[$dbkey] = [$this->cle];
+	 */
 	private $corresp_reverse;
+	/**
+	 * Nom de la colonne utilisee pour le codage (cle de la table)
+	 * @var string
+	 */
 	private $fieldname;
+	/**
+	 * Compteur utilise pour la renumerotation
+	 * @var int
+	 */
 	private $cle = 1;
 
 	/**
@@ -53,7 +65,6 @@ class TranslateId {
 				$data [$key] [$this->fieldname] = $this->corresp_reverse[$value [ $this->fieldname ]];
 			}
 		}
-		$corresp_reverse = array_flip($corresp);
 		return $data;
 	}
 	/**
@@ -66,19 +77,21 @@ class TranslateId {
 	}
 
 	/**
-	 * Ajoute une valeur dans le tableau
+	 * Ajoute une valeur dans le tableau si elle n'existe pas
 	 * @param int $dbId
-	 * @return number|NULL
+	 * @return int : valeur traduite
 	 */
 	function setValue($dbId) {
 		if ($dbId > 0) {
+			if (! isset($this->corresp_reverse[$dbId])) {
 			$this->corresp [$this->cle] = $dbId;
 			$this->corresp_reverse[$dbId] = $this->cle;
 			$key = $this->cle;
 			$this->cle ++;
+			} else 
+				$key = $this->corresp_reverse[$dbId];
 			return $key;
-		} else
-			return null;
+		}
 	}
 
 	/**
@@ -101,11 +114,12 @@ class TranslateId {
 	 */
 	function translateRow($row) {
 		foreach ($row as $key => $value) {
-			if ($key = $this->fieldname) {
-				if (!isset($this->corresp_reverse[$key])) {
+			if ($key == $this->fieldname) {
+				if (!isset($this->corresp_reverse[$value])) {
 					$this->setValue($value);
 				}
-				$row[$key] = $this->corresp_reverse[$key];
+				$row[$key] = $this->corresp_reverse[$value];
+				break;
 			}
 		}
 		return $row;

@@ -1,47 +1,51 @@
 <?php
 include_once 'modules/classes/photo.class.php';
 $dataClass = new Photo ( $bdd, $ObjetBDDParam );
-$id = $_REQUEST ["photo_id"];
+$id = $_SESSION ["it_photo"]->getValue ( $_REQUEST ["photo_id"] );
 switch ($t_module ["param"]) {
-	case "list":
-		/*
-		 * Display the list of all records of the table
-		 */
-		$smarty->assign ( "data", $dataClass->getListe () );
-		$smarty->assign ( "corps", "example/exampleList.tpl" );
-		break;
+	
 	case "display":
 		/*
 		 * Display the detail of the record
 		 */
 		$data = $dataClass->getDetail ( $id );
+		$dataT = $_SESSION ["it_photo"]->translateRow ( $data );
+		$dataT = $_SESSION ["it_piece"]->translateRow ( $dataT );
 		/*
 		 * Lecture des informations concernant la piece
 		 */
 		include_once 'modules/classes/piece.class.php';
 		$piece = new Piece ( $bdd, $ObjetBDDParam );
 		$dataPiece = $piece->getDetail ( $data ["piece_id"] );
-		$smarty->assign ( "piece", $dataPiece );
+		$dataPieceT = $_SESSION ["it_piece"]->translateRow ( $dataPiece );
+		$dataPieceT = $_SESSION ["it_individu"]->translateRow ( $dataPieceT );
+		$smarty->assign ( "piece", $dataPieceT );
 		/*
 		 * Lecture des informations concernant le poisson
 		 */
 		include_once 'modules/classes/individu.class.php';
 		$individu = new Individu ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "individu", $individu->getDetail ( $dataPiece ["individu_id"] ) );
+		$dataIndiv = $individu->getDetail ( $dataPiece ["individu_id"] );
+		$dataIndiv = $_SESSION ["it_individu"]->translateRow ( $dataIndiv );
+		$dataIndiv = $_SESSION ["it_peche"]->translateRow ( $dataIndiv );
+		$smarty->assign ( "individu", $dataIndiv );
 		/*
 		 * Recuperation de la liste des lectures effectuees
 		 */
 		$photolecture = new Photolecture ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "photolecture", $photolecture->getListeFromPhoto ( $id ) );
+		$dataLecture = $photolecture->getListeFromPhoto ( $id );
+		$dataLecture = $_SESSION ["it_photolecture"]->translateList ( $dataLecture );
+		$dataLecture = $_SESSION ["it_piece"]->translateList ( $dataLecture );
+		$smarty->assign ( "photolecture", $dataLecture );
 		/*
 		 * Recuperation de la demande d'affichage de l'age
 		 */
-		$smarty->assign("ageDisplay", $_REQUEST["ageDisplay"]);
+		$smarty->assign ( "ageDisplay", $_REQUEST ["ageDisplay"] );
 		/*
 		 * Preparation de l'affichage de la miniature
-		*/
-		$smarty->assign("photoPath", $dataClass->writeFilePhoto($id, 1));
-		$smarty->assign ( "data", $data );
+		 */
+		$smarty->assign ( "photoPath", $dataClass->writeFilePhoto ( $id, 1 ) );
+		$smarty->assign ( "data", $dataT );
 		$smarty->assign ( "corps", "gestion/photoDisplay.tpl" );
 		break;
 	case "change":
@@ -55,20 +59,29 @@ switch ($t_module ["param"]) {
 		 */
 		include_once 'modules/classes/piece.class.php';
 		$piece = new Piece ( $bdd, $ObjetBDDParam );
-		$dataPiece = $piece->getDetail ( $_REQUEST ["piece_id"] );
+		$piece_id = $_SESSION ["it_piece"]->getValue ( $_REQUEST ["piece_id"] );
+		$dataPiece = $piece->getDetail ( $piece_id );
+		$dataPieceT = $_SESSION ["it_piece"]->translateRow ( $dataPiece );
+		$dataPieceT = $_SESSION ["it_individu"]->translateRow ( $dataPieceT );
 		$smarty->assign ( "piece", $dataPiece );
 		/*
 		 * Lecture des informations concernant le poisson
 		 */
 		include_once 'modules/classes/individu.class.php';
 		$individu = new Individu ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "individu", $individu->getDetail ( $dataPiece ["individu_id"] ) );
+		$dataIndiv = $individu->getDetail ( $dataPiece ["individu_id"] );
+		$dataIndiv = $_SESSION ["it_individu"]->translateRow ( $dataIndiv );
+		$dataIndiv = $_SESSION ["it_peche"]->translateRow ( $dataIndiv );
+		$smarty->assign ( "individu", $dataIndiv );
 		/*
 		 * Lecture des types de lumiere
 		 */
 		$lumieretype = new LumiereType ( $bdd, $ObjetBDDParam );
 		$smarty->assign ( "lumieretype", $lumieretype->getListe () );
-		dataRead ( $dataClass, $id, "gestion/photoChange.tpl", $_REQUEST ["piece_id"] );
+		$data = dataRead ( $dataClass, $id, "gestion/photoChange.tpl", $piece_id );
+		$data = $_SESSION ["it_photo"]->translateRow ( $data );
+		$data = $_SESSION ["it_piece"]->translateRow ( $data );
+		$smarty->assign ( "data", $data );
 		break;
 	case "write":
 		/*
@@ -81,9 +94,11 @@ switch ($t_module ["param"]) {
 			$_REQUEST ["photoload"] = fread ( fopen ( $_FILES ["photoload"] ["tmp_name"], "r" ), $_FILES ["photoload"] ["size"] );
 			$_REQUEST ["photo_filename"] = $_FILES ["photoload"] ["name"];
 		}
+		$_REQUEST ["photo_id"] = $_SESSION ["it_photo"]->getValue ( $_REQUEST ["photo_id"] );
+		$_REQUEST ["piece_id"] = $_SESSION ["it_piece"]->getValue ( $_REQUEST ["piece_id"] );
 		$id = dataWrite ( $dataClass, $_REQUEST );
 		if ($id > 0)
-			$_REQUEST ["photo_id"] = $id;
+			$_REQUEST ["photo_id"] = $_SESSION ["it_photo"]->setValue ( $id );
 		break;
 	case "delete":
 		/*
@@ -117,7 +132,7 @@ switch ($t_module ["param"]) {
 		 * Affiche a l'ecran la photo en pleine resolution
 		 */
 		$smarty->assign ( "photo_id", $id );
-		$smarty->assign("photoPath", $dataClass->writeFilePhoto($id));
+		$smarty->assign ( "photoPath", $dataClass->writeFilePhoto ( $id ) );
 		$smarty->assign ( "corps", "gestion/photoDisplayPhoto.tpl" );
 		break;
 }

@@ -155,9 +155,12 @@ class Photo extends ObjetBDD {
 	 * @return array
 	 */
 	function getListePhotoFromPiece($piece_id) {
-		$sql = "select photo_id, piece_id, photo_nom, description, photo_date, color, photo_height, photo_width
+		if ($piece_id > 0) {
+			$sql = "select photo_id, piece_id, photo_nom, description, photo_date, color, photo_height, photo_width
 				from " . $this->table . " where piece_id = " . $piece_id;
-		return $this->getListParam ( $sql );
+			return $this->getListParam ( $sql );
+		} else
+			return null;
 	}
 	/**
 	 * Retourne une photo au format "blob" pour affichage
@@ -265,12 +268,15 @@ class Photo extends ObjetBDD {
 	 * @return array
 	 */
 	function getDetail($id) {
-		$sql = "select photo_id, piece_id, photo_nom, description, photo_filename, photo_date, color,
+		if ($id > 0) {
+			$sql = "select photo_id, piece_id, photo_nom, description, photo_filename, photo_date, color,
 				lumieretype_libelle, grossissement, repere, uri, long_reference, photo_width, photo_height, long_ref_pixel
 				from " . $this->table . "
 				left outer join lumieretype using(lumieretype_id)
 				where photo_id = " . $id;
-		return ($this->lireParam ( $sql ));
+			return ($this->lireParam ( $sql ));
+		} else
+			return null;
 	}
 }
 /**
@@ -345,13 +351,18 @@ class Lecteur extends ObjetBdd {
 	 * @return number
 	 */
 	function getIdFromLogin($login) {
-		$sql = "select lecteur_id from " . $this->table . " where login = '" . $login . "'";
-		$res = $this->lireParam ( $sql );
-		if ($res ["lecteur_id"] > 0) {
-			return $res ["lecteur_id"];
-		} else {
-			return - 1;
-		}
+		if (strlen ( $login ) > 0) {
+			$login = $this->encodeData ( $login );
+			
+			$sql = "select lecteur_id from " . $this->table . " where login = '" . $login . "'";
+			$res = $this->lireParam ( $sql );
+			if ($res ["lecteur_id"] > 0) {
+				return $res ["lecteur_id"];
+			} else {
+				return - 1;
+			}
+		} else
+			return null;
 	}
 	/**
 	 * Reecriture de la fonction liste pour trier la table
@@ -646,7 +657,8 @@ class Photolecture extends ObjetBdd {
 	 * @return array
 	 */
 	function getListeFromPhoto($photo_id) {
-		$sql = "select photolecture_id, photo_id, lecteur_id, lecteur_nom, lecteur_prenom, photolecture_date,
+		if ($photo_id > 0) {
+			$sql = "select photolecture_id, photo_id, lecteur_id, lecteur_nom, lecteur_prenom, photolecture_date,
 				ST_NumGeometries(points) - 1 as age,
 				long_totale_lue,
 				long_totale_reel,
@@ -654,7 +666,9 @@ class Photolecture extends ObjetBdd {
 				photolecture_width,
 				photolecture_height
 				from " . $this->table . " left outer join lecteur using(lecteur_id)" . " where photo_id = " . $photo_id . " order by photolecture_date desc";
-		return $this->getListeParam ( $sql );
+			return $this->getListeParam ( $sql );
+		} else
+			return null;
 	}
 	/**
 	 * Retourne la liste des lectures effectuees
@@ -665,8 +679,9 @@ class Photolecture extends ObjetBdd {
 	 * @return array
 	 */
 	function getDetailLecture($id, $coef, $id_exclu = 0) {
-		if (is_array($id) || $id > 0) {
-		$sql = "select photolecture_id, photo_id, lecteur_id, lecteur_nom, lecteur_prenom, photolecture_date,
+		$id = $this->encodeData($id);
+		if (is_array ( $id ) || $id > 0) {
+			$sql = "select photolecture_id, photo_id, lecteur_id, lecteur_nom, lecteur_prenom, photolecture_date,
 				st_astext(points) as listepoint,
 				long_totale_lue,
 				long_totale_reel,
@@ -675,59 +690,59 @@ class Photolecture extends ObjetBdd {
 				photolecture_height,
 				rayon_point_initial
 				from " . $this->table . " left outer join lecteur using(lecteur_id)";
-		/*
-		 * Preparation de la clause where
-		 */
-		if (! is_array ( $id )) {
-			$where = " where photolecture_id = " . $id;
-		} else {
 			/*
-			 * Les identifiants sont en tableau
+			 * Preparation de la clause where
 			 */
-			$where = " where photolecture_id in (";
-			$virgule = "";
-			foreach ( $id as $key => $value ) {
-				if ($value != $id_exclu) {
-					$where .= $virgule . $value;
-					$virgule = ",";
-				}
-			}
-			$where .= ")";
-		}
-		$couleur = array (
-				"0" => "green",
-				"1" => "magenta",
-				"2" => "blue",
-				"3" => "orange",
-				"4" => "darkred",
-				"5" => "darkgreen",
-				"6" => "darkmagenta",
-				"7" => "darkblue",
-				"8" => "darkorange",
-				"9" => "darkcyan",
-				"10" => "darksalmon",
-				"11" => "darkseagreen"
-		);
-		/*
-		 * Lecture de la liste concernee
-		 */
-		$icolor = 0;
-		$data = $this->getListeParam ( $sql . $where );
-		foreach ( $data as $key => $value ) {
-			if (strlen ( $data [$key] ["listepoint"] ) > 0) {
-				$data [$key] ["points"] = $this->calculPointsAffichage ( $data [$key] ["listepoint"], $coef );
+			if (! is_array ( $id )) {
+				$where = " where photolecture_id = " . $id;
+			} else {
 				/*
-				 * Rajout de la couleur
+				 * Les identifiants sont en tableau
 				 */
-				$data [$key] ["couleur"] = $couleur [$icolor];
-				$icolor ++;
+				$where = " where photolecture_id in (";
+				$virgule = "";
+				foreach ( $id as $key => $value ) {
+					if ($value != $id_exclu && $value > 0) {
+						$where .= $virgule . $value;
+						$virgule = ",";
+					}
+				}
+				$where .= ")";
 			}
+			$couleur = array (
+					"0" => "green",
+					"1" => "magenta",
+					"2" => "blue",
+					"3" => "orange",
+					"4" => "darkred",
+					"5" => "darkgreen",
+					"6" => "darkmagenta",
+					"7" => "darkblue",
+					"8" => "darkorange",
+					"9" => "darkcyan",
+					"10" => "darksalmon",
+					"11" => "darkseagreen" 
+			);
 			/*
-			 * Recalcul du rayon initial
+			 * Lecture de la liste concernee
 			 */
-			$data [$key] ["rayon_point_initial"] = floor ( $data [$key] ["rayon_point_initial"] / $coef );
-		}
-		return $data;
+			$icolor = 0;
+			$data = $this->getListeParam ( $sql . $where );
+			foreach ( $data as $key => $value ) {
+				if (strlen ( $data [$key] ["listepoint"] ) > 0) {
+					$data [$key] ["points"] = $this->calculPointsAffichage ( $data [$key] ["listepoint"], $coef );
+					/*
+					 * Rajout de la couleur
+					 */
+					$data [$key] ["couleur"] = $couleur [$icolor];
+					$icolor ++;
+				}
+				/*
+				 * Recalcul du rayon initial
+				 */
+				$data [$key] ["rayon_point_initial"] = floor ( $data [$key] ["rayon_point_initial"] / $coef );
+			}
+			return $data;
 		}
 	}
 	/**
@@ -767,11 +782,13 @@ class Photolecture extends ObjetBdd {
 	 * @return array
 	 */
 	function lirePoints($id) {
+		if ($id > 0) {
 		$sql = "select photolecture_id,
 		st_astext(points) as points,
 		st_astext(points_ref_lecture) as points_ref_lecture
 		from " . $this->table . " where photolecture_id = " . $id;
 		return $this->lireParam ( $sql );
+		} else return null;
 	}
 	/**
 	 * Retourne la liste des lectures effectuees en fonction des criteres de recherche indiques
@@ -780,6 +797,7 @@ class Photolecture extends ObjetBdd {
 	 * @return array
 	 */
 	function getListSearch($param) {
+		$param = $this->encodeData($param);
 		$sql = "select photolecture_id, photo_id, lecteur_id, piece_id, individu_id,
 				lecteur_nom, lecteur_prenom,
 				photolecture_date,

@@ -50,9 +50,7 @@
 <tr>
 <td class="libelleSaisie">{$LANG["gestion"].70} : </td>
 <td>
-<input name="photo_date" id="photo_date" value="{$data.photo_date}" maxlength="10" size="10">
-<img id='button1' src='display/javascript/calendar/images/calendar.png' class='calendrier' alt='Calendrier' title='Calendrier'>
-<script type='text/javascript'>calendarini("photo_date","button1")</script>
+<input class="date" name="photo_date" id="photo_date" value="{$data.photo_date}" maxlength="10" size="10">
 </td>
 </tr>
 <tr>

@@ -1,7 +1,7 @@
 <?php
 include_once 'modules/classes/piece.class.php';
 $dataClass = new Piece($bdd,$ObjetBDDParam);
-$id = $_REQUEST["piece_id"];
+$id = $_SESSION["it_piece"]->getValue($_REQUEST["piece_id"]);
 
 switch ($t_module["param"]) {
 	case "display":
@@ -9,7 +9,9 @@ switch ($t_module["param"]) {
 		 * Display the detail of the record
 		 */
 		$data = $dataClass->getDetail($id);
-		$smarty->assign("data", $data);
+		$dataT = $_SESSION["it_piece"]->translateRow($data);
+		$dataT = $_SESSION["it_individu"]->translateRow($dataT);
+		$smarty->assign("data", $dataT);
 		/*
 		 * Lecture des photos
 		 */
@@ -20,7 +22,10 @@ switch ($t_module["param"]) {
 		 */
 		include_once 'modules/classes/individu.class.php';
 		$individu = new Individu($bdd, $ObjetBDDParam);
-		$smarty->assign("individu", $individu->getDetail($data["individu_id"]));
+		$dataIndiv = $individu->getDetail($data["individu_id"]);
+		$dataIndiv = $_SESSION["it_individu"]->translateRow($dataIndiv);
+		$dataIndiv = $_SESSION["it_peche"]->translateRow($dataIndiv);
+		$smarty->assign("individu", $dataIndiv);
 		$listePhoto = $photo->getListePhotoFromPiece($id);
 		/*
 		 * Rajout du lien vers l'image
@@ -28,7 +33,7 @@ switch ($t_module["param"]) {
 		foreach($listePhoto as $key=>$value) {
 			$listePhoto[$key]["photoPath"] = $photo->writeFilePhoto($value["photo_id"],1);
 		}
-		$smarty->assign("photo", $listePhoto);
+		$smarty->assign("photo", $_SESSION["it_photo"] -> translateList($listePhoto));
 		$smarty->assign("corps", "gestion/pieceDisplay.tpl");
 		break;
 	case "change":
@@ -49,15 +54,23 @@ switch ($t_module["param"]) {
 		*/
 		include_once 'modules/classes/individu.class.php';
 		$individu = new Individu($bdd, $ObjetBDDParam);
-		$smarty->assign("individu", $individu->getDetail($_REQUEST["individu_id"]));
-		dataRead($dataClass, $id, "gestion/pieceChange.tpl", $_REQUEST["individu_id"]);
+		$dataIndiv = $individu->getDetail($_SESSION["it_individu"]->getValue($_REQUEST["individu_id"]));
+		$dataIndiv = $_SESSION["it_individu"]->translateRow($dataIndiv);
+		$dataIndiv = $_SESSION["it_peche"]->translateRow($dataIndiv);
+		$smarty->assign("individu", $dataIndiv);
+		$data = dataRead($dataClass, $id, "gestion/pieceChange.tpl", $_REQUEST["individu_id"]);
+		$data = $_SESSION["it_piece"]->translateRow($data);
+		$data = $_SESSION["it_individu"]->translateRow($data);
+		$smarty->assign( "data", $data);
 		break;
 	case "write":
 		/*
 		 * write record in database
 		 */
+		$_REQUEST["piece_id"] = $_SESSION["it_piece"]->getValue($_REQUEST["piece_id"]);
+		$_REQUEST["individu_id"] = $_SESSION["it_individu"]->getValue($_REQUEST["individu_id"]);
 		$id = dataWrite($dataClass, $_REQUEST);
-		if ($id > 0 ) $_REQUEST["piece_id"] = $id;
+		if ($id > 0 ) $_REQUEST["piece_id"] = $_SESSION["it_piece"]->setValue($id);
 		break;
 	case "delete":
 		/*

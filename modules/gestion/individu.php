@@ -1,6 +1,7 @@
 <?php
 include_once 'modules/classes/individu.class.php';
 
+$dataClass = new Individu ( $bdd, $ObjetBDDParam );
 /*
  * Initialisation de la classe de traduction des cles
  */
@@ -23,6 +24,7 @@ switch ($t_module ["param"]) {
 		$dataRecherche = $searchIndividu->getParam ();
 		if ($searchIndividu->isSearch () == 1) {
 			$data = $_SESSION ["it_individu"]->translateList ( $dataClass->getListSearch ( $dataRecherche ), true );
+			$data = $_SESSION ["it_peche"]->translateList ( $data );
 			$smarty->assign ( "data", $data );
 			$smarty->assign ( "isSearch", 1 );
 		}
@@ -54,14 +56,16 @@ switch ($t_module ["param"]) {
 		 * Display the detail of the record
 		 */
 		$data = $dataClass->getDetail ( $id );
-		$smarty->assign ( "data", $_SESSION ["it_individu"]->translateRow ( $data ) );
+		$dataT = $_SESSION ["it_individu"]->translateRow ( $data );
+		$dataT = $_SESSION ["it_peche"]->translateRow ( $dataT );
+		$smarty->assign ( "data", $dataT );
 		/*
 		 * Lecture des experimentations
 		 */
 		$individu_experimentation = new Individu_experimentation ( $bdd, $ObjetBDDParam );
 		$dataIE = $individu_experimentation->getListeFromIndividu ( $id );
-		$dataIE = $_SESSION["it_experimentation"]->translateList($dataIE);
-		$dataIE = $_SESSION["it_individu"] -> translateList($dataIE);
+		$dataIE = $_SESSION ["it_experimentation"]->translateList ( $dataIE );
+		$dataIE = $_SESSION ["it_individu"]->translateList ( $dataIE );
 		$smarty->assign ( "experimentation", $dataIE );
 		
 		/*
@@ -70,17 +74,23 @@ switch ($t_module ["param"]) {
 		include_once 'modules/classes/piece.class.php';
 		$piece = new Piece ( $bdd, $ObjetBDDParam );
 		$dataPiece = $piece->getListFromIndividu ( $id );
-		$dataPiece = $_SESSION["it_piece"]->translateList( $dataPiece);
-		$dataPiece = $_SESSION["it_individu"]->translateList($dataPiece);
-		$smarty->assign ( "piece", $dataPiece);
+		$dataPiece = $_SESSION ["it_piece"]->translateList ( $dataPiece );
+		$dataPiece = $_SESSION ["it_individu"]->translateList ( $dataPiece );
+		$smarty->assign ( "piece", $dataPiece );
 		/*
 		 * Lecture des donnees sur la peche
 		 */
 		include_once 'modules/classes/peche.class.php';
 		$peche = new Peche ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "peche", $peche->lire ( $data ["peche_id"] ) );
+		if ($data ["peche_id"] > 0) {
+			$dataPeche = $peche->lire ( $data ["peche_id"] );
+			$dataPeche = $_SESSION ["it_peche"]->translateRow ( $dataPeche );
+			$smarty->assign ( "peche", $dataPeche );
+		}
 		$physicochimie = new Physicochimie ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "pc", $physicochimie->getByIdpeche ( $data ["peche_id"] ) );
+		$dataPhysico = $physicochimie->getByIdpeche ( $data ["peche_id"] );
+		$dataPhysico = $_SESSION ["it_physicochimie"]->translateRow ( $dataPhysico );
+		$smarty->assign ( "pc", $dataPhysico );
 		$smarty->assign ( "corps", "gestion/individuDisplay.tpl" );
 		break;
 	case "change":

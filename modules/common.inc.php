@@ -29,7 +29,9 @@ $traducteurs = array (
 		"it_experimentation" => "experimentation_id",
 		"it_piece" => "piece_id",
 		"it_peche" => "peche_id",
-		"it_physicochimie" => "physicochimie_id"
+		"it_physicochimie" => "physicochimie_id",
+		"it_photo" => "photo_id",
+		"it_photolecture" => "photolecture_id"
 );
 foreach ( $traducteurs as $key => $value ) {
 	if (! isset ( $_SESSION [$key] ))

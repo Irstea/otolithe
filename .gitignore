@@ -6,7 +6,8 @@ gacl.ini.php
 .settings
 .settings/*
 */templates_c/* 
-
+img/*
+display/templates_c/*
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
