@@ -29,15 +29,13 @@ $(function(){
 function drawIntro(svg) {
 	var image_width = $('#image_width').val();
 	var image_height = $('#image_height').val();
-	//var photo_id = $('#photo_id').val();
-	//var lien = "index.php?module=photoGetPhoto&photo_id="+photo_id+"&sizeX="+image_width+"&sizeY="+image_height;
 	var r = 0;
 	var cx = 0;
 	var cy = 0;
 	var couleur = "";
 	var fillOpacity = 0;
 	{/literal}
-	var lien = "{$photo.photoPath}";
+	var lien = "index.php?module=photoGetPhoto&photo_id={$photo.photo_id}&sizeX={$image_width}&sizeY={$image_height}";
 	{literal}
 	var myImage = svg.group();
 	svg.image(myImage, 0, 0, image_width, image_height, lien);

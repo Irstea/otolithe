@@ -76,7 +76,8 @@
 </td>
 <td>
 <a href="index.php?module=photoDisplayPhoto&photo_id={$data.photo_id}" title="{$LANG["gestion"].81}">
-<img src="{$photoPath}">
+<!--  img src="{$photoPath}"-->
+<img src="index.php?module=photoGetThumbnail&photo_id={$data.photo_id}">
 </a>
 </td>
 </tr>

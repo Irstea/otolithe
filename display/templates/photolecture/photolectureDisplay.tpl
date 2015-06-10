@@ -26,7 +26,7 @@ body > iframe { display: none; }
     xmlns:xlink="http://www.w3.org/1999/xlink"
 	style="width:{$image_width}px;height:{$image_height}px">
 <image x="0" y="0" width="{$image_width}" height="{$image_height}"
-     xlink:href="{$photo.photoPath}" /> 
+     xlink:href="index.php?module=photoGetPhoto&photo_id={$photo.photo_id}&sizeX={$image_width}&sizeY={$image_height}" /> 
 {section name="lst" loop=$data}
 {section name="lst1" loop=$data[lst].points}
 {if $smarty.section.lst1.index == 0 }

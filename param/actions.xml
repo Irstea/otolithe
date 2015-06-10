@@ -25,9 +25,6 @@
 	<identdisconnect action="framework/identification/disconnect.php" menutitle="7" menuvalue="6" menuorder="4" menulevel="0" menuloginrequis="1"></identdisconnect>
 	<apropos action="framework/apropos.php" menulevel="1" menuorder="99" menuvalue="8" menutitle="9" menuparent="99"></apropos>
 	<testcalendrier action="test/testcalendrier.php"></testcalendrier>
-	<gestiondroits action="framework/identification/gestiondroits.php" droits="admin" retourko=""
-		retourok="" retournull="" loginrequis="0" menulevel="1" menuorder="9" menudroits="admin" menuloginrequis="" menuparent="3" menutitle="13" menuvalue="12" droitko="droitko">
-	</gestiondroits>
 	<docindex menulevel="0" menuorder="99" menutitle="21" menuvalue="20" action="doc/index.php" param1="index.html" ajax="1"></docindex>
 	<quoideneuf action="doc/quoideneuf.php" menulevel="1" menuparent="99" menutitle="41" menuvalue="40"></quoideneuf>
 	<setlanguage action='framework/setlanguage.php' />

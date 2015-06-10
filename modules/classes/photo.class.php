@@ -6,6 +6,7 @@
  */
 class Photo extends ObjetBDD {
 	public $format_thumbnail;
+	private $chemin = "img";
 	function __construct($bdd, $param) {
 		$this->param = $param;
 		$this->table = "photo";
@@ -175,7 +176,7 @@ class Photo extends ObjetBDD {
 	 *        	: si > 0, redimension a la taille indiquee
 	 * @return string
 	 */
-	function getPhoto($id, $thumbnail = 0, $sizeX = 0, $sizeY = 0) {
+	function getPhotoOld($id, $thumbnail = 0, $sizeX = 0, $sizeY = 0) {
 		if ($id > 0) {
 			$this->UTF8 = false;
 			$this->codageHtml = false;
@@ -204,6 +205,20 @@ class Photo extends ObjetBDD {
 			return $photo;
 		}
 	}
+	function getPhoto($id, $thumbnail = 0, $sizeX = 0, $sizeY = 0) {
+		/*
+		 * Regeneration du chemin d'acces au fichier de la photo
+		 */
+		if ($id > 0 && is_numeric ( $thumbnail ) && is_numeric ( $sizeX ) && is_numeric ( $sizeY )) {
+			$thumbnail == 1 ? $nomPhoto = "thumbnail" : $nomPhoto = "photo";
+			$nomPhoto .= $id . '-' . $sizeX . 'x' . $sizeY . ".jpg";
+			$filename = $this->chemin . '/' . $nomPhoto;
+			if (file_exists ( $filename )) {
+				$image = file_get_contents ( $filename );
+				return $image;
+			}
+		}
+	}
 	/**
 	 * Fonction permettant d'ecrire la photo dans un dossier temporaire, pour telechargement depuis le navigateur
 	 *
@@ -214,7 +229,7 @@ class Photo extends ObjetBDD {
 	 * @param string $chemin        	
 	 * @return string
 	 */
-	function writeFilePhoto($id, $thumbnail = 0, $sizeX = 0, $sizeY = 0, $chemin = "img") {
+	function writeFilePhoto($id, $thumbnail = 0, $sizeX = 0, $sizeY = 0) {
 		if ($id > 0) {
 			$this->UTF8 = false;
 			$this->codageHtml = false;
@@ -229,18 +244,23 @@ class Photo extends ObjetBDD {
 			/*
 			 * On recherche si la photo existe ou non
 			 */
-			$path = $chemin . '/' . $nomPhoto;
+			$path = $this->chemin . '/' . $nomPhoto;
 			if (! file_exists ( $path )) {
 				/*
 				 * On cree la photo
 				 */
 				$sql .= " from " . $this->table;
-				$where = " where photo_id = " . $id;
-				$data = $this->executeSQL ( $sql . $where );
-				$photo = $data->fields ["image"];
-				if (strlen ( $photo ) > 0) {
+				$where = " where photo_id = ".$id; 
+				$query = $this->connection->prepare($sql.$where);
+				$query->execute();
+				if ($query->rowCount() == 1) {
+					$query->bindColumn(1, $photoRef, PDO::PARAM_LOB);
+					//$data = $query->fetchAll();
+					//printr($data);
+					$query->fetch(PDO::FETCH_BOUND);			
 					$image = new Imagick ();
-					$image->readImageBlob ( $photo );
+					$image->readimagefile($photoRef);
+					//$image->readImageBlob ( $photo );
 					if ($sizeX > 0 && $sizeY > 0) {
 						/*
 						 * Mise a l'image de la photo
@@ -679,7 +699,7 @@ class Photolecture extends ObjetBdd {
 	 * @return array
 	 */
 	function getDetailLecture($id, $coef, $id_exclu = 0) {
-		$id = $this->encodeData($id);
+		$id = $this->encodeData ( $id );
 		if (is_array ( $id ) || $id > 0) {
 			$sql = "select photolecture_id, photo_id, lecteur_id, lecteur_nom, lecteur_prenom, photolecture_date,
 				st_astext(points) as listepoint,
@@ -783,12 +803,13 @@ class Photolecture extends ObjetBdd {
 	 */
 	function lirePoints($id) {
 		if ($id > 0) {
-		$sql = "select photolecture_id,
+			$sql = "select photolecture_id,
 		st_astext(points) as points,
 		st_astext(points_ref_lecture) as points_ref_lecture
 		from " . $this->table . " where photolecture_id = " . $id;
-		return $this->lireParam ( $sql );
-		} else return null;
+			return $this->lireParam ( $sql );
+		} else
+			return null;
 	}
 	/**
 	 * Retourne la liste des lectures effectuees en fonction des criteres de recherche indiques
@@ -797,7 +818,7 @@ class Photolecture extends ObjetBdd {
 	 * @return array
 	 */
 	function getListSearch($param) {
-		$param = $this->encodeData($param);
+		$param = $this->encodeData ( $param );
 		$sql = "select photolecture_id, photo_id, lecteur_id, piece_id, individu_id,
 				lecteur_nom, lecteur_prenom,
 				photolecture_date,

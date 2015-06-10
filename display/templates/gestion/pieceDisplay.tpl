@@ -47,11 +47,11 @@
 </td>
 <td>{$photo[lst].description}</td>
 <td>{$photo[lst].photo_date}</td>
-<td>{$photo[lst].color}</td>
+<td class="center">{$photo[lst].color}</td>
 <td>{$photo[lst].photo_width}x{$photo[lst].photo_height}</td>
 <td>
 <a href="index.php?module=photoDisplay&photo_id={$photo[lst].photo_id}&piece_id={$data.piece_id}">
-<img src="{$photo[lst].photoPath}" height="200" border="0">
+<img src="index.php?module=photoGetThumbnail&photo_id={$photo[lst].photo_id}" height="200" border="0">
 </a>
 </td>
 </tr>

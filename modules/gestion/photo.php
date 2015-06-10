@@ -114,6 +114,7 @@ switch ($t_module ["param"]) {
 			$_REQUEST ["sizeX"] = 0;
 		if (! isset ( $_REQUEST ["sizeY"] ))
 			$_REQUEST ["sizeY"] = 0;
+		header('Content-Type: image/jpeg');
 		echo $dataClass->getPhoto ( $id, 0, $_REQUEST ["sizeX"], $_REQUEST ["sizeY"] );
 		break;
 	case "getThumbnail":
@@ -125,14 +126,15 @@ switch ($t_module ["param"]) {
 		if (! isset ( $_REQUEST ["sizeY"] ))
 			$_REQUEST ["sizeY"] = 0;
 		header ( "Content-Type: image/jpeg" );
-		echo $dataClass->getPhoto ( $id, 1, $_REQUEST ["sizeX"], $_REQUEST ["sizeY"] );
+		echo $dataClass->getPhoto ( $id, 1 );
 		break;
 	case "photoDisplay":
 		/*
 		 * Affiche a l'ecran la photo en pleine resolution
 		 */
-		$smarty->assign ( "photo_id", $id );
-		$smarty->assign ( "photoPath", $dataClass->writeFilePhoto ( $id ) );
+		$dataClass->writeFilePhoto ( $id );
+		$smarty->assign ( "photo_id", $_SESSION["it_photo"]->setValue($id ));
+		//$smarty->assign ( "photoPath", $dataClass->writeFilePhoto ( $id ) );
 		$smarty->assign ( "corps", "gestion/photoDisplayPhoto.tpl" );
 		break;
 }
