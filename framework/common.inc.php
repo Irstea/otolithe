@@ -40,8 +40,8 @@ include_once ('plugins/smarty-3.1.24/libs/Smarty.class.php');
 /**
  * integration de la classe ObjetBDD et des scripts associes
  */
-include_once ('plugins/objetBDD-2.5.1/ObjetBDD.php');
-include_once ('plugins/objetBDD-2.5.1/ObjetBDD_functions.php');
+include_once ('plugins/objetBDD-3.0/ObjetBDD.php');
+include_once ('plugins/objetBDD-3.0/ObjetBDD_functions.php');
 if ($APPLI_utf8 == true)
 	$ObjetBDDParam ["UTF8"] = true;
 $ObjetBDDParam ["codageHtml"] = false;
@@ -158,14 +158,27 @@ if (isset ( $_SESSION ["remoteIP"] )) {
  * Connexion a la base de donnees
  */
 if (! isset ( $bdd )) {
+	$etaconn = true;
 	if ($APPLI_modeDeveloppement == true) {
-		$bdd = ADONewConnection ( $BDDDEV_type );
-		$bdd->debug = $ADODB_debugmode;
-		$etaconn = $bdd->Connect ( $BDDDEV_server, $BDDDEV_login, $BDDDEV_passwd, $BDDDEV_database );
+		try {
+		$bdd = new PDO($BDDDEV_dsn, $BDDDEV_login, $BDDDEV_passwd);
+		} catch (PDOException $e) {
+			print $e->getMessage()."<br>";
+		$etaconn = false;
+		}
+		//$bdd = ADONewConnection ( $BDDDEV_type );
+		//$bdd->debug = $ADODB_debugmode;
+		//$etaconn = $bdd->Connect ( $BDDDEV_server, $BDDDEV_login, $BDDDEV_passwd, $BDDDEV_database );
 	} else {
-		$bdd = ADONewConnection ( $BDD_type );
-		$bdd->debug = $ADODB_debugmode;
-		$etaconn = $bdd->Connect ( $BDD_server, $BDD_login, $BDD_passwd, $BDD_database );
+		try {
+		$bdd = new PDO($BDD_dsn, $BDD_login, $BDD_passwd);
+		} catch (PDOException $e) {
+			$etaconn = false;
+		}
+		
+		//$bdd = ADONewConnection ( $BDD_type );
+		//$bdd->debug = $ADODB_debugmode;
+		//$etaconn = $bdd->Connect ( $BDD_server, $BDD_login, $BDD_passwd, $BDD_database );
 	}
 	if ($etaconn == false) {
 		echo $LANG ["message"] [22];
@@ -173,9 +186,16 @@ if (! isset ( $bdd )) {
 		/*
 		 * Connexion a la base de gestion des droits
 		 */
-		$bdd_gacl = ADONewConnection ( $GACL_dbtype );
-		$bdd_gacl->debug = $ADODB_debugmode;
-		$etaconn = $bdd_gacl->Connect ( $GACL_dbserver, $GACL_dblogin, $GACL_dbpasswd, $GACL_database );
+		try {
+			$bdd_gacl = new PDO($GACL_dsn, $GACL_dblogin, $GACL_dbpasswd);
+		} catch (PDOException $e) {
+			print $e->getMessage()."<br>";
+			$etaconn = false;
+		}
+		
+		//$bdd_gacl = ADONewConnection ( $GACL_dbtype );
+		//$bdd_gacl->debug = $ADODB_debugmode;
+		//$etaconn = $bdd_gacl->Connect ( $GACL_dbserver, $GACL_dblogin, $GACL_dbpasswd, $GACL_database );
 		if ($etaconn == false) {
 			echo ($LANG ["message"] [29]);
 		}

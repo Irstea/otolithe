@@ -60,6 +60,7 @@ $BDD_server = "localhost";
 $BDD_login = "proto";
 $BDD_passwd = "proto";
 $BDD_database = "proto";
+$BDD_dsn = "pgsq:host=localhost;dbname=proto";
 /*
  * Base de donnees de developpement
 */
@@ -68,6 +69,7 @@ $BDDDEV_server = "localhost";
 $BDDDEV_login = "proto";
 $BDDDEV_passwd = "proto";
 $BDDDEV_database = "proto";
+$BDDEV_dsn = "psql:host=localhost;dbname=proto";
 /*
  * Parametres concernant SMARTY
  */
@@ -104,6 +106,7 @@ $GACL_aro = "login";
 $GACL_aco = "otolithe";
 $GACL_path = "param/gacl.ini.php";
 $GACL_listeDroitsGeres = "admin,gestion,lecture";
+$GACL_dsn = "pgsql:host=localhost;dbname=proto";
 /*
  * Gestion des erreurs
  */

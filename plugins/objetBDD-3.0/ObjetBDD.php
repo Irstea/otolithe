@@ -24,7 +24,7 @@
  *
  * @author Eric Quinton, Franck Huby
  * @copyright (C) Eric Quinton 2006-2015
- * @version 2.5.1 du 03/06/2015
+ * @version 3.0 du 10/06/2015
  * @package ObjetBDD
  *
  * Utilisation :
@@ -235,6 +235,7 @@ class ObjetBDD {
 	/**
 	 * Indique s'il faut ou non transformer les valeurs en UTF8
 	 * (application codée en UTF8, base de données en autre codage)
+	 *
 	 * @var boolean
 	 */
 	public $toUTF8 = false;
@@ -271,9 +272,7 @@ class ObjetBDD {
 	 * @var integer
 	 */
 	public $transformComma;
-	/**
-	 * methodes
-	 */
+	
 	/**
 	 * ObjetBDD
 	 * Fonction d'initialisation de la classe
@@ -283,10 +282,10 @@ class ObjetBDD {
 	 * $types : id de tableau : nom de la colonne, valeur : type de champ. A ne renseigner que pour les
 	 * champs numerique (1), date(2), ou datetime(3)
 	 *
-	 * @param
-	 *        	instance ADODB
+	 * @param PDO $p_connection        	
+	 * @param array $param        	
 	 */
-	function __construct(&$p_connection, $param = NULL) {
+	function __construct(PDO &$p_connection, array $param = NULL) {
 		$this->connection = $p_connection;
 		$this->param = $param;
 		/**
@@ -309,8 +308,11 @@ class ObjetBDD {
 		$this->codageHtml = true;
 		$this->cleMultiple = 0;
 		$this->fullDescription = 0;
-		$this->typeDatabase = substr ( strtolower ( $this->connection->databaseType ), 0, 7 );
-		$this->connection->SetFetchMode ( ADODB_FETCH_ASSOC );
+		// $this->typeDatabase = substr ( strtolower ( $this->connection->databaseType ), 0, 7 );
+		// $this->connection->SetFetchMode ( ADODB_FETCH_ASSOC );
+		$this->typeDatabase = $this->connection->getAttribute ( PDO::ATTR_DRIVER_NAME );
+		
+		$this->connection->setAttribute ( PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC );
 		$this->UTF8 = false;
 		$this->srid = - 1;
 		$this->transformComma = 1;
@@ -380,12 +382,19 @@ class ObjetBDD {
 		// if ($this->typeDatabase=="mysql" && $this->UTF8==true) {
 		if ($this->UTF8 == true) {
 			if ($this->typeDatabase == "mysql") {
-				$this->connection->EXECUTE ( "set names 'utf8'" );
+				$this->connection->exec ( "set names 'utf8'" );
 			} else {
-				$this->connection->EXECUTE ( "SET CLIENT_ENCODING TO UTF8" );
+				$this->connection->exec ( "SET CLIENT_ENCODING TO UTF8" );
 			}
 		}
 		/*
+		 * Definition du mode de gestion des erreurs
+		 */
+		if ($this->debug_mode == 1 || $this->debug_mode == 2) {
+			$this->connection->setAttribute ( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+		} else
+			$this->connection->setAttribute ( PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT );
+			/*
 		 * Forcage des parametres de date
 		 */
 		if ($this->formatDate == "fr")
@@ -395,7 +404,7 @@ class ObjetBDD {
 			/*
 		 * Ajout du identifier quote character
 		 */
-		if ($this->typeDatabase == 'postgre')
+		if ($this->typeDatabase == 'pgsql')
 			$this->quoteIdentifier = '"';
 		elseif ($this->typeDatabase == 'mysql')
 			$this->quoteIdentifier = '`';
@@ -419,16 +428,22 @@ class ObjetBDD {
 	/**
 	 * Fonction executant les requetes SQL
 	 *
-	 * @param
-	 *        	$sql
-	 * @return ADORecordSet
+	 * @param String $sql        	
+	 * @return array
 	 */
 	private function execute($sql) {
-		$rs = $this->connection->Execute ( $sql );
-		// echo $this->connection->ErrorMsg();
-		if ((! $rs && $this->debug_mode == 1) || $this->debug_mode == 2)
-			print ($this->connection->ErrorMsg () . "<br>" . $sql) ;
-			// if(($rs==-1 || isnull($rs)) && $this->debug_mode==1) print ($this->connection->ErrorMsg());
+		$rs = array ();
+		if ($this->debug_mode == 1 || $this->debug_mode == 2) {
+			try {
+				foreach ( $this->connection->query ( $sql ) as $row )
+					$rs [] = $row;
+			} catch ( PDOException $e ) {
+				print ($e->getCode () . " " . $e->getMessage () . "<br>") ;
+			}
+		} else {
+			foreach ( $this->connection->query ( $sql ) as $row )
+				$rs [] = $row;
+		}
 		return $rs;
 	}
 	/**
@@ -501,27 +516,25 @@ class ObjetBDD {
 		} else {
 			$sql = "select * from " . $this->table . " where " . $where;
 		}
-		$rs = $this->execute ( $sql );
-		if (! $rs) {
+		$collection = $this->execute ( $sql );
+		if (count ( $collection ) == 0) {
 			if ($getDefault == true) {
 				$collection = $this->getDefaultValue ( $parentValue );
 			} else {
 				$collection = false;
 			}
 		} else {
-			$collection = array ();
-			$collection = $rs->fields;
+			/*
+			 * on ne conserve que la premiere ligne
+			 */
+			$collection = $collection [0];
 			if ($this->auto_date == 1) {
-				$dates = array ();
-				$dates [0] = $collection;
-				$dates = $this->utilDatesDBVersLocale ( $this->types, $dates );
-				$collection = $dates [0];
+				$collection = $this->utilDatesDBVersLocale ( $this->types, $collection );
 			}
 			if ($this->codageHtml == true)
 				$collection = $this->htmlEncode ( $collection );
 			if ($this->toUTF8 == true)
 				$collection = $this->utf8Encode ( $collection );
-			$rs->close ();
 		}
 		return $collection;
 	}
@@ -547,18 +560,10 @@ class ObjetBDD {
 	 * @return array : liste des colonnes et des valeurs associees (id fonction lire)
 	 */
 	function lireParam($sql) {
-		$rs = $this->execute ( $sql );
-		if (! $rs) {
-			$collection = false;
-		} else {
-			$collection = array ();
-			$collection = $rs->fields;
-		}
+		$collection = $this->execute ( $sql );
+		$collection = $collection [0];
 		if ($this->auto_date == 1) {
-			$dates = array ();
-			$dates [0] = $collection;
-			$dates = $this->utilDatesDBVersLocale ( $this->types, $dates );
-			$collection = $dates [0];
+			$dates = $this->utilDatesDBVersLocale ( $this->types, $collection );
 		}
 		if ($this->codageHtml == true)
 			$collection = $this->htmlEncode ( $collection );
@@ -617,7 +622,7 @@ class ObjetBDD {
 				$cle = $this->cle;
 			$where = $cle . ' = ' . $id;
 		}
-		return $this->execute ( "delete from " . $this->table . " where " . $where );
+		return $this->connection->exec ( "delete from " . $this->table . " where " . $where );
 	}
 	/**
 	 * Synonyme de supprimer()
@@ -649,7 +654,7 @@ class ObjetBDD {
 				$cle = $this->quoteIdentifier . $key . $this->quoteIdentifier;
 			else
 				$cle = $champ;
-			return $this->execute ( "delete from " . $this->table . " where " . $cle . "=" . $id );
+			return $this->connection->exec ( "delete from " . $this->table . " where " . $cle . "=" . $id );
 		}
 	}
 	/**
@@ -766,7 +771,7 @@ class ObjetBDD {
 			}
 			$sql = "select * from " . $this->table . " where " . $where;
 			$rs = $this->execute ( $sql );
-			if (! $rs->RecordCount () || $rs->RecordCount () == 0) {
+			if (count($rs) == 0) {
 				/**
 				 * nouveau avec id passe
 				 */
@@ -859,7 +864,7 @@ class ObjetBDD {
 			/*
 			 * On rajoute la recuperation de la cle avec postgresql
 			 */
-			if ($this->typeDatabase == 'postgre' && $this->id_auto == 1) {
+			if ($this->typeDatabase == 'pgsql' && $this->id_auto == 1) {
 				$sql .= ' RETURNING ' . $this->cle;
 			}
 		}
@@ -897,14 +902,15 @@ class ObjetBDD {
 		// printr($sql);
 		// die;
 		$rs = $this->execute ( $sql );
-		if ($mode == "ajout" && $rs != FALSE && $this->id_auto == 1) {
-			if (substr ( strtolower ( $this->connection->databaseType ), 0, 7 ) == 'postgre') {
-				$ret = $rs->fields [$this->cle];
+		if ($mode == "ajout" && $this->id_auto == 1) {
+			if ($this->typeDatabase == 'pgsql' && count ( $rs ) > 0) {
+				$ret = $rs [0] [$this->cle];
 			} else {
-				$ret = $this->connection->Insert_ID ();
+				$last_id = $this->execute ( 'SELECT LAST_INSERT_ID() as last_id' );
+				$ret = $last_id [0] ['last_id'];
 			}
 		} else {
-			$test = $this->connection->Affected_Rows ();
+			$test = count ( $rs );
 			if ($test > 0) {
 				if ($this->cleMultiple == 1) {
 					$ret = 1;
@@ -912,7 +918,7 @@ class ObjetBDD {
 					$ret = $data [$this->cle];
 				}
 			} else
-				$ret = $test;
+				$ret = - 1;
 		}
 		return $ret;
 	}
@@ -934,16 +940,9 @@ class ObjetBDD {
 	 * @return tableau contenant la liste des lignes concernees (identique a getListe)
 	 */
 	function getListeParam($sql) {
-		$rs = $this->execute ( $sql );
-		if (! $rs) {
-			$collection = false;
-		} else {
-			$collection = array ();
-			$collection = $rs->GetRows ( $rs->RecordCount () );
-			if ($this->auto_date == 1) {
-				$collection = $this->utilDatesDBVersLocale ( $this->types, $collection );
-			}
-		}
+		$collection = $this->execute ( $sql );
+		if ($this->auto_date == 1)
+			$collection = $this->utilDatesDBVersLocale ( $this->types, $collection );
 		if ($this->codageHtml == true)
 			$collection = $this->htmlEncode ( $collection );
 		if ($this->toUTF8 == true)
@@ -969,16 +968,9 @@ class ObjetBDD {
 		$sql = "select * from " . $this->table;
 		if ($order > 0)
 			$sql .= " order by " . $order;
-		$rs = $this->execute ( $sql );
-		if (! $rs) {
-			$collection = false;
-		} else {
-			$collection = array ();
-			$collection = $rs->GetRows ( $rs->RecordCount () );
-			if ($this->auto_date == 1) {
-				$collection = $this->utilDatesDBVersLocale ( $this->types, $collection );
-			}
-		}
+		$collection = $this->execute ( $sql );
+		if ($this->auto_date == 1)
+			$collection = $this->utilDatesDBVersLocale ( $this->types, $collection );
 		if ($this->codageHtml == true)
 			$collection = $this->htmlEncode ( $collection );
 		if ($this->toUTF8 == true)
@@ -993,16 +985,17 @@ class ObjetBDD {
 	function getList() {
 		return $this->getListe ();
 	}
-
+	
 	/**
-	 * Fonction permettant de renvoyer la liste des enregistrements 
+	 * Fonction permettant de renvoyer la liste des enregistrements
 	 * a partir de la cle du parent
-	 * @param int $parentId
-	 * @param number $order
+	 *
+	 * @param int $parentId        	
+	 * @param number $order        	
 	 * @return tableau|NULL
 	 */
 	function getListFromParent($parentId, $order = 0) {
-		if ($parentId > 0 && strlen ( $this->parentAttrib ) > 0)  {
+		if ($parentId > 0 && strlen ( $this->parentAttrib ) > 0) {
 			$sql = "select * from " . $this->table;
 			/*
 			 * Preparation du where
@@ -1011,10 +1004,10 @@ class ObjetBDD {
 				$cle = $this->quoteIdentifier . $this->parentAttrib . $this->quoteIdentifier;
 			else
 				$cle = $this->parentAttrib;
-			$sql .= " where ".$cle." = ".$parentId;
+			$sql .= " where " . $cle . " = " . $parentId;
 			if ($order > 0)
 				$sql .= " order by " . $order;
-			return $this->getListeParam($sql);
+			return $this->getListeParam ( $sql );
 		} else
 			return null;
 	}
@@ -1232,7 +1225,7 @@ class ObjetBDD {
 	 * @return codeerreur
 	 */
 	function vidageTable() {
-		return $this->execute ( 'delete from ' . $this->table );
+		return $this->connection->exec( 'delete from ' . $this->table );
 	}
 	/**
 	 * Synonyme de vidageTable()
@@ -1337,7 +1330,7 @@ class ObjetBDD {
 			// Formatage du tableau
 			$res = "";
 			foreach ( $this->errorData as $key => $value ) {
-				$data[$key]["valeur"] = htmlentities($data[$key]["valeur"]);
+				$data [$key] ["valeur"] = htmlentities ( $data [$key] ["valeur"] );
 				if ($this->errorData [$key] ["code"] == 0) {
 					$res .= $this->errorData [$key] ["message"] . "<br>";
 				} elseif ($this->errorData [$key] ["code"] == 1) {
@@ -1379,7 +1372,7 @@ class ObjetBDD {
 	
 	/**
 	 * Encode en utf8 si demande
-	 * 
+	 *
 	 * @param unknown $data        	
 	 */
 	private function utf8Encode($data) {
@@ -1457,9 +1450,7 @@ class ObjetBDD {
 		else
 			$cle2 = $nomCle2;
 		$sql = "select " . $cle2 . " from " . $nomTable . " where " . $cle1 . " = " . $id;
-		$rs = $this->execute ( $sql );
-		$orig = array ();
-		$orig = $rs->getArray ();
+		$orig = $this->execute ( $sql );
 		$orig1 = array ();
 		
 		// Extraction des valeurs en tableau simple
@@ -1579,7 +1570,7 @@ class ObjetBDD {
 			/*
 			 * Traitement des chaines individuelles
 			 */
-			if ($this->typeDatabase == 'postgre') {
+			if ($this->typeDatabase == 'pgsql') {
 				if ($this->UTF8 == true) {
 					if (mb_detect_encoding ( $value ) != "UTF-8")
 						$data = mb_convert_encoding ( $data, 'UTF-8' );
