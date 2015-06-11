@@ -246,6 +246,40 @@ class Experimentation extends ObjetBdd {
 		$data = date ( "Y" ) . "-12-31";
 		return $this->formatDateDBversLocal ( $data );
 	}
+
+	/**
+	 * Retourne la liste de toutes les experimentations, avec le lecteur associe
+	 * (saisie des experimentations autorisees)
+	 * @param int $lecteur_id
+	 * @return tableau
+	 */
+	function getAllListFromLecteur($lecteur_id) {
+		if ($lecteur_id > 0) {
+			$sql = "select e.exp_id, exp_nom, lecteur_id
+					from experimentation e
+					left outer join lecteur_experimentation l 
+					on (e.exp_id = l.exp_id and l.lecteur_id = ".$lecteur_id.")
+					order by exp_nom";
+			return $this->getListeParam($sql);
+		}
+	}
+
+	/**
+	 * Retourne la liste des experimentations autorisees pour un lecteur
+	 * @param unknown $lecteur_id
+	 * @return tableau|NULL
+	 */
+	function getExpAutorisees($lecteur_id) {
+		if ($lecteur_id > 0) {
+			$sql = "select e.exp_id, e.exp_nom
+					from experimentation e
+					join lecteur_experimentation using (exp_id)
+					where lecteur_id = ".$lecteur_id."
+					order by e.exp_nom";
+			return $this->getListeParam($sql);
+		} else
+			return null;
+	}
 }
 /**
  * ORM de gestion de la table individu_experimentation

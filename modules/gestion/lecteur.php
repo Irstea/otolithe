@@ -26,6 +26,9 @@ switch ($t_module["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		dataRead($dataClass, $id, "gestion/lecteurChange.tpl");
+		require_once "modules/classes/individu.class.php";
+		$experimentation = new Experimentation($bdd, $ObjetBDDParam);
+		$smarty->assign("exps", $experimentation->getAllListFromLecteur($id));
 		break;
 	case "write":
 		/*

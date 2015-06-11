@@ -244,7 +244,7 @@ $log = new Log ( $bdd_gacl, $ObjetBDDParam );
 /*
  * Preparation de la gestion des droits
  */
-if (isset ( $_SESSION ["droits"] ) && $APPLI_modeDeveloppement == false) {
+if (isset ( $_SESSION ["droits"] )) {
 	$smarty->assign ( "droits", $_SESSION ["droits"] );
 } else {
 	include "framework/identification/setDroits.php";

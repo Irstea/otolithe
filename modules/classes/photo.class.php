@@ -386,6 +386,22 @@ class Lecteur extends ObjetBdd {
 		$sql = "select * from " . $this->table . " order by lecteur_nom, lecteur_prenom";
 		return $this->getListeParam ( $sql );
 	}
+
+	/**
+	 * Surcharge de la fonction ecrire pour enregistrer les experimentations autorisees
+	 * (non-PHPdoc)
+	 * @see ObjetBDD::write()
+	 */
+	function write($data) {
+		if ($data["lecteur_id"] > 0) {
+			$id = parent::ecrire($data);
+			if ($id > 0) {
+				$this->ecrireTableNN("lecteur_experimentation", "lecteur_id", "exp_id", $id, $data["exp_id"]);
+			}
+			return $id;
+		} else
+			return null;
+	}
 }
 /**
  * ORM de gestion de la table photolecture

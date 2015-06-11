@@ -26,7 +26,7 @@ if (! isset ( $_SESSION ["searchLecture"] )) {
  */
 $traducteurs = array (
 		"it_individu" => "individu_id",
-		"it_experimentation" => "experimentation_id",
+		"it_experimentation" => "exp_id",
 		"it_piece" => "piece_id",
 		"it_peche" => "peche_id",
 		"it_physicochimie" => "physicochimie_id",
