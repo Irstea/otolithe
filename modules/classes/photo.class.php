@@ -234,10 +234,10 @@ class Photo extends ObjetBDD {
 			$this->UTF8 = false;
 			$this->codageHtml = false;
 			if ($thumbnail == 1) {
-				$sql = "select photo_thumbnail as image ";
+				$colonne = "photo_thumbnail";
 				$nomPhoto = "thumbnail";
 			} else {
-				$sql = "select photo_data as image ";
+				$colonne = "photo_data";
 				$nomPhoto = "photo";
 			}
 			$nomPhoto .= $id . '-' . $sizeX . 'x' . $sizeY . ".jpg";
@@ -249,18 +249,10 @@ class Photo extends ObjetBDD {
 				/*
 				 * On cree la photo
 				 */
-				$sql .= " from " . $this->table;
-				$where = " where photo_id = ".$id; 
-				$query = $this->connection->prepare($sql.$where);
-				$query->execute();
-				if ($query->rowCount() == 1) {
-					$query->bindColumn(1, $photoRef, PDO::PARAM_LOB);
-					//$data = $query->fetchAll();
-					//printr($data);
-					$query->fetch(PDO::FETCH_BOUND);			
+				$photoRef = $this->getBlobReference($id, $colonne);
+				if (! is_null ($photoRef)) {
 					$image = new Imagick ();
 					$image->readimagefile($photoRef);
-					//$image->readImageBlob ( $photo );
 					if ($sizeX > 0 && $sizeY > 0) {
 						/*
 						 * Mise a l'image de la photo
