@@ -1,5 +1,12 @@
+<script>
+$(document).ready(function() {
+$(".auto").change( function () {
+	$("#searchBox").submit() ;
+});
+});
+</script>
 <table id="lectureSearch" class="tableaffichage">
-<form method="GET" action="index.php">
+<form id="searchBox" method="GET" action="index.php">
 <input type="hidden" name="module" value="{$modulePostSearch}">
 <input type="hidden" name="isSearch" value="1">
 <tr>
@@ -8,8 +15,8 @@
 <input name="codeindividu" value="{$lectureSearch.codeindividu}" maxlength="50" size="30" autofocus>
 </td>
 <td>
-Expérimentation :
-<select name="exp_id">
+{$LANG["gestion"].49} :
+<select class="auto" name="exp_id">
 {section name="lst" loop=$experimentation}
 <option value="{$experimentation[lst].exp_id}" {if $experimentation[lst].exp_id == $lectureSearch.exp_id}selected{/if}>
 {$experimentation[lst].exp_nom}
@@ -21,7 +28,7 @@ Expérimentation :
 <tr>
 <td>
 {$LANG["gestion"].54} :
-<select name="site">
+<select class="auto" name="site">
 <option value="">{$LANG["gestion"].55}</option>
 {section name="lst" loop=$site}
 <option value="{$site[lst].site}" {if $site[lst].site == $lectureSearch.site}selected{/if}>
@@ -32,7 +39,7 @@ Expérimentation :
 </td>
 <td>
 {$LANG["gestion"].56} :
- <select name="zonesite">
+ <select class="auto" name="zonesite">
 <option value="">{$LANG["gestion"].57}</option>
 {section name="lst" loop=$zone}
 <option value="{$zone[lst].zonesite}" {if $zone[lst].zonesite == $lectureSearch.zonesite}selected{/if}>
@@ -45,7 +52,7 @@ Expérimentation :
 <tr>
 <td>
 Lecteur : 
-<select name="lecteur_id">
+<select class="auto" name="lecteur_id">
 <option value="">{$LANG["gestion"].109}</option>
 {section name="lst" loop=$lecteur}
 <option value="{$lecteur[lst].lecteur_id}" {if $lecteur[lst].lecteur_id == $lectureSearch.lecteur_id}selected{/if}>

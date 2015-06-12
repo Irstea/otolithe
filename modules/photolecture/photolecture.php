@@ -263,6 +263,8 @@ switch ($t_module ["param"]) {
 		/*
 		 * Gestion des criteres de recherche
 		 */
+		if (isset ( $_REQUEST ["exp_id"] ))
+			$_REQUEST ["exp_id"] = $_SESSION ["it_experimentation"]->getValue ( $_REQUEST ["exp_id"] );
 		$searchLecture->setParam ( $_REQUEST );
 		if ($searchLecture->isSearch () == 1) {
 			$dataRecherche = $searchLecture->getParam ();
@@ -274,6 +276,7 @@ switch ($t_module ["param"]) {
 			$smarty->assign ( "data", $data );
 			$smarty->assign ( "isSearch", 1 );
 		}
+		$dataRecherche ["exp_id"] = $_SESSION ["it_experimentation"]->setValue ( $dataRecherche ["exp_id"] );
 		$smarty->assign ( "lectureSearch", $dataRecherche );
 		/*
 		 * Recuperation de l'ensemble des informations necessaires pour la recherche
@@ -282,9 +285,11 @@ switch ($t_module ["param"]) {
 		$peche = new Peche ( $bdd, $ObjetBDDParam );
 		$smarty->assign ( "site", $peche->getListeSite () );
 		$smarty->assign ( "zone", $peche->getListeZone () );
+		/*
+		 * Integration des experimentations
+		 */
+		$smarty->assign ( "experimentation", $_SESSION ["it_experimentation"]->translateList ( $_SESSION ["experimentations"] ) );
 		include_once 'modules/classes/individu.class.php';
-		$experimentation = new Experimentation ( $bdd, $ObjetBDDparam );
-		$smarty->assign ( "experimentation", $experimentation->getListe () );
 		$lecteur = new Lecteur ( $bdd, $ObjetBDDParam );
 		$smarty->assign ( "lecteur", $lecteur->getListe () );
 		/*

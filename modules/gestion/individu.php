@@ -20,10 +20,10 @@ switch ($t_module ["param"]) {
 		/*
 		 * Gestion des criteres de recherche
 		 */
-		$_REQUEST["exp_id"] = $_SESSION["it_experimentation"]->getValue [$_REQUEST["exp_id"]];
+		if (isset ( $_REQUEST ["exp_id"] ))
+			$_REQUEST ["exp_id"] = $_SESSION ["it_experimentation"]->getValue ( $_REQUEST ["exp_id"] );
 		$searchIndividu->setParam ( $_REQUEST );
 		$dataRecherche = $searchIndividu->getParam ();
-		$dataRecherche["exp_id"] = $_SESSION["it_experimentation"]->setValue($dataRecherche["exp_id"]);
 		if ($searchIndividu->isSearch () == 1) {
 			$data = $_SESSION ["it_individu"]->translateList ( $dataClass->getListSearch ( $dataRecherche ), true );
 			$data = $_SESSION ["it_peche"]->translateList ( $data );
@@ -33,19 +33,18 @@ switch ($t_module ["param"]) {
 		$sexe = new Sexe ( $bdd, $ObjetBDDParam );
 		$smarty->assign ( "sexe", $sexe->getListe () );
 		/*
+		 * Integration des experimentations
+		 */
+		$smarty->assign ( "experimentation", $_SESSION ["it_experimentation"]->translateList ( $_SESSION ["experimentations"] ) );
+		/*
 		 * Recherche des zones de peche
 		 */
 		include_once "modules/classes/peche.class.php";
 		$peche = new Peche ( $bdd, $ObjetBDDParam );
 		$smarty->assign ( "site", $peche->getListeSite () );
 		$smarty->assign ( "zone", $peche->getListeZone () );
+		$dataRecherche ["exp_id"] = $_SESSION ["it_experimentation"]->setValue ( $dataRecherche ["exp_id"] );
 		$smarty->assign ( "individuSearch", $dataRecherche );
-		/*
-		 * Recherche des experimentations
-		 */
-		$experimentation = new Experimentation ( $bdd, $ObjetBDDparam );
-		
-		$smarty->assign ( "experimentation", $_SESSION ["it_experimentation"]->translateList ( $_SESSION["experimentations"] ) );
 		/*
 		 * Affectation du nom du module pour le cartouche de recherche
 		 */

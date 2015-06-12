@@ -1,5 +1,5 @@
 <navigation>
-	<model action="index.php" droits="gestion" retourko="model"
+	<model action="index.php" droits="gestion" retourko="model" retourlogin="1"
 		retourok="model" retournull="model" loginrequis="1" menulevel="0" menuorder="0" onlynoconnect="0"
 		menudroits="gestion" menuloginrequis="1" menuparent="0" menutitle="0" menuvalue="0" param="param1" ajax="0" droitko="droitko" modulebefore="module1,module2">
 	</model>
@@ -36,7 +36,7 @@
 	<exampleChange action="modules/example/example.php" param="change" droits="gestion" />
 	<exampleWrite action="modules/example/example.php" param="write" droits="gestion" retourok="exampleList" retourko="exampleModif" modulebefore="exampleModif" />
 	<exampleDelete action="modules/example/example.php" param="delete" droits="admin" retoursuppr="exampleList" retourko="exampleModif" />
-	<individuList action="modules/gestion/individu.php" param="list" droits="lecture" menulevel="1" menuparent="1" menudroits="lecture" menuvalue="50" menutitle="51" />
+	<individuList action="modules/gestion/individu.php" retourlogin="1" param="list" droits="lecture" menulevel="1" menuparent="1" menudroits="lecture" menuvalue="50" menutitle="51" />
 	<individuDisplay action="modules/gestion/individu.php" param="display" droits="lecture" />
 	<pieceDisplay action="modules/gestion/piece.php" param="display" droits="lecture" />
 	<pieceChange action="modules/gestion/piece.php" param="change" droits="gestion" />
@@ -61,7 +61,7 @@
 	<photolectureChange action="modules/photolecture/photolecture.php" param="change" droits="lecture" retourko="photoDisplay"/>
 	<photolectureWrite action="modules/photolecture/photolecture.php" param="write" droits="lecture" retourok="photoDisplay" retourko="photolectureChange" modulebefore="photolectureChange" />
 	<photolectureDelete action="modules/photolecture/photolecture.php" param="delete" droits="admin" retoursuppr="photoDisplay" retourko="photolectureChange" modulebefore="photoDisplay" />
-	<photolectureList action="modules/photolecture/photolecture.php" param="list" droits="lecture" menudroits="lecture" menuvalue="54" menutitle="55" menulevel="1" menuorder="2" menuparent="1" />
+	<photolectureList action="modules/photolecture/photolecture.php" retourlogin="1" param="list" droits="lecture" menudroits="lecture" menuvalue="54" menutitle="55" menulevel="1" menuorder="2" menuparent="1" />
 	<photolectureExport action="modules/photolecture/photolecture.php" param="export" droits="gestion" ajax="1" />
 	<photolectureSwap action="modules/photolecture/photolecture.php" param="swap" droits="lecture" retournull="photolectureDisplay" retourok="photolectureChange" />
 
