@@ -38,8 +38,9 @@ class Peche extends ObjetBdd {
 				) 
 		);
 		if (! is_array ( $param ))
-			$param == array ();
+			$param = array ();
 		$param ["fullDescription"] = 1;
+		$oaram["auto_date"] = 1;
 		parent::__construct ( $bdd, $param );
 	}
 	/**

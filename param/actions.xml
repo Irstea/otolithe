@@ -31,13 +31,13 @@
 	
 	<phpinfo action="framework/phpinfo.php" droits="admin" menudroits="admin" menulevel="1" menuorder="8" menuparent="3" menuvalue="44" menutitle="45" />
 	
-	<exampleList action="modules/example/example.php" param="list" droits="consult" menulevel="1" menuparent="1" menudroits="" menuvalue="example1" menutitle="example2"  />
-	<exampleDisplay action="modules/example/example.php" param="display" droits="consult" />
-	<exampleChange action="modules/example/example.php" param="change" droits="gestion" />
-	<exampleWrite action="modules/example/example.php" param="write" droits="gestion" retourok="exampleList" retourko="exampleModif" modulebefore="exampleModif" />
-	<exampleDelete action="modules/example/example.php" param="delete" droits="admin" retoursuppr="exampleList" retourko="exampleModif" />
 	<individuList action="modules/gestion/individu.php" retourlogin="1" param="list" droits="lecture" menulevel="1" menuparent="1" menudroits="lecture" menuvalue="50" menutitle="51" />
 	<individuDisplay action="modules/gestion/individu.php" param="display" droits="lecture" />
+	<individuChange action="modules/gestion/individu.php"  param="change" droits="gestion"  />
+	<individuWrite action="modules/gestion/individu.php"  param="write" droits="gestion" retourok="individuDisplay" retourko="individuChange" />
+	<individuDelete action="modules/gestion/individu.php"  param="delete" droits="gestion" retourok="individuList" retourko="individuChange" />
+	
+	
 	<pieceDisplay action="modules/gestion/piece.php" param="display" droits="lecture" />
 	<pieceChange action="modules/gestion/piece.php" param="change" droits="gestion" />
 	<pieceWrite action="modules/gestion/piece.php" param="write" droits="gestion" retourok="pieceDisplay" retourko="pieceChange" modulebefore="pieceChange" />
@@ -64,6 +64,8 @@
 	<photolectureList action="modules/photolecture/photolecture.php" retourlogin="1" param="list" droits="lecture" menudroits="lecture" menuvalue="54" menutitle="55" menulevel="1" menuorder="2" menuparent="1" />
 	<photolectureExport action="modules/photolecture/photolecture.php" param="export" droits="gestion" ajax="1" />
 	<photolectureSwap action="modules/photolecture/photolecture.php" param="swap" droits="lecture" retournull="photolectureDisplay" retourok="photolectureChange" />
+
+	<especeSearchAjax action="modules/gestion/espece.php" param="searchAjax" droits="gestion" ajax="1" />
 
 <!-- Gestion des droits nouvelle formule -->
 	<appliList action="framework/droits/appli.php" param="list" droits="admin" retourlogin="1" menulevel="1" menuparent="3" menuorder="12" menudroits="admin" menuvalue="appliliste" menutitle="applilistetitle"  />

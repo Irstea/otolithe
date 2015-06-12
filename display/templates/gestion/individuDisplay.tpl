@@ -1,9 +1,13 @@
 <h2>{$LANG["gestion"].3}</h2>
 <a href="index.php?module={$moduleListe}">{$LANG["gestion"].0}</a>
+
 <table class="tablemulticolonne">
 <tr>
 <td>
 <h3>{$LANG["gestion"].4}</h3>
+{if $droits.gestion == 1}
+<a href="index.php?module=individuChange&individu_id={$data.individu_id}">Modifier...</a>
+{/if}
 <table class="tableaffichage">
 <tr>
 <td class="libelleSaisie">{$LANG["gestion"].5} :</td>

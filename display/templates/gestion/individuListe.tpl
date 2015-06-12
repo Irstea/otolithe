@@ -5,6 +5,9 @@ setDataTables("idListe",true , false, true);
 <a href="index.php?module=individuChange&individu_id=0">{$LANG.gestion.7}</a>
 {include file="gestion/individuSearch.tpl"}
 {if $isSearch == 1}
+{if $droits.gestion == 1}
+<a href="index.php?module=individuChange&individu_id=0">Nouveau poisson...</a>
+{/if}
 <table id="idListe" class="tableaffichage">
 <thead>
 <tr>

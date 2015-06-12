@@ -5,8 +5,8 @@ $dataClass = new Individu ( $bdd, $ObjetBDDParam );
 /*
  * Initialisation de la classe de traduction des cles
  */
-
-$id = $_SESSION ["it_individu"]->getValue ( $_REQUEST ["individu_id"] );
+$_REQUEST ["individu_id"] = $_SESSION ["it_individu"]->getValue ( $_REQUEST ["individu_id"] );
+$id = $_REQUEST ["individu_id"];
 
 switch ($t_module ["param"]) {
 	case "list":
@@ -100,13 +100,52 @@ switch ($t_module ["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-		dataRead ( $dataClass, $id, "example/exampleChange.tpl", $_REQUEST ["idParent"] );
+		$data = dataRead ( $dataClass, $id, "gestion/individuChange.tpl" );
+		$dataT = $_SESSION ["it_individu"]->translateRow ( $data );
+		$dataT = $_SESSION ["it_peche"]->translateRow ( $dataT );
+		$smarty->assign ( "data", $dataT );
+		include_once 'modules/classes/peche.class.php';
+		/*
+		 * Lecture des donnees de peche
+		 */
+		$peche = new Peche ( $bdd, $ObjetBDDParam );
+		if ($data ["peche_id"] > 0) {
+			$dataPeche = $peche->lire ( $data ["peche_id"] );
+			$dataPeche = $_SESSION ["it_peche"]->translateRow ( $dataPeche );
+			$smarty->assign ( "peche", $dataPeche );
+		}
+		/*
+		 * Lecture des sexes
+		 */
+		$sexe = new Sexe ( $bdd, $ObjetBDDParam );
+		$smarty->assign ( "sexes", $sexe->getListe () );
+		/*
+		 * Liste des experimentations
+		 */
+		$experimentation = new Experimentation ( $bdd, $ObjetBDDParam );
+		$smarty->assign ( "experimentations", $_SESSION ["it_experimentation"]->translateList ( $experimentation->getAllListFromIndividu ( $id ) ) );
+		
 		break;
 	case "write":
 		/*
 		 * write record in database
 		 */
-		dataWrite ( $dataClass, $_REQUEST );
+		/*
+		 * Recuperation des cles reelles
+		 */
+		if (is_array ( $_REQUEST ["exp_id"] )) {
+			$exp_id = array ();
+			foreach ( $_REQUEST ["exp_id"] as $value )
+				$exp_id [] = $_SESSION ["it_experimentation"]->getValue ( $value );
+			$_REQUEST ["exp_id"] = $exp_id;
+		} else
+			$_REQUEST ["exp_id"] = $_SESSION ["it_experimentation"]->getValue ( $_REQUEST ["exp_id"] );
+		$_REQUEST ["peche_id"] = $_SESSION ["it_peche"]->getValue ( $_REQUEST ["peche_id"] );
+		include_once 'modules/classes/peche.class.php';
+		$peche = new Peche ( $bdd, $ObjetBDDParam );
+		$_REQUEST ["peche_id"] = $peche->ecrire ( $_REQUEST );
+		$id = dataWrite ( $dataClass, $_REQUEST );
+		$_REQUEST ["individu_id"] = $_SESSION ["it_individu"]->setValue ( $id );
 		break;
 	case "delete":
 		/*

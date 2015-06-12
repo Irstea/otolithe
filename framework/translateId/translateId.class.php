@@ -124,6 +124,25 @@ class TranslateId {
 		}
 		return $row;
 	}
+
+	/**
+	 * Retourne la liste des valeurs de la base de donnees 
+	 * pour l'ensemble du tableau fourni
+	 * @param array $data
+	 * @return array
+	 */
+	function getFromList($data) {
+		foreach ($data as $key => $value) {
+			if (is_array($value)) {
+				$data[$key] = $this->getFromList($value);
+			} else {
+				if ($key == $this->fieldname) {
+					$data[$key] = $this->corresp[$value];
+				}
+			}
+		}
+		return $data;
+	}
 }
 
 ?>

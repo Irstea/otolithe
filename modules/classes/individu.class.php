@@ -59,11 +59,7 @@ class Individu extends ObjetBdd {
 				),
 				"circonference" => array (
 						"type" => 1 
-				),
-				"exp_id" => array (
-						"type" => 1,
-						"requis" => 1 
-				) 
+				)
 		);
 		if (! is_array ( $param ))
 			$param == array ();
@@ -165,9 +161,10 @@ class Individu extends ObjetBdd {
 	 */
 	function getDetail($id) {
 		if ($id > 0) {
-			$sql = "select individu_id, peche_id, codeindividu, tag, longueur, poids, remarque, parasite, age, pectorale_gauche, diam_occ_h, diam_occ_v, ht_mm, 
-				nom_id, epaisseur, circonference, sexe_libelle,
-				naturetraitement_libelle, semaine_dissection, mortalite
+			$sql = "select individu_id, peche_id, codeindividu, tag, longueur, poids, 
+					remarque, parasite, age, pectorale_gauche, diam_occ_h, diam_occ_v, ht_mm,
+					nom_id, epaisseur, circonference, sexe_libelle,
+					naturetraitement_libelle, semaine_dissection, mortalite
 				from " . $this->table . " 
 						left outer join sexe using (sexe_id)
 						left outer join traitementindividu using (individu_id)
@@ -176,6 +173,42 @@ class Individu extends ObjetBdd {
 						where individu_id = " . $id;
 			return $this->lireParam ( $sql );
 		}
+	}
+
+	/**
+	 * Reecriture de la fonction lire pour integrer l'espece
+	 * (non-PHPdoc)
+	 * @see ObjetBDD::lire()
+	 */
+	function lire($id) {
+		if ($id >= 0) {
+			$sql = "select individu_id, peche_id, espece_id, codeindividu, tag, longueur, poids,
+					remarque, parasite, age, pectorale_gauche, diam_occ_h, diam_occ_v, ht_mm,
+					nom_id, epaisseur, circonference
+				from " . $this->table . "
+						left outer join espece using (espece_id)
+						where individu_id = " . $id;
+			return $this->lireParam ( $sql );
+		} else 
+			return null;
+		
+	}
+
+	/**
+	 * Surcharge de la fonction ecrire pour enregistrer les experimentations
+	 * (non-PHPdoc)
+	 * @see ObjetBDD::write()
+	 */
+	function write($data) {
+		printr($data);
+		$id = parent::ecrire($data);
+		if ($id > 0) {
+			/*
+			 * Ecriture des experimentations
+			 */
+			$this->ecrireTableNN("individu_experimentation", "individu_id", "exp_id", $id, $data["exp_id"]);
+		}
+		return $id;
 	}
 }
 
@@ -265,12 +298,28 @@ class Experimentation extends ObjetBdd {
 	}
 
 	/**
+	 * Retourne la liste de toutes les experimentations, pour saisie par individu
+	 * @param int $individu_id
+	 * @return tableau
+	 */
+	function getAllListFromIndividu($individu_id) {
+		if ($individu_id >= 0) {
+			$sql = "select e.exp_id, exp_nom, individu_id
+					from experimentation e
+					left outer join individu_experimentation ie 
+					on (e.exp_id = ie.exp_id and ie.individu_id = ".$individu_id.")
+					order by exp_nom";
+			return $this->getListeParam($sql);
+		}
+	}
+
+	/**
 	 * Retourne la liste des experimentations autorisees pour un lecteur
 	 * @param unknown $lecteur_id
 	 * @return tableau|NULL
 	 */
 	function getExpAutorisees($lecteur_id) {
-		if ($lecteur_id > 0) {
+		if ($lecteur_id >= 0) {
 			$sql = "select e.exp_id, e.exp_nom
 					from experimentation e
 					join lecteur_experimentation using (exp_id)
@@ -437,23 +486,13 @@ class Espece extends ObjetBDD {
 	function getEspeceJSON($nom) {
 		if (strlen ( $nom ) > 2) {
 			$nom = $this->encodeData($nom);
-			$sql = "select espece_id, nom_id, nom_fr
+			$sql = "select espece_id as id, nom_id ||' - ' || nom_fr as val 
 				from " . $this->table . "
 				where upper(nom_id) like upper('%" . $nom . "%')
 						or upper(nom_fr) like upper ('%" . $nom . "%')
 				order by nom_id";
 			$data = $this->getListeParam ( $sql );
-			$retour = '{"Liste":[';
-			$flag = 0;
-			foreach ( $data as $key => $value ) {
-				if ($flag == 0)
-					$flag = 1;
-				else
-					$retour .= ",";
-				$retour .= '{"id":"' . $value ["espece_id"] . '","value":"' . $value ["nom_id"] . " - " . $value ["nom_fr"] . '"}';
-			}
-			$retour .= ']}';
-			print ($retour) ;
+			return $data;
 		}
 	}
 }
