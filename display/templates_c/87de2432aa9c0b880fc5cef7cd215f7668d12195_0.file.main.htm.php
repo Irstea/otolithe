@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.24, created on 2015-06-08 12:08:25
+<?php /* Smarty version 3.1.24, created on 2015-06-15 17:52:44
          compiled from "display/templates/main.htm" */ ?>
 <?php
-/*%%SmartyHeaderCode:39291416855756999438d23_34541263%%*/
+/*%%SmartyHeaderCode:791594419557ef4cc373911_30839002%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -9,11 +9,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '87de2432aa9c0b880fc5cef7cd215f7668d12195' => 
     array (
       0 => 'display/templates/main.htm',
-      1 => 1433758100,
+      1 => 1434383557,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '39291416855756999438d23_34541263',
+  'nocache_hash' => '791594419557ef4cc373911_30839002',
   'variables' => 
   array (
     'LANG' => 0,
@@ -25,13 +25,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.24',
-  'unifunc' => 'content_557569994596c4_68040499',
+  'unifunc' => 'content_557ef4cc395777_12421542',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_557569994596c4_68040499')) {
-function content_557569994596c4_68040499 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_557ef4cc395777_12421542')) {
+function content_557ef4cc395777_12421542 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '39291416855756999438d23_34541263';
+$_smarty_tpl->properties['nocache_hash'] = '791594419557ef4cc373911_30839002';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -54,9 +54,6 @@ $_smarty_tpl->properties['nocache_hash'] = '39291416855756999438d23_34541263';
 >
 <div id="superglobal">
 <div id="global">
-<?php echo $_smarty_tpl->getSubTemplate ("dataTables.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0);
-?>
-
 <?php echo $_smarty_tpl->getSubTemplate ("jquery.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0);
 ?>
 
