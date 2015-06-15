@@ -1,5 +1,5 @@
 <h2>{$LANG["gestion"].61}</h2>
-{if $droits["gestion"] == 1}
+{if $droits["gestionCompte"] == 1}
 <a href="index.php?module=lecteurChange&lecteur_id=0">
 {$LANG["gestion"].62}...
 </a>
@@ -18,11 +18,11 @@ setDataTables("lecteurListe");
 {section name=lst loop=$data}
 <tr>
 <td>
-{if $droits["gestion"] == 1}
+{if $droits["gestionCompte"] == 1}
 <a href="index.php?module=lecteurChange&lecteur_id={$data[lst].lecteur_id}">
 {/if}
 {$data[lst].lecteur_nom}
-{if $droits["gestion"] == 1}
+{if $droits["gestionCompte"] == 1}
 </a>
 {/if}
 </td>

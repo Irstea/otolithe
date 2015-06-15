@@ -5,13 +5,13 @@
 	</model>
 	<default action="framework/default.php"/>
 	<droitko action="framework/droitko.php"></droitko>
-	<loginliste action="framework/identification/login.php" param="list" droits="admin" menulevel="1" menuorder="1" menudroits="admin" menuparent="3" menutitle="3" menuvalue="2"></loginliste>
-	<loginmodif action="framework/identification/login.php" param="change" droits="admin" />
-	<loginwrite action="framework/identification/login.php" param="write" droits="admin" retourko="loginmodif" retourok="loginliste" />
-	<logindelete action="framework/identification/login.php" param="delete" droits="admin" retourko="loginmodif" retoursuppr="loginliste" />
+	<loginliste action="framework/identification/login.php" param="list" droits="gestionCompte,admin" menulevel="1" menuorder="1" menudroits="gestionCompte,admin" menuparent="3" menutitle="3" menuvalue="2"></loginliste>
+	<loginmodif action="framework/identification/login.php" param="change" droits="gestionCompte,admin" />
+	<loginwrite action="framework/identification/login.php" param="write" droits="gestionCompte,admin" retourko="loginmodif" retourok="loginliste" />
+	<logindelete action="framework/identification/login.php" param="delete" droits="gestionCompte,admin" retourko="loginmodif" retoursuppr="loginliste" />
 	<loginChangePassword action="framework/identification/login.php" param="changePassword" loginrequis="1" />
 	<loginChangePasswordExec action="framework/identification/login.php" param="changePasswordExec" loginrequis="1" retourko="loginChangePassword" modulebefore="loginChangePassword" />
-	<administration action="modules/administration/index.php" droits="admin"  
+	<administration action="modules/administration/index.php" menudroits="gestionCompte,admin"  
 		retourko="" retourok="" retournull="" menuvalue="4" menutitle="5" menuorder="3" menulevel="0" droitko="droitko"></administration>
 	<gestion action="framework/default.php" droits="gestion" retourko=""
 		retournull="" retourok="" menuorder="1" menulevel="0" menuvalue="0" menutitle="1">
@@ -24,8 +24,7 @@
 	<connexion loginrequis="1" menutitle="connexiontitle" menuvalue="connexionvalue" menulevel="0" menuorder="5" onlynoconnect="1" />
 	<identdisconnect action="framework/identification/disconnect.php" menutitle="7" menuvalue="6" menuorder="4" menulevel="0" menuloginrequis="1"></identdisconnect>
 	<apropos action="framework/apropos.php" menulevel="1" menuorder="99" menuvalue="8" menutitle="9" menuparent="99"></apropos>
-	<testcalendrier action="test/testcalendrier.php"></testcalendrier>
-	<docindex menulevel="0" menuorder="99" menutitle="21" menuvalue="20" action="doc/index.php" param1="index.html" ajax="1"></docindex>
+	<docindex menulevel="0" menuorder="99" menutitle="21" menuvalue="20"  ></docindex>
 	<quoideneuf action="doc/quoideneuf.php" menulevel="1" menuparent="99" menutitle="41" menuvalue="40"></quoideneuf>
 	<setlanguage action='framework/setlanguage.php' />
 	
@@ -51,11 +50,11 @@
 	<photoGetThumbnail action="modules/gestion/photo.php" param="getThumbnail" droits="lecture" ajax="1" />
 	<photoDisplayPhoto action="modules/gestion/photo.php" param="photoDisplay" droits="lecture" />
 	
-	<lecteurList action="modules/gestion/lecteur.php" param="list" droits="gestion" menulevel="1" menuparent="3" menuorder="4" menudroits="gestion" menuvalue="52" menutitle="53"  />
-	<lecteurDisplay action="modules/gestion/lecteur.php" param="display" droits="gestion" />
-	<lecteurChange action="modules/gestion/lecteur.php" param="change" droits="gestion" />
-	<lecteurWrite action="modules/gestion/lecteur.php" param="write" droits="gestion" retourok="lecteurList" retourko="lecteurChange" modulebefore="lecteurChange" />
-	<lecteurDelete action="modules/gestion/lecteur.php" param="delete" droits="admin" retoursuppr="lecteurList" retourko="lecteurChange" />
+	<lecteurList action="modules/gestion/lecteur.php" param="list" droits="gestionCompte" menulevel="1" menuparent="3" menuorder="4" menudroits="gestionCompte" menuvalue="52" menutitle="53"  />
+	<lecteurDisplay action="modules/gestion/lecteur.php" param="display" droits="gestionCompte" />
+	<lecteurChange action="modules/gestion/lecteur.php" param="change" droits="gestionCompte" />
+	<lecteurWrite action="modules/gestion/lecteur.php" param="write" droits="gestionCompte" retourok="lecteurList" retourko="lecteurChange" modulebefore="lecteurChange" />
+	<lecteurDelete action="modules/gestion/lecteur.php" param="delete" droits="adminCompte" retoursuppr="lecteurList" retourko="lecteurChange" />
 
 	<photolectureDisplay action="modules/photolecture/photolecture.php" param="display" droits="lecture" />
 	<photolectureChange action="modules/photolecture/photolecture.php" param="change" droits="lecture" retourko="photoDisplay"/>

@@ -74,7 +74,9 @@
 
 <td>
 <h3>{$LANG["gestion"].20}</h3>
+{if $droits.gestion == 1}
 <a href="index.php?module=pieceChange&piece_id=0&individu_id={$data.individu_id}">{$LANG["gestion"].21}</a>
+{/if}
 <table class="tableaffichage">
 <thead>
 <tr>
@@ -83,7 +85,7 @@
 <th>{$LANG["gestion"].23}</th>
 <th>{$LANG["gestion"].24}</th>
 </tr></thead>
-<tdata>
+<tbody>
 {section name="lst" loop=$piece}
 <tr>
 <td><a href="index.php?module=pieceDisplay&piece_id={$piece[lst].piece_id}&individu_id={$data.individu_id}">
@@ -94,7 +96,7 @@
 <td><div class="center">{$piece[lst].nbphoto}</div></td>
 </tr>
 {/section}
-</tdata>
+</tbody>
 </table>
 
 <h3>{$LANG["gestion"].25}</h3>

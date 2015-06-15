@@ -59,7 +59,7 @@ class Individu extends ObjetBdd {
 				),
 				"circonference" => array (
 						"type" => 1 
-				)
+				) 
 		);
 		if (! is_array ( $param ))
 			$param == array ();
@@ -68,7 +68,7 @@ class Individu extends ObjetBdd {
 	}
 	/**
 	 * Recherche les animaux selon les criteres de selection fournis
-	 * 
+	 *
 	 * @param array $data        	
 	 * @return array
 	 */
@@ -89,15 +89,17 @@ class Individu extends ObjetBdd {
 		 */
 		$where = "";
 		$is_where = 0;
-		if ($data ["exp_id"] > 0) {
-			if ($is_where == 0) {
-				$where = " where ";
-				$is_where = 1;
-			} else {
-				$where .= " and ";
-			}
-			$where .= "exp_id = " . $data ["exp_id"];
+		if (!$data ["exp_id"] > 0)
+			$data ["exp_id"] = 0;
+		
+		if ($is_where == 0) {
+			$where = " where ";
+			$is_where = 1;
+		} else {
+			$where .= " and ";
 		}
+		$where .= "exp_id = " . $data ["exp_id"];
+		
 		if (strlen ( $data ["codeindividu"] ) > 0) {
 			if ($is_where == 0) {
 				$where = " where ";
@@ -155,7 +157,7 @@ class Individu extends ObjetBdd {
 	}
 	/**
 	 * Retourne le detail d'un animal
-	 * 
+	 *
 	 * @param int $id        	
 	 * @return array
 	 */
@@ -174,10 +176,11 @@ class Individu extends ObjetBdd {
 			return $this->lireParam ( $sql );
 		}
 	}
-
+	
 	/**
 	 * Reecriture de la fonction lire pour integrer l'espece
 	 * (non-PHPdoc)
+	 * 
 	 * @see ObjetBDD::lire()
 	 */
 	function lire($id) {
@@ -189,24 +192,23 @@ class Individu extends ObjetBdd {
 						left outer join espece using (espece_id)
 						where individu_id = " . $id;
 			return $this->lireParam ( $sql );
-		} else 
+		} else
 			return null;
-		
 	}
-
+	
 	/**
 	 * Surcharge de la fonction ecrire pour enregistrer les experimentations
 	 * (non-PHPdoc)
+	 * 
 	 * @see ObjetBDD::write()
 	 */
 	function write($data) {
-		printr($data);
-		$id = parent::ecrire($data);
+		$id = parent::ecrire ( $data );
 		if ($id > 0) {
 			/*
 			 * Ecriture des experimentations
 			 */
-			$this->ecrireTableNN("individu_experimentation", "individu_id", "exp_id", $id, $data["exp_id"]);
+			$this->ecrireTableNN ( "individu_experimentation", "individu_id", "exp_id", $id, $data ["exp_id"] );
 		}
 		return $id;
 	}
@@ -214,7 +216,7 @@ class Individu extends ObjetBdd {
 
 /**
  * ORM de gestion de la table experimentation
- * 
+ *
  * @author quinton
  *        
  */
@@ -253,7 +255,7 @@ class Experimentation extends ObjetBdd {
 	/**
 	 * Reecriture de l'affichage de la liste
 	 * (non-PHPdoc)
-	 * 
+	 *
 	 * @see ObjetBDD::getListe()
 	 */
 	function getListe() {
@@ -263,7 +265,7 @@ class Experimentation extends ObjetBdd {
 	
 	/**
 	 * Fonction permettant de calculer la date de debut d'annee
-	 * 
+	 *
 	 * @return string
 	 */
 	function getDebutAnnee() {
@@ -272,34 +274,36 @@ class Experimentation extends ObjetBdd {
 	}
 	/**
 	 * Fonction permettant de calculer la date de fin d'annee
-	 * 
+	 *
 	 * @return string
 	 */
 	function getFinAnnee() {
 		$data = date ( "Y" ) . "-12-31";
 		return $this->formatDateDBversLocal ( $data );
 	}
-
+	
 	/**
 	 * Retourne la liste de toutes les experimentations, avec le lecteur associe
 	 * (saisie des experimentations autorisees)
-	 * @param int $lecteur_id
+	 * 
+	 * @param int $lecteur_id        	
 	 * @return tableau
 	 */
 	function getAllListFromLecteur($lecteur_id) {
-		if ($lecteur_id > 0) {
+		if ($lecteur_id >= 0) {
 			$sql = "select e.exp_id, exp_nom, lecteur_id
 					from experimentation e
 					left outer join lecteur_experimentation l 
-					on (e.exp_id = l.exp_id and l.lecteur_id = ".$lecteur_id.")
+					on (e.exp_id = l.exp_id and l.lecteur_id = " . $lecteur_id . ")
 					order by exp_nom";
-			return $this->getListeParam($sql);
+			return $this->getListeParam ( $sql );
 		}
 	}
-
+	
 	/**
 	 * Retourne la liste de toutes les experimentations, pour saisie par individu
-	 * @param int $individu_id
+	 * 
+	 * @param int $individu_id        	
 	 * @return tableau
 	 */
 	function getAllListFromIndividu($individu_id) {
@@ -307,15 +311,16 @@ class Experimentation extends ObjetBdd {
 			$sql = "select e.exp_id, exp_nom, individu_id
 					from experimentation e
 					left outer join individu_experimentation ie 
-					on (e.exp_id = ie.exp_id and ie.individu_id = ".$individu_id.")
+					on (e.exp_id = ie.exp_id and ie.individu_id = " . $individu_id . ")
 					order by exp_nom";
-			return $this->getListeParam($sql);
+			return $this->getListeParam ( $sql );
 		}
 	}
-
+	
 	/**
 	 * Retourne la liste des experimentations autorisees pour un lecteur
-	 * @param unknown $lecteur_id
+	 * 
+	 * @param unknown $lecteur_id        	
 	 * @return tableau|NULL
 	 */
 	function getExpAutorisees($lecteur_id) {
@@ -323,16 +328,16 @@ class Experimentation extends ObjetBdd {
 			$sql = "select e.exp_id, e.exp_nom
 					from experimentation e
 					join lecteur_experimentation using (exp_id)
-					where lecteur_id = ".$lecteur_id."
+					where lecteur_id = " . $lecteur_id . "
 					order by e.exp_nom";
-			return $this->getListeParam($sql);
+			return $this->getListeParam ( $sql );
 		} else
 			return null;
 	}
 }
 /**
  * ORM de gestion de la table individu_experimentation
- * 
+ *
  * @author quinton
  *        
  */
@@ -361,7 +366,7 @@ class Individu_experimentation extends ObjetBdd {
 	}
 	/**
 	 * Retourne la liste des experimentations rattachees a un individu
-	 * 
+	 *
 	 * @param int $individu_id        	
 	 * @return array
 	 */
@@ -377,7 +382,7 @@ class Individu_experimentation extends ObjetBdd {
 }
 /**
  * ORM de gestion de la table sexe
- * 
+ *
  * @author quinton
  *        
  */
@@ -410,7 +415,7 @@ class Sexe extends ObjetBdd {
 }
 /**
  * ORM de gestion de la table espece
- * 
+ *
  * @author quinton
  *        
  */
@@ -485,7 +490,7 @@ class Espece extends ObjetBDD {
 	 */
 	function getEspeceJSON($nom) {
 		if (strlen ( $nom ) > 2) {
-			$nom = $this->encodeData($nom);
+			$nom = $this->encodeData ( $nom );
 			$sql = "select espece_id as id, nom_id ||' - ' || nom_fr as val 
 				from " . $this->table . "
 				where upper(nom_id) like upper('%" . $nom . "%')
@@ -498,7 +503,7 @@ class Espece extends ObjetBDD {
 }
 /**
  * ORM de la table naturetraitement
- * 
+ *
  * @author quinton
  *        
  */
@@ -526,7 +531,7 @@ class Naturetraitement extends ObjetBdd {
 }
 /**
  * ORM de gestion de la table traitementindividu
- * 
+ *
  * @author quinton
  *        
  */

@@ -1,5 +1,13 @@
 Nouveautés
 ===========
+Version 1.3 du 15 juin 2015
+---------------------------
+Améliorations :
+- il est maintenant possible de rajouter un poisson (et la pêche associée) à une expérimentation
+- les lecteurs ne peuvent accéder qu'aux expérimentations pour lesquels ils ont été autorisés
+- la gestion des droits globaux a évolué, le module phpgacl a été remplacé par un nouveau module totalement intégré à l'application
+- les droits ont été modifiés en conséquence
+
 Version 1.2.2 du 29 juillet 2014
 --------------------------------
 Rajout du masquage par défaut du nombre de points positionnés par les lecteurs ; un lien permet de réactiver l'affichage initial
