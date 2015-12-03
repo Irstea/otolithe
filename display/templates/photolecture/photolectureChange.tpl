@@ -246,6 +246,29 @@ function setCircle(svg, x, y, rayon_initial) {
 <br>{$LANG["gestion"].122} ? 
 <input type="radio" name="calculAuto" value="1" checked>{$LANG["message"]["yes"]}
 <input type="radio" name="calculAuto" value="0" >{$LANG["message"]["no"]}
+<br>{$LANG["gestion"].170} : 
+<select name="final_stripe_id">
+<option value="" {if $data.final_stripe_id == ""}selected{/if}></option>
+{section name=lst loop=$finalStripe}
+<option value="{$finalStripe[lst].final_stripe_id}" {if $finalStripe[lst].final_stripe_id == $data.final_stripe_id}selected{/if}>
+{$finalStripe[lst].final_stripe_code} {$finalStripe[lst].final_stripe_libelle}
+</option>
+{/section}
+</select>
+<br>
+{$LANG["gestion"].172} : 
+<select name="read_fiability">
+<option value="" {if $data.read_fiability == ""}selected{/if}></option>
+<option value="0" {if $data.read_fiability == "0"}selected{/if}>0</option>
+<option value="0.5" {if $data.read_fiability == "0.5"}selected{/if}>0.5</option>
+<option value="1" {if $data.read_fiability == "1"}selected{/if}>1</option>
+</select>
+<br>
+{$LANG["gestion"].173} :
+<input type="radio" value="1" name="consensual_reading" {if $data.consensual_reading == 1}checked{/if}>{$LANG["message"].15}
+<input type="radio" value="0" name="consensual_reading" {if $data.consensual_reading != 1}checked{/if}>{$LANG["message"].16}
+<br>{$LANG["gestion"].174} :
+<input class="nombre" name="annee_naissance" value="{$data.annee_naissance}">
 
 <h3>{$LANG["gestion"].123}</h3>
 <table id="tableData">

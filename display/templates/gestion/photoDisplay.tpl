@@ -126,10 +126,14 @@
 <th>{$LANG["gestion"].86}</th>
 {if $ageDisplay == 1}
 <th>{$LANG["gestion"].87}</th>
+<th>{$LANG["gestion"].171}</th>
+<th>{$LANG["gestion"].175}</th>
+<th>{$LANG["gestion"].172}</th>
 {/if}
 <th>{$LANG["gestion"].89}<br>{$LANG["gestion"].90}</th>
 <th>{$LANG["gestion"].91}</th>
 <th>{$LANG["gestion"].92}<br>{$LANG["gestion"].93}</th>
+<th>{$LANG["gestion"].173}</th>
 {if $droits.admin == 1}
 <th>{$LANG["message"].20}</th>
 {/if}
@@ -168,6 +172,15 @@
 {$photolecture[lst].age}
 </div>
 </td>
+<td class="center">
+{$photolecture[lst].final_stripe_code}
+</td>
+<td class="center">
+{$photolecture[lst].annee_naissance}
+</td>
+<td class="center">
+{$photolecture[lst].read_fiability}
+</td>
 {/if}
 <td>
 {$photolecture[lst].long_ref_mesuree}
@@ -177,6 +190,9 @@
 </td>
 <td>
 {$photolecture[lst].long_totale_reel}
+</td>
+<td class="center">
+{if $photolecture[lst].consensual_reading == 1}{$LANG["message"].15}{/if}
 </td>
 {if $droits.admin == 1}
 <td>

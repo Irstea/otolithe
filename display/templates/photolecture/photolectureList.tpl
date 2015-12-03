@@ -5,7 +5,7 @@
 <a href="index.php?module=photolectureExport" title="{$LANG["gestion"].152}">{$LANG["gestion"].153}</a>
 {/if}
 <script>
-setDataTables("idListe",true , false, true);
+setDataTables("idListe",true , false, true, 100);
 </script>
 <table id="idListe" class="tableaffichage">
 <thead>

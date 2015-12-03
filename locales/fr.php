@@ -310,6 +310,13 @@ $LANG["gestion"][166] = "Avec création d'une nouvelle lecture";
 $LANG["gestion"][167] = "Si coché, la lecture sélectionnée pourra être modifiée";
 $LANG["gestion"][168] = "Taille en pixels de la longueur de référence dans la photo";
 $LANG["gestion"][169] = "Masquer l'age calculé (nbre de points positionnés - 1) par chaque lecteur";
+$LANG["gestion"][170] = "Nature de la strie finale";
+$LANG["gestion"][171] = "Strie finale";
+$LANG["gestion"][172] = "Fiabilité de la lecture";
+$LANG["gestion"][173] = "Lecture consensuelle";
+$LANG["gestion"][174] = "Année de naissance estimée";
+$LANG["gestion"][175] = "Année de naissance";
+
 
 
 

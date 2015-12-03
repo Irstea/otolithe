@@ -8,6 +8,8 @@ gacl.ini.php
 */templates_c/* 
 img/*
 display/templates_c/*
+clear_templates_c.sh
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof

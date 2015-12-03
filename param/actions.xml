@@ -54,7 +54,7 @@
 	<lecteurDisplay action="modules/gestion/lecteur.php" param="display" droits="gestionCompte" />
 	<lecteurChange action="modules/gestion/lecteur.php" param="change" droits="gestionCompte" />
 	<lecteurWrite action="modules/gestion/lecteur.php" param="write" droits="gestionCompte" retourok="lecteurList" retourko="lecteurChange" modulebefore="lecteurChange" />
-	<lecteurDelete action="modules/gestion/lecteur.php" param="delete" droits="adminCompte" retoursuppr="lecteurList" retourko="lecteurChange" />
+	<lecteurDelete action="modules/gestion/lecteur.php" param="delete" droits="gestionCompte" retoursuppr="lecteurList" retourko="lecteurChange" />
 
 	<photolectureDisplay action="modules/photolecture/photolecture.php" param="display" droits="lecture" />
 	<photolectureChange action="modules/photolecture/photolecture.php" param="change" droits="lecture" retourko="photoDisplay"/>

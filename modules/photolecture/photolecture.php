@@ -101,7 +101,7 @@ switch ($t_module ["param"]) {
 		 */
 		if (isset ( $_REQUEST ["photolecture_id_modif"] )) {
 			$mesurePrecId = $id;
-			$id = $_REQUEST ["photolecture_id_modif"];
+			$id = $_SESSION ["it_photolecture"]->getValue ( $_REQUEST ["photolecture_id_modif"] );
 		}
 		$data = $dataClass->getDetailLecture ( $id, $coef );
 		$dataT = $_SESSION ["it_photolecture"]->translateRow ( $data );
@@ -231,6 +231,11 @@ switch ($t_module ["param"]) {
 			if (! isset ( $_REQUEST ["fill"] ))
 				$_REQUEST ["fill"] = 0;
 			$smarty->assign ( "fill", $_REQUEST ["fill"] );
+			/*
+			 * Recuperation de la table des stries finales
+			 */
+			$finalStripe = new Final_stripe($bdd, $ObjetBDDParam);
+			$smarty->assign("finalStripe", $finalStripe->getListe(1));
 		}
 		break;
 	case "write":

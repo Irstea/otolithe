@@ -46,6 +46,10 @@ body > iframe { display: none; }
 </div>
 &nbsp;
 {$data[lst].lecteur_prenom} {$data[lst].lecteur_nom} - {$LANG["gestion"].151} {$data[lst].photolecture_date}
- - {$LANG["gestion"].86} : {$data[lst].photolecture_width}x{$data[lst].photolecture_height}
+ - {$LANG["gestion"].86} : {$data[lst].photolecture_width}x{$data[lst].photolecture_height} - 
+ {$LANG["gestion"].170} : {$data[lst].final_stripe_code} {$data[lst].final_stripe_value}
+ - {$LANG["gestion"].172} : {$data[lst].read_fiability} 
+{if $data[lst].consensual_reading == 1} - {$LANG["gestion"].173}{/if}
+- {$LANG["gestion"].174} : {$data[lst].annee_naissance}
 <br>
 {/section}

@@ -89,7 +89,7 @@ class Individu extends ObjetBdd {
 		 */
 		$where = "";
 		$is_where = 0;
-		if (!$data ["exp_id"] > 0)
+		if (! $data ["exp_id"] > 0)
 			$data ["exp_id"] = 0;
 		
 		if ($is_where == 0) {
@@ -156,35 +156,45 @@ class Individu extends ObjetBdd {
 		return $listData;
 	}
 	/**
-	 * Retourne le detail d'un animal
+	 * Retourne le detail d'un poisson
 	 *
 	 * @param int $id        	
 	 * @return array
 	 */
 	function getDetail($id) {
-		if ($id > 0) {
+		if ($id > 0 && is_numeric ( $id )) {
 			$sql = "select individu_id, peche_id, codeindividu, tag, longueur, poids, 
 					remarque, parasite, age, pectorale_gauche, diam_occ_h, diam_occ_v, ht_mm,
 					nom_id, epaisseur, circonference, sexe_libelle,
-					naturetraitement_libelle, semaine_dissection, mortalite
+					naturetraitement_libelle, semaine_dissection, mortalite,
+					peche_date
 				from " . $this->table . " 
 						left outer join sexe using (sexe_id)
 						left outer join traitementindividu using (individu_id)
 						left outer join naturetraitement using (naturetraitement_id)
 						left outer join espece using (espece_id)
+						left outer join peche using (peche_id)
 						where individu_id = " . $id;
-			return $this->lireParam ( $sql );
+			$data = $this->lireParam ( $sql );
+			/*
+			 * Mise en forme de la date de peche
+			 */
+			
+			if (strlen ( $data ["peche_date"] ) > 0)
+				$data ["peche_date"] = $this->formatDateDBversLocal ( $data ["peche_date"] );
+			
+			return $data;
 		}
 	}
 	
 	/**
 	 * Reecriture de la fonction lire pour integrer l'espece
 	 * (non-PHPdoc)
-	 * 
+	 *
 	 * @see ObjetBDD::lire()
 	 */
 	function lire($id) {
-		if ($id >= 0) {
+		if ($id >= 0 && is_numeric ( $id )) {
 			$sql = "select individu_id, peche_id, espece_id, codeindividu, tag, longueur, poids,
 					remarque, parasite, age, pectorale_gauche, diam_occ_h, diam_occ_v, ht_mm,
 					nom_id, epaisseur, circonference
@@ -199,7 +209,7 @@ class Individu extends ObjetBdd {
 	/**
 	 * Surcharge de la fonction ecrire pour enregistrer les experimentations
 	 * (non-PHPdoc)
-	 * 
+	 *
 	 * @see ObjetBDD::write()
 	 */
 	function write($data) {
@@ -285,7 +295,7 @@ class Experimentation extends ObjetBdd {
 	/**
 	 * Retourne la liste de toutes les experimentations, avec le lecteur associe
 	 * (saisie des experimentations autorisees)
-	 * 
+	 *
 	 * @param int $lecteur_id        	
 	 * @return tableau
 	 */
@@ -302,7 +312,7 @@ class Experimentation extends ObjetBdd {
 	
 	/**
 	 * Retourne la liste de toutes les experimentations, pour saisie par individu
-	 * 
+	 *
 	 * @param int $individu_id        	
 	 * @return tableau
 	 */
@@ -319,7 +329,7 @@ class Experimentation extends ObjetBdd {
 	
 	/**
 	 * Retourne la liste des experimentations autorisees pour un lecteur
-	 * 
+	 *
 	 * @param unknown $lecteur_id        	
 	 * @return tableau|NULL
 	 */

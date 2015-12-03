@@ -1,5 +1,5 @@
 <script>
-setDataTables("idListe",true , false, true);
+setDataTables("idListe",true , false, true, 100);
 </script>
 <h2>{$LANG.gestion.0}</h2>
 <a href="index.php?module=individuChange&individu_id=0">{$LANG.gestion.7}</a>

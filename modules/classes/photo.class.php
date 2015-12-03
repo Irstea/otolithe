@@ -41,7 +41,7 @@ class Photo extends ObjetBDD {
 				),
 				"lumieretype_id" => array (
 						"type" => 1,
-						"defaultValue" => 1 
+						"defaultValue" => 2 
 				),
 				"grossissement" => array (
 						"type" => 1 
@@ -390,7 +390,7 @@ class Lecteur extends ObjetBdd {
 	/**
 	 * Surcharge de la fonction ecrire pour enregistrer les experimentations autorisees
 	 * (non-PHPdoc)
-	 * 
+	 *
 	 * @see ObjetBDD::write()
 	 */
 	function write($data) {
@@ -463,7 +463,15 @@ class Photolecture extends ObjetBdd {
 				"rayon_point_initial" => array (
 						"type" => 1,
 						"defaultValue" => 7 
-				) 
+				),
+				"final_stripe_id" => array (
+						"type" => 1 
+				),
+				"read_fiability" => array (
+						"type" => 1 
+				),
+				"consensual_reading" => array ("type"=>1),
+				"annee_naissance"=>array("type"=>1)
 		);
 		if (! is_array ( $param ))
 			$param == array ();
@@ -691,8 +699,13 @@ class Photolecture extends ObjetBdd {
 				long_totale_reel,
 				long_ref_mesuree,
 				photolecture_width,
-				photolecture_height
-				from " . $this->table . " left outer join lecteur using(lecteur_id)" . " where photo_id = " . $photo_id . " order by photolecture_date desc";
+				photolecture_height,
+				read_fiability, consensual_reading, annee_naissance,
+				final_stripe.*
+				from " . $this->table . " 
+						left outer join lecteur using(lecteur_id)
+						left outer join final_stripe using(final_stripe_id) 
+						where photo_id = " . $photo_id . " order by photolecture_date desc";
 			return $this->getListeParam ( $sql );
 		} else
 			return null;
@@ -715,8 +728,14 @@ class Photolecture extends ObjetBdd {
 				long_ref_mesuree,
 				photolecture_width,
 				photolecture_height,
-				rayon_point_initial
-				from " . $this->table . " left outer join lecteur using(lecteur_id)";
+				rayon_point_initial,
+				final_stripe_code,
+				final_stripe_id,
+				final_stripe_libelle,
+				read_fiability, consensual_reading, annee_naissance
+				from " . $this->table . " 
+						left outer join lecteur using(lecteur_id)
+						left outer join final_stripe using (final_stripe_id)";
 			/*
 			 * Preparation de la clause where
 			 */
@@ -827,8 +846,11 @@ class Photolecture extends ObjetBdd {
 	function getListSearch($param) {
 		$param = $this->encodeData ( $param );
 		$sql = "select photolecture_id, photo_id, lecteur_id, piece_id, individu_id,
+				codeindividu, tag,
 				lecteur_nom, lecteur_prenom,
 				photolecture_date,
+				read_fiability, consensual_reading, annee_naissance,
+				final_stripe_id, final_stripe_code,
 				st_astext(points) as points,
 				st_astext(points_ref_lecture) as points_ref_lecture,
 				ST_NumGeometries(points) - 1 as age,
@@ -836,7 +858,8 @@ class Photolecture extends ObjetBdd {
 				photolecture_width, photolecture_height,
 				photo_nom, photo_date, color, long_reference, photo_height, photo_width,
 				piecetype_libelle, traitementpiece_libelle,
-				codeindividu, tag, rayon_point_initial
+				 rayon_point_initial
+				
 				from " . $this->table . " left join lecteur using(lecteur_id)
 					left join photo using (photo_id)
 					left join piece using (piece_id)
@@ -845,6 +868,7 @@ class Photolecture extends ObjetBdd {
 					left outer join piecetype using (piecetype_id)
 					left outer join traitementpiece using (traitementpiece_id)
 					left outer join peche using (peche_id)
+					left outer join final_stripe using (final_stripe_id)
 				";
 		$where = " where ";
 		$and = "";
@@ -884,6 +908,33 @@ class Photolecture extends ObjetBdd {
 				$data [$key] ["photo_date"] = $this->formatDateDBversLocal ( $value ["photo_date"] );
 		}
 		return ($data);
+	}
+}
+class Final_stripe extends ObjetBDD {
+	function __construct($bdd, $param) {
+		$this->param = $param;
+		$this->table = "final_stripe";
+		$this->id_auto = "1";
+		$this->colonnes = array (
+				"final_stripe_id" => array (
+						"type" => 1,
+						"key" => 1,
+						"requis" => 1,
+						"defaultValue" => 0 
+				),
+				"final_stripe_code" => array (
+						"type" => 0,
+						"requis" => 1 
+				),
+				"final_stripe_libelle" => array (
+						"type" => 0,
+						"requis" => 1 
+				) 
+		);
+		if (! is_array ( $param ))
+			$param == array ();
+		$param ["fullDescription"] = 1;
+		parent::__construct ( $bdd, $param );
 	}
 }
 ?>

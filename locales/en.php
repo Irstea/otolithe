@@ -302,5 +302,10 @@ $LANG["gestion"][166] = "With new reading creation";
 $LANG["gestion"][167] = "If checked, the selected reading will be changed";
 $LANG["gestion"][168] = "Size in pixels of reference length";
 $LANG["gestion"][169] = "Hide calculated age (number of points - 1) for each reader";
-
+$LANG["gestion"][170] = "Final stripe value";
+$LANG["gestion"][171] ="Final stripe";
+$LANG["gestion"][172] ="Reading fiability";
+$LANG["gestion"][173] ="Consensual reading";
+$LANG["gestion"][174] = "Estimated birthday year";
+$LANG["gestion"][175] = "Birthday year";
 ?>

@@ -137,7 +137,7 @@ function check_encoding($data) {
 	$result = true;
 	if (is_array ( $data ) == true) {
 		foreach ( $data as $key => $value ) {
-			if (check_encoding ( $value ) == false)
+			if (check_encoding ( $value ) == false || check_encoding($key) == false)
 				$result = false;
 		}
 	} else {
