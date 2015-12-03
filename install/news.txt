@@ -1,5 +1,23 @@
 Nouveautés
 ===========
+Version 1.4 du 3 décembre 2015
+------------------------------
+Améliorations générales :
+- en ajout d'une photo, le programme propose la lumière incidente par défaut. De plus, les nouvelles photos sont analysées avec un antivirus avant enregistrement dans la base
+- les poissons ou les lectures sont affichés par page de 100
+- la date de pêche du poisson est maintenant indiquée dans le cartouche
+
+Données rajoutées pour compléter la lecture des pièces (positionnement des points) :
+- indicateur permettant de préciser s'il s'agit d'une lecture consensuelle
+- année estimée de naissance (à calculer manuellement à partir du nombre de points positionnés et de la date de pêche)
+- nature de la strie finale (hyaline, ombrée, non définie, ou vide)
+- coefficient de fiabilité de la lecture, estimé par le lecteur (0, 0.5, 1 ou vide)
+
+Ces 3 dernières informations ne sont pas affichées par défaut lors de la consultation d'une photo (tableau des lectures)
+
+Corrections de bugs :
+- suite aux modifications de juin, et en particulier le renforcement de la sécurité globale de l'application, il n'était plus possible de modifier une lecture en en consultant d'autres 
+
 Version 1.3 du 15 juin 2015
 ---------------------------
 Améliorations :
