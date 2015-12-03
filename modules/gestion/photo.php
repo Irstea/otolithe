@@ -91,8 +91,24 @@ switch ($t_module ["param"]) {
 		 * On recherche si une photo a ete telechargee
 		 */
 		if ($_FILES ["photoload"] ["size"] > 10) {
+			/*
+			 * Recherche antivirale
+			 */
+			$virus = false;
+			if (extension_loaded ( 'clamav' )) {
+				$retcode = cl_scanfile ( $_FILES ["photoload"] ["tmp_name"], $virusname );
+				if ($retcode == CL_VIRUS) {
+					$virus = true;
+					$texte_erreur = $file ["name"] . " : " . cl_pretcode ( $retcode ) . ". Virus found name : " . $virusname;
+					$message .= "<br>" . $texte_erreur;
+					$log->setLog ( $_SESSION ["login"], "Document-ecrire", $texte_erreur );
+				}
+			}
+			if ($virus == false) {
+					
 			$_REQUEST ["photoload"] = fread ( fopen ( $_FILES ["photoload"] ["tmp_name"], "r" ), $_FILES ["photoload"] ["size"] );
 			$_REQUEST ["photo_filename"] = $_FILES ["photoload"] ["name"];
+			}
 		}
 		$_REQUEST ["photo_id"] = $_SESSION ["it_photo"]->getValue ( $_REQUEST ["photo_id"] );
 		$_REQUEST ["piece_id"] = $_SESSION ["it_piece"]->getValue ( $_REQUEST ["piece_id"] );
