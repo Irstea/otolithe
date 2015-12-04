@@ -156,45 +156,46 @@ if (! isset ( $bdd )) {
 	$etaconn = true;
 	if ($APPLI_modeDeveloppement == true) {
 		try {
-		$bdd = new PDO($BDDDEV_dsn, $BDDDEV_login, $BDDDEV_passwd);
-		} catch (PDOException $e) {
-			print $e->getMessage()."<br>";
-		$etaconn = false;
-		}
-		//$bdd = ADONewConnection ( $BDDDEV_type );
-		//$bdd->debug = $ADODB_debugmode;
-		//$etaconn = $bdd->Connect ( $BDDDEV_server, $BDDDEV_login, $BDDDEV_passwd, $BDDDEV_database );
-	} else {
-		try {
-		$bdd = new PDO($BDD_dsn, $BDD_login, $BDD_passwd);
-		} catch (PDOException $e) {
+			$bdd = new PDO ( $BDDDEV_dsn, $BDDDEV_login, $BDDDEV_passwd );
+		} catch ( PDOException $e ) {
+			print $e->getMessage () . "<br>";
 			$etaconn = false;
 		}
-		
-		//$bdd = ADONewConnection ( $BDD_type );
-		//$bdd->debug = $ADODB_debugmode;
-		//$etaconn = $bdd->Connect ( $BDD_server, $BDD_login, $BDD_passwd, $BDD_database );
-	}
-	if ($etaconn == false) {
-		echo $LANG ["message"] [22];
 	} else {
+		try {
+			$bdd = new PDO ( $BDD_dsn, $BDD_login, $BDD_passwd );
+		} catch ( PDOException $e ) {
+			$etaconn = false;
+		}
+	}
+	if ($etaconn == true) {
+		/*
+		 * Mise en place du schema par defaut
+		 */
+		$APPLI_modeDeveloppement == true ? $schema = $BDDDEV_schema : $schema = $BDD_schema;
+		if (strlen ( $schema ) > 0) {
+			$bdd->exec ( "set search_path = " . $schema );
+		}
 		/*
 		 * Connexion a la base de gestion des droits
 		 */
 		try {
-			$bdd_gacl = new PDO($GACL_dsn, $GACL_dblogin, $GACL_dbpasswd);
-		} catch (PDOException $e) {
-			print $e->getMessage()."<br>";
+			$bdd_gacl = new PDO ( $GACL_dsn, $GACL_dblogin, $GACL_dbpasswd );
+		} catch ( PDOException $e ) {
+			print $e->getMessage () . "<br>";
 			$etaconn = false;
 		}
-		
-		//$bdd_gacl = ADONewConnection ( $GACL_dbtype );
-		//$bdd_gacl->debug = $ADODB_debugmode;
-		//$etaconn = $bdd_gacl->Connect ( $GACL_dbserver, $GACL_dblogin, $GACL_dbpasswd, $GACL_database );
-		if ($etaconn == false) {
+		if ($etaconn == true) {
+			/*
+			 * Mise en place du schema par defaut
+			 */
+			if (strlen ( $GACL_schema ) > 0)
+				$bdd_gacl->exec ( "set search_path = " . $GACL_schema );
+		} else {
 			echo ($LANG ["message"] [29]);
 		}
-	}
+	} else
+		echo $LANG ["message"] [22];
 }
 /*
  * Activation de SMARTY
