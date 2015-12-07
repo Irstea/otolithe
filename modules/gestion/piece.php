@@ -60,7 +60,7 @@ switch ($t_module["param"]) {
 		$smarty->assign("individu", $dataIndiv);
 		$data = dataRead($dataClass, $id, "gestion/pieceChange.tpl", $_REQUEST["individu_id"]);
 		$data = $_SESSION["it_piece"]->translateRow($data);
-		$data = $_SESSION["it_individu"]->translateRow($data);
+		//$data = $_SESSION["it_individu"]->translateRow($data);
 		$smarty->assign( "data", $data);
 		break;
 	case "write":
