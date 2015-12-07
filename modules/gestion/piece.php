@@ -54,13 +54,14 @@ switch ($t_module["param"]) {
 		*/
 		include_once 'modules/classes/individu.class.php';
 		$individu = new Individu($bdd, $ObjetBDDParam);
-		$dataIndiv = $individu->getDetail($_SESSION["it_individu"]->getValue($_REQUEST["individu_id"]));
+		$_REQUEST["individu_id"] = $_SESSION["it_individu"]->getValue($_REQUEST["individu_id"]);
+		$dataIndiv = $individu->getDetail($_REQUEST["individu_id"]);
 		$dataIndiv = $_SESSION["it_individu"]->translateRow($dataIndiv);
 		$dataIndiv = $_SESSION["it_peche"]->translateRow($dataIndiv);
 		$smarty->assign("individu", $dataIndiv);
 		$data = dataRead($dataClass, $id, "gestion/pieceChange.tpl", $_REQUEST["individu_id"]);
 		$data = $_SESSION["it_piece"]->translateRow($data);
-		//$data = $_SESSION["it_individu"]->translateRow($data);
+		$data = $_SESSION["it_individu"]->translateRow($data);
 		$smarty->assign( "data", $data);
 		break;
 	case "write":
