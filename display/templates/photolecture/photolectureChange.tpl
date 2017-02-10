@@ -60,6 +60,10 @@ svg.circle (myImage, cx, cy, r, {'stroke':couleur, 'fill':couleur, 'fill-opacity
 {/section}
 	
 {literal}	
+$("#resetCompteur").click(function() { 
+	console.log("reinitialisation du compteur");
+	compteur = 0;
+});
 	$(myImage).click(function(e){
 		   //var parentOffset = $(this).parent().offset(); 
 		   //or $(this).offset(); if you really just want the current element's offset
@@ -177,6 +181,9 @@ function setCircle(svg, x, y, rayon_initial) {
         	$("#pointx"+valeurCompteur).remove();
        		$("#pointy"+valeurCompteur).remove();
        		$("#ligne"+valeurCompteur).remove();
+       		if ((valeurCompteur + 1) == compteur) {
+       			compteur --;
+       		}
         	$(this).remove();
 		} else {
 			// traitement de la suppression de la ligne
@@ -219,6 +226,8 @@ function setCircle(svg, x, y, rayon_initial) {
 <form name="myForm" id="myForm" action="index.php" method="POST">
 {$LANG["gestion"].112} : 
 <input type="submit" value="{$LANG["message"].19}">
+Si tous les points ont été supprimés, vous pouvez : 
+<input type="button" id="resetCompteur" value="Réinitialiser le compteur" title="Uniquement si tous les points ont été supprimés">
 <div id="container">
 </div>
 {$LANG["gestion"].113} :
