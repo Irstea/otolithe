@@ -5,7 +5,7 @@
 	</model>
 	<default action="framework/default.php"/>
 	<droitko action="framework/droitko.php"></droitko>
-	<loginliste action="framework/identification/login.php" param="list" droits="gestionCompte,admin" menulevel="1" menuorder="1" menudroits="gestionCompte,admin" menuparent="3" menutitle="3" menuvalue="2"></loginliste>
+	<loginliste action="framework/identification/login.php" param="list" droits="gestionCompte,admin" menulevel="1" menuorder="2" menudroits="gestionCompte,admin" menuparent="3" menutitle="3" menuvalue="2"></loginliste>
 	<loginmodif action="framework/identification/login.php" param="change" droits="gestionCompte,admin" />
 	<loginwrite action="framework/identification/login.php" param="write" droits="gestionCompte,admin" retourko="loginmodif" retourok="loginliste" />
 	<logindelete action="framework/identification/login.php" param="delete" droits="gestionCompte,admin" retourko="loginmodif" retoursuppr="loginliste" />
@@ -28,7 +28,7 @@
 	<quoideneuf action="doc/quoideneuf.php" menulevel="1" menuparent="99" menutitle="41" menuvalue="40"></quoideneuf>
 	<setlanguage action='framework/setlanguage.php' />
 	
-	<phpinfo action="framework/phpinfo.php" droits="admin" menudroits="admin" menulevel="1" menuorder="8" menuparent="3" menuvalue="44" menutitle="45" />
+	<phpinfo action="framework/phpinfo.php" droits="admin" menudroits="admin" menulevel="1" menuorder="9" menuparent="3" menuvalue="44" menutitle="45" />
 	
 	<individuList action="modules/gestion/individu.php" retourlogin="1" param="list" droits="lecture" menulevel="1" menuparent="1" menudroits="lecture" menuvalue="50" menutitle="51" />
 	<individuDisplay action="modules/gestion/individu.php" param="display" droits="lecture" />
@@ -50,11 +50,17 @@
 	<photoGetThumbnail action="modules/gestion/photo.php" param="getThumbnail" droits="lecture" ajax="1" />
 	<photoDisplayPhoto action="modules/gestion/photo.php" param="photoDisplay" droits="lecture" />
 	
-	<lecteurList action="modules/gestion/lecteur.php" param="list" droits="gestionCompte" menulevel="1" menuparent="3" menuorder="4" menudroits="gestionCompte" menuvalue="52" menutitle="53"  />
+	<lecteurList action="modules/gestion/lecteur.php" param="list" droits="gestionCompte" menulevel="1" menuparent="3" menuorder="5" menudroits="gestionCompte" menuvalue="52" menutitle="53"  />
 	<lecteurDisplay action="modules/gestion/lecteur.php" param="display" droits="gestionCompte" />
 	<lecteurChange action="modules/gestion/lecteur.php" param="change" droits="gestionCompte" />
 	<lecteurWrite action="modules/gestion/lecteur.php" param="write" droits="gestionCompte" retourok="lecteurList" retourko="lecteurChange" modulebefore="lecteurChange" />
 	<lecteurDelete action="modules/gestion/lecteur.php" param="delete" droits="gestionCompte" retoursuppr="lecteurList" retourko="lecteurChange" />
+
+	<experimentationList action="modules/gestion/experimentation.php" param="list" droits="consult" menulevel="1" menuparent="3" menuorder="1" menudroits="consult" menuvalue="56" menutitle="57"  />
+	<experimentationChange action="modules/gestion/experimentation.php" param="change" droits="admin" />
+	<experimentationWrite action="modules/gestion/experimentation.php" param="write" droits="admin" retourok="experimentationList" retourko="experimentationChange" modulebefore="experimentationChange" />
+	<experimentationDelete action="modules/gestion/experimentation.php" param="delete" droits="admin" retoursuppr="experimentationList" retourko="experimentationChange" />
+
 
 	<photolectureDisplay action="modules/photolecture/photolecture.php" param="display" droits="lecture" />
 	<photolectureChange action="modules/photolecture/photolecture.php" param="change" droits="lecture" retourko="photoDisplay"/>
@@ -67,18 +73,18 @@
 	<especeSearchAjax action="modules/gestion/espece.php" param="searchAjax" droits="gestion" ajax="1" />
 
 <!-- Gestion des droits nouvelle formule -->
-	<appliList action="framework/droits/appli.php" param="list" droits="admin" retourlogin="1" menulevel="1" menuparent="3" menuorder="12" menudroits="admin" menuvalue="appliliste" menutitle="applilistetitle"  />
+	<appliList action="framework/droits/appli.php" param="list" droits="admin" retourlogin="1" menulevel="1" menuparent="3" menuorder="13" menudroits="admin" menuvalue="appliliste" menutitle="applilistetitle"  />
 	<appliDisplay action="framework/droits/appli.php" param="display" droits="admin" />
 	<appliChange action="framework/droits/appli.php" param="change" droits="admin" />
 	<appliWrite action="framework/droits/appli.php" param="write" droits="admin" retourok="appliDisplay" retourko="appliChange" modulebefore="appliChange" />
 	<appliDelete action="framework/droits/appli.php" param="delete" droits="admin" retoursuppr="appliList" retourko="appliChange"  modulebefore="appliChange"/>
 
-	<aclloginList action="framework/droits/login.php" param="list" droits="admin" retourlogin="1" menulevel="1" menuparent="3" menuorder="10" menudroits="admin" menuvalue="aclloginliste" menutitle="aclloginlistetitle"  />
+	<aclloginList action="framework/droits/login.php" param="list" droits="admin" retourlogin="1" menulevel="1" menuparent="3" menuorder="11" menudroits="admin" menuvalue="aclloginliste" menutitle="aclloginlistetitle"  />
 	<aclloginChange action="framework/droits/login.php" param="change" droits="admin" />
 	<aclloginWrite action="framework/droits/login.php" param="write" droits="admin" retourok="aclloginList" retourko="aclloginChange" modulebefore="aclloginChange" />
 	<aclloginDelete action="framework/droits/login.php" param="delete" droits="admin" retoursuppr="aclloginList" retourko="aclloginChange"  modulebefore="aclloginChange"/>
 
-	<groupList action="framework/droits/group.php" param="list" droits="admin" retourlogin="1" menulevel="1" menuparent="3" menuorder="11" menudroits="admin" menuvalue="groupliste" menutitle="grouplistetitle"  />
+	<groupList action="framework/droits/group.php" param="list" droits="admin" retourlogin="1" menulevel="1" menuparent="3" menuorder="12" menudroits="admin" menuvalue="groupliste" menutitle="grouplistetitle"  />
 	<groupChange action="framework/droits/group.php" param="change" droits="admin" />
 	<groupWrite action="framework/droits/group.php" param="write" droits="admin" retourok="groupList" retourko="groupChange" modulebefore="groupChange" />
 	<groupDelete action="framework/droits/group.php" param="delete" droits="admin" retoursuppr="groupList" retourko="groupChange"  modulebefore="groupChange"/>

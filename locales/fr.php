@@ -47,6 +47,10 @@ $LANG["menu"][52] = "Liste des lecteurs";
 $LANG["menu"][53] = "Personnes susceptible de réaliser des lectures sur les pièces...";
 $LANG["menu"][54] = "Liste des lectures";
 $LANG["menu"][55] = "Afficher la liste les lectures de pièces...";
+$LANG["menu"][56] = "Expérimentations";
+$LANG["menu"][57] = "Liste des expérimentations";
+$LANG["menu"][58] = "";
+$LANG["menu"][59] = "";
 /*
  * Gestion des droits nouvelle formule
  */
