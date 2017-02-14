@@ -2042,7 +2042,7 @@
  <ddl-generator type="ca.sqlpower.architect.ddl.GenericDDLGenerator" allow-connection="true"> </ddl-generator>
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <compare-dm-settings  ddlGenerator="ca.sqlpower.architect.ddl.PostgresDDLGenerator"  outputFormatAsString="SQL"  saveFlag="true" >
-  <source-stuff   datastoreTypeAsString="DATABASE"   connectName="guzzi - diadanalyse"   filePath=""  />
+  <source-stuff   datastoreTypeAsString="DATABASE"   connectName="diadanalyse"   filePath=""  />
   <target-stuff   datastoreTypeAsString="PROJECT"   filePath=""  />
   <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  </compare-dm-settings>
