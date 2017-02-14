@@ -20,16 +20,28 @@ switch ($t_module ["param"]) {
 		/*
 		 * Recuperation de la taille de l'image
 		 */
-		if ($_REQUEST ["resolution"] == 2) {
-			$image_width = 1024;
-			$image_height = 768;
-		} elseif ($_REQUEST ["resolution"] == 3) {
-			$image_width = 1280;
-			$image_height = 1024;
-		} else {
-			$image_width = 800;
-			$image_height = 600;
+		switch ($_REQUEST ["resolution"]) {
+			case 2 :
+				$image_width = 1024;
+				$image_height = 768;
+				break;
+			case 3 :
+				$image_width = 1280;
+				$image_height = 1024;
+				break;
+			case 4 :
+				$image_width = 1600;
+				$image_height = 1300;
+				break;
+			case 5 :
+				$image_width = 10000;
+				$image_height = 10000;
+				break;
+			default :
+				$image_width = 800;
+				$image_height = 600;
 		}
+		
 		/*
 		 * Calcul du coefficient de correction
 		 */
@@ -155,15 +167,26 @@ switch ($t_module ["param"]) {
 			 * Recuperation de la taille de l'image
 			 */
 			if ($data ["photolecture_id"] == 0) {
-				if ($_REQUEST ["resolution"] == 2) {
-					$image_width = 1024;
-					$image_height = 768;
-				} elseif ($_REQUEST ["resolution"] == 3) {
-					$image_width = 1280;
-					$image_height = 1024;
-				} else {
-					$image_width = 800;
-					$image_height = 600;
+				switch ($_REQUEST ["resolution"]) {
+					case 2 :
+						$image_width = 1024;
+						$image_height = 768;
+						break;
+					case 3 :
+						$image_width = 1280;
+						$image_height = 1024;
+						break;
+					case 4 :
+						$image_width = 1600;
+						$image_height = 1300;
+						break;
+					case 5 :
+						$image_width = 10000;
+						$image_height = 10000;
+						break;
+					default :
+						$image_width = 800;
+						$image_height = 600;
 				}
 			} else {
 				$image_width = $data ["photolecture_width"];
@@ -177,6 +200,13 @@ switch ($t_module ["param"]) {
 				}
 			}
 			/*
+			 * Verification qu'on ne depasse pas la resolution initiale
+			 */
+			if ($image_width > $dataPhoto ["photo_width"])
+				$image_width = $dataPhoto ["photo_width"];
+			if ($image_height > $dataPhoto ["photo_height"])
+				$image_height = $dataPhoto ["photo_height"];
+				/*
 			 * Calcul du coefficient de correction
 			 */
 			$coefx = $dataPhoto ["photo_width"] / $image_width;
@@ -234,8 +264,8 @@ switch ($t_module ["param"]) {
 			/*
 			 * Recuperation de la table des stries finales
 			 */
-			$finalStripe = new Final_stripe($bdd, $ObjetBDDParam);
-			$smarty->assign("finalStripe", $finalStripe->getListe(1));
+			$finalStripe = new Final_stripe ( $bdd, $ObjetBDDParam );
+			$smarty->assign ( "finalStripe", $finalStripe->getListe ( 1 ) );
 		}
 		break;
 	case "write":
