@@ -1,3 +1,27 @@
+<script>
+$(document).ready(function() {
+	/*
+	 * gestion des cookies pour conserver les valeurs sélectionnées
+	 */
+	var ck_resolution = Cookies.get('resolution');
+	if (ck_resolution === undefined) {
+		ck_resolution = 1;
+	}
+	$(".resolution").val(ck_resolution).change();
+	$(".resolution").change( function() {
+		Cookies.set('resolution', $(this).val(), { expires: 30,  secure: true });
+	});
+	var ck_fill = Cookies.get ('fillFactor');
+	if (ck_fill === undefined) {
+		ck_fill = 1;
+	}
+	$("#fill").val(ck_fill).change();
+	$("#fill").change(function() {
+		Cookies.set('fillFactor', $(this).val(), { expires: 30, secure: true });
+	});
+});
+</script>
+
 <h2>{$LANG["gestion"].79}</h2>
 <a href="index.php?module={$moduleListe}">{$LANG["gestion"].0}</a> > 
 <a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}">{$LANG["gestion"].64}</a> > 
@@ -90,10 +114,12 @@
 <input type="hidden" name="photo_id" value="{$data.photo_id}">
 <input type="hidden" name="photolecture_id" value="0">
 {$LANG["gestion"].82} : 
-<select name="resolution">
-<option value="1">800x600</option>
-<option value="2">1024x768</option>
-<option value="3">1280x1024</option>
+<select class="resolution" name="resolution">
+<option  value="1">800x600</option>
+<option  value="2">1024x768</option>
+<option  value="3">1280x1024</option>
+<option  value="4">1600x1300</option>
+<option value="5">Initial format</option>
 </select>
 <input type="submit" value="{$LANG["gestion"].83}">
 </form>
@@ -219,13 +245,15 @@
 </tdata>
 </table>
 {$LANG["gestion"].94} : 
-<select name="resolution">
+<select class="resolution" name="resolution">
 <option value="1">800x600</option>
 <option value="2">1024x768</option>
 <option value="3">1280x1024</option>
+<option value="4">1600x1300</option>
+<option value="5">Initial format</option>
 </select>
 {$LANG["gestion"].157} :
-<select name="fill">
+<select id="fill" name="fill">
 <option value="0">{$LANG["gestion"].158}</option>
 <option value="0.1">{$LANG["gestion"].159}</option>
 <option value="0.3">{$LANG["gestion"].160}</option>
