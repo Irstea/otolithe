@@ -19,7 +19,7 @@ switch ($t_module["param"]) {
 		 * Display the list of all records of the table
 		 */
 		$smarty->assign("data", $dataClass->getListe());
-		$smarty->assign("corps", "example/exampleList.tpl");
+		$smarty->assign("corps", "gestion/especeList.tpl");
 		break;
 	case "display":
 		/*

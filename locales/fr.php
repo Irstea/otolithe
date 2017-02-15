@@ -51,8 +51,13 @@ $LANG["menu"][56] = "Expérimentations";
 $LANG["menu"][57] = "Liste des expérimentations";
 $LANG["menu"][58] = "Types de pièces";
 $LANG["menu"][59] = "Liste des types de pièces calcifiées";
-$LANG["menu"][60] = "";
-$LANG["menu"][61] = "";
+$LANG["menu"][60] = "Paramètres";
+$LANG["menu"][61] = "Tables de paramètres";
+$LANG["menu"][62] = "Espèces";
+$LANG["menu"][63] = "Liste des espèces";
+$LANG["menu"][64] = "";
+$LANG["menu"][65] = "";
+
 
 
 /*

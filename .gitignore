@@ -9,6 +9,7 @@ gacl.ini.php
 img/*
 display/templates_c/*
 clear_templates_c.sh
+test/*
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

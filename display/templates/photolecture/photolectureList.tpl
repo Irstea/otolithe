@@ -7,7 +7,7 @@
 <script>
 setDataTables("idListe",true , false, true, 100);
 </script>
-<table id="idListe" class="tableaffichage">
+<table id="idListe" class="tableliste">
 <thead>
 <tr>
 <th>{$LANG["gestion"].138}</th>

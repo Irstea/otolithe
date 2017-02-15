@@ -13,6 +13,9 @@
 	<loginChangePasswordExec action="framework/identification/login.php" param="changePasswordExec" loginrequis="1" retourko="loginChangePassword" modulebefore="loginChangePassword" />
 	<administration action="modules/administration/index.php" menudroits="gestionCompte,admin"  
 		retourko="" retourok="" retournull="" menuvalue="4" menutitle="5" menuorder="3" menulevel="0" droitko="droitko"></administration>
+	<param action="modules/param/index.php" droits="consult" retourko="" retourok="" retournull="" menuvalue="60" menutitle="61" menuorder="2" menulevel="0" droitko="droitko"/>
+
+
 	<gestion action="framework/default.php" droits="gestion" retourko=""
 		retournull="" retourok="" menuorder="1" menulevel="0" menuvalue="0" menutitle="1">
 	</gestion>
@@ -56,12 +59,12 @@
 	<lecteurWrite action="modules/gestion/lecteur.php" param="write" droits="gestionCompte" retourok="lecteurList" retourko="lecteurChange" modulebefore="lecteurChange" />
 	<lecteurDelete action="modules/gestion/lecteur.php" param="delete" droits="gestionCompte" retoursuppr="lecteurList" retourko="lecteurChange" />
 
-	<experimentationList action="modules/gestion/experimentation.php" param="list" droits="consult" menulevel="1" menuparent="3" menuorder="1" menudroits="consult" menuvalue="56" menutitle="57"  />
+	<experimentationList action="modules/gestion/experimentation.php" param="list" droits="consult" menulevel="1" menuparent="2" menuorder="1" menudroits="consult" menuvalue="56" menutitle="57"  />
 	<experimentationChange action="modules/gestion/experimentation.php" param="change" droits="admin" />
 	<experimentationWrite action="modules/gestion/experimentation.php" param="write" droits="admin" retourok="experimentationList" retourko="experimentationChange" modulebefore="experimentationChange" />
 	<experimentationDelete action="modules/gestion/experimentation.php" param="delete" droits="admin" retoursuppr="experimentationList" retourko="experimentationChange" />
 
-	<piecetypeList action="modules/gestion/piecetype.php" param="list" droits="consult" menulevel="1" menuparent="3" menuorder="2" menudroits="consult" menuvalue="58" menutitle="59"  />
+	<piecetypeList action="modules/gestion/piecetype.php" param="list" droits="consult" menulevel="1" menuparent="2" menuorder="2" menudroits="consult" menuvalue="58" menutitle="59"  />
 	<piecetypeChange action="modules/gestion/piecetype.php" param="change" droits="admin" />
 	<piecetypeWrite action="modules/gestion/piecetype.php" param="write" droits="admin" retourok="piecetypeList" retourko="piecetypeChange" modulebefore="piecetypeChange" />
 	<piecetypeDelete action="modules/gestion/piecetype.php" param="delete" droits="admin" retoursuppr="piecetypeList" retourko="piecetypeChange" />
@@ -74,6 +77,7 @@
 	<photolectureExport action="modules/photolecture/photolecture.php" param="export" droits="gestion" ajax="1" />
 	<photolectureSwap action="modules/photolecture/photolecture.php" param="swap" droits="lecture" retournull="photolectureDisplay" retourok="photolectureChange" />
 
+	<especeList action="modules/gestion/espece.php" param="list" droits="consult" menulevel="1" menuparent="2" menuorder="3" menudroits="consult" menuvalue="62" menutitle="63"  />
 	<especeSearchAjax action="modules/gestion/espece.php" param="searchAjax" droits="gestion" ajax="1" />
 
 <!-- Gestion des droits nouvelle formule -->

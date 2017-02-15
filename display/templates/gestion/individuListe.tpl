@@ -8,7 +8,7 @@ setDataTables("idListe",true , false, true, 100);
 {if $droits.gestion == 1}
 <a href="index.php?module=individuChange&individu_id=0">Nouveau poisson...</a>
 {/if}
-<table id="idListe" class="tableaffichage">
+<table id="idListe" class="tableliste">
 <thead>
 <tr>
 <th>{$LANG["gestion"].45}<br>{$LANG["gestion"].2}</th>
