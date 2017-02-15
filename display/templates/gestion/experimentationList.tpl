@@ -34,6 +34,3 @@ Nouvelle experimentation...
 {/section}
 </tbody>
 </table>
-<script>
-setDataTables("expList");
-</script>

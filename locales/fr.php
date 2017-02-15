@@ -49,8 +49,12 @@ $LANG["menu"][54] = "Liste des lectures";
 $LANG["menu"][55] = "Afficher la liste les lectures de pièces...";
 $LANG["menu"][56] = "Expérimentations";
 $LANG["menu"][57] = "Liste des expérimentations";
-$LANG["menu"][58] = "";
-$LANG["menu"][59] = "";
+$LANG["menu"][58] = "Types de pièces";
+$LANG["menu"][59] = "Liste des types de pièces calcifiées";
+$LANG["menu"][60] = "";
+$LANG["menu"][61] = "";
+
+
 /*
  * Gestion des droits nouvelle formule
  */

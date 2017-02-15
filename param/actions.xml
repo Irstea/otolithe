@@ -5,7 +5,7 @@
 	</model>
 	<default action="framework/default.php"/>
 	<droitko action="framework/droitko.php"></droitko>
-	<loginliste action="framework/identification/login.php" param="list" droits="gestionCompte,admin" menulevel="1" menuorder="2" menudroits="gestionCompte,admin" menuparent="3" menutitle="3" menuvalue="2"></loginliste>
+	<loginliste action="framework/identification/login.php" param="list" droits="gestionCompte,admin" menulevel="1" menuorder="3" menudroits="gestionCompte,admin" menuparent="3" menutitle="3" menuvalue="2"></loginliste>
 	<loginmodif action="framework/identification/login.php" param="change" droits="gestionCompte,admin" />
 	<loginwrite action="framework/identification/login.php" param="write" droits="gestionCompte,admin" retourko="loginmodif" retourok="loginliste" />
 	<logindelete action="framework/identification/login.php" param="delete" droits="gestionCompte,admin" retourko="loginmodif" retoursuppr="loginliste" />
@@ -61,6 +61,10 @@
 	<experimentationWrite action="modules/gestion/experimentation.php" param="write" droits="admin" retourok="experimentationList" retourko="experimentationChange" modulebefore="experimentationChange" />
 	<experimentationDelete action="modules/gestion/experimentation.php" param="delete" droits="admin" retoursuppr="experimentationList" retourko="experimentationChange" />
 
+	<piecetypeList action="modules/gestion/piecetype.php" param="list" droits="consult" menulevel="1" menuparent="3" menuorder="2" menudroits="consult" menuvalue="58" menutitle="59"  />
+	<piecetypeChange action="modules/gestion/piecetype.php" param="change" droits="admin" />
+	<piecetypeWrite action="modules/gestion/piecetype.php" param="write" droits="admin" retourok="piecetypeList" retourko="piecetypeChange" modulebefore="piecetypeChange" />
+	<piecetypeDelete action="modules/gestion/piecetype.php" param="delete" droits="admin" retoursuppr="piecetypeList" retourko="piecetypeChange" />
 
 	<photolectureDisplay action="modules/photolecture/photolecture.php" param="display" droits="lecture" />
 	<photolectureChange action="modules/photolecture/photolecture.php" param="change" droits="lecture" retourko="photoDisplay"/>
