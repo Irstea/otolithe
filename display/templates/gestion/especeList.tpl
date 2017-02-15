@@ -1,7 +1,7 @@
 <h2>Liste des espèces</h2>
 
 
-<table id="ptList" class="tablelist datatable-searching">
+<table id="ptList" class="tableliste">
 <thead>
 <tr>
 <th>Id</th>
@@ -20,3 +20,6 @@
 {/section}
 </tbody>
 </table>
+<script>
+setDataTables("ptList",true, true, true, 50);
+</script>

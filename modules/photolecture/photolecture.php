@@ -41,8 +41,14 @@ switch ($t_module ["param"]) {
 				$image_width = 800;
 				$image_height = 600;
 		}
-		
 		/*
+		 * Verification qu'on ne depasse pas la resolution initiale
+		 */
+		if ($image_width > $dataPhoto ["photo_width"])
+			$image_width = $dataPhoto ["photo_width"];
+		if ($image_height > $dataPhoto ["photo_height"])
+			$image_height = $dataPhoto ["photo_height"];
+			/*
 		 * Calcul du coefficient de correction
 		 */
 		$coefx = $dataPhoto ["photo_width"] / $image_width;
