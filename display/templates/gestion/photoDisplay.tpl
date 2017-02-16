@@ -220,7 +220,7 @@ $(document).ready(function() {
 <td class="center">
 {if $photolecture[lst].consensual_reading == 1}{$LANG["message"].15}{/if}
 </td>
-{if $droits.admin == 1}
+{if $droits.gestion == 1}
 <td>
 <div class="center">
 <a href="index.php?module=photolectureDelete&photolecture_id={$photolecture[lst].photolecture_id}&photo_id={$data.photo_id}" onclick="return confirm('Confirmez-vous la suppression ?'); return false">
@@ -265,7 +265,7 @@ $(document).ready(function() {
 <input type="checkbox" name="photolecture_id_modif" value="0">
 <br>
 <div style="text-align:center;">
-<input type="submit" value="{$LANG["gestion"].95}">
+<input type="submit" value="{$LANG['gestion'].95}">
 </div>
 </form>
 </div>

@@ -22,6 +22,11 @@ setDataTables("idListe",true , false, true, 100);
 <th>{$LANG["gestion"].149}</th>
 <th>{$LANG["gestion"].150}</th>
 <th>{$LANG["gestion"].12}</th>
+{if $droits.gestion == 1}
+<th class="center">
+<img src="display/images/delete.png" height="25">
+</th>
+{/if}
 </tr>
 </thead>
 <tdata>
@@ -55,6 +60,13 @@ setDataTables("idListe",true , false, true, 100);
 <td>{$data[lst].long_ref_mesuree}</td>
 <td>{$data[lst].long_totale_reel}</td>
 <td><div class="center">{$data[lst].age}</div></td>
+{if $droits.gestion == 1}
+<td class="center">
+<a href="index.php?module=photolectureDelete&photolecture_id={$data[lst].photolecture_id}">
+<img src="display/images/delete.png" height="25">
+</a>
+</td>
+{/if}
 </tr>
 {/section}
 </tdata>

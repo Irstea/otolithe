@@ -114,7 +114,7 @@
 <td colspan="2"><div align="center">
 <input type="submit" value="{$LANG["message"].19}">
 </form>
-{if $data.photo_id>0 && $droits["admin"] == 1}
+{if $data.photo_id>0 }
 <form action="index.php" method="post" onSubmit='return confirmSuppression("{$LANG.message.31}")'>
 <input type="hidden" name="piece_id" value="{$data.piece_id}">
 <input type="hidden" name="photo_id" value="{$data.photo_id}">

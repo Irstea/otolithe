@@ -43,12 +43,12 @@
 	<pieceDisplay action="modules/gestion/piece.php" param="display" droits="lecture" />
 	<pieceChange action="modules/gestion/piece.php" param="change" droits="gestion" />
 	<pieceWrite action="modules/gestion/piece.php" param="write" droits="gestion" retourok="pieceDisplay" retourko="pieceChange" modulebefore="pieceChange" />
-	<pieceDelete action="modules/gestion/piece.php" param="delete" droits="admin" retoursuppr="individuDisplay" retourko="pieceChange" modulebefore="pieceChange"/>
+	<pieceDelete action="modules/gestion/piece.php" param="delete" droits="gestion" retoursuppr="individuDisplay" retourko="pieceChange" modulebefore="pieceChange"/>
 
 	<photoDisplay action="modules/gestion/photo.php" param="display" droits="lecture" />
 	<photoChange action="modules/gestion/photo.php" param="change" droits="gestion" />
 	<photoWrite action="modules/gestion/photo.php" param="write" droits="gestion" retourok="photoDisplay" retourko="photoChange" modulebefore="photoChange" />
-	<photoDelete action="modules/gestion/photo.php" param="delete" droits="admin" retoursuppr="pieceDisplay" retourko="photoChange" modulebefore="photoChange" />
+	<photoDelete action="modules/gestion/photo.php" param="delete" droits="gestion" retoursuppr="pieceDisplay" retourko="photoChange" modulebefore="photoChange" />
 	<photoGetPhoto action="modules/gestion/photo.php" param="getPhoto" droits="lecture" ajax="1" />
 	<photoGetThumbnail action="modules/gestion/photo.php" param="getThumbnail" droits="lecture" ajax="1" />
 	<photoDisplayPhoto action="modules/gestion/photo.php" param="photoDisplay" droits="lecture" />
@@ -72,7 +72,7 @@
 	<photolectureDisplay action="modules/photolecture/photolecture.php" param="display" droits="lecture" />
 	<photolectureChange action="modules/photolecture/photolecture.php" param="change" droits="lecture" retourko="photoDisplay"/>
 	<photolectureWrite action="modules/photolecture/photolecture.php" param="write" droits="lecture" retourok="photoDisplay" retourko="photolectureChange" modulebefore="photolectureChange" />
-	<photolectureDelete action="modules/photolecture/photolecture.php" param="delete" droits="admin" retoursuppr="photoDisplay" retourko="photolectureChange" modulebefore="photoDisplay" />
+	<photolectureDelete action="modules/photolecture/photolecture.php" param="delete" droits="gestion" retoursuppr="photoDisplay" retourko="photolectureChange" modulebefore="photoDisplay" />
 	<photolectureList action="modules/photolecture/photolecture.php" retourlogin="1" param="list" droits="lecture" menudroits="lecture" menuvalue="54" menutitle="55" menulevel="1" menuorder="2" menuparent="1" />
 	<photolectureExport action="modules/photolecture/photolecture.php" param="export" droits="gestion" ajax="1" />
 	<photolectureSwap action="modules/photolecture/photolecture.php" param="swap" droits="lecture" retournull="photolectureDisplay" retourok="photolectureChange" />
