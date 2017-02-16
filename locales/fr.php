@@ -55,8 +55,10 @@ $LANG["menu"][60] = "Paramètres";
 $LANG["menu"][61] = "Tables de paramètres";
 $LANG["menu"][62] = "Espèces";
 $LANG["menu"][63] = "Liste des espèces";
-$LANG["menu"][64] = "";
-$LANG["menu"][65] = "";
+$LANG["menu"][64] = "Import";
+$LANG["menu"][65] = "Import d'individus associés ou non à des pièces";
+$LANG["menu"][66] = "";
+$LANG["menu"][67] = "";
 
 
 

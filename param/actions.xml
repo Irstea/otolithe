@@ -80,6 +80,11 @@
 	<especeList action="modules/gestion/espece.php" param="list" droits="consult" menulevel="1" menuparent="2" menuorder="3" menudroits="consult" menuvalue="62" menutitle="63"  />
 	<especeSearchAjax action="modules/gestion/espece.php" param="searchAjax" droits="gestion" ajax="1" />
 
+	<importChange action="modules/gestion/import.php" param="change" droits="gestionCompte" retourlogin="1" menudroits="gestionCompte" menuvalue="64" menutitle="65"  menulevel="1" menuparent="2" menuorder="4" />
+	<importControl action="modules/gestion/import.php" param="control" droits="gestionCompte" modulebefore="importChange,importControl,importImport" retourok="importChange"  />
+	<importImport action="modules/gestion/import.php" param="import" droits="gestionCompte" modulebefore="importControl,importChange" retourok="importChange" retourko="importChange"  />
+
+
 <!-- Gestion des droits nouvelle formule -->
 	<appliList action="framework/droits/appli.php" param="list" droits="admin" retourlogin="1" menulevel="1" menuparent="3" menuorder="13" menudroits="admin" menuvalue="appliliste" menutitle="applilistetitle"  />
 	<appliDisplay action="framework/droits/appli.php" param="display" droits="admin" />

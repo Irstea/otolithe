@@ -372,6 +372,7 @@ class Individu_experimentation extends ObjetBdd {
 		if (! is_array ( $param ))
 			$param == array ();
 		$param ["fullDescription"] = 1;
+		$param["id_auto"] = 0;
 		parent::__construct ( $bdd, $param );
 	}
 	/**
