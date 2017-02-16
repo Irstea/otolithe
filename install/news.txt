@@ -1,5 +1,20 @@
 Nouveautés
 ===========
+Version 1.5 du 16 février 2017
+------------------------------
+Modifications concernant la lecture des photos :
+- si tous les points ont été supprimés, il est maintenant possible de reprendre la numérotation à 0
+- si le dernier point a été supprimé, le compteur est décrémenté de 1 (le point suivant aura la bonne valeur)
+- lors de l'affichage des lectures, le cercle est maintenant opaque. La résolution et le facteur de transparence sont également conservés d'une photo à l'autre
+- rajout de 2 résolutions pour la lecture ou l'affichage, dont une correspondant à la taille (en principe) initiale de la photo (10000x10000 pixels)
+- la photo affichée ne peut pas être plus grande que la photo téléchargée (c'était possible avant)
+
+Modifications concernant la gestion des paramètres et l'import automatique d'individus
+- une nouvelle expérimentation peut être rajoutée (droit nécessaire : gestionCompte)
+- un nouveau type de pièce peut être rajouté (droit nécessaire : gestionCompte)
+- il est maintenant possible d'importer automatiquement des individus et la référence de la pièce calcifiée à analyser
+
+
 Version 1.4 du 3 décembre 2015
 ------------------------------
 Améliorations générales :
