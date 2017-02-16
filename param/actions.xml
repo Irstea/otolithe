@@ -60,14 +60,14 @@
 	<lecteurDelete action="modules/gestion/lecteur.php" param="delete" droits="gestionCompte" retoursuppr="lecteurList" retourko="lecteurChange" />
 
 	<experimentationList action="modules/gestion/experimentation.php" param="list" droits="consult" menulevel="1" menuparent="2" menuorder="1" menudroits="consult" menuvalue="56" menutitle="57"  />
-	<experimentationChange action="modules/gestion/experimentation.php" param="change" droits="admin" />
-	<experimentationWrite action="modules/gestion/experimentation.php" param="write" droits="admin" retourok="experimentationList" retourko="experimentationChange" modulebefore="experimentationChange" />
-	<experimentationDelete action="modules/gestion/experimentation.php" param="delete" droits="admin" retoursuppr="experimentationList" retourko="experimentationChange" />
+	<experimentationChange action="modules/gestion/experimentation.php" param="change" droits="gestionCompte" />
+	<experimentationWrite action="modules/gestion/experimentation.php" param="write" droits="gestionCompte" retourok="experimentationList" retourko="experimentationChange" modulebefore="experimentationChange" />
+	<experimentationDelete action="modules/gestion/experimentation.php" param="delete" droits="gestionCompte" retoursuppr="experimentationList" retourko="experimentationChange" />
 
 	<piecetypeList action="modules/gestion/piecetype.php" param="list" droits="consult" menulevel="1" menuparent="2" menuorder="2" menudroits="consult" menuvalue="58" menutitle="59"  />
-	<piecetypeChange action="modules/gestion/piecetype.php" param="change" droits="admin" />
-	<piecetypeWrite action="modules/gestion/piecetype.php" param="write" droits="admin" retourok="piecetypeList" retourko="piecetypeChange" modulebefore="piecetypeChange" />
-	<piecetypeDelete action="modules/gestion/piecetype.php" param="delete" droits="admin" retoursuppr="piecetypeList" retourko="piecetypeChange" />
+	<piecetypeChange action="modules/gestion/piecetype.php" param="change" droits="gestionCompte" />
+	<piecetypeWrite action="modules/gestion/piecetype.php" param="write" droits="gestionCompte" retourok="piecetypeList" retourko="piecetypeChange" modulebefore="piecetypeChange" />
+	<piecetypeDelete action="modules/gestion/piecetype.php" param="delete" droits="gestionCompte" retoursuppr="piecetypeList" retourko="piecetypeChange" />
 
 	<photolectureDisplay action="modules/photolecture/photolecture.php" param="display" droits="lecture" />
 	<photolectureChange action="modules/photolecture/photolecture.php" param="change" droits="lecture" retourko="photoDisplay"/>

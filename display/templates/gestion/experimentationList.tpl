@@ -1,5 +1,5 @@
 <h2>Liste des expérimentations</h2>
-{if $droits["admin"] == 1}
+{if $droits["gestionCompte"] == 1}
 <a href="index.php?module=experimentationChange&exp_id=0">
 Nouvelle experimentation...
 </a>

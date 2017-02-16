@@ -1,5 +1,5 @@
 <h2>Liste des types de pièces</h2>
-{if $droits["admin"] == 1}
+{if $droits["gestionCompte"] == 1}
 <a href="index.php?module=piecetypeChange&piecetype_id=0">
 Nouveau type de pièce...
 </a>
