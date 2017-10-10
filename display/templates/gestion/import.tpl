@@ -4,10 +4,11 @@ suivantes :
 <ul>
 <li><b>exp_id</b> : code de l'expérimentation (obligatoire)</li>
 <li><b>espece_id</b> : code de l'espèce (obligatoire)</li>
-<li><b>codeindividu</b> : identifiant du poisson</li>
-<li><b>tag</b> : N° de l'étiquette posée sur le poisson, hptag par exemple (le codeindividu ou le tag sont obligatoires)</li>
+<li><b>codeindividu</b> : identifiant du poisson ou hptag</li>
+<li><b>tag</b> : N° de l'étiquette posée sur le poisson (le codeindividu ou le tag sont obligatoires)</li>
 <li><b>longueur</b> : longueur du poisson</li>
 <li><b>poids</b> : poids du poisson</li>
+<li><b>remarque</b> : remarques concernant le poisson</li>
 <li><b>piecetype_id</b> : code du type de pièce calcifiée à analyser</li>
 <li><b>piececode</b> : si le type de pièce est indiqué, vous pouvez renseigner un code spécifique attaché à la pièce</li>
 <li><b>peche_date</b> : date de la pêche</li>

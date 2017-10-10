@@ -51,8 +51,10 @@ class Import
         "longueur",
         "site",
         "peche_code",
+        "peche_date",
         "peche_remarque",
-        "peche_code_id"
+        "peche_code_id",
+        "remarque"
     );
 
     private $colnum = array(
@@ -193,7 +195,7 @@ class Import
                 /*
                  * Traitement de la peche
                  */
-                if (strlren($values["site"]) > 0 || strlen($values["peche_date"]) > 0 || strlen($values["peche_remarque"]) > 0) {
+                if (strlen($values["site"]) > 0 || strlen($values["peche_date"]) > 0 || strlen($values["peche_remarque"]) > 0) {
                     $peche_id = $this->peche->ecrire($values);
                     if ($peche_id > 0) {
                         $di["peche_id"] = $peche_id;
