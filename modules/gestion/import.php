@@ -18,6 +18,7 @@ $piecetype = new Piecetype( $bdd, $ObjetBDDParam );
 $espece = new Espece( $bdd, $ObjetBDDParam );
 $individu = new Individu( $bdd, $ObjetBDDParam );
 $piece = new  Piece( $bdd, $ObjetBDDParam );
+$peche = new Peche($bdd, $ObjetBDDParam);
 $ie = new Individu_experimentation($bdd, $ObjetBDDParam);
 
 $import->initClasses ( $individu, $piece, $ie );
