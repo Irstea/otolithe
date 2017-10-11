@@ -1,5 +1,9 @@
 Nouveautés
 ===========
+Version 1.5.1 du 11 octobre 2017
+------------------------------
+Extension de la fonction d'import automatique, pour rajouter des informations complémentaires (besoin exprimé pour des lectures de rayons d'esturgeons)
+
 Version 1.5 du 16 février 2017
 ------------------------------
 Modifications concernant la lecture des photos :
