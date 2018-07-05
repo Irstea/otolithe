@@ -5,9 +5,9 @@
 <a href="index.php?module=exampleDisplay&idExample={$data.idExample}">Retour au détail</a>
 {/if}
 <table class="tablesaisie">
-<script type="text/javascript" src="display/javascript/calendar/calendar.js"></script>
-<script type="text/javascript" src="display/javascript/calendar/lang/calendar-fr.js"></script>
-<script type="text/javascript" src="display/javascript/calendar/calendar-setup.js"></script>
+<script type="text/javascript" src="/display/javascript/calendar/calendar.js"></script>
+<script type="text/javascript" src="/display/javascript/calendar/lang/calendar-fr.js"></script>
+<script type="text/javascript" src="/display/javascript/calendar/calendar-setup.js"></script>
 <style type="text/css">@import url(display/javascript/calendar/aqua/theme.css);</style>
 <form method="post" action="index.php?module=exampleWrite" onSubmit='return validerForm("dateExample:la date est obligatoire,comment:le commentaire est obligatoire")'>
 <input type="hidden" name="action" value="M">

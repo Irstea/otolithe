@@ -1,5 +1,5 @@
 <style type="text/css">
-@import "display/javascript/jquerysvg/jquery.svg.css";
+@import "/display/javascript/jquerysvg/jquery.svg.css";
 {literal}
 body > iframe { display: none; }
 #container { {/literal} width: {$image_width}px; height: {$image_height}px; border: 0px ;{literal} }

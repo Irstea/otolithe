@@ -18,7 +18,7 @@ $lecteur = new Lecteur ( $bdd, $ObjetBDDParam );
 $lecteur_id = $lecteur->getIdFromLogin ( $_SESSION ['login'] );
 if ($lecteur_id > 0) {
 	$_SESSION ["droits"] ["lecture"] = 1;
-	$smarty->assign("droits", $_SESSION["droits"]);
+	$vue->set( $_SESSION["droits"], "droits");
 	
 	/*
 	 * Recuperation des experimentations autorisees

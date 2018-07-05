@@ -1,9 +1,9 @@
-<script type="text/javascript" src="display/javascript/jquery-ui-1.10.3/jquery-1.9.1.js"></script>
-<script type="text/javascript" src="display/javascript/jquery-ui-1.10.3/ui/jquery-ui.js"></script>
-<script type="text/javascript" src="display/javascript/jquerysvg/jquery.svg.js"></script>
+<script type="text/javascript" src="/display/javascript/jquery-ui-1.10.3/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="/display/javascript/jquery-ui-1.10.3/ui/jquery-ui.js"></script>
+<script type="text/javascript" src="/display/javascript/jquerysvg/jquery.svg.js"></script>
 
 <style type="text/css">
-@import "display/javascript/jquerysvg/jquery.svg.css";
+@import "/display/javascript/jquerysvg/jquery.svg.css";
 {literal}
 body > iframe { display: none; }
 {/literal}

@@ -35,10 +35,7 @@ include_once ("vendor/smarty/smarty/libs/Smarty.class.php");
  */
 include_once ('framework/objetbdd/ObjetBDD.php');
 include_once ('framework/objetbdd/ObjetBDD_functions.php');
-if ($APPLI_utf8) {
-	$ObjetBDDParam ["UTF8"] = true;
-}
-$ObjetBDDParam ["codageHtml"] = false;
+
 /**
  * Integration de la classe gerant la navigation dans les modules
  */

@@ -174,7 +174,7 @@ $(document).ready(function() {
 <td>
 <div class="center">
 <a href="index.php?module=photolectureChange&photolecture_id={$photolecture[lst].photolecture_id}&photo_id={$data.photo_id}">
-<img src="display/images/edit.png" height="24" border="0">
+<img src="/display/images/edit.png" height="24" border="0">
 </a>
 </div>
 </td>
@@ -224,7 +224,7 @@ $(document).ready(function() {
 <td>
 <div class="center">
 <a href="index.php?module=photolectureDelete&photolecture_id={$photolecture[lst].photolecture_id}&photo_id={$data.photo_id}" onclick="return confirm('Confirmez-vous la suppression ?'); return false">
-<img src="display/images/delete.png" height="24" border="0">
+<img src="/display/images/delete.png" height="24" border="0">
 </a>
 </div>
 </td>
