@@ -5,7 +5,13 @@
 if (isset ( $_SESSION ["login"] )) {	
 	require_once 'framework/droits/droits.class.php';
 	$acllogin = new Acllogin ( $bdd_gacl, $ObjetBDDParam );
-	$_SESSION ["droits"] = $acllogin->getListDroits ( $_SESSION ["login"], $GACL_aco );
-    $smarty->assign("droits",$_SESSION ["droits"]);
+	try {
+	$_SESSION ["droits"] = $acllogin->getListDroits ( $_SESSION ["login"], $GACL_aco, $LDAP );
+	} catch (Exception $e) {
+		if ($APPLI_modeDeveloppement) {
+			$message->set($e->getMessage());
+		}
+		$message->setSyslog($e->getMessage());
+	}
 }
 ?>

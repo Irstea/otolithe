@@ -1,3 +1,3 @@
 <?php
-$message = $LANG["message"][2];
+$message->set( _("Module administration"));
 ?>

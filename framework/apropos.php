@@ -2,8 +2,11 @@
 /**
 * @author eric.quinton
 */
-$smarty->assign("version",$APPLI_version);
-$smarty->assign("versiondate",$APPLI_versiondate);
-$smarty->assign("corps","apropos_".$language.".tpl");
-$message = $LANG["menu"][9];
+$vue->set( $APPLI_version, "version");
+$vue->set(_($APPLI_versiondate) , "versiondate");
+$filename = "apropos_".$LANG["date"]["locale"].".tpl";
+if (!file_exists($SMARTY_params["templates"]."/".$filename)) {
+    $filename = "apropos_fr.tpl";
+}
+$vue->set("apropos_".$LANG["date"]["locale"].".tpl" , "corps");
 ?>

@@ -222,7 +222,7 @@ class Photo extends ObjetBDD {
 	/**
 	 * Fonction permettant d'ecrire la photo dans un dossier temporaire, pour telechargement depuis le navigateur
 	 *
-	 * @param unknown $id        	
+	 * @param int $id        	
 	 * @param number $thumbnail        	
 	 * @param number $sizeX        	
 	 * @param number $sizeY        	

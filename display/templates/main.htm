@@ -1,23 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>{$LANG.message.1}</title>
-<link rel="stylesheet" href="{$fds}" type="text/css">
+<title>{$APPLI_titre}</title>
 <link rel="icon" type="image/png" href="favicon.png" />
+{include file="main_js.tpl"}
 </head>
-{if strlen($idFocus)}
-<body onload='document.getElementById("{$idFocus}").focus()'>
-{else}
 <body>
-{/if}
-<script language="javascript" SRC="display/javascript/fonctions.js"></script>
-<div id="superglobal">
-<div id="global">
-{include file="jquery.tpl"}
+<div id="wrap">
+<div class="container-fluid">
 {include file=$entete}
 {include file=$corps}
 </div>
+</div>
+<div id="footer">
 {include file=$enpied}
 </div>
 </body>

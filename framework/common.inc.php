@@ -26,19 +26,18 @@ ini_set ( "session.use_strict_mode", true );
 ini_set ( 'session.gc_probability', 1 );
 ini_set ( 'session.gc_maxlifetime', $APPLI_session_ttl );
 
-
 /**
  * Integration de SMARTY
  */
-include_once ('plugins/smarty-3.1.24/libs/Smarty.class.php');
-
+include_once ("vendor/smarty/smarty/libs/Smarty.class.php");
 /**
  * integration de la classe ObjetBDD et des scripts associes
  */
-include_once ('plugins/objetBDD-3.0/ObjetBDD.php');
-include_once ('plugins/objetBDD-3.0/ObjetBDD_functions.php');
-if ($APPLI_utf8 == true)
+include_once ('framework/objetbdd/ObjetBDD.php');
+include_once ('framework/objetbdd/ObjetBDD_functions.php');
+if ($APPLI_utf8) {
 	$ObjetBDDParam ["UTF8"] = true;
+}
 $ObjetBDDParam ["codageHtml"] = false;
 /**
  * Integration de la classe gerant la navigation dans les modules
@@ -48,9 +47,7 @@ include_once ("framework/navigation/navigation.class.php");
 /**
  * Preparation de l'identification
  */
-include_once ("framework/identification/identification.class.php");
-if ($ident_type == "CAS")
-	include_once ($CAS_plugin);
+require_once "framework/identification/identification.class.php";
 
 /**
  * Initialisation des parametres generaux
@@ -67,34 +64,63 @@ include_once "modules/beforesession.inc.php";
  * Demarrage de la session
  */
 @session_start ();
+DEFINE ("DATELONGMASK","Y-m-d H:i:s" );
+
+
 /*
  * Verification du cookie de session, et destruction le cas echeant
  */
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > $APPLI_session_ttl)) {
+if (isset ( $_SESSION ['LAST_ACTIVITY'] ) && (time () - $_SESSION ['LAST_ACTIVITY'] > $APPLI_session_ttl)) {
 	// last request was more than 30 minutes ago
-	session_unset();     // unset $_SESSION variable for the run-time
-	session_destroy();   // destroy session data in storage
+	session_unset (); // unset $_SESSION variable for the run-time
+	session_destroy (); // destroy session data in storage
 }
-$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
-if (!isset($_SESSION['CREATED'])) {
-	$_SESSION['CREATED'] = time();
-} else if (time() - $_SESSION['CREATED'] > $APPLI_session_ttl) {
+$_SESSION ['LAST_ACTIVITY'] = time (); // update last activity time stamp
+if (! isset ( $_SESSION ['CREATED'] )) {
+	$_SESSION ['CREATED'] = time ();
+	$_SESSION['ABSOLUTE_START'] = time();
+} else if (time () - $_SESSION ['CREATED'] > $APPLI_session_ttl) {
 	/*
 	 * La session a demarre depuis plus du temps de la session : cookie regenere
 	 */
-	session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
-	$_SESSION['CREATED'] = time();  // update creation time
+	session_regenerate_id ( true ); // change session ID for the current session and invalidate old session ID
+	$_SESSION ['CREATED'] = time (); // update creation time
 }
 /*
  * Regeneration du cookie de session
  */
 $cookieParam = session_get_cookie_params ();
 $cookieParam ["lifetime"] = $APPLI_session_ttl;
-if ($APPLI_modeDeveloppement == false)
+if (! $APPLI_modeDeveloppement ) {
 	$cookieParam ["secure"] = true;
+}
 $cookieParam ["httponly"] = true;
 setcookie ( session_name (), session_id (), time () + $APPLI_session_ttl, $cookieParam ["path"], $cookieParam ["domain"], $cookieParam ["secure"], $cookieParam ["httponly"] );
 
+/*
+ * Recuperation des parametres de l'application definis dans un fichier ini
+ */
+if (is_file ( $paramIniFile )) {
+	$paramAppli = parse_ini_file ( $paramIniFile );
+	foreach ( $paramAppli as $key => $value ) {
+		$$key = $value;
+	}
+}
+/*
+ * Recuperation des parametres pour ObjetBDDParam
+ */
+if (isset($_SESSION["ObjetBDDParam"])) {
+    $ObjetBDDParam = $_SESSION["ObjetBDDParam"];
+} else {
+    objetBDDparamInit();
+}
+/**
+ * Integration des classes de gestion des vues et des messages
+ * instanciation des messages
+ */
+require_once 'framework/vue.class.php';
+$ERROR_display == 1 ? $displaySyslog = true : $displaySyslog = false;
+$message = new Message ($displaySyslog);
 /*
  * Lancement de l'identification
  */
@@ -103,19 +129,22 @@ $identification = new Identification ();
 
 $identification->setidenttype ( $ident_type );
 if ($ident_type == "CAS") {
-	$identification->init_CAS ( $CAS_address, $CAS_port, $CAS_uri );
+    require_once "vendor/jasig/phpcas/CAS.php";
+	$identification->init_CAS ( $CAS_address, $CAS_port, $APPLI_address );
 } elseif ($ident_type == "LDAP" || $ident_type == "LDAP-BDD") {
-	$identification->init_LDAP ( $LDAP_address, $LDAP_port, $LDAP_basedn, $LDAP_user_attrib, $LDAP_v3, $LDAP_tls );
+	$identification->init_LDAP ( $LDAP["address"], $LDAP["port"], $LDAP["basedn"], $LDAP["user_attrib"], $LDAP["v3"], $LDAP["tls"], $LDAP["upn_suffix"] );
 }
 /*
  * Chargement des fonction generiques
  */
 include_once 'framework/fonctions.php';
+
 /*
  * Gestion de la langue a afficher
  */
-if (isset ( $_SESSION ["LANG"] ) && $APPLI_modeDeveloppement == false) {
-	$LANG = $_SESSION ["LANG"];
+if (isset ( $_SESSION ["LANG"] ) &&  ! $APPLI_modeDeveloppement) {
+	$LANG = $_SESSION["LANG"];
+	initGettext($LANG["date"]["locale"]);
 } else {
 	/*
 	 * Recuperation le cas echeant du cookie
@@ -134,47 +163,41 @@ if (isset ( $_SESSION ["LANG"] ) && $APPLI_modeDeveloppement == false) {
 	 */
 	setlanguage ( $langue );
 }
-/**
- * Verification du couple session/adresse IP
- */
-if (isset ( $_SESSION ["remoteIP"] )) {
-	if ($_SESSION ["remoteIP"] != $_SERVER ['REMOTE_ADDR']) {
-		// Tentative d'usurpation de session - on ferme la session
-		if ($identification->disconnect ( $APPLI_address ) == 1) {
-			$message = $LANG ["message"] [7];
-		} else {
-			$message = $LANG ["message"] [8];
-		}
-	}
-} else {
-	$_SESSION ["remoteIP"] = $_SERVER ['REMOTE_ADDR'];
-}
+
+$SMARTY_variables["LANG"] = $_SESSION ["LANG"];
 /*
  * Connexion a la base de donnees
  */
 if (! isset ( $bdd )) {
 	$etaconn = true;
-	if ($APPLI_modeDeveloppement == true) {
-		try {
-			$bdd = new PDO ( $BDDDEV_dsn, $BDDDEV_login, $BDDDEV_passwd );
-		} catch ( PDOException $e ) {
-			print $e->getMessage () . "<br>";
-			$etaconn = false;
+	try {
+		$bdd = new PDO ( $BDD_dsn, $BDD_login, $BDD_passwd );
+	} catch ( PDOException $e ) {
+		if ($APPLI_modeDeveloppement) {
+			$message->set ( $e->getMessage () );
+		} else {
+			$message->setSyslog($e->getMessage());
 		}
-	} else {
-		try {
-			$bdd = new PDO ( $BDD_dsn, $BDD_login, $BDD_passwd );
-		} catch ( PDOException $e ) {
-			$etaconn = false;
-		}
+		$etaconn = false;
 	}
-	if ($etaconn == true) {
+	if ($etaconn ) {
 		/*
 		 * Mise en place du schema par defaut
 		 */
-		$APPLI_modeDeveloppement == true ? $schema = $BDDDEV_schema : $schema = $BDD_schema;
-		if (strlen ( $schema ) > 0) {
-			$bdd->exec ( "set search_path = " . $schema );
+		if (strlen ( $BDD_schema ) > 0) {
+			$bdd->exec ( "set search_path = " . $BDD_schema );
+			/*
+			 * Positionnement des messages dans la langue courante
+			 */
+			switch($LANG["date"]["locale"]) {
+			    case "en":
+			        $bdd->exec("set lc_messages to 'en_US.UTF-8'");
+			        break;
+			    case "fr":
+			    default:
+			        $bdd->exec("set lc_messages to 'fr_FR.UTF-8'");
+			        break;
+			}
 		}
 		/*
 		 * Connexion a la base de gestion des droits
@@ -182,68 +205,96 @@ if (! isset ( $bdd )) {
 		try {
 			$bdd_gacl = new PDO ( $GACL_dsn, $GACL_dblogin, $GACL_dbpasswd );
 		} catch ( PDOException $e ) {
-			print $e->getMessage () . "<br>";
+			if ($APPLI_modeDeveloppement) {
+				$message->set ( $e->getMessage () );
+			} else {
+				$message->setSyslog($e->getMessage());
+			}
 			$etaconn = false;
 		}
-		if ($etaconn == true) {
+		if ($etaconn) {
 			/*
 			 * Mise en place du schema par defaut
 			 */
-			if (strlen ( $GACL_schema ) > 0)
+			if (strlen ( $GACL_schema ) > 0) {
 				$bdd_gacl->exec ( "set search_path = " . $GACL_schema );
+			}
+			/*
+			 * Positionnement des messages dans la langue courante
+			 */
+			switch($LANG["date"]["locale"]) {
+			    case "en":
+			        $bdd_gacl->exec("set lc_messages to 'en_US.UTF-8'");
+			        break;
+			    case "fr":
+			    default:
+			        $bdd_gacl->exec("set lc_messages to 'fr_FR.UTF-8'");
+			        break;
+			}
 		} else {
-			echo ($LANG ["message"] [29]);
+		    $message->set ( _("Echec de connexion à la base de données de gestion des droits (GACL)"));
 		}
-	} else
-		echo $LANG ["message"] [22];
-}
-/*
- * Activation de SMARTY
- */
-$smarty = new Smarty ();
-$smarty->template_dir = $SMARTY_template;
-$smarty->compile_dir = $SMARTY_template_c;
-$smarty->config_dir = $SMARTY_config;
-$smarty->cache_dir = $SMARTY_cache_dir;
-$smarty->caching = $SMARTY_cache;
-if (! isset ( $message ))
-	$message = "";
-	/*
- * Assignation des variables "standard"
- */
-$smarty->assign ( "melappli", $APPLI_mail );
-$smarty->assign ( "fds", $path_inc . $APPLI_fds );
-$smarty->assign ( "entete", $SMARTY_entete );
-$smarty->assign ( "enpied", $SMARTY_enpied );
-$smarty->assign ( "corps", $SMARTY_corps );
-$smarty->assign ( "LANG", $LANG );
-$smarty->assign ( "ident_type", $ident_type );
-
-/*
- * Prepositionnement de idFocus, qui permet de positionner le focus automatiquement a l'ouverture d'une page web
- */
-$smarty->assign ( "idFocus", "" );
-/*
- * Preparation du module de gestion de la navigation
- */
-if (isset ( $_SESSION ["navigation"] ) && $APPLI_modeDeveloppement == false) {
-	$navigation = $_SESSION ['navigation'];
-} else {
-	$navigation = new Navigation ( $navigationxml );
-	unset ( $_SESSION ["menu"] );
-	$_SESSION ['navigation'] = $navigation;
+	} else {
+	    $message->set ( _("Echec de connexion à la base de données principale") );
+	}
 }
 /*
  * Activation de la classe d'enregistrement des traces
  */
 $log = new Log ( $bdd_gacl, $ObjetBDDParam );
+
 /*
- * Preparation de la gestion des droits
+ * Verification de la duree maxi de la session
  */
-if (isset ( $_SESSION ["droits"] )) {
-	$smarty->assign ( "droits", $_SESSION ["droits"] );
+if (time () - $_SESSION ['ABSOLUTE_START'] > $APPLI_absolute_session) {
+	$log->setLog($_SESSION["login"], "disconnect-absolute-time");
+	$identification->disconnect ( $APPLI_address );
+	$message->set(_("Vous avez été déconnecté, votre session était ouverte depuis trop longtemps"));
+	/*
+	 * Desactivation du cookie d'identification deja charge le cas echeant
+	 */
+	unset($_COOKIE ["tokenIdentity"]);
+}
+/**
+ * Verification du couple session/adresse IP
+ */
+$ipaddress = getIPClientAddress ();
+if (isset ( $_SESSION ["remoteIP"] )) {
+	if ($_SESSION ["remoteIP"] != $ipaddress) {
+		// Tentative d'usurpation de session - on ferme la session
+		$log->setLog($_SESSION["login"], "disconnect-ipaddress-changed", "old:".$_SESSION["remoteIP"]."-new:".$ipaddress);
+		if ($identification->disconnect ( $APPLI_address ) == 1) {
+		    $message->set ( _("Vous êtes maintenant déconnecté") );
+		} else {
+		    $message->set ( _("Connexion") );
+		}
+	}
 } else {
-	include "framework/identification/setDroits.php";
+	$_SESSION ["remoteIP"] = $ipaddress;
+}
+
+/*
+ * Preparation du module de gestion de la navigation
+ */
+if (isset ( $_SESSION ["navigation"] ) &&  ! $APPLI_modeDeveloppement ) {
+	$navigation = $_SESSION ['navigation'];
+} else {
+	$navigation = new Navigation ( $navigationxml );
+	unset($_SESSION["menu"]);
+	$_SESSION ['navigation'] = $navigation;
+}
+
+/*
+ * Traitement des parametres stockes en base de donnees
+ * Par defaut, APPLI_title doit exister. Les autres parametres sont deduits
+ */
+if (!isset($_SESSION["APPLI_title"])) {
+    require_once 'framework/dbparam/dbparam.class.php';
+    $dbparam = new DbParam($bdd, $ObjetBDDParam);
+    $ldbparam = $dbparam->getList();
+    foreach ($ldbparam as $row) {
+        $_SESSION[$row["dbparam_name"]] = $row["dbparam_value"];
+    }
 }
 
 /*
@@ -252,8 +303,10 @@ if (isset ( $_SESSION ["droits"] )) {
 include_once 'modules/fonctions.php';
 
 include_once 'framework/functionsDebug.php';
+
 /*
  * Chargement des traitements communs specifiques a l'application
  */
 include_once ("modules/common.inc.php");
+
 ?>

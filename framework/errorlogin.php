@@ -1,3 +1,3 @@
 <?php
-$message = $LANG["message"][27];
+$message->set(_("Vous n'êtes pas identifié."));
 ?>

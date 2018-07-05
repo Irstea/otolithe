@@ -297,7 +297,7 @@ class Experimentation extends ObjetBdd {
 	 * (saisie des experimentations autorisees)
 	 *
 	 * @param int $lecteur_id        	
-	 * @return tableau
+	 * @return array
 	 */
 	function getAllListFromLecteur($lecteur_id) {
 		if ($lecteur_id >= 0) {
@@ -314,7 +314,7 @@ class Experimentation extends ObjetBdd {
 	 * Retourne la liste de toutes les experimentations, pour saisie par individu
 	 *
 	 * @param int $individu_id        	
-	 * @return tableau
+	 * @return array
 	 */
 	function getAllListFromIndividu($individu_id) {
 		if ($individu_id >= 0) {
@@ -330,8 +330,8 @@ class Experimentation extends ObjetBdd {
 	/**
 	 * Retourne la liste des experimentations autorisees pour un lecteur
 	 *
-	 * @param unknown $lecteur_id        	
-	 * @return tableau|NULL
+	 * @param int $lecteur_id        	
+	 * @return array|NULL
 	 */
 	function getExpAutorisees($lecteur_id) {
 		if ($lecteur_id >= 0) {

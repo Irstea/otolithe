@@ -48,7 +48,7 @@ class ImportDataFile {
 	 * 2= ...
 	 *
 	 * @param string $nomFichierDesc        	
-	 * @param unknown $nomImport        	
+	 * @param string $nomImport        	
 	 */
 	function initViaIniFile($nomFichierDesc, $nomImport) {
 		$this->nomFichierDesc = $nomFichierDesc;
@@ -87,14 +87,14 @@ class ImportDataFile {
 		/*
 		 * Gestion de la classe de manipulation XLS
 		 */
-		if ($this->typeFichier == "xls") {
+/* 		if ($this->typeFichier == "xls") {
 			if (class_exists ( "Spreadsheet_Excel_Reader" )) {
 				$this->spreadsheet = new Spreadsheet_Excel_Reader ();
 			} else {
 				echo "La classe Spreadsheet_Excel_Reader n'est pas decrite - arret de l'application";
 				die ();
 			}
-		}
+		} */
 	}
 	/**
 	 * Fonction d'initialisation de l'import via un tableau
@@ -135,12 +135,12 @@ class ImportDataFile {
 		 * Gestion de la classe de manipulation XLS
 		 */
 		if ($this->typeFichier == "xls") {
-			if (class_exists ( "Spreadsheet_Excel_Reader" )) {
-				$this->spreadsheet = new Spreadsheet_Excel_Reader ();
-			} else {
-				echo "La classe Spreadsheet_Excel_Reader n'est pas decrite - arret de l'application";
-				die ();
-			}
+// 			if (class_exists ( "Spreadsheet_Excel_Reader" )) {
+// 				$this->spreadsheet = new Spreadsheet_Excel_Reader ();
+// 			} else {
+// 				echo "La classe Spreadsheet_Excel_Reader n'est pas decrite - arret de l'application";
+// 				die ();
+// 			}
 		}
 	}
 	/**
@@ -227,7 +227,7 @@ class ImportDataFile {
 	/**
 	 * Retourne le contenu de la ligne courante
 	 *
-	 * @return Ambigous <array, boolean>
+	 * @return <array, boolean>
 	 */
 	function getLigneCourante() {
 		if ($this->typeFichier == "csv") {

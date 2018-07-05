@@ -4,9 +4,12 @@
 *UTF-8
 * 
 * Parametres par defaut de l'application
+* Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
 */
-$APPLI_version = "1.5.1";
-$APPLI_versiondate = "11/10/2017";
+$APPLI_version = "0.1";
+$APPLI_dbversion = "0.1";
+$APPLI_versiondate = _("4/7/2018");
+//$APPLI_versiondate = "3/7/2018";
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*
@@ -17,16 +20,18 @@ $navigationxml = "param/actions.xml";
  * Duree de la session par defaut
  * @var unknown_type
  */
-// 1 heure
-$APPLI_session_ttl = 3600;
+// 4 heures
+$APPLI_session_ttl = 14400;
 // 3 mois
 $APPLI_cookie_ttl = 7776000; 
+// 10 heures
+$APPLI_absolute_session = 36000;
 /*
  * 
  * Nom du chemin de stockage des sessions
  * @var unknown_type
  */
-$APPLI_path_stockage_session = "otolithe";
+$APPLI_path_stockage_session = "prototypephp";
 /*
  * Duree de conservation des traces (en jours) dans la table log
  */
@@ -38,75 +43,87 @@ $LOG_duree = 365;
  * CAS : utilisation d'un serveur CAS
  * LDAP : utilisation d'un serveur LDAP
  * LDAP-BDD : test d'abord aupres du serveur LDAP, puis du serveur BDD
+ * HEADER : l'identification est fournie dans une variable HEADER (derriere un proxy comme
+ * LemonLdap, par exemple)
  */
+$ident_header_login_var = "AUTH_USER";
+$ident_header_logout_address = "";
 $ident_type = "BDD";
-//$CAS_plugin="plugins/phpcas-simple/phpcas.php";
-$CAS_plugin = 'plugins/esup-phpcas/source/CAS/CAS.php';
 $CAS_address = "http://localhost/CAS";
 $CAS_port = 443;
-$LDAP_address = "localhost";
-$LDAP_port = 389;
-$LDAP_rdn = "cn=manager,dc=example,dc=com";
-$LDAP_basedn = "ou=people,ou=example,o=societe,c=fr";
-$LDAP_user_attrib = "uid";
-$LDAPGROUP_port = 389;
-$LDAP_v3 = true;
-$LDAP_tls = false;
+$LDAP = array(
+		"address"=>"localhost",
+		"port" => 389,
+		"rdn" => "cn=manager,dc=example,dc=com",
+		"basedn" => "ou=people,ou=example,o=societe,c=fr",
+		"user_attrib" => "uid",
+		"v3" => true,
+		"tls" => false,
+		"upn_suffix" => "", //pour Active Directory
+		"groupSupport"=>false,
+		"groupAttrib"=>"supannentiteaffectation",
+		"commonNameAttrib"=>"displayname",
+		"mailAttrib"=>"mail",
+		'attributgroupname' => "cn",
+		'attributloginname' => "memberuid",
+		'basedngroup' => 'ou=example,o=societe,c=fr'
+);
+
 /*
  * Parametres concernant la base de donnees
  */
-$BDD_type = "mysql";
-$BDD_server = "localhost";
 $BDD_login = "proto";
 $BDD_passwd = "proto";
-$BDD_database = "proto";
 $BDD_dsn = "pgsq:host=localhost;dbname=proto";
-/*
- * Base de donnees de developpement
-*/
-$BDDDEV_type = "mysql";
-$BDDDEV_server = "localhost";
-$BDDDEV_login = "proto";
-$BDDDEV_passwd = "proto";
-$BDDDEV_database = "proto";
-$BDDEV_dsn = "psql:host=localhost;dbname=proto";
+$BDD_schema = "public";
 /*
  * Parametres concernant SMARTY
  */
-$SMARTY_template ='display/templates';
-$SMARTY_template_c = 'display/templates_c';
-$SMARTY_config = 'param/configs_smarty';
-$SMARTY_cache_dir = 'display/smarty_cache';
-$SMARTY_cache = FALSE;
-$SMARTY_entete = "entete.tpl";
-$SMARTY_enpied = "enpied.tpl";
-$SMARTY_principal = "main.htm";
-$SMARTY_corps = "clear.tpl";
+$display = "display"; // Dossier de base contenant tout l'affichage
+$SMARTY_param = array("templates"=> "$display/templates",
+		"templates_c"=>"$display/templates_c",
+		"cache"=>false,
+		"cache_dir"=>"$display/smarty_cache",
+		"template_main"=>"main.htm"
+);
+
 /*
  * Variables de base de l'application
  */ 
 $APPLI_mail = "proto@proto.com";
 $APPLI_nom = "Prototype d'application";
 $APPLI_code = 'proto';
-$APPLI_fds = "display/CSS/blue.css";
+$APPLI_fds = "$display/CSS/blue.css";
 $APPLI_address = "http://localhost/proto";
 $APPLI_modeDeveloppement = false;
+$APPLI_modeDeveloppementDroit = false;
 $APPLI_utf8 = true;
-
+$APPLI_menufile = "param/menu.xml";
+$APPLI_temp = "temp";
+$APPLI_assist_address = "https://github.com/Irstea/collec/issues/new";
+$APPLI_isFullDns = false;
+/*
+ * Variables systematiques pour SMARTY
+ */
+$SMARTY_variables = array(
+		"entete"=>"entete.tpl",
+		"enpied"=>"enpied.tpl",
+		"corps"=>"main.tpl",
+		"melappli"=>$APPLI_mail,
+		"ident_type"=>$ident_type,
+        "appliAssist"=>$APPLI_assist_address,
+        "display"=>"/$display",
+        "favicon"=>"/favicon.png"
+);
 /*
  * Variables liees a GACL et l'identification via base de donnees
  */
-$GACL_dbtype = "mysql";
-$GACL_dbserver = "localhost";
 $GACL_dblogin = "proto";
 $GACL_dbpasswd = "proto";
-$GACL_database = "proto";
-$GACL_dbprefixe = "gacl";
-$GACL_aro = "login";
-$GACL_aco = "otolithe";
-$GACL_path = "param/gacl.ini.php";
-$GACL_listeDroitsGeres = "admin,gestion,lecture";
+$GACL_aco = "col";
 $GACL_dsn = "pgsql:host=localhost;dbname=proto";
+$GACL_schema = "gacl";
+
 /*
  * Gestion des erreurs
  */
@@ -126,8 +143,31 @@ $OBJETBDD_debugmode = 1;
 $APPLI_moduleDroitKO = "droitko";
 $APPLI_moduleErrorBefore = "errorbefore";
 $APPLI_moduleNoLogin = "errorlogin";
+$APPLI_notSSL = false;
 /*
- * Dossier de stockage des photos temporaires
+ * Cles privee et publique utilisees 
+ * pour la generation des jetons
  */
-$APPLI_photoStockage = "img";
+$privateKey = "/etc/ssl/private/ssl-cert-snakeoil.key";
+$pubKey = "/etc/ssl/certs/ssl-cert-snakeoil.pem";
+/*
+ * Duree de validite du token d'identification
+ */
+$tokenIdentityValidity = 36000; // 10 heures
+
+/*
+ * Nombre maximum d'essais de connexion
+ */
+$CONNEXION_max_attempts = 5;
+/*
+ * Duree de blocage du compte (duree reinitialisee a chaque tentative)
+ */
+$CONNEXION_blocking_duration = 600;
+/*
+ * Laps de temps avant de renvoyer un mail a l'administrateur en cas de blocage de compte
+ */
+$APPLI_mailToAdminPeriod = 7200;
+$APPLI_admin_ttl = 600; // Duree maxi d'inactivite pour acceder a un module d'administration
+$APPLI_lostPassword = 0; // Autorise la recuperation d'un nouveau mot de passe en cas de perte
+
 ?>
