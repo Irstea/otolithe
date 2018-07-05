@@ -344,7 +344,7 @@ switch ($t_module["param"]) {
         /*
          * Integration des experimentations
          */
-        $smarty->assign("experimentation", $_SESSION["it_experimentation"]->translateList($_SESSION["experimentations"]));
+        $vue->set($_SESSION["it_experimentation"]->translateList($_SESSION["experimentations"]),"experimentation");
         include_once 'modules/classes/individu.class.php';
         $lecteur = new Lecteur($bdd, $ObjetBDDParam);
         $vue->set($lecteur->getListe(), "lecteur");
@@ -451,7 +451,7 @@ switch ($t_module["param"]) {
 		if (isset($_REQUEST["photolecture_id_modif"])) {
             $module_coderetour = 1;
         } else {
-            $module_coderetour = 0;
+            $module_coderetour = -1;
         }
 }
 ?>

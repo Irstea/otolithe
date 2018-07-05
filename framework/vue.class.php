@@ -154,6 +154,10 @@ class Vue
         }
         return $data;
     }
+    
+    function debug() {
+        printr($this->data);
+    }
 }
 
 /**

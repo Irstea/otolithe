@@ -12,7 +12,7 @@ setDataTables("idListe",true , false, true, 100);
 <tr>
 <th>{t}Individu{/t}</th>
 <th>{t}Pièce{/t}<br>{t}traitement{/t}</th>
-<th>{t}Photo{/t}<br>Couleur/NB{/t}</th>
+<th>{t}Photo{/t}<br>{t}Couleur/NB{/t}</th>
 <th>{t}Résolution de prise de vue{/t}</th>
 <th>{t}Date de prise de vue{/t}</th>
 <th>{t}Longueur de référence{/t}</th>
@@ -73,4 +73,4 @@ setDataTables("idListe",true , false, true, 100);
 </table>
 
 {/if}
-<br>
+
