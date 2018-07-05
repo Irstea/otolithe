@@ -45,9 +45,6 @@ switch ($t_module["param"]) {
         $peche = new Peche($bdd, $ObjetBDDParam);
         $vue->set($peche->getListeSite(), "site");
         $vue->set($peche->getListeZone(), "zone");
-
-        $smarty->assign("site");
-        $smarty->assign("zone");
         $dataRecherche["exp_id"] = $_SESSION["it_experimentation"]->setValue($dataRecherche["exp_id"]);
         $vue->set($dataRecherche, "individuSearch");
 

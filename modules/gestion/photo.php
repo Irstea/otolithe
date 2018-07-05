@@ -83,7 +83,7 @@ switch ($t_module["param"]) {
          * Lecture des types de lumiere
          */
         $lumieretype = new LumiereType($bdd, $ObjetBDDParam);
-        $smarty->assign("lumieretype", $lumieretype->getListe());
+        $vue->set($lumieretype->getListe(),"lumieretype");
         $data = dataRead($dataClass, $id, "gestion/photoChange.tpl", $piece_id);
         $data = $_SESSION["it_photo"]->translateRow($data);
         $data = $_SESSION["it_piece"]->translateRow($data);

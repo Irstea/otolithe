@@ -75,7 +75,7 @@
 <td>
 <h3>{t}Pièces rattachées{/t}</h3>
 {if $droits.gestion == 1}
-<a href="index.php?module=pieceChange&piece_id=0&individu_id={$data.individu_id}">{$LANG["gestion"].21}</a>
+<a href="index.php?module=pieceChange&piece_id=0&individu_id={$data.individu_id}">{t}Nouvelle pièce{/t}</a>
 {/if}
 <table class="tableaffichage">
 <thead>
@@ -83,7 +83,7 @@
 <th>{t}Type{/t}</th>
 <th>{t}Code{/t}</th>
 <th>{t}Traitement réalisé{/t}</th>
-<th>{t}Nbre photos rattachée{/t}s</th>
+<th>{t}Nbre photos rattachées{/t}</th>
 </tr></thead>
 <tbody>
 {section name="lst" loop=$piece}
@@ -152,7 +152,7 @@
 <th>{t}Analyse{/t}</th>
 <th>{t}Valeur mesurée{/t}</th>
 <th>{t}Valeur mini{/t}</th>
-<th>{t}Valeur maxi{t}</th>
+<th>{t}Valeur maxi{/t}</th>
 </tr>
 </thead>
 <tdata>
