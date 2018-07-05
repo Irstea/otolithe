@@ -5,13 +5,22 @@
 	<its:translateRule selector="//item/@tooltip" translate="yes"/> 
 </its:rules>
 
-<item module="gestion" label="Gestion" tooltip="Modules de l'application">
-	<item module="gestion" label="Gestion" tooltip="Modules de l'application"/>
-	<item module="exampleList" droits="consult" label="Exemple" tooltip="Exemple de module"  />
+<item module="individuList" label="Lectures" tooltip="Lecture des pièces calcifiées">
+	<item module="individuList" label="Poissons" tooltip="Liste des poissons"/>
+	<item module="photolectureList" label="Lectures réalisées" tooltip="Liste des lectures réalisées" droits="lecture"/>
+	<item module="importChange" label="Import" tooltip="Importer des poissons" droits="gestionCompte"/>
 </item>
 
-<item module="administration" label="Administration" tooltip="Administration de l'application" droits="admin">
-	<item module="loginList" menulevel="1" menuorder="9" droits="admin" label="Liste des comptes locaux" tooltip="Liste des logins - identification via la base de données"/>
+<item module="parametres" label="Paramètres" tooltip="Paramètres généraux de l'application">
+	<item module="experimentationList" label="Expérimentations" tooltip="Liste des expérimentations" droits="consult"/>
+	<item module="piecetypeList" label="Pièces" tooltip="Liste des types de pièces calcifiées" droits="consult"/>
+	<item module="especeList" label="Espèces" tooltip="Liste des espèces" droits="consult"/>
+
+</item>
+
+<item module="administration" label="Administration" tooltip="Administration de l'application" droits="admin,gestionCompte">
+	<item module="loginList" droits="admin,gestionCompte" label="Liste des comptes locaux" tooltip="Liste des logins - identification via la base de données"/>
+	<item module="lecteurList" droits="gestionCompte" label="Lecteurs" tooltip="Liste des lecteurs"/>
 	<item module="appliList" droits="admin" label="ACL - droits" tooltip="applications et droits gérés"/>
 	<item module="aclloginList" droits="admin" label="ACL - logins" tooltip="Logins déclarés dans le module de gestion des droits"/>
 	<item module="groupList" droits="admin" label="ACL - groupes de logins" tooltip="Groupes de logins et logins rattachés aux groupes"/>
@@ -23,7 +32,7 @@
 	<item module="loginChangePassword" loginrequis="1" label="Modifier le mot de passe" tooltip="Modifiez votre mot de passe (identification locale uniquement)" />
 </item>
 <item module="aide" label="?" tooltip="Aide">
-	<item module="apropos" label="A propos" tooltip="A propos de Collec-Science"/>
+	<item module="apropos" label="A propos" tooltip="A propos d'Otolithe"/>
 	<item module="quoideneuf" label="Nouveautés" tooltip="Quoi de neuf dans l'application ?"/>
 	<item module="lexique" label="Lexique" tooltip="Lexique des termes utilisés dans le logiciel" />
 	<item module="setlanguagefr" label="Français" tooltip="Libellés en français"/>

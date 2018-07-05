@@ -1,111 +1,124 @@
 <navigation>
-	<model action="index.php" droits="gestion" retourko="model" retourlogin="1"
-		retourok="model" retournull="model" loginrequis="1" menulevel="0" menuorder="0" onlynoconnect="0"
-		menudroits="gestion" menuloginrequis="1" menuparent="0" menutitle="0" menuvalue="0" param="param1" ajax="0" droitko="droitko" modulebefore="module1,module2">
+	<model action="index.php" param="list|display|change|write|delete|..." droits="gestion" retourko="model" retourlogin="1"
+		retourok="model" loginrequis="1" 
+		 type="html|smarty|ajax|pdf|csv" droitko="droitko" modulebefore="module1,module2">
 	</model>
-	<default action="framework/default.php"/>
-	<droitko action="framework/droitko.php"></droitko>
-	<loginliste action="framework/identification/login.php" param="list" droits="gestionCompte,admin" menulevel="1" menuorder="3" menudroits="gestionCompte,admin" menuparent="3" menutitle="3" menuvalue="2"></loginliste>
-	<loginmodif action="framework/identification/login.php" param="change" droits="gestionCompte,admin" />
-	<loginwrite action="framework/identification/login.php" param="write" droits="gestionCompte,admin" retourko="loginmodif" retourok="loginliste" />
-	<logindelete action="framework/identification/login.php" param="delete" droits="gestionCompte,admin" retourko="loginmodif" retoursuppr="loginliste" />
-	<loginChangePassword action="framework/identification/login.php" param="changePassword" loginrequis="1" />
-	<loginChangePasswordExec action="framework/identification/login.php" param="changePasswordExec" loginrequis="1" retourko="loginChangePassword" modulebefore="loginChangePassword" />
-	<administration action="modules/administration/index.php" menudroits="gestionCompte,admin"  
-		retourko="" retourok="" retournull="" menuvalue="4" menutitle="5" menuorder="3" menulevel="0" droitko="droitko"></administration>
-	<param action="modules/param/index.php" droits="consult" retourko="" retourok="" retournull="" menuvalue="60" menutitle="61" menuorder="2" menulevel="0" droitko="droitko"/>
+	<default action="framework/default.php" type="smarty"></default>
+	<droitko action="framework/droitko.php" type="smarty"></droitko>
+	<droits menudroits="admin" droits="admin" menulevel="0" menuorder="7" menuvalue="14" menutitle="15" />
+	<gestiondroits action="framework/identification/gestiondroits.php" droits="admin" loginrequis="0" retourlogin="1" droitko="droitko"/>
+	
+	<loginList action="framework/identification/login.php" param="list" droits="admin" retourlogin="1"  type="smarty"/>
+	<loginChange action="framework/identification/login.php" param="change" droits="admin"  type="smarty"/>
+	<loginWrite action="framework/identification/login.php" param="write" droits="admin" retourko="loginChange" retourok="loginList" modulebefore="loginChange" />
+	<loginDelete action="framework/identification/login.php" param="delete" droits="admin" retourko="loginChange" retourok="loginList" modulebefore="loginChange"/>
+	<loginChangePassword action="framework/identification/login.php" param="changePassword" loginrequis="1" type="smarty" />
+	<loginChangePasswordExec action="framework/identification/login.php" param="changePasswordExec" loginrequis="1" retourko="loginChangePassword" retourok="default" modulebefore="loginChangePassword" />
 
-
-	<gestion action="framework/default.php" droits="gestion" retourko=""
-		retournull="" retourok="" menuorder="1" menulevel="0" menuvalue="0" menutitle="1">
+	<administration action="modules/administration/index.php" droits="admin"
+		retourko="" retourok="" droitko="droitko" type="smarty"></administration>
+	<gestion action="modules/gestion/index.php" droits="gestion" retourko=""
+		retourok="" droitko="droitko" type="smarty">
 	</gestion>
-	<errorbefore action="framework/errorbefore.php"></errorbefore>
-	<errorlogin action="framework/errorlogin.php"></errorlogin>
+	<errorbefore action="framework/errorbefore.php" retourlogin="1" type="smarty" ></errorbefore>
+	<errorlogin action="framework/errorlogin.php" retourlogin="1" type="smarty" ></errorlogin>
 	<test action="test/test.php" retourko=""
-		retournull="">
+		 type="smarty">
 	</test>
-	<connexion loginrequis="1" menutitle="connexiontitle" menuvalue="connexionvalue" menulevel="0" menuorder="5" onlynoconnect="1" />
-	<identdisconnect action="framework/identification/disconnect.php" menutitle="7" menuvalue="6" menuorder="4" menulevel="0" menuloginrequis="1"></identdisconnect>
-	<apropos action="framework/apropos.php" menulevel="1" menuorder="99" menuvalue="8" menutitle="9" menuparent="99"></apropos>
-	<docindex menulevel="0" menuorder="99" menutitle="21" menuvalue="20"  ></docindex>
-	<quoideneuf action="doc/quoideneuf.php" menulevel="1" menuparent="99" menutitle="41" menuvalue="40"></quoideneuf>
-	<setlanguage action='framework/setlanguage.php' />
+	<connexion loginrequis="1"  type="smarty"/>
+	<disconnect action="framework/identification/disconnect.php"  type="smarty"/>
+	<apropos action="framework/apropos.php" type="smarty" />
+	<phpinfo action="framework/phpinfo.php" droits="admin" retourlogin="1"  type="smarty"/>
+	<quoideneuf action="doc/quoideneuf.php"  retourlogin="1"  type="smarty"/>
+		
+	<setlanguage action='framework/setlanguage.php' param="" retourlogin="1" type="smarty" retourok="default"  />
+	<setlanguagefr action='framework/setlanguage.php' param="fr" retourlogin="1" type="smarty" retourok="default" />
+	<setlanguageen action='framework/setlanguage.php' param="en" retourlogin="1" type="smarty" retourok="default" />
+
+<!-- gestion des droits nouvelle formule -->
+	<appliList action="framework/droits/appli.php" param="list" droits="admin" retourlogin="1"  type="smarty" />
+	<appliDisplay action="framework/droits/appli.php" param="display" droits="admin"  type="smarty"/>
+	<appliChange action="framework/droits/appli.php" param="change" droits="admin"  type="smarty"/>
+	<appliWrite action="framework/droits/appli.php" param="write" droits="admin" retourok="appliDisplay" retourko="appliChange" modulebefore="appliChange" />
+	<appliDelete action="framework/droits/appli.php" param="delete" droits="admin" retourok="appliList" retourko="appliChange"  modulebefore="appliChange"/>
+
+	<aclloginList action="framework/droits/login.php" param="list" droits="admin" retourlogin="1" type="smarty" />
+	<aclloginChange action="framework/droits/login.php" param="change" droits="admin"  type="smarty"/>
+	<aclloginWrite action="framework/droits/login.php" param="write" droits="admin" retourok="aclloginList" retourko="aclloginChange" modulebefore="aclloginChange" />
+	<aclloginDelete action="framework/droits/login.php" param="delete" droits="admin" retourok="aclloginList" retourko="aclloginChange"  modulebefore="aclloginChange"/>
+
+	<groupList action="framework/droits/group.php" param="list" droits="admin" retourlogin="1"  type="smarty" />
+	<groupChange action="framework/droits/group.php" param="change" droits="admin" type="smarty" />
+	<groupWrite action="framework/droits/group.php" param="write" droits="admin" retourok="groupList" retourko="groupChange" modulebefore="groupChange" />
+	<groupDelete action="framework/droits/group.php" param="delete" droits="admin" retourok="groupList" retourko="groupChange"  modulebefore="groupChange"/>
+
+	<acoDisplay action="framework/droits/aco.php" param="display" droits="admin" type="smarty" />
+	<acoChange action="framework/droits/aco.php" param="change" droits="admin"  type="smarty"/>
+	<acoWrite action="framework/droits/aco.php" param="write" droits="admin" retourok="appliDisplay" retourko="acoChange" modulebefore="acoChange" />
+	<acoDelete action="framework/droits/aco.php" param="delete" droits="admin" retourok="appliDisplay" retourko="acoChange"  modulebefore="acoChange"/>
 	
-	<phpinfo action="framework/phpinfo.php" droits="admin" menudroits="admin" menulevel="1" menuorder="9" menuparent="3" menuvalue="44" menutitle="45" />
-	
-	<individuList action="modules/gestion/individu.php" retourlogin="1" param="list" droits="lecture" menulevel="1" menuparent="1" menudroits="lecture" menuvalue="50" menutitle="51" />
-	<individuDisplay action="modules/gestion/individu.php" param="display" droits="lecture" />
-	<individuChange action="modules/gestion/individu.php"  param="change" droits="gestion"  />
+	<passwordlostIslost action="framework/identification/passwordLost.php" param="isLost" type="smarty"/>
+	<passwordlostSendmail action="framework/identification/passwordLost.php" param="sendMail" retourok="default"/>
+	<passwordlostReinitchange action="framework/identification/passwordLost.php" param="reinitChange" type="smarty" />
+	<passwordlostReinitwrite action="framework/identification/passwordLost.php" param="reinitWrite" modulebefore="passwordlostReinitchange" retourko="default" retourok="connexion"/>
+
+	<dbparamList action="framework/dbparam/dbparam.php" param="list" droits="admin" retourlogin="1" type="smarty" />
+	<dbparamWriteGlobal action="framework/dbparam/dbparam.php" param="writeGlobal" droits="admin" retourok="dbparamList" retourko="dbparamList" />
+
+<!-- Modules specifiques de l'application -->	
+	<individuList action="modules/gestion/individu.php" retourlogin="1" param="list" droits="lecture" type="smarty" />
+	<individuDisplay action="modules/gestion/individu.php" param="display" droits="lecture" type="smarty"/>
+	<individuChange action="modules/gestion/individu.php"  param="change" droits="gestion"  type="smarty"/>
 	<individuWrite action="modules/gestion/individu.php"  param="write" droits="gestion" retourok="individuDisplay" retourko="individuChange" />
 	<individuDelete action="modules/gestion/individu.php"  param="delete" droits="gestion" retourok="individuList" retourko="individuChange" />
 	
 	
-	<pieceDisplay action="modules/gestion/piece.php" param="display" droits="lecture" />
-	<pieceChange action="modules/gestion/piece.php" param="change" droits="gestion" />
+	<pieceDisplay action="modules/gestion/piece.php" param="display" droits="lecture" type="smarty"/>
+	<pieceChange action="modules/gestion/piece.php" param="change" droits="gestion" type="smarty"/>
 	<pieceWrite action="modules/gestion/piece.php" param="write" droits="gestion" retourok="pieceDisplay" retourko="pieceChange" modulebefore="pieceChange" />
-	<pieceDelete action="modules/gestion/piece.php" param="delete" droits="gestion" retoursuppr="individuDisplay" retourko="pieceChange" modulebefore="pieceChange"/>
+	<pieceDelete action="modules/gestion/piece.php" param="delete" droits="gestion" retourok="individuDisplay" retourko="pieceChange" modulebefore="pieceChange"/>
 
-	<photoDisplay action="modules/gestion/photo.php" param="display" droits="lecture" />
-	<photoChange action="modules/gestion/photo.php" param="change" droits="gestion" />
+	<photoDisplay action="modules/gestion/photo.php" param="display" droits="lecture" type="smarty"/>
+	<photoChange action="modules/gestion/photo.php" param="change" droits="gestion" type="smarty"/>
 	<photoWrite action="modules/gestion/photo.php" param="write" droits="gestion" retourok="photoDisplay" retourko="photoChange" modulebefore="photoChange" />
-	<photoDelete action="modules/gestion/photo.php" param="delete" droits="gestion" retoursuppr="pieceDisplay" retourko="photoChange" modulebefore="photoChange" />
-	<photoGetPhoto action="modules/gestion/photo.php" param="getPhoto" droits="lecture" ajax="1" />
-	<photoGetThumbnail action="modules/gestion/photo.php" param="getThumbnail" droits="lecture" ajax="1" />
-	<photoDisplayPhoto action="modules/gestion/photo.php" param="photoDisplay" droits="lecture" />
+	<photoDelete action="modules/gestion/photo.php" param="delete" droits="gestion" retourok="pieceDisplay" retourko="photoChange" modulebefore="photoChange" />
+	<photoGetPhoto action="modules/gestion/photo.php" param="getPhoto" droits="lecture" type="ajax" />
+	<photoGetThumbnail action="modules/gestion/photo.php" param="getThumbnail" droits="lecture" type="ajax" />
+	<photoDisplayPhoto action="modules/gestion/photo.php" param="photoDisplay" droits="lecture" type="smarty" />
 	
-	<lecteurList action="modules/gestion/lecteur.php" param="list" droits="gestionCompte" menulevel="1" menuparent="3" menuorder="5" menudroits="gestionCompte" menuvalue="52" menutitle="53"  />
-	<lecteurDisplay action="modules/gestion/lecteur.php" param="display" droits="gestionCompte" />
-	<lecteurChange action="modules/gestion/lecteur.php" param="change" droits="gestionCompte" />
+	<lecteurList action="modules/gestion/lecteur.php" param="list" droits="gestionCompte" type="smarty"  />
+	<lecteurDisplay action="modules/gestion/lecteur.php" param="display" droits="gestionCompte" type="smarty" />
+	<lecteurChange action="modules/gestion/lecteur.php" param="change" droits="gestionCompte" type="smarty" />
 	<lecteurWrite action="modules/gestion/lecteur.php" param="write" droits="gestionCompte" retourok="lecteurList" retourko="lecteurChange" modulebefore="lecteurChange" />
-	<lecteurDelete action="modules/gestion/lecteur.php" param="delete" droits="gestionCompte" retoursuppr="lecteurList" retourko="lecteurChange" />
+	<lecteurDelete action="modules/gestion/lecteur.php" param="delete" droits="gestionCompte" retourok="lecteurList" retourko="lecteurChange" />
+	
+	<parametres action="modules/param/index.php" droits="gestionCompte" type="smarty"/>
 
-	<experimentationList action="modules/gestion/experimentation.php" param="list" droits="consult" menulevel="1" menuparent="2" menuorder="1" menudroits="consult" menuvalue="56" menutitle="57"  />
-	<experimentationChange action="modules/gestion/experimentation.php" param="change" droits="gestionCompte" />
+	<experimentationList action="modules/gestion/experimentation.php" param="list" droits="consult" type="smarty"  />
+	<experimentationChange action="modules/gestion/experimentation.php" param="change" droits="gestionCompte" type="smarty"/>
 	<experimentationWrite action="modules/gestion/experimentation.php" param="write" droits="gestionCompte" retourok="experimentationList" retourko="experimentationChange" modulebefore="experimentationChange" />
-	<experimentationDelete action="modules/gestion/experimentation.php" param="delete" droits="gestionCompte" retoursuppr="experimentationList" retourko="experimentationChange" />
+	<experimentationDelete action="modules/gestion/experimentation.php" param="delete" droits="gestionCompte" retourok="experimentationList" retourko="experimentationChange" />
 
-	<piecetypeList action="modules/gestion/piecetype.php" param="list" droits="consult" menulevel="1" menuparent="2" menuorder="2" menudroits="consult" menuvalue="58" menutitle="59"  />
+	<piecetypeList action="modules/gestion/piecetype.php" param="list" droits="consult"   />
 	<piecetypeChange action="modules/gestion/piecetype.php" param="change" droits="gestionCompte" />
 	<piecetypeWrite action="modules/gestion/piecetype.php" param="write" droits="gestionCompte" retourok="piecetypeList" retourko="piecetypeChange" modulebefore="piecetypeChange" />
 	<piecetypeDelete action="modules/gestion/piecetype.php" param="delete" droits="gestionCompte" retoursuppr="piecetypeList" retourko="piecetypeChange" />
 
-	<photolectureDisplay action="modules/photolecture/photolecture.php" param="display" droits="lecture" />
-	<photolectureChange action="modules/photolecture/photolecture.php" param="change" droits="lecture" retourko="photoDisplay"/>
+	<photolectureDisplay action="modules/photolecture/photolecture.php" param="display" droits="lecture" type="smarty"/>
+	<photolectureChange action="modules/photolecture/photolecture.php" param="change" droits="lecture" retourko="photoDisplay" type="smarty"/>
 	<photolectureWrite action="modules/photolecture/photolecture.php" param="write" droits="lecture" retourok="photoDisplay" retourko="photolectureChange" modulebefore="photolectureChange" />
-	<photolectureDelete action="modules/photolecture/photolecture.php" param="delete" droits="gestion" retoursuppr="photoDisplay" retourko="photolectureChange" modulebefore="photoDisplay" />
-	<photolectureList action="modules/photolecture/photolecture.php" retourlogin="1" param="list" droits="lecture" menudroits="lecture" menuvalue="54" menutitle="55" menulevel="1" menuorder="2" menuparent="1" />
-	<photolectureExport action="modules/photolecture/photolecture.php" param="export" droits="gestion" ajax="1" />
-	<photolectureSwap action="modules/photolecture/photolecture.php" param="swap" droits="lecture" retournull="photolectureDisplay" retourok="photolectureChange" />
+	<photolectureDelete action="modules/photolecture/photolecture.php" param="delete" droits="gestion" retourok="photoDisplay" retourko="photolectureChange" modulebefore="photoDisplay" />
+	<photolectureList action="modules/photolecture/photolecture.php" retourlogin="1" param="list" droits="lecture"  />
+	<photolectureExport action="modules/photolecture/photolecture.php" param="export" droits="gestion" type="ajax" />
+	<photolectureSwap action="modules/photolecture/photolecture.php" param="swap" droits="lecture" retourko="photolectureDisplay" retourok="photolectureChange" />
 
-	<especeList action="modules/gestion/espece.php" param="list" droits="consult" menulevel="1" menuparent="2" menuorder="3" menudroits="consult" menuvalue="62" menutitle="63"  />
-	<especeSearchAjax action="modules/gestion/espece.php" param="searchAjax" droits="gestion" ajax="1" />
+	<especeList action="modules/gestion/espece.php" param="list" droits="consult" type="smarty"  />
+	<especeSearchAjax action="modules/gestion/espece.php" param="searchAjax" droits="gestion" type="ajax" />
 
-	<importChange action="modules/gestion/import.php" param="change" droits="gestionCompte" retourlogin="1" menudroits="gestionCompte" menuvalue="64" menutitle="65"  menulevel="1" menuparent="2" menuorder="4" />
+	<importChange action="modules/gestion/import.php" param="change" droits="gestionCompte" retourlogin="1"  />
 	<importControl action="modules/gestion/import.php" param="control" droits="gestionCompte" modulebefore="importChange,importControl,importImport" retourok="importChange"  />
 	<importImport action="modules/gestion/import.php" param="import" droits="gestionCompte" modulebefore="importControl,importChange" retourok="importChange" retourko="importChange"  />
 
-
-<!-- Gestion des droits nouvelle formule -->
-	<appliList action="framework/droits/appli.php" param="list" droits="admin" retourlogin="1" menulevel="1" menuparent="3" menuorder="13" menudroits="admin" menuvalue="appliliste" menutitle="applilistetitle"  />
-	<appliDisplay action="framework/droits/appli.php" param="display" droits="admin" />
-	<appliChange action="framework/droits/appli.php" param="change" droits="admin" />
-	<appliWrite action="framework/droits/appli.php" param="write" droits="admin" retourok="appliDisplay" retourko="appliChange" modulebefore="appliChange" />
-	<appliDelete action="framework/droits/appli.php" param="delete" droits="admin" retoursuppr="appliList" retourko="appliChange"  modulebefore="appliChange"/>
-
-	<aclloginList action="framework/droits/login.php" param="list" droits="admin" retourlogin="1" menulevel="1" menuparent="3" menuorder="11" menudroits="admin" menuvalue="aclloginliste" menutitle="aclloginlistetitle"  />
-	<aclloginChange action="framework/droits/login.php" param="change" droits="admin" />
-	<aclloginWrite action="framework/droits/login.php" param="write" droits="admin" retourok="aclloginList" retourko="aclloginChange" modulebefore="aclloginChange" />
-	<aclloginDelete action="framework/droits/login.php" param="delete" droits="admin" retoursuppr="aclloginList" retourko="aclloginChange"  modulebefore="aclloginChange"/>
-
-	<groupList action="framework/droits/group.php" param="list" droits="admin" retourlogin="1" menulevel="1" menuparent="3" menuorder="12" menudroits="admin" menuvalue="groupliste" menutitle="grouplistetitle"  />
-	<groupChange action="framework/droits/group.php" param="change" droits="admin" />
-	<groupWrite action="framework/droits/group.php" param="write" droits="admin" retourok="groupList" retourko="groupChange" modulebefore="groupChange" />
-	<groupDelete action="framework/droits/group.php" param="delete" droits="admin" retoursuppr="groupList" retourko="groupChange"  modulebefore="groupChange"/>
-
-	<acoDisplay action="framework/droits/aco.php" param="display" droits="admin" />
-	<acoChange action="framework/droits/aco.php" param="change" droits="admin" />
-	<acoWrite action="framework/droits/aco.php" param="write" droits="admin" retourok="appliDisplay" retourko="acoChange" modulebefore="acoChange" />
-	<acoDelete action="framework/droits/aco.php" param="delete" droits="admin" retoursuppr="appliDisplay" retourko="acoChange"  modulebefore="acoChange"/>
 	
 
 </navigation>
