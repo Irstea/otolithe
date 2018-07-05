@@ -99,8 +99,8 @@
 	<experimentationWrite action="modules/gestion/experimentation.php" param="write" droits="gestionCompte" retourok="experimentationList" retourko="experimentationChange" modulebefore="experimentationChange" />
 	<experimentationDelete action="modules/gestion/experimentation.php" param="delete" droits="gestionCompte" retourok="experimentationList" retourko="experimentationChange" />
 
-	<piecetypeList action="modules/gestion/piecetype.php" param="list" droits="consult"   />
-	<piecetypeChange action="modules/gestion/piecetype.php" param="change" droits="gestionCompte" />
+	<piecetypeList action="modules/gestion/piecetype.php" param="list" droits="consult" type="smarty"  />
+	<piecetypeChange action="modules/gestion/piecetype.php" param="change" droits="gestionCompte"  type="smarty" />
 	<piecetypeWrite action="modules/gestion/piecetype.php" param="write" droits="gestionCompte" retourok="piecetypeList" retourko="piecetypeChange" modulebefore="piecetypeChange" />
 	<piecetypeDelete action="modules/gestion/piecetype.php" param="delete" droits="gestionCompte" retoursuppr="piecetypeList" retourko="piecetypeChange" />
 
