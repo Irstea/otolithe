@@ -1,15 +1,15 @@
-<h2>Liste des types de pièces</h2>
+<h2>{t}Liste des types de pièces{/t}</h2>
 {if $droits["gestionCompte"] == 1}
 <a href="index.php?module=piecetypeChange&piecetype_id=0">
-Nouveau type de pièce...
+{t}Nouveau type de pièce...{/t}
 </a>
 {/if}
 
 <table id="ptList" class="tablelist">
 <thead>
 <tr>
-<th>Id</th>
-<th>Nom</th>
+<th>{t}Id{/t}</th>
+<th>{t}Nom{/t}</th>
 </tr>
 </thead><tbody>
 {section name=lst loop=$data}

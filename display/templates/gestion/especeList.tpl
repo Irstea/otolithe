@@ -1,12 +1,12 @@
-<h2>Liste des espèces</h2>
+<h2>{t}Liste des espèces{/t}</h2>
 
 
 <table id="ptList" class="tableliste">
 <thead>
 <tr>
-<th>Id</th>
-<th>Nom latin</th>
-<th>Nom français</th>
+<th>{t}Id{/t}</th>
+<th>{t}Nom latin{/t}</th>
+<th>{t}Nom français{/t}</th>
 </tr>
 </thead><tbody>
 {section name=lst loop=$data}

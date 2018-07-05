@@ -1,42 +1,42 @@
-<h2>Import d'individus dans la base de données</h2>
-Pour importer des individus dans la base, préparez un fichier CSV avec les informations 
-suivantes :
+<h2>{t}Import d'individus dans la base de données{/t}</h2>
+{t}Pour importer des individus dans la base, préparez un fichier CSV avec les informations 
+suivantes :{/t}
 <ul>
-<li><b>exp_id</b> : code de l'expérimentation (obligatoire)</li>
-<li><b>espece_id</b> : code de l'espèce (obligatoire)</li>
-<li><b>codeindividu</b> : identifiant du poisson ou hptag</li>
-<li><b>tag</b> : N° de l'étiquette posée sur le poisson (le codeindividu ou le tag sont obligatoires)</li>
-<li><b>longueur</b> : longueur du poisson</li>
-<li><b>poids</b> : poids du poisson</li>
-<li><b>remarque</b> : remarques concernant le poisson</li>
-<li><b>piecetype_id</b> : code du type de pièce calcifiée à analyser</li>
-<li><b>piececode</b> : si le type de pièce est indiqué, vous pouvez renseigner un code spécifique attaché à la pièce</li>
-<li><b>peche_date</b> : date de la pêche</li>
-<li><b>peche_code_id</b> : identifiant de l'enregistrement de la pêche dans la base de données d'origine</li>
-<li><b>site</b> : site de la pêche</li>
-<li><b>peche_remarque</b> : remarques liées à la pêche</li>
+<li><b>exp_id</b> : {t}code de l'expérimentation (obligatoire{/t})</li>
+<li><b>espece_id</b> : {/t}code de l'espèce (obligatoire){/t}</li>
+<li><b>codeindividu</b> : {t}identifiant du poisson ou hptag{/t}</li>
+<li><b>tag</b> : {t}N° de l'étiquette posée sur le poisson (le codeindividu ou le tag sont obligatoires){/t}</li>
+<li><b>longueur</b> : {t}longueur du poisson{/t}</li>
+<li><b>poids</b> : {t}poids du poisson{/t}</li>
+<li><b>remarque</b> : {t}remarques concernant le poisson<{/t}/li>
+<li><b>piecetype_id</b> : {t}code du type de pièce calcifiée à analyser{/t}</li>
+<li><b>piececode</b> : {t}si le type de pièce est indiqué, vous pouvez renseigner un code spécifique attaché à la pièce{/t}</li>
+<li><b>peche_date</b> : {t}date de la pêche{/t}</li>
+<li><b>peche_code_id</b> : {t}identifiant de l'enregistrement de la pêche dans la base de données d'origine{/t}</li>
+<li><b>site</b> : {t}site de la pêche{/t}</li>
+<li><b>peche_remarque</b> : {t}remarques liées à la pêche{/t}</li>
 </ul>
 <form class="protoform" id="controlForm" method="post" action="index.php" enctype="multipart/form-data">
 <input type="hidden" name="module" value="importControl">
 <table class="tablesaisie">
 <tr>
-<td class="libelleSaisie">Nom du fichier à importer (CSV)<span class="red">*</span> :</td>
+<td class="libelleSaisie">{t}Nom du fichier à importer (CSV){/t}<span class="red">*</span> :</td>
 <td class="datamodif">
 <input type="file" name="upfile" required>
 </td>
 </tr>
 <tr>
-<td class="libelleSaisie">Séparateur utilisé :</td>
+<td class="libelleSaisie">{t}Séparateur utilisé :{/t}</td>
 <td class="datamodif">
 <select id="separator" name="separator">
-<option value="," {if $separator == ","}selected{/if}>Virgule</option>
-<option value=";" {if $separator == ";"}selected{/if}>Point-virgule</option>
-<option value="tab" {if $separator == "tab"}selected{/if}>Tabulation</option>
+<option value="," {if $separator == ","}selected{/if}>{t}Virgule{/t}</option>
+<option value=";" {if $separator == ";"}selected{/if}>{t}Point-virgule{/t}</option>
+<option value="tab" {if $separator == "tab"}selected{/if}>{t}Tabulation{/t}</option>
 </select>
 </td>
 </tr>
 <tr>
-<td  class="libelleSaisie">Encodage du fichier :</td>
+<td  class="libelleSaisie">{t}Encodage du fichier :{/t}</td>
 <td class="datamodif">
 <select id="utf8_encode" name="utf8_encode">
 <option value="0" {if $utf8_encode == 0}selected{/if}>UTF-8</option>
@@ -47,7 +47,7 @@ suivantes :
 <tr>
 <td colspan="2">
 <div align="center">
-      <button type="submit">Lancer les contrôles</button>
+      <button type="submit">{t}Lancer les contrôles{/t}</button>
       </div>
 </td>
 </tr>
@@ -55,7 +55,7 @@ suivantes :
 </form>
 
 
-<span class="red">*</span><span class="messagebas">{$LANG["message"].30}</span>
+<span class="red">*</span><span class="messagebas">{t}Champ obligatoire{/t}</span>
 
 <!-- Affichage des erreurs decouvertes -->
 {if $erreur == 1}
@@ -63,8 +63,8 @@ suivantes :
 <table id="containerList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
-<th>N° de ligne</th>
-<th>Anomalie(s) détectée(s)</th>
+<th>{t}N° de ligne{/t}</th>
+<th>{t}Anomalie(s) détectée(s){/t}</th>
 </tr>
 </thead>
 <tbody>
@@ -84,7 +84,7 @@ suivantes :
 
 <form class="protoform" id="importForm" method="post" action="index.php">
 <input type="hidden" name="module" value="importImport">
-Contrôles OK. Vous pouvez réaliser l'import du fichier {$filename} : 
-<button type="submit" class="btn btn-danger">Déclencher l'import</button>
+{t}Contrôles OK. Vous pouvez réaliser l'import du fichier{/t} {$filename} : 
+<button type="submit" class="btn btn-danger">{t}Déclencher l'import{/t}</button>
 </form>
 {/if}

@@ -11,11 +11,11 @@ $(".auto").change( function () {
 <input type="hidden" name="isSearch" value="1">
 <tr>
 <td>
-{$LANG["gestion"].50} :
+{t}Code ou TAG de l'individu :{/t}
 <input name="codeindividu" value="{$lectureSearch.codeindividu}" maxlength="50" size="30" autofocus>
 </td>
 <td>
-{$LANG["gestion"].49} :
+{t}Expérimentation :{/t}
 <select class="auto" name="exp_id">
 {section name="lst" loop=$experimentation}
 <option value="{$experimentation[lst].exp_id}" {if $experimentation[lst].exp_id == $lectureSearch.exp_id}selected{/if}>
@@ -27,9 +27,9 @@ $(".auto").change( function () {
 </tr>
 <tr>
 <td>
-{$LANG["gestion"].54} :
+{t}Site de pêche :{/t}
 <select class="auto" name="site">
-<option value="">{$LANG["gestion"].55}</option>
+<option value="">{t}Sélectionnez le site global de pêche{/t}</option>
 {section name="lst" loop=$site}
 <option value="{$site[lst].site}" {if $site[lst].site == $lectureSearch.site}selected{/if}>
 {$site[lst].site}
@@ -38,9 +38,9 @@ $(".auto").change( function () {
 </select>
 </td>
 <td>
-{$LANG["gestion"].56} :
+{t}Zone précise de pêche :{/t}
  <select class="auto" name="zonesite">
-<option value="">{$LANG["gestion"].57}</option>
+<option value="">{t}Sélectionnez le site précis de pêche{/t}</option>
 {section name="lst" loop=$zone}
 <option value="{$zone[lst].zonesite}" {if $zone[lst].zonesite == $lectureSearch.zonesite}selected{/if}>
 {$zone[lst].zonesite}
@@ -51,9 +51,9 @@ $(".auto").change( function () {
 </tr>
 <tr>
 <td>
-Lecteur : 
+{t}Lecteur :{/t} 
 <select class="auto" name="lecteur_id">
-<option value="">{$LANG["gestion"].109}</option>
+<option value="">{t}Sélectionnez le lecteur{/t}</option>
 {section name="lst" loop=$lecteur}
 <option value="{$lecteur[lst].lecteur_id}" {if $lecteur[lst].lecteur_id == $lectureSearch.lecteur_id}selected{/if}>
 {$lecteur[lst].lecteur_prenom} {$lecteur[lst].lecteur_nom}
@@ -63,7 +63,7 @@ Lecteur :
 </td>
 <td>
 <div class="center">
-<input type="submit" value="{$LANG["message"].21}...">
+<input type="submit" value="{t}Rechercher...{/t}">
 </div>
 </td>
 </tr>

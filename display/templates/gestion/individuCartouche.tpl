@@ -3,8 +3,8 @@
 <td>
 {$individu.nom_id} - {$individu.sexe_libelle}
 <br>
-{$LANG["gestion"].1} : {$individu.codeindividu} - {$LANG["gestion"].2} : {$individu.tag}
-{if strlen($individu.peche_date) > 0} - {$LANG["gestion"].29} : {$individu.peche_date}{/if}
+{/t}Code :{/t} {$individu.codeindividu} - {/t}Tag} :{/t} {$individu.tag}
+{if strlen($individu.peche_date) > 0} - {/t}Date de pêche :{/t} {$individu.peche_date}{/if}
 </td>
 </tr>
 </table>

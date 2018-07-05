@@ -1,11 +1,11 @@
-<h2>{$LANG["gestion"].101}</h2>
-<a href="index.php?module={$moduleListe}">{$LANG["gestion"].0}</a> > 
-<a href="index.php?module=individuDisplay&individu_id={$data.individu_id}">{$LANG["gestion"].64}</a>
+<h2>Affichage d'une pièce</h2>
+<a href="index.php?module={$moduleListe}">{t}Retour à la liste{/t}</a> > 
+<a href="index.php?module=individuDisplay&individu_id={$data.individu_id}">{t}Retour au détail du poisson{/t}</a>
 {include file="gestion/individuCartouche.tpl"}
-<h3>{$LANG["gestion"].102}</h3>
+<h3>{t}Détail de la pièce{/t}</h3>
 <table class="tableaffichage">
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].98} :</td>
+<td class="libelleSaisie">{t}Type de pièce :{/t}</td>
 <td>{if $droits.gestion == 1}
 <a href="index.php?module=pieceChange&piece_id={$data.piece_id}&individu_id={$data.individu_id}">
 {/if}
@@ -14,27 +14,27 @@
 </td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].99} :</td>
+<td class="libelleSaisie">{t}Code de la pièce :{/t}</td>
 <td>{$data.piececode}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].100} :</td>
+<td class="libelleSaisie">{t}Traitement effectué :{/t}</td>
 <td>{$data.traitementpiece_libelle}</td>
 </tr>
 </table>
-<h3>{$LANG["gestion"].103}</h3>
+<h3>{t}Photos rattachées{/t}</h3>
 {if $droits.gestion == 1}
-<a href="index.php?module=photoChange&photo_id=0&piece_id={$data.piece_id}">{$LANG["gestion"].104}</a>
+<a href="index.php?module=photoChange&photo_id=0&piece_id={$data.piece_id}">Nouvelle photo</a>
 {/if}
 <table>
 <thead>
 <tr>
-<th>{$LANG["gestion"].105}</th>
-<th>{$LANG["gestion"].67}</th>
-<th>{$LANG["gestion"].106}</th>
-<th>{$LANG["gestion"].71} ?</th>
-<th>{$LANG["gestion"].107}</th>
-<th>{$LANG["gestion"].108}</th>
+<th>{t}Nom{/t}</th>
+<th>{t}Description{/t}</th>
+<th>{t}Date{/t}</th>
+<th>{t}Couleur ?{/t}</th>
+<th>{t}Dimensions{/t}</th>
+<th>{t}Miniature{/t}</th>
 </tr>
 </thead>
 <tdata>

@@ -1,24 +1,24 @@
 <script>
 setDataTables("idListe",true , false, true, 100);
 </script>
-<h2>{$LANG.gestion.0}</h2>
-<a href="index.php?module=individuChange&individu_id=0">{$LANG.gestion.7}</a>
+<h2>{t}Retour à la liste{/t}</h2>
+<a href="index.php?module=individuChange&individu_id=0">{t}Code de l'individu{/t}</a>
 {include file="gestion/individuSearch.tpl"}
 {if $isSearch == 1}
 {if $droits.gestion == 1}
-<a href="index.php?module=individuChange&individu_id=0">Nouveau poisson...</a>
+<a href="index.php?module=individuChange&individu_id=0">{t}Nouveau poisson...{/t}</a>
 {/if}
 <table id="idListe" class="tableliste">
 <thead>
 <tr>
-<th>{$LANG["gestion"].45}<br>{$LANG["gestion"].2}</th>
-<th>{$LANG["gestion"].5}</th>
-<th>{$LANG["gestion"].12}</th>
-<th>{$LANG["gestion"].6}</th>
-<th>{$LANG["gestion"].46}<br>{$LANG["gestion"].47}</th>
-<th>{$LANG["gestion"].29}</th>
-<th>{$LANG["gestion"].48}</th>
-<th>{$LANG["gestion"].49}</th>
+<th>{t}Code individu{/t}<br>{t}Tag{/t}</th>
+<th>{t}Espèce{/t}</th>
+<th>{t}Age{/t}</th>
+<th>{t}Sexe{/t}</th>
+<th>{t}Nbre de pièces{/t}</th>
+<th>{t}Date de pêche{/t}</th>
+<th>{t}Zone de pêche{/t}</th>
+<th>{t}Expérimentation{/t}</th>
 </tr>
 </thead>
 <tdata>

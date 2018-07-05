@@ -1,8 +1,8 @@
-<h2>{$LANG["gestion"].97}</h2>
-<a href="index.php?module={$moduleListe}">{$LANG["gestion"].0}</a> > 
-<a href="index.php?module=individuDisplay&individu_id={$data.individu_id}">{$LANG["gestion"].64}</a>
+<h2>{t}Modification d'une pièce{/t}</h2>
+<a href="index.php?module={$moduleListe}">{t}Retour à la liste{/t}</a> > 
+<a href="index.php?module=individuDisplay&individu_id={$data.individu_id}">{t}Retour au détail du poisson{/t}</a>
 {if $data.piece_id > 0}
-> <a href="index.php?module=pieceDisplay&piece_id={$data.piece_id}">{$LANG["gestion"].65}</a>
+> <a href="index.php?module=pieceDisplay&piece_id={$data.piece_id}">{t}Retour au détail de la pièce{/t}</a>
 {/if}
 {include file="gestion/individuCartouche.tpl"}
 <table class="tablesaisie">
@@ -11,7 +11,7 @@
 <input type="hidden" name="individu_id" value="{$data.individu_id}">
 
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].98} :</td>
+<td class="libelleSaisie">{t}Type de pièce :{/t}</td>
 <td class="datamodif">
 <select name="piecetype_id">
 {section name="lst" loop=$piecetype}
@@ -24,14 +24,14 @@
 </tr>
 
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].99} :</td>
+<td class="libelleSaisie">{t}Code de la pièce :{/t}</td>
 <td>
 <input id="piececode" name="piececode" value="{$data.piececode}" maxlengh="255" size="45">
 </td>
 </tr>
 
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].100} :</td>
+<td class="libelleSaisie">{t}Traitement effectué :{/t}</td>
 <td class="datamodif">
 <select name="traitementpiece_id">
 {section name="lst" loop=$traitementpiece}
@@ -45,14 +45,14 @@
 
 <tr>
 <td colspan="2"><div align="center">
-<input type="submit" value="{$LANG["message"].19}">
+<input type="submit" value="{t}Valider{/t}">
 </form>
 {if $data.piece_id>0&&$droits["admin"] == 1}
 <form action="index.php" method="post" onSubmit='return confirmSuppression("{$LANG.message.31}")'>
 <input type="hidden" name="piece_id" value="{$data.piece_id}">
 <input type="hidden" name="individu_id" value="{$data.individu_id}">
 <input type="hidden" name="module" value="pieceDelete">
-<input type="submit" value="{$LANG["message"].20}">
+<input type="submit" value="{t}Supprimer{/t}">
 </form>
 {/if}
 </div>

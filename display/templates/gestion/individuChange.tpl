@@ -23,9 +23,9 @@ $("#recherche").keyup(function() {
 
 </script>
 
-<h2>Modification d'un poisson</h2>
+<h2>{t}Modification d'un poisson{/t}</h2>
 
-<a href="index.php?module={$moduleListe}">{$LANG["gestion"].0}</a>
+<a href="index.php?module={$moduleListe}">{t}Retour à la liste{/t}</a>
 {if $data.individu_id > 0}
 <a href="index.php?module=individuDisplay&individu_id={$data.individu_id}">Retour
 	au poisson</a>
@@ -38,8 +38,8 @@ $("#recherche").keyup(function() {
 				<input type="hidden" name="individu_id" value="{$data.individu_id}">
 				<input type="hidden" name="peche_id" value="{$data.peche_id}">
 			<fieldset>
-			<legend>Expérimentations</legend>
-			<dl><dt>Liste des expérimentations de rattachement<span class="red">*</span> :</dt>
+			<legend>{t}Expérimentations{/t}</legend>
+			<dl><dt>{t}Liste des expérimentations de rattachement :{/t}<span class="red">*</span></dt>
 			<dd>
 			<table class="tablenoborder">
 			{section name=lst loop=$experimentations}
@@ -53,10 +53,10 @@ $("#recherche").keyup(function() {
 			</dl>
 			</fieldset>
 					<fieldset>
-		<legend>Individu</legend>
+		<legend>{t}Individu{/t}</legend>
 				<dl>
 					<dt>
-						{$LANG["gestion"].5}<span class="red">*</span> :
+						{t}{Espèce :{/t}<span class="red">*</span> :
 					</dt>
 					<dd><input class="text10" id="recherche" autocomplete="off" autofocus placeholder="espèce à chercher" title="Tapez au moins 3 caractères...">
 						<select id="espece_id" name="espece_id">						
@@ -66,7 +66,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].6} :
+						{t}Sexe :{/t}
 					</dt>
 					<dd>
 						<select name="sexe_id">
@@ -81,7 +81,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].7} :
+						{t}Code de l'individu :{/t}
 					</dt>
 					<dd>
 						<input name="codeindividu" value="{$data.codeindividu}">
@@ -89,7 +89,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].2} :
+						{t}Tag :{/t}
 					</dt>
 					<dd>
 						<input name="tag" value="{$data.tag}">
@@ -97,7 +97,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].8} :
+						{t}Longueur :{/t}
 					</dt>
 					<dd>
 						<input name="longueur" class="taux" value="{$data.longueur}">
@@ -105,7 +105,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].9} :
+						{t}Poids :{/t}
 					</dt>
 					<dd>
 						<input name="poids" class="taux" value="{$data.poids}">
@@ -113,7 +113,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].10} :
+						{t}Remarque :{/t}
 					</dt>
 					<dd>
 						<input name="remarque" value="{$data.remarque}">
@@ -121,7 +121,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].11} :
+						{t}Parasite :{/t}
 					</dt>
 					<dd>
 						<input name="parasite" value="{$data.parasite}">
@@ -129,7 +129,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].12} :
+						{t}Age :{/t}
 					</dt>
 					<dd>
 						<input name="age" class="nombre" value="{$data.age}">
@@ -137,7 +137,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].13} :
+						{t}Pectorale gauche :{/t}
 					</dt>
 					<dd>
 						<input name="pectorale_gauche" value="{$data.pectorale_gauche}">
@@ -145,7 +145,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].14}  - {$LANG["gestion"].15}:
+						{t}Diamètre occulaire - horizontal :{/t}
 					</dt>
 					<dd>
 						<input name="diam_occ_h" class="taux" value="{$data.diam_occ_h}">
@@ -153,7 +153,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].14} - {$LANG["gestion"].16}:
+						{t}Diamètre occulaire - vertical :{/t}
 					</dt>
 					<dd>
 						<input name="diam_occ_v" class="taux" value="{$data.diam_occ_v}">
@@ -161,7 +161,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].17} :
+						{t}Ht mm :{/t}
 					</dt>
 					<dd>
 						<input name="ht_mm"  class="nombre" value="{$dataht_mm}">
@@ -169,7 +169,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].18} :
+						{t}Épaisseur :{/t}
 					</dt>
 					<dd>
 						<input name="epaisseur" class="taux" value="{$data.epaisseur}">
@@ -177,7 +177,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].19} :
+						{t}Circonférence :{/t}
 					</dt>
 					<dd>
 						<input name="circonference" class="taux" value="{$data.circonference}">
@@ -185,10 +185,10 @@ $("#recherche").keyup(function() {
 				</dl>
 				</fieldset>
 				<fieldset>
-				<legend>{$LANG["gestion"].26}</legend>
+				<legend>{t}Données concernant la pêche{/t}</legend>
 				<dl>
 					<dt>
-						{$LANG["gestion"].27} :
+						{t}Site :{/t}
 					</dt>
 					<dd>
 						<input name="site" value="{$peche.site}">
@@ -196,7 +196,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].28} :
+						{t}Zone précise :{/t}
 					</dt>
 					<dd>
 						<input name="zonesite" value="{$peche.zonesite}">
@@ -204,7 +204,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].29} :
+						{t}Date de pêche :{/t}
 					</dt>
 					<dd>
 						<input name="peche_date" class="date" value="{$peche.peche_date}">
@@ -212,7 +212,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].30} :
+						{t}Campagne :{/t}
 					</dt>
 					<dd>
 						<input name="campagne" value="{$peche.campagne}">
@@ -220,7 +220,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].31} :
+						{t}Engin :{/t}
 					</dt>
 					<dd>
 						<input name="peche_engin" value="{$peche.peche_engin}">
@@ -228,7 +228,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].32} :
+						{t}Pêcheur :{/t}
 					</dt>
 					<dd>
 						<input name="personne" value="{$peche.personne}">
@@ -236,7 +236,7 @@ $("#recherche").keyup(function() {
 				</dl>
 				<dl>
 					<dt>
-						{$LANG["gestion"].33} :
+						{t}Opérateur :{/t}
 					</dt>
 					<dd>
 						<input name="operateur" value="{$peche.operateur}">
@@ -246,11 +246,11 @@ $("#recherche").keyup(function() {
 				</fieldset>
 				<dl></dl>
 				<div class="formBouton">
-					<input class="submit" type="submit" value="{$LANG['message'].19}">
+					<input class="submit" type="submit" value="{t}Valider{/t}">
 				</div>
 			</form>
 		</div>
 </div>
 
 <span class="red">*</span>
-<span class="messagebas">Champ obligatoire</span>
+<span class="messagebas">{t}Champ obligatoire{/t}</span>

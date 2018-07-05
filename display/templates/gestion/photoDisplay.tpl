@@ -22,10 +22,10 @@ $(document).ready(function() {
 });
 </script>
 
-<h2>{$LANG["gestion"].79}</h2>
-<a href="index.php?module={$moduleListe}">{$LANG["gestion"].0}</a> > 
-<a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}">{$LANG["gestion"].64}</a> > 
-<a href="index.php?module=pieceDisplay&piece_id={$data.piece_id}">{$LANG["gestion"].65}</a>
+<h2>{t}Affichage d'une photo{/t}</h2>
+<a href="index.php?module={$moduleListe}">{t}Retour à la liste{/t}</a> > 
+<a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}">{t}Retour au détail du poisson{/t}</a> > 
+<a href="index.php?module=pieceDisplay&piece_id={$data.piece_id}">{t}Retour au détail de la pièce{/t}</a>
 <table class="tablemulticolonne">
 <tr>
 <td>
@@ -38,7 +38,7 @@ $(document).ready(function() {
 </table>
 {if $droits.gestion == 1}
 <a href="index.php?module=photoChange&photo_id={$data.photo_id}&piece_id={$data.piece_id}">
-{$LANG["gestion"].154}...
+{t}Modifier la photo...{/t}
 </a>
 {/if}
 <table class="tablemulticolonne">
@@ -46,60 +46,60 @@ $(document).ready(function() {
 <td>
 <table class="tableaffichage">
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].66} : </td>
+<td class="libelleSaisie">{t}Nom de la photo :{/t} </td>
 <td>
 {$data.photo_nom}
 </td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].67} : </td>
+<td class="libelleSaisie">{t}Description :{/t} </td>
 <td>{$data.description}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].69} : </td>
+<td class="libelleSaisie">{t}Nom du fichier :{/t} </td>
 <td>{$data.photo_filename}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].70} : </td>
+<td class="libelleSaisie">{t}Date de prise de vue :{/t} </td>
 <td>{$data.photo_date}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].71} : </td>
+<td class="libelleSaisie">{t}Couleur :{/t} </td>
 <td>
-{if $data.color == "NB"}{$LANG["gestion"].72}{else}{$LANG["gestion"].71}{/if}
+{if $data.color == "NB"}{t}Noir et blanc{/t}{else}{t}Couleur{/t}{/if}
 </td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].73} : </td>
+<td class="libelleSaisie">{t}Type de lumière :{/t} </td>
 <td>{$data.lumieretype_libelle}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].74} : </td>
+<td class="libelleSaisie">{t}Grossissement :{/t} </td>
 <td>{$data.grossissement}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].75} : </td>
+<td class="libelleSaisie">{t}Repère :{/t} </td>
 <td>{$data.repere}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].80} : </td>
+<td class="libelleSaisie">{t}URI :{/t} </td>
 <td>{$data.uri}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].77} : </td>
+<td class="libelleSaisie">{t}Repère de mesure - longueur de référence :{/t} </td>
 <td>{$data.long_reference}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].168} : </td>
+<td class="libelleSaisie">{t}Taille en pixels de la longueur de référence dans la photo :{/t} </td>
 <td>{$data.long_ref_pixel}</td>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].78} : </td>
+<td class="libelleSaisie">{t}Dimensions de la photo :{/t} </td>
 <td>{$data.photo_width}x{$data.photo_height}</td>
 </tr>
 </table>
 </td>
 <td>
-<a href="index.php?module=photoDisplayPhoto&photo_id={$data.photo_id}" title="{$LANG["gestion"].81}">
+<a href="index.php?module=photoDisplayPhoto&photo_id={$data.photo_id}" title="{t}Attention : le temps de chargement peut être (très) long, selon la taille originale de la photo !{/t}">
 <!--  img src="{$photoPath}"-->
 <img src="index.php?module=photoGetThumbnail&photo_id={$data.photo_id}">
 </a>
@@ -108,33 +108,33 @@ $(document).ready(function() {
 </table>
 {if $droits.lecture == 1}
 <div style="border-style:solid;border-width: 1px;padding:5px;">
-<h3>{$LANG["gestion"].163}</h3>
+<h3>{t}Création d'une nouvelle lecture simple{/t}</h3>
 <form name="lecture" action="index.php" method="get">
 <input type="hidden" name="module" value="photolectureChange">
 <input type="hidden" name="photo_id" value="{$data.photo_id}">
 <input type="hidden" name="photolecture_id" value="0">
-{$LANG["gestion"].82} : 
+{t}Résolution (approximative) de lecture :{/t} 
 <select class="resolution" name="resolution">
 <option  value="1">800x600</option>
 <option  value="2">1024x768</option>
 <option  value="3">1280x1024</option>
 <option  value="4">1600x1300</option>
-<option value="5">Initial format</option>
+<option value="5">{t}format initial{/t}</option>
 </select>
-<input type="submit" value="{$LANG["gestion"].83}">
+<input type="submit" value="{t}Réaliser une nouvelle lecture{/t}">
 </form>
 </div>
 <br>
 {/if}
 <div style="border-style:solid;border-width: 1px;padding:5px;">
-<h3>{$LANG["gestion"].164}
+<h3>{t}Consultations individuelles, globales, modifications avec visualisation des points déjà tracés{/t}
 {if $ageDisplay != 1}
 <a href="index.php?module=photoDisplay&photo_id={$data.photo_id}&ageDisplay=1">
-{$LANG["gestion"].88}
+{t}Afficher l'age calculé (nbre de points positionnés - 1) par chaque lecteur{/t}
 </a>
 {else}
 <a href="index.php?module=photoDisplay&photo_id={$data.photo_id}&ageDisplay=0">
-{$LANG["gestion"].169}
+{t}Masquer l'age calculé (nbre de points positionnés - 1) par chaque lecteur{/t}
 {/if}
 </a>
 </h3>
@@ -145,26 +145,26 @@ $(document).ready(function() {
 <thead>
 <tr>
 {if $droits.lecture == 1}
-<th>{$LANG["gestion"].155}</th>
+<th>{t}Modification unique{/t}</th>
 {/if}
-<th>{$LANG["gestion"].84}</th>
-<th>{$LANG["gestion"].85}</th>
-<th>{$LANG["gestion"].86}</th>
+<th>{t}Lecteur{/t}</th>
+<th>{t}Date de lecture{/t}</th>
+<th>{t}Résolution{/t}</th>
 {if $ageDisplay == 1}
-<th>{$LANG["gestion"].87}</th>
-<th>{$LANG["gestion"].171}</th>
-<th>{$LANG["gestion"].175}</th>
-<th>{$LANG["gestion"].172}</th>
+<th>{t}Age ou nb de segments positionnés (nb points - 1){/t}</th>
+<th>{t}Strie finale{/t}</th>
+<th>{t}Année de naissance estimée{/t}</th>
+<th>{t}Fiabilité de la lecture{/t}</th>
 {/if}
-<th>{$LANG["gestion"].89}<br>{$LANG["gestion"].90}</th>
-<th>{$LANG["gestion"].91}</th>
-<th>{$LANG["gestion"].92}<br>{$LANG["gestion"].93}</th>
-<th>{$LANG["gestion"].173}</th>
+<th>{t}Longueur de référence mesurée{/t}</th>
+<th>{t}Longueur totale lue{/t}</th>
+<th>{t}Longueur réelle calculée{/t}</th>
+<th>{t}Lecture consensuelle{/t}</th>
 {if $droits.admin == 1}
-<th>{$LANG["message"].20}</th>
+<th>{t}Supprimer{/t}</th>
 {/if}
-<th>{$LANG["gestion"].156}...</th>
-<th><div title="{$LANG["gestion"].167}">{$LANG["gestion"].165}</div></th>
+<th>{t}Consulter...{/t}</th>
+<th><div title="{t}Si coché, la lecture sélectionnée pourra être modifiée{/t}">{t}Lecture à modifier{/t}</div></th>
 </tr>
 </thead>
 <tdata>
@@ -244,28 +244,28 @@ $(document).ready(function() {
 {/section}
 </tdata>
 </table>
-{$LANG["gestion"].94} : 
+{t}Résolution (approximative) d'affichage :{/t}
 <select class="resolution" name="resolution">
 <option value="1">800x600</option>
 <option value="2">1024x768</option>
 <option value="3">1280x1024</option>
 <option value="4">1600x1300</option>
-<option value="5">Initial format</option>
+<option value="5">{t}format initial{/t}</option>
 </select>
-{$LANG["gestion"].157} :
+{t}Facteur de transparence des cercles affichés :{/t}
 <select id="fill" name="fill">
-<option value="0">{$LANG["gestion"].158}</option>
-<option value="0.1">{$LANG["gestion"].159}</option>
-<option value="0.3">{$LANG["gestion"].160}</option>
-<option value="0.5">{$LANG["gestion"].161}</option>
-<option value="1">{$LANG["gestion"].162}</option>
+<option value="0">{t}Transparent{/t}</option>
+<option value="0.1">{t}Légèrement ombré{/t}</option>
+<option value="0.3">{t}Ombré{/t}</option>
+<option value="0.5">{t}Semi-opaque{/t}</option>
+<option value="1">{t}Opaque{/t}</option>
 </select>
 <br>
-{$LANG["gestion"].166} : 
+{t}Avec création d'une nouvelle lecture :{/t} 
 <input type="checkbox" name="photolecture_id_modif" value="0">
 <br>
 <div style="text-align:center;">
-<input type="submit" value="{$LANG['gestion'].95}">
+<input type="submit" value="{t}Déclencher l'affichage des lectures sélectionnées, avec ou sans création/modification d'une lecture{/t}">
 </div>
 </form>
 </div>

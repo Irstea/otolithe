@@ -5,11 +5,11 @@ body > iframe { display: none; }
 #container { {/literal} width: {$image_width}px; height: {$image_height}px; border: 0px ;{literal} }
 {/literal}
 </style>
-<h2>{$LANG["gestion"].134}</h2>
-<a href="index.php?module={$moduleListe}">{$LANG["gestion"].0}</a> > 
-<a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}">{$LANG["gestion"].64}</a> > 
-<a href="index.php?module=pieceDisplay&piece_id={$piece.piece_id}">{$LANG["gestion"].65}</a> >
-<a href="index.php?module=photoDisplay&photo_id={$photo.photo_id}">{$LANG["gestion"].111}</a>
+<h2>{t}Affichage des mesures d'un otolithe{/t}</h2>
+<a href="index.php?module={$moduleListe}">{t}Retour à la liste{/t}</a> > 
+<a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}">{t}Retour au détail du poisson{/t}</a> > 
+<a href="index.php?module=pieceDisplay&piece_id={$piece.piece_id}">{t}Retour au détail de la pièce{/t}</a> >
+<a href="index.php?module=photoDisplay&photo_id={$photo.photo_id}">{t}Retour à la photo{/t}</a>
 <table class="tablemulticolonne">
 <tr>
 <td>
@@ -20,7 +20,7 @@ body > iframe { display: none; }
 </td>
 </tr>
 </table>
-{$LANG["gestion"].135} : {$image_width}x{$image_height}
+{t}Résolution d'affichage :{/t} {$image_width}x{$image_height}
 <div id="container">
 <svg xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -39,17 +39,17 @@ body > iframe { display: none; }
 {/section}
 </svg>
 </div>
-<h3>{$LANG["gestion"].136}</h3>
+<h3>{t}Légende{/t}</h3>
 {section name="lst" loop=$data}
 <div style="background-color:{$data[lst].couleur};display:inline">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 &nbsp;
-{$data[lst].lecteur_prenom} {$data[lst].lecteur_nom} - {$LANG["gestion"].151} {$data[lst].photolecture_date}
- - {$LANG["gestion"].86} : {$data[lst].photolecture_width}x{$data[lst].photolecture_height} - 
- {$LANG["gestion"].170} : {$data[lst].final_stripe_code} {$data[lst].final_stripe_value}
- - {$LANG["gestion"].172} : {$data[lst].read_fiability} 
-{if $data[lst].consensual_reading == 1} - {$LANG["gestion"].173}{/if}
-- {$LANG["gestion"].174} : {$data[lst].annee_naissance}
+{$data[lst].lecteur_prenom} {$data[lst].lecteur_nom} - {t}lecture du{/t} {$data[lst].photolecture_date}
+ - {t}Résolution :{/t} {$data[lst].photolecture_width}x{$data[lst].photolecture_height} - 
+ {t}Nature de la strie finale :{/t} {$data[lst].final_stripe_code} {$data[lst].final_stripe_value}
+ - {t}Fiabilité de la lecture :{/t} {$data[lst].read_fiability} 
+{if $data[lst].consensual_reading == 1} - {t}Lecture consensuelle{/t}{/if}
+- {t}Année de naissance estimée :{/t} {$data[lst].annee_naissance}
 <br>
 {/section}

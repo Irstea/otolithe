@@ -1,18 +1,18 @@
-<h2>Liste des expérimentations</h2>
+<h2>{t}Liste des expérimentations{/t}</h2>
 {if $droits["gestionCompte"] == 1}
 <a href="index.php?module=experimentationChange&exp_id=0">
-Nouvelle experimentation...
+{t}Nouvelle experimentation...{/t}
 </a>
 {/if}
 
 <table id="expList" class="tablelist">
 <thead>
 <tr>
-<th>Id</th>
-<th>Nom</th>
-<th>Description</th>
-<th>Date de début</th>
-<th>Date de fin</th>
+<th>{t}Id{/t}</th>
+<th>{t}Nom{/t}</th>
+<th>{t}Description{/t}</th>
+<th>{t}Date de début{/t}</th>
+<th>{t}Date de fin{/t}</th>
 </tr>
 </thead><tbody>
 {section name=lst loop=$data}

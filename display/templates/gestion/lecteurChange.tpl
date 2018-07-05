@@ -1,30 +1,30 @@
-<h2>Modification d'un lecteur</h2>
+<h2>{t}Modification d'un lecteur{/t}</h2>
 
-<a href="index.php?module=lecteurList">{$LANG["gestion"].0}</a>
+<a href="index.php?module=lecteurList">{t}Retour à la liste{/t}</a>
 <div class="formSaisie">
 <div>
 <form method="post" action="index.php?module=lecteurWrite" onSubmit='return validerForm("nom:{$LANG["gestion"].59},login:{$LANG["gestion"].60}")'>
 <input type="hidden" name="lecteur_id" value="{$data.lecteur_id}">
 <dl>
-<dt>{$LANG["login"].9} <span class="red">*</span> </dt>
+<dt>{t}Nom :{/t} <span class="red">*</span> </dt>
 <dd>
 <input id="nom" name="lecteur_nom" value="{$data.lecteur_nom}" >
 </dd>
 </dl>
 <dl>
-<dt>{$LANG["login"].10} </dt>
+<dt>{t}Prénom :{/t} </dt>
 <dd>
 <input id="prenom" name="lecteur_prenom" value="{$data.lecteur_prenom}"  >
 </dd>
 </dl>
 <dl>
-<dt>{$LANG["gestion"].58} <span class="red">*</span> </dt>
+<dt>{t}Login de connexion :{/t}<span class="red">*</span> </dt>
 <dd>
 <input id="login" name="login" value="{$data.login}"  >
 </dd>
 </dl>
 <dl>
-<dt>Expérimentations autorisées :</dt>
+<dt>{t}Expérimentations autorisées :{/t}</dt>
 <dd>
 <table class="tablenoborder">
 {section name=lst loop=$exps}
@@ -40,7 +40,7 @@
 </dl>
 <dl></dl>
 <div class="formBouton">
-<input type="submit" value="{$LANG["message"].19}">
+<input type="submit" value="{t}Valider{/t}">
 </div>
 </form>
 </div>
@@ -50,9 +50,9 @@
 <form action="index.php" method="post" onSubmit='return confirmSuppression("{$LANG["message"].31}")'>
 <input type="hidden" name="lecteur_id" value="{$data.lecteur_id}">
 <input type="hidden" name="module" value="lecteurDelete">
-<input type="submit" value="{$LANG["message"].20}">
+<input type="submit" value="{t}Supprimer{/t}">
 </form>
 </div>
 {/if}
 </div>
-<span class="red">*</span><span class="messagebas">{$LANG["message"].30}</span>
+<span class="red">*</span><span class="messagebas">{t}Champ obligatoire{/t}</span>

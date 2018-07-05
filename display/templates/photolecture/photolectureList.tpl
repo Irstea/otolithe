@@ -1,8 +1,8 @@
-<h2>{$LANG["gestion"].137}</h2>
+<h2>{t}Consultation de la lecture de pièces{/t}</h2>
 {include file="photolecture/lectureSearch.tpl"}
 {if $isSearch == 1}
 {if $droits.gestion == 1}
-<a href="index.php?module=photolectureExport" title="{$LANG["gestion"].152}">{$LANG["gestion"].153}</a>
+<a href="index.php?module=photolectureExport" title="{t}Séparateur : tabulation, UTF-8, chiffres décimaux avec points{/t}">{t}Exporter la liste au format CSV{/t}</a>
 {/if}
 <script>
 setDataTables("idListe",true , false, true, 100);
@@ -10,18 +10,18 @@ setDataTables("idListe",true , false, true, 100);
 <table id="idListe" class="tableliste">
 <thead>
 <tr>
-<th>{$LANG["gestion"].138}</th>
-<th>{$LANG["gestion"].139}<br>{$LANG["gestion"].140}</th>
-<th>{$LANG["gestion"].141}<br>{$LANG["gestion"].142}</th>
-<th>{$LANG["gestion"].144}</th>
-<th>{$LANG["gestion"].145}</th>
-<th>{$LANG["gestion"].146}</th>
-<th>{$LANG["gestion"].147}</th>
-<th>{$LANG["gestion"].148}</th>
-<th>{$LANG["gestion"].143}</th>
-<th>{$LANG["gestion"].149}</th>
-<th>{$LANG["gestion"].150}</th>
-<th>{$LANG["gestion"].12}</th>
+<th>{t}Individu{/t}</th>
+<th>{t}Pièce{/t}<br>{t}traitement{/t}</th>
+<th>{t}Photo{/t}<br>Couleur/NB{/t}</th>
+<th>{t}Résolution de prise de vue{/t}</th>
+<th>{t}Date de prise de vue{/t}</th>
+<th>{t}Longueur de référence{/t}</th>
+<th>{t}Lecteur{/t}</th>
+<th>{t}Date de lecture{/t}</th>
+<th>{t}Résolution de lecture{/t}</th>
+<th>{t}Longueur de référence mesurée{/t}</th>
+<th>{t}Longueur réelle totale de la mesure{/t}</th>
+<th>{t}Age{/t}</th>
 {if $droits.gestion == 1}
 <th class="center">
 <img src="/display/images/delete.png" height="25">

@@ -208,11 +208,11 @@ function setCircle(svg, x, y, rayon_initial) {
 };
 {/literal}
 </script>
-<h2>{$LANG["gestion"].110}</h2>
-<a href="index.php?module={$moduleListe}" onclick="return confirm('{$LANG["message"][33]}')">{$LANG["gestion"].0}</a> > 
-<a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}" onclick="return confirm('{$LANG["message"][33]}')">{$LANG["gestion"].64}</a> > 
-<a href="index.php?module=pieceDisplay&piece_id={$piece.piece_id}" onclick="return confirm('{$LANG["message"][33]}')">{$LANG["gestion"].65}</a> >
-<a href="index.php?module=photoDisplay&photo_id={$data.photo_id}" onclick="return confirm('{$LANG["message"][33]}')">{$LANG["gestion"].111}</a>
+<h2>{t}Mesure d'un otolithe ou d'une pièce calcifiée{/t}</h2>
+<a href="index.php?module={$moduleListe}" onclick="return confirm('{t}Les modifications apportées dans cette page vont être perdues. Confirmez-vous cette opération ?{/t}')">{t}Retour à la liste{/t}</a> > 
+<a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}" onclick="return confirm('{t}Les modifications apportées dans cette page vont être perdues. Confirmez-vous cette opération ?{/t}')">{t}Retour au détail du poisson{/t}</a> > 
+<a href="index.php?module=pieceDisplay&piece_id={$piece.piece_id}" onclick="return confirm('{t}Les modifications apportées dans cette page vont être perdues. Confirmez-vous cette opération ?{/t}')">{t}Retour au détail de la pièce{/t}</a> >
+<a href="index.php?module=photoDisplay&photo_id={$data.photo_id}" onclick="return confirm('{t}Les modifications apportées dans cette page vont être perdues. Confirmez-vous cette opération ?{/t}')">{t}Retour à la photo{/t}</a>
 <table class="tablemulticolonne">
 <tr>
 <td>
@@ -224,38 +224,38 @@ function setCircle(svg, x, y, rayon_initial) {
 </tr>
 </table>
 <form name="myForm" id="myForm" action="index.php" method="POST">
-{$LANG["gestion"].112} : 
-<input type="submit" value="{$LANG["message"].19}">
-Si tous les points ont été supprimés, vous pouvez : 
-<input type="button" id="resetCompteur" value="Réinitialiser le compteur" title="Uniquement si tous les points ont été supprimés">
+{t}Enregistrez les points positionnés :{/t} 
+<input type="submit" value="Valider">
+{t}Si tous les points ont été supprimés, vous pouvez :{/t} 
+<input type="button" id="resetCompteur" value="{t}Réinitialiser le compteur{/t}" title="{t}Uniquement si tous les points ont été supprimés{/t}">
 <div id="container">
 </div>
-{$LANG["gestion"].113} :
+{t}Type de lecture pour le prochain point :{/t}
 <select id="modeLecture">
-<option value="0">{$LANG["gestion"].114}</option>
-<option value="1">{$LANG["gestion"].115}</option>
-<option value="2">{$LANG["gestion"].116}</option>
-<option value="3">{$LANG["gestion"].117}</option>
+<option value="0">{t}Point initial avec cercle élargi{/t}</option>
+<option value="1">{t}Lecture des points{/t}</option>
+<option value="2">{t}Mesure de la longueur de référence{/t}</option>
+<option value="3">{t}Tracé d'une ligne sur la photo (aide à la mesure){/t}</option>
 </select>
 <input type="hidden" name="photo_id" id="photo_id" value="{$data.photo_id}">
 <input type="hidden" name="module" value="photolectureWrite"}>
 <input type="hidden" name="lecteur_id" id="lecteur_id" value="{$data.lecteur_id}">
 <input type="hidden" name="photolecture_date" value="{$data.photolecture_date}">
 <input type="hidden" name="photolecture_id" value="{$data.photolecture_id}">
-{$LANG["gestion"].118} : 
+{t}Taille originale de la photo :{/t} 
 <input name="photo_width" id="photo_width" value="{$photo.photo_width}" readonly>x
 <input name="photo_height" id="photo_height" value="{$photo.photo_height}" readonly>
-<br>{$LANG["gestion"].119} :
+<br>{t}Taille de lecture de la photo :{/t}
 <input name="photolecture_width" id="image_width" value="{$image_width}" readonly>x
 <input name="photolecture_height" id="image_height" value="{$image_height}" readonly>
-<br>{$LANG["gestion"].120} : 
+<br>{t}Coefficient de correction de la taille :{/t} 
 <input name="coef_correcteur" id="coef_correcteur" value="{$coef_correcteur}" readonly>
-<br>{$LANG["gestion"].121} : 
+<br>{t}Rayon (en pixels) du cercle élargi :{/t}
 <input id="rayon_cercle" name="rayon_point_initial" value="{$data.rayon_point_initial}">
-<br>{$LANG["gestion"].122} ? 
-<input type="radio" name="calculAuto" value="1" checked>{$LANG["message"]["yes"]}
-<input type="radio" name="calculAuto" value="0" >{$LANG["message"]["no"]}
-<br>{$LANG["gestion"].170} : 
+<br>{t}Recalcul automatique de l'ordre des points ?{/t} 
+<input type="radio" name="calculAuto" value="1" checked>{t}oui{/t}
+<input type="radio" name="calculAuto" value="0" >{t}non{/t}
+<br>{t}Nature de la strie finale :{/t} 
 <select name="final_stripe_id">
 <option value="" {if $data.final_stripe_id == ""}selected{/if}></option>
 {section name=lst loop=$finalStripe}
@@ -265,7 +265,7 @@ Si tous les points ont été supprimés, vous pouvez :
 {/section}
 </select>
 <br>
-{$LANG["gestion"].172} : 
+{t}Fiabilité de la lecture :{/t} 
 <select name="read_fiability">
 <option value="" {if $data.read_fiability == ""}selected{/if}></option>
 <option value="0" {if $data.read_fiability == "0"}selected{/if}>0</option>
@@ -273,43 +273,43 @@ Si tous les points ont été supprimés, vous pouvez :
 <option value="1" {if $data.read_fiability == "1"}selected{/if}>1</option>
 </select>
 <br>
-{$LANG["gestion"].173} :
-<input type="radio" value="1" name="consensual_reading" {if $data.consensual_reading == 1}checked{/if}>{$LANG["message"].15}
-<input type="radio" value="0" name="consensual_reading" {if $data.consensual_reading != 1}checked{/if}>{$LANG["message"].16}
-<br>{$LANG["gestion"].174} :
+{t}Lecture consensuelle :{/t}
+<input type="radio" value="1" name="consensual_reading" {if $data.consensual_reading == 1}checked{/if}>{t}oui{/t}
+<input type="radio" value="0" name="consensual_reading" {if $data.consensual_reading != 1}checked{/if}>{t}non{/t}
+<br>{t}Année de naissance estimée :{/t}
 <input class="nombre" name="annee_naissance" value="{$data.annee_naissance}">
 
-<h3>{$LANG["gestion"].123}</h3>
+<h3>{t}Points sélectionnés{/t}</h3>
 <table id="tableData">
 <tr>
 <td colspan='5'>
-{$LANG["gestion"].112} : 
-<input type="submit" value="{$LANG["message"].19}">
+{t}Enregistrez les points positionnés :{/t} 
+<input type="submit" value="{t}Valider{/t}">
 </td>
 </tr>
 <tr>
-<th>{$LANG["gestion"].124}</th>
+<th>{t}N°{/t}</th>
 <th>X</th>
 <th>Y</th>
-<th>{$LANG["gestion"].125}<br>{$LANG["gestion"].126}</th>
-<th>{$LANG["gestion"].127}<br>{$LANG["gestion"].128}<br>{$LANG["gestion"].129}</th>
+<th>{t}Ordre de lecture{/t}</th>
+<th>{t}Point de mesure de la longueur de référence{/t}</th>
 </tr>
 </table>
 </form>
-{$LANG["gestion"].130}.
+{t}Pour supprimer un point, réalisez un double-clic sur celui-ci.{/t}
 <br>
-{$LANG["gestion"].131}.
+{t}Vous pouvez modifier manuellement l'ordre de lecture d'un point, si nécessaire.{/t}
 <br>
-{$LANG["gestion"].132}
+{t}Pour tracer une ligne, positionnez le premier point, puis le second. Pour supprimer la ligne, supprimez d'abord le second point, avant de toucher au premier point.{/t}
 <br>
-{$LANG["gestion"].133}
-<h3>{$LANG["gestion"].136}</h3>
+{t}Le recalcul automatique de l'ordre des points ne fonctionne que si le premier point (origine) est saisi en premier (valeur "ordre de lecture" la plus faible de la série).{/t}
+<h3>{t}Légende{/t}</h3>
 {section name="lst" loop=$mesurePrec}
 <div style="background-color:{$mesurePrec[lst].couleur};display:inline">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 &nbsp;
-{$mesurePrec[lst].lecteur_prenom} {$mesurePrec[lst].lecteur_nom} - {$LANG["gestion"].151} {$mesurePrec[lst].photolecture_date}
- - {$LANG["gestion"].86} : {$mesurePrec[lst].photolecture_width}x{$mesurePrec[lst].photolecture_height}
+{$mesurePrec[lst].lecteur_prenom} {$mesurePrec[lst].lecteur_nom} - {t}lecture du{/t} {$mesurePrec[lst].photolecture_date}
+ - {t}Résolution{/t} : {$mesurePrec[lst].photolecture_width}x{$mesurePrec[lst].photolecture_height}
 <br>
 {/section}

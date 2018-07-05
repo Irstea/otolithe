@@ -1,89 +1,89 @@
-<h2>{$LANG["gestion"].3}</h2>
-<a href="index.php?module={$moduleListe}">{$LANG["gestion"].0}</a>
+<h2>{t}Affichage du détail d'un individu{/t}</h2>
+<a href="index.php?module={$moduleListe}">{t}Retour à la liste{/t}</a>
 
 <table class="tablemulticolonne">
 <tr>
 <td>
-<h3>{$LANG["gestion"].4}</h3>
+<h3>{t}Données générales{/t}</h3>
 {if $droits.gestion == 1}
-<a href="index.php?module=individuChange&individu_id={$data.individu_id}">Modifier...</a>
+<a href="index.php?module=individuChange&individu_id={$data.individu_id}">{t}Modifier...{/t}</a>
 {/if}
 <table class="tableaffichage">
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].5} :</td>
+<td class="libelleSaisie">{t}Espèce :{/t}</td>
 <td>{$data.nom_id}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].6} :</td>
+<td class="libelleSaisie">{t}Sexe :{/t}</td>
 <td>{$data.sexe_libelle}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].7} :</td>
+<td class="libelleSaisie">{t}Code de l'individu :{/t}</td>
 <td>{$data.codeindividu}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].2} :</td>
+<td class="libelleSaisie">{t}Tag :{/t}</td>
 <td>{$data.tag}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].8} :</td>
+<td class="libelleSaisie">{t}Longueur :{/t}</td>
 <td>{$data.longueur}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].9} :</td>
+<td class="libelleSaisie">{t}Poids :{/t}</td>
 <td>{$data.poids}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].10} :</td>
+<td class="libelleSaisie">{t}Remarque :{/t}</td>
 <td>{$data.remarque}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].11} :</td>
+<td class="libelleSaisie">{t}Parasite :{/t}</td>
 <td>{$data.parasite}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].12} :</td>
+<td class="libelleSaisie">{t}Age :{/t}</td>
 <td>{$data.age}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].13} :</td>
+<td class="libelleSaisie">{t}Pectorale gauche :{/t}</td>
 <td>{$data.pectorale_gauche}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].14} - {$LANG["gestion"].15} :</td>
+<td class="libelleSaisie">{t}Diamètre oculaire - horizontal :{/t}</td>
 <td>{$data.diam_occ_h}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].14} - {$LANG["gestion"].16} :</td>
+<td class="libelleSaisie">{t}Diamètre oculaire - vertical :{/t}</td>
 <td>{$data.diam_occ_v}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].17} :</td>
+<td class="libelleSaisie">{t}Ht mm :{/t}</td>
 <td>{$data.ht_mm}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].18} :</td>
+<td class="libelleSaisie">{t}Épaisseur :{/t}</td>
 <td>{$data.epaisseur}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].19} :</td>
+<td class="libelleSaisie">{t}Circonférence :{/t}</td>
 <td>{$data.circonference}</td>
 </tr>
 </table>
 </td>
 
 <td>
-<h3>{$LANG["gestion"].20}</h3>
+<h3>{t}Pièces rattachées{/t}</h3>
 {if $droits.gestion == 1}
 <a href="index.php?module=pieceChange&piece_id=0&individu_id={$data.individu_id}">{$LANG["gestion"].21}</a>
 {/if}
 <table class="tableaffichage">
 <thead>
 <tr>
-<th>{$LANG["gestion"].22}</th>
-<th>{$LANG["gestion"].1}</th>
-<th>{$LANG["gestion"].23}</th>
-<th>{$LANG["gestion"].24}</th>
+<th>{t}Type{/t}</th>
+<th>{t}Code{/t}</th>
+<th>{t}Traitement réalisé{/t}</th>
+<th>{t}Nbre photos rattachée{/t}s</th>
 </tr></thead>
 <tbody>
 {section name="lst" loop=$piece}
@@ -99,7 +99,7 @@
 </tbody>
 </table>
 
-<h3>{$LANG["gestion"].25}</h3>
+<h3>{t}Expérimentation(s){/t}</h3>
 <table>
 {section name="lst" loop=$experimentation}
 <tr>
@@ -112,82 +112,82 @@
 
 <tr>
 <td>
-<h3>{$LANG["gestion"].26}</h3>
+<h3>{t}Données concernant la pêche{/t}</h3>
 <table class="tableaffichage">
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].27} :</td>
+<td class="libelleSaisie">{t}Site :{/t}</td>
 <td>{$peche.site}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].28} :</td>
+<td class="libelleSaisie">{t}Zone précise :{/t}</td>
 <td>{$peche.zonesite}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].29} :</td>
+<td class="libelleSaisie">{t}Date de pêche :{/t}</td>
 <td>{$peche.peche_date}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].30} :</td>
+<td class="libelleSaisie">{t}Campagne :{/t}</td>
 <td>{$peche.campagne}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].31} :</td>
+<td class="libelleSaisie">{t}Engin :{/t}</td>
 <td>{$peche.peche_engin}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].32} :</td>
+<td class="libelleSaisie">{t}Pêcheur :{/t}</td>
 <td>{$peche.personne}</td>
 </tr>
 <tr>
-<td class="libelleSaisie">{$LANG["gestion"].33} :</td>
+<td class="libelleSaisie">{t}Opérateur :{/t}</td>
 <td>{$peche.operateur}</td>
 </tr>
 </table>
 </td>
 <td>
-<h3>{$LANG["gestion"].34}</h3>
+<h3>{t}Données physico-chimiques de la pêche{/t}</h3>
 <table>
 <thead>
 <tr>
-<th>{$LANG["gestion"].35}</th>
-<th>{$LANG["gestion"].36}</th>
-<th>{$LANG["gestion"].37}</th>
-<th>{$LANG["gestion"].38}</th>
+<th>{t}Analyse{/t}</th>
+<th>{t}Valeur mesurée{/t}</th>
+<th>{t}Valeur mini{/t}</th>
+<th>{t}Valeur maxi{t}</th>
 </tr>
 </thead>
 <tdata>
 <tr>
-<td>{$LANG["gestion"].39}</td>
+<td>{t}Température{/t}</td>
 <td>{$pc.temp}</td>
 <td>{$pc.temp_min}</td>
 <td>{$pc.temp_max}</td>
 </tr>
-<td>{$LANG["gestion"].40}</td>
+<td>{t}O2{/t}</td>
 <td>{$pc.o2}</td>
 <td>{$pc.o2_min}</td>
 <td>{$pc.o2_max}</td>
 </tr>
-<td>{$LANG["gestion"].41}</td>
+<td>{t}pourcentage O2{/t}</td>
 <td>{$pc.o2pourcent}</td>
 <td>{$pc.o2pourcent_min}</td>
 <td>{$pc.o2pourcent_max}</td>
 </tr>
-<td>{$LANG["gestion"].42}</td>
+<td>{t}Conductivité{/t}</td>
 <td>{$pc.conductivite}</td>
 <td>{$pc.conductivite_min}</td>
 <td>{$pc.conductivite_max}</td>
 </tr>
-<td>{$LANG["gestion"].42} A</td>
+<td>{t}Conductitivé A{/t}</td>
 <td>{$pc.conductivitea}</td>
 <td>{$pc.conductivitea_min}</td>
 <td>{$pc.conductivitea_max}</td>
 </tr>
-<td>{$LANG["gestion"].43}</td>
+<td>{t}Salinité{/t}</td>
 <td>{$pc.salinite}</td>
 <td>{$pc.salinite_min}</td>
 <td>{$pc.salinite_max}</td>
 </tr>
-<td>{$LANG["gestion"].44}</td>
+<td>{t}pH{/t}</td>
 <td>{$pc.ph}</td>
 <td>{$pc.ph_min}</td>
 <td>{$pc.ph_max}</td>

@@ -1,7 +1,7 @@
-<h2>{$LANG["gestion"].61}</h2>
+<h2>{t}Liste des lecteurs{/t}</h2>
 {if $droits["gestionCompte"] == 1}
 <a href="index.php?module=lecteurChange&lecteur_id=0">
-{$LANG["gestion"].62}...
+{t}Nouveau...{/t}
 </a>
 {/if}
 <script>
@@ -10,9 +10,9 @@ setDataTables("lecteurListe");
 <table id="lecteurListe" class="tableaffichage">
 <thead>
 <tr>
-<th>{$LANG["login"].9}</th>
-<th>{$LANG["login"].10}</th>
-<th>{$LANG["gestion"].58}</th>
+<th>{t}Nom{/t}</th>
+<th>{t}Prénom{/t}</th>
+<th>{t}Login de connexion{/t}</th>
 </tr>
 </thead><tdata>
 {section name=lst loop=$data}
