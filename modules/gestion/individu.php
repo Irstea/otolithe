@@ -1,157 +1,167 @@
 <?php
 include_once 'modules/classes/individu.class.php';
 
-$dataClass = new Individu ( $bdd, $ObjetBDDParam );
+$dataClass = new Individu($bdd, $ObjetBDDParam);
 /*
  * Initialisation de la classe de traduction des cles
  */
-$_REQUEST ["individu_id"] = $_SESSION ["it_individu"]->getValue ( $_REQUEST ["individu_id"] );
-$id = $_REQUEST ["individu_id"];
+$_REQUEST["individu_id"] = $_SESSION["it_individu"]->getValue($_REQUEST["individu_id"]);
+$id = $_REQUEST["individu_id"];
 
-switch ($t_module ["param"]) {
-	case "list":
+switch ($t_module["param"]) {
+    case "list":
 		/*
 		 * Display the list of all records of the table
 		 */
 		/*
 		 * Mise a jour du module d'affichage de la liste
 		*/
-		$_SESSION ["moduleListe"] = "individuList";
-		/*
-		 * Gestion des criteres de recherche
-		 */
-		if (isset ( $_REQUEST ["exp_id"] ))
-			$_REQUEST ["exp_id"] = $_SESSION ["it_experimentation"]->getValue ( $_REQUEST ["exp_id"] );
-		$searchIndividu->setParam ( $_REQUEST );
-		$dataRecherche = $searchIndividu->getParam ();
-		if ($searchIndividu->isSearch () == 1) {
-			$data = $_SESSION ["it_individu"]->translateList ( $dataClass->getListSearch ( $dataRecherche ), true );
-			$data = $_SESSION ["it_peche"]->translateList ( $data );
-			$smarty->assign ( "data", $data );
-			$smarty->assign ( "isSearch", 1 );
-		}
-		$sexe = new Sexe ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "sexe", $sexe->getListe () );
-		/*
-		 * Integration des experimentations
-		 */
-		$smarty->assign ( "experimentation", $_SESSION ["it_experimentation"]->translateList ( $_SESSION ["experimentations"] ) );
-		/*
-		 * Recherche des zones de peche
-		 */
-		include_once "modules/classes/peche.class.php";
-		$peche = new Peche ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "site", $peche->getListeSite () );
-		$smarty->assign ( "zone", $peche->getListeZone () );
-		$dataRecherche ["exp_id"] = $_SESSION ["it_experimentation"]->setValue ( $dataRecherche ["exp_id"] );
-		$smarty->assign ( "individuSearch", $dataRecherche );
-		/*
-		 * Affectation du nom du module pour le cartouche de recherche
-		 */
-		$smarty->assign ( "modulePostSearch", "individuList" );
-		$smarty->assign ( "data", $data );
-		$smarty->assign ( "corps", "gestion/individuListe.tpl" );
-		break;
-	case "display":
+		$_SESSION["moduleListe"] = "individuList";
+        /*
+         * Gestion des criteres de recherche
+         */
+        if (isset($_REQUEST["exp_id"]))
+            $_REQUEST["exp_id"] = $_SESSION["it_experimentation"]->getValue($_REQUEST["exp_id"]);
+        $searchIndividu->setParam($_REQUEST);
+        $dataRecherche = $searchIndividu->getParam();
+        if ($searchIndividu->isSearch() == 1) {
+            $data = $_SESSION["it_individu"]->translateList($dataClass->getListSearch($dataRecherche), true);
+            $data = $_SESSION["it_peche"]->translateList($data);
+            $vue->set($data, "data");
+            $vue->set(1, "isSearch");
+        }
+        $sexe = new Sexe($bdd, $ObjetBDDParam);
+        $vue->set($sexe->getListe(), "sexe");
+
+        /*
+         * Integration des experimentations
+         */
+        $vue->set($_SESSION["it_experimentation"]->translateList($_SESSION["experimentations"]), "experimentation");
+
+        /*
+         * Recherche des zones de peche
+         */
+        include_once "modules/classes/peche.class.php";
+        $peche = new Peche($bdd, $ObjetBDDParam);
+        $vue->set($peche->getListeSite(), "site");
+        $vue->set($peche->getListeZone(), "zone");
+
+        $smarty->assign("site");
+        $smarty->assign("zone");
+        $dataRecherche["exp_id"] = $_SESSION["it_experimentation"]->setValue($dataRecherche["exp_id"]);
+        $vue->set($dataRecherche, "individuSearch");
+
+        /*
+         * Affectation du nom du module pour le cartouche de recherche
+         */
+        $vue->set("individuList", "modulePostSearch");
+        $vue->set($data, "data");
+        $vue->set("gestion/individuListe.tpl", "corps");
+
+        break;
+    case "display":
 		/*
 		 * Display the detail of the record
 		 */
-		$data = $dataClass->getDetail ( $id );
-		$dataT = $_SESSION ["it_individu"]->translateRow ( $data );
-		$dataT = $_SESSION ["it_peche"]->translateRow ( $dataT );
-		$smarty->assign ( "data", $dataT );
-		/*
-		 * Lecture des experimentations
-		 */
-		$individu_experimentation = new Individu_experimentation ( $bdd, $ObjetBDDParam );
-		$dataIE = $individu_experimentation->getListeFromIndividu ( $id );
-		$dataIE = $_SESSION ["it_experimentation"]->translateList ( $dataIE );
-		$dataIE = $_SESSION ["it_individu"]->translateList ( $dataIE );
-		$smarty->assign ( "experimentation", $dataIE );
-		
-		/*
-		 * Lecture des pieces
-		 */
-		include_once 'modules/classes/piece.class.php';
-		$piece = new Piece ( $bdd, $ObjetBDDParam );
-		$dataPiece = $piece->getListFromIndividu ( $id );
-		$dataPiece = $_SESSION ["it_piece"]->translateList ( $dataPiece );
-		$dataPiece = $_SESSION ["it_individu"]->translateList ( $dataPiece );
-		$smarty->assign ( "piece", $dataPiece );
-		/*
-		 * Lecture des donnees sur la peche
-		 */
-		include_once 'modules/classes/peche.class.php';
-		$peche = new Peche ( $bdd, $ObjetBDDParam );
-		if ($data ["peche_id"] > 0) {
-			$dataPeche = $peche->lire ( $data ["peche_id"] );
-			$dataPeche = $_SESSION ["it_peche"]->translateRow ( $dataPeche );
-			$smarty->assign ( "peche", $dataPeche );
-		}
-		$physicochimie = new Physicochimie ( $bdd, $ObjetBDDParam );
-		$dataPhysico = $physicochimie->getByIdpeche ( $data ["peche_id"] );
-		$dataPhysico = $_SESSION ["it_physicochimie"]->translateRow ( $dataPhysico );
-		$smarty->assign ( "pc", $dataPhysico );
-		$smarty->assign ( "corps", "gestion/individuDisplay.tpl" );
-		break;
-	case "change":
+		$data = $dataClass->getDetail($id);
+        $dataT = $_SESSION["it_individu"]->translateRow($data);
+        $dataT = $_SESSION["it_peche"]->translateRow($dataT);
+        $vue->set($dataT, "data");
+
+        /*
+         * Lecture des experimentations
+         */
+        $individu_experimentation = new Individu_experimentation($bdd, $ObjetBDDParam);
+        $dataIE = $individu_experimentation->getListeFromIndividu($id);
+        $dataIE = $_SESSION["it_experimentation"]->translateList($dataIE);
+        $dataIE = $_SESSION["it_individu"]->translateList($dataIE);
+        $vue->set($dataIE, "experimentation");
+
+        /*
+         * Lecture des pieces
+         */
+        include_once 'modules/classes/piece.class.php';
+        $piece = new Piece($bdd, $ObjetBDDParam);
+        $dataPiece = $piece->getListFromIndividu($id);
+        $dataPiece = $_SESSION["it_piece"]->translateList($dataPiece);
+        $dataPiece = $_SESSION["it_individu"]->translateList($dataPiece);
+        $vue->set($dataPiece, "piece");
+        /*
+         * Lecture des donnees sur la peche
+         */
+        include_once 'modules/classes/peche.class.php';
+        $peche = new Peche($bdd, $ObjetBDDParam);
+        if ($data["peche_id"] > 0) {
+            $dataPeche = $peche->lire($data["peche_id"]);
+            $dataPeche = $_SESSION["it_peche"]->translateRow($dataPeche);
+            $vue->set($dataPeche, "peche");
+        }
+        $physicochimie = new Physicochimie($bdd, $ObjetBDDParam);
+        $dataPhysico = $physicochimie->getByIdpeche($data["peche_id"]);
+        $dataPhysico = $_SESSION["it_physicochimie"]->translateRow($dataPhysico);
+        $vue->set($dataPhysico, "pc");
+        $vue->set("gestion/individuDisplay.tpl", "corps");
+
+        break;
+    case "change":
 		/*
 		 * open the form to modify the record
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-		$data = dataRead ( $dataClass, $id, "gestion/individuChange.tpl" );
-		$dataT = $_SESSION ["it_individu"]->translateRow ( $data );
-		$dataT = $_SESSION ["it_peche"]->translateRow ( $dataT );
-		$smarty->assign ( "data", $dataT );
-		include_once 'modules/classes/peche.class.php';
-		/*
-		 * Lecture des donnees de peche
-		 */
-		$peche = new Peche ( $bdd, $ObjetBDDParam );
-		if ($data ["peche_id"] > 0) {
-			$dataPeche = $peche->lire ( $data ["peche_id"] );
-			$dataPeche = $_SESSION ["it_peche"]->translateRow ( $dataPeche );
-			$smarty->assign ( "peche", $dataPeche );
-		}
-		/*
-		 * Lecture des sexes
-		 */
-		$sexe = new Sexe ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "sexes", $sexe->getListe () );
-		/*
-		 * Liste des experimentations
-		 */
-		$experimentation = new Experimentation ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "experimentations", $_SESSION ["it_experimentation"]->translateList ( $experimentation->getAllListFromIndividu ( $id ) ) );
-		
-		break;
-	case "write":
+		$data = dataRead($dataClass, $id, "gestion/individuChange.tpl");
+        $dataT = $_SESSION["it_individu"]->translateRow($data);
+        $dataT = $_SESSION["it_peche"]->translateRow($dataT);
+        $vue->set($dataT, "data");
+        include_once 'modules/classes/peche.class.php';
+        /*
+         * Lecture des donnees de peche
+         */
+        $peche = new Peche($bdd, $ObjetBDDParam);
+        if ($data["peche_id"] > 0) {
+            $dataPeche = $peche->lire($data["peche_id"]);
+            $dataPeche = $_SESSION["it_peche"]->translateRow($dataPeche);
+            $vue->set($dataPeche, "peche");
+        }
+        /*
+         * Lecture des sexes
+         */
+        $sexe = new Sexe($bdd, $ObjetBDDParam);
+        $vue->set($sexe->getListe(), "sexes");
+
+        /*
+         * Liste des experimentations
+         */
+        $experimentation = new Experimentation($bdd, $ObjetBDDParam);
+        $vue->set($_SESSION["it_experimentation"]->translateList($experimentation->getAllListFromIndividu($id)), "experimentations");
+
+        break;
+    case "write":
 		/*
 		 * write record in database
 		 */
 		/*
 		 * Recuperation des cles reelles
 		 */
-		if (is_array ( $_REQUEST ["exp_id"] )) {
-			$exp_id = array ();
-			foreach ( $_REQUEST ["exp_id"] as $value )
-				$exp_id [] = $_SESSION ["it_experimentation"]->getValue ( $value );
-			$_REQUEST ["exp_id"] = $exp_id;
-		} else
-			$_REQUEST ["exp_id"] = $_SESSION ["it_experimentation"]->getValue ( $_REQUEST ["exp_id"] );
-		$_REQUEST ["peche_id"] = $_SESSION ["it_peche"]->getValue ( $_REQUEST ["peche_id"] );
-		include_once 'modules/classes/peche.class.php';
-		$peche = new Peche ( $bdd, $ObjetBDDParam );
-		$_REQUEST ["peche_id"] = $peche->ecrire ( $_REQUEST );
-		$id = dataWrite ( $dataClass, $_REQUEST );
-		$_REQUEST ["individu_id"] = $_SESSION ["it_individu"]->setValue ( $id );
-		break;
-	case "delete":
+		if (is_array($_REQUEST["exp_id"])) {
+            $exp_id = array();
+            foreach ($_REQUEST["exp_id"] as $value)
+                $exp_id[] = $_SESSION["it_experimentation"]->getValue($value);
+            $_REQUEST["exp_id"] = $exp_id;
+        } else
+            $_REQUEST["exp_id"] = $_SESSION["it_experimentation"]->getValue($_REQUEST["exp_id"]);
+        $_REQUEST["peche_id"] = $_SESSION["it_peche"]->getValue($_REQUEST["peche_id"]);
+        include_once 'modules/classes/peche.class.php';
+        $peche = new Peche($bdd, $ObjetBDDParam);
+        $_REQUEST["peche_id"] = $peche->ecrire($_REQUEST);
+        $id = dataWrite($dataClass, $_REQUEST);
+        $_REQUEST["individu_id"] = $_SESSION["it_individu"]->setValue($id);
+        break;
+    case "delete":
 		/*
 		 * delete record
 		 */
-		dataDelete ( $dataClass, $id );
-		break;
+		dataDelete($dataClass, $id);
+        break;
 }
 ?>

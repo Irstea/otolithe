@@ -497,7 +497,8 @@ class Espece extends ObjetBDD {
 	 * recherche une espece par rapport a son nom latin ou vernaculaire
 	 * Retourne le resultat au format JSON, pour utilisation en ajax
 	 *
-	 * @param string $nom        	
+	 * @param string $nom    
+	 * @return array    	
 	 */
 	function getEspeceJSON($nom) {
 		if (strlen ( $nom ) > 2) {
@@ -507,8 +508,7 @@ class Espece extends ObjetBDD {
 				where upper(nom_id) like upper('%" . $nom . "%')
 						or upper(nom_fr) like upper ('%" . $nom . "%')
 				order by nom_id";
-			$data = $this->getListeParam ( $sql );
-			return $data;
+			return $this->getListeParam ( $sql );
 		}
 	}
 }

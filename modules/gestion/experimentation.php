@@ -14,8 +14,9 @@ switch ($t_module["param"]) {
 		/*
 		 * Display the list of all records of the table
 		 */
-		$smarty->assign("data", $dataClass->getListe());
-		$smarty->assign("corps", "gestion/experimentationList.tpl");
+	    $vue->set( $dataClass->getListe(), "data");
+	    $vue->set("gestion/experimentationList.tpl" , "corps");
+
 		break;
 
 	case "change":

@@ -105,7 +105,7 @@
 	<piecetypeDelete action="modules/gestion/piecetype.php" param="delete" droits="gestionCompte" retoursuppr="piecetypeList" retourko="piecetypeChange" />
 
 	<photolectureDisplay action="modules/photolecture/photolecture.php" param="display" droits="lecture" type="smarty"/>
-	<photolectureChange action="modules/photolecture/photolecture.php" param="change" droits="lecture" retourko="photoDisplay" type="smarty"/>
+	<photolectureChange action="modules/photolecture/photolecture.php" param="change" droits="lecture" retourko="photoDisplay" type="smarty" />
 	<photolectureWrite action="modules/photolecture/photolecture.php" param="write" droits="lecture" retourok="photoDisplay" retourko="photolectureChange" modulebefore="photolectureChange" />
 	<photolectureDelete action="modules/photolecture/photolecture.php" param="delete" droits="gestion" retourok="photoDisplay" retourko="photolectureChange" modulebefore="photoDisplay" />
 	<photolectureList action="modules/photolecture/photolecture.php" retourlogin="1" param="list" droits="lecture"  />

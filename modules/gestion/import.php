@@ -51,31 +51,31 @@ switch ($t_module ["param"]) {
 					/*
 					 * Erreurs decouvertes
 					 */
-					$smarty->assign( "erreur" ,1 );
-					$smarty->assign("erreurs" ,  $resultat);
+				    $vue->set( 1, "erreur");
+				    $vue->set($resultat , "erreurs");
 				} else {
 					/*
 					 * Deplacement du fichier dans le dossier temporaire
 					 */
 					$filename = $APPLI_photoStockage . '/' . bin2hex ( openssl_random_pseudo_bytes ( 4 ) );
 					if (! copy ( $_FILES ['upfile'] ['tmp_name'], $filename )) {
-						$message.=  "Impossible de recopier le fichier importé dans le dossier temporaire<br>";
+						$message->set( "Impossible de recopier le fichier importé dans le dossier temporaire");
 					} else {
 						$_SESSION ["filename"] = $filename;
 						$_SESSION ["separator"] = $_REQUEST ["separator"];
 						$_SESSION ["utf8_encode"] = $_REQUEST ["utf8_encode"];
-						$smarty->assign("controleOk" ,1 );
-						$smarty->assign( "filename",$_FILES['upfile']['name'] );
+						$vue->set(1 , "controleOk");
+						$vue->set( $_FILES['upfile']['name'], "filename");
 					}
 				}
 			} catch ( Exception $e ) {
-				$message.=  $e->getMessage ();
+				$message->set(  $e->getMessage ());
 			}
 		}
 		$import->fileClose();
 		$module_coderetour = 1;
-		$smarty->assign("separator" , $_REQUEST ["separator"]);
-		$smarty->assign( "utf8_encode",$_REQUEST ["utf8_encode"] );
+		$vue->set( $_REQUEST ["separator"], "separator");
+		$vue->set( $_REQUEST ["utf8_encode"], "utf8_encode");
 		break;
 	case "import" :
 		if (isset ( $_SESSION ["filename"] )) {
@@ -83,12 +83,12 @@ switch ($t_module ["param"]) {
 				try {
 					$import->initFile ( $_SESSION ["filename"], $_SESSION["separator"], $_SESSION["utf8_encode"] );
 					$import->importAll();
-					$message .=  "Import effectué. ". $import->nbTreated . " lignes traitées<br>";
-					$message .= "Premier id généré : ".$import->minuid."<br>";
-					$message.= "Dernier id généré : ". $import->maxuid."<br>";
+					$message ->set(  "Import effectué. ". $import->nbTreated . " lignes traitées");
+					$message->set( "Premier id généré : ".$import->minuid);
+					$message->set( "Dernier id généré : ". $import->maxuid);
 					$module_coderetour = 1;
 				} catch ( Exception $e ) {
-					$message.=  $e->getMessage ();
+					$message->set(  $e->getMessage ());
 				}
 			}
 		}

@@ -12,22 +12,22 @@ $id = $_REQUEST["espece_id"];
 switch ($t_module["param"]) {
 	case "searchAjax" :
 		if (strlen($_REQUEST["libelle"]) > 2 ) 
-			echo json_encode($dataClass->getEspeceJSON($_REQUEST["libelle"]));
+			$vue->set($dataClass->getEspeceJSON($_REQUEST["libelle"]));
 			break;
 	case "list":
 		/*
 		 * Display the list of all records of the table
 		 */
-		$smarty->assign("data", $dataClass->getListe());
-		$smarty->assign("corps", "gestion/especeList.tpl");
+	    $vue->set($dataClass->getListe() , "data");
+	    $vue->set("gestion/especeList.tpl" , "corps");
 		break;
 	case "display":
 		/*
 		 * Display the detail of the record
 		 */
-		$data = $dataClass->lire($id);
-		$smarty->assign("data", $data);
-		$smarty->assign("corps", "example/exampleDisplay.tpl");
+		$vue->set( $dataClass->lire($id), "data");
+		$vue->set( "example/exampleDisplay.tpl", "corps");
+
 		break;
 	case "change":
 		/*
