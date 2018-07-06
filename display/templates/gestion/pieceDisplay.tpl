@@ -53,6 +53,9 @@
 <table class="table table-bordered table-hover">
 <thead>
 <tr>
+{if $droits.gestion == 1}
+<th class="center"><img src="display/images/edit.png"></th>
+{/if}
 <th>{t}Nom{/t}</th>
 <th>{t}Description{/t}</th>
 <th>{t}Date{/t}</th>
@@ -64,6 +67,13 @@
 <tbody>
 {section name="lst" loop=$photo}
 <tr>
+{if $droits.gestion == 1}
+<td class="center" title="{t}Modifier...{/t}">
+<a href="index.php?module=photoChange&photo_id={$photo[lst].photo_id}&piece_id={$data.piece_id}"> 
+<img src="display/images/edit.png">
+</a>
+</td>
+{/if}
 <td>
 <a href="index.php?module=photoDisplay&photo_id={$photo[lst].photo_id}&piece_id={$data.piece_id}">
 {$photo[lst].photo_nom}
