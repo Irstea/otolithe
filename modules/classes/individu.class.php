@@ -41,25 +41,7 @@ class Individu extends ObjetBdd {
 				),
 				"age" => array (
 						"type" => 1 
-				),
-				"pectorale_gauche" => array (
-						"type" => 1 
-				),
-				"diam_occ_h" => array (
-						"type" => 1 
-				),
-				"diam_occ_v" => array (
-						"type" => 1 
-				),
-				"ht_mm" => array (
-						"type" => 1 
-				),
-				"epaisseur" => array (
-						"type" => 1 
-				),
-				"circonference" => array (
-						"type" => 1 
-				) 
+				)
 		);
 		if (! is_array ( $param ))
 			$param == array ();
@@ -75,7 +57,7 @@ class Individu extends ObjetBdd {
 	function getListSearch($data) {
 		$data = $this->encodeData ( $data );
 		$sql = "select individu_id, codeindividu, tag, nom_id, count (piece_id) as nbrepiece,
-				sexe_libellecourt, peche_date, site, zonesite, exp_nom
+				sexe_libellecourt, peche_date, site, zonesite, exp_nom, individu_id as nom_id
 				from " . $this->table . "
 					left outer join espece using (espece_id)
 					left outer join piece using (individu_id)
@@ -163,9 +145,8 @@ class Individu extends ObjetBdd {
 	 */
 	function getDetail($id) {
 		if ($id > 0 && is_numeric ( $id )) {
-			$sql = "select individu_id, peche_id, codeindividu, tag, longueur, poids, 
-					remarque, parasite, age, pectorale_gauche, diam_occ_h, diam_occ_v, ht_mm,
-					nom_id, epaisseur, circonference, sexe_libelle,
+			$sql = "select individu_id, individu_id as nom_id, peche_id, codeindividu, tag, longueur, poids, 
+					remarque, parasite, age, sexe_libelle,
 					naturetraitement_libelle, semaine_dissection, mortalite,
 					peche_date
 				from " . $this->table . " 
@@ -195,9 +176,9 @@ class Individu extends ObjetBdd {
 	 */
 	function lire($id) {
 		if ($id >= 0 && is_numeric ( $id )) {
-			$sql = "select individu_id, peche_id, espece_id, codeindividu, tag, longueur, poids,
-					remarque, parasite, age, pectorale_gauche, diam_occ_h, diam_occ_v, ht_mm,
-					nom_id, epaisseur, circonference
+			$sql = "select individu_id, individu_id as nom_id,
+                    peche_id, espece_id, codeindividu, tag, longueur, poids,
+					remarque, parasite, age
 				from " . $this->table . "
 						left outer join espece using (espece_id)
 						where individu_id = " . $id;

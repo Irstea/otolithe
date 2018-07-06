@@ -163,3 +163,7 @@ legend {
 .lexique dt {
   white-space: pre-wrap;
 }
+
+.borders {
+	border:1px solid;
+}

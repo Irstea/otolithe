@@ -93,10 +93,6 @@ switch ($t_module["param"]) {
             $dataPeche = $_SESSION["it_peche"]->translateRow($dataPeche);
             $vue->set($dataPeche, "peche");
         }
-        $physicochimie = new Physicochimie($bdd, $ObjetBDDParam);
-        $dataPhysico = $physicochimie->getByIdpeche($data["peche_id"]);
-        $dataPhysico = $_SESSION["it_physicochimie"]->translateRow($dataPhysico);
-        $vue->set($dataPhysico, "pc");
         $vue->set("gestion/individuDisplay.tpl", "corps");
 
         break;

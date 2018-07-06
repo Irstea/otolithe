@@ -1,32 +1,56 @@
-<h2>Affichage d'une pièce</h2>
-<a href="index.php?module={$moduleListe}">{t}Retour à la liste{/t}</a> > 
-<a href="index.php?module=individuDisplay&individu_id={$data.individu_id}">{t}Retour au détail du poisson{/t}</a>
+<h2>{t}Affichage d'une pièce{/t}</h2>
+<a href="index.php?module={$moduleListe}">
+<img src="display/images/list.png" height="25">
+{t}Retour à la liste{/t}
+</a>
+<a href="index.php?module=individuDisplay&individu_id={$data.individu_id}">
+<img src="display/images/fish.png" height="25">
+{t}Retour au poisson{/t}
+</a>
+<div class="row">
+<div class="col-md-6">
 {include file="gestion/individuCartouche.tpl"}
-<h3>{t}Détail de la pièce{/t}</h3>
-<table class="tableaffichage">
-<tr>
-<td class="libelleSaisie">{t}Type de pièce :{/t}</td>
-<td>{if $droits.gestion == 1}
-<a href="index.php?module=pieceChange&piece_id={$data.piece_id}&individu_id={$data.individu_id}">
-{/if}
-{$data.piecetype_libelle}
-{if $droits.gestion == 1}</a>{/if}
-</td>
-</tr>
-<tr>
-<td class="libelleSaisie">{t}Code de la pièce :{/t}</td>
-<td>{$data.piececode}</td>
-</tr>
-<tr>
-<td class="libelleSaisie">{t}Traitement effectué :{/t}</td>
-<td>{$data.traitementpiece_libelle}</td>
-</tr>
-</table>
-<h3>{t}Photos rattachées{/t}</h3>
+</div>
+</div>
+<div class="row">
+<fieldset class="col-md-6">
+<legend>{t}Détail de la pièce{/t}</legend>
 {if $droits.gestion == 1}
-<a href="index.php?module=photoChange&photo_id=0&piece_id={$data.piece_id}">Nouvelle photo</a>
+<a href="index.php?module=pieceChange&piece_id={$data.piece_id}&individu_id={$data.individu_id}">
+<img src="display/images/edit.png" height="25">{t}Modifier...{/t}
+</a>
 {/if}
-<table>
+<div class="form-display">
+<dl class="dl-horizontal">
+<dt>{t}Type de pièce :{/t}</dt>
+<dd>
+{$data.piecetype_libelle}
+</dd>
+</dl>
+
+<dl class="dl-horizontal">
+<dt>{t}Code de la pièce :{/t}</dt>
+<dd>{$data.piececode}</dd>
+</dl>
+
+<dl class="dl-horizontal">
+<dt>{t}Traitement effectué :{/t}</dt>
+<dd>{$data.traitementpiece_libelle}</dd>
+</dl>
+</div>
+</fieldset>
+</div>
+
+<div class="row">
+<fieldset class="col-md-6">
+<legend>{t}Photos rattachées{/t}</legend>
+{if $droits.gestion == 1}
+<a href="index.php?module=photoChange&photo_id=0&piece_id={$data.piece_id}">
+<img src="display/images/camera.png" height="25">
+{t}Nouvelle photo{/t}
+</a>
+{/if}
+<table class="table table-bordered table-hover">
 <thead>
 <tr>
 <th>{t}Nom{/t}</th>
@@ -37,7 +61,7 @@
 <th>{t}Miniature{/t}</th>
 </tr>
 </thead>
-<tdata>
+<tbody>
 {section name="lst" loop=$photo}
 <tr>
 <td>
@@ -56,5 +80,7 @@
 </td>
 </tr>
 {/section}
-</tdata>
+</tbody>
 </table>
+</fieldset>
+</div>
