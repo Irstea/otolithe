@@ -94,7 +94,9 @@ $(document).ready(function() {
 	$.fn.dataTable.moment( '{$LANG["date"]["formatdate"]}' );
 	$('.datatable').DataTable({
 		"language" : dataTableLanguage,
-		"searching": false
+		"searching": false,
+		"lengthMenu": [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]],
+		"iDisplayLength": 25
 	});
 	$('.datatable-nopaging').DataTable({
 		"language" : dataTableLanguage,
@@ -128,6 +130,7 @@ $(document).ready(function() {
 		 dom: 'Bfrtip',
 		"language" : dataTableLanguage,
 		"paging" : true,
+		"lengthMenu": [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]],
 		"searching": true,
        buttons: [
            'copyHtml5',

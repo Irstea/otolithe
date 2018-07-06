@@ -4,10 +4,9 @@
 {t}Nouveau...{/t}
 </a>
 {/if}
-<script>
-setDataTables("lecteurListe");
-</script>
-<table id="lecteurListe" class="tableaffichage">
+	<div class="row">
+	<div class="col-md-6">
+<table id="lecteurListe" class="table table-bordered table-hover datatable">
 <thead>
 <tr>
 <th>{t}Nom{/t}</th>
@@ -34,3 +33,5 @@ setDataTables("lecteurListe");
 {/section}
 </tdata>
 </table>
+</div>
+</div>

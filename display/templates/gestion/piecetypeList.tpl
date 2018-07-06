@@ -4,8 +4,9 @@
 {t}Nouveau type de pièce...{/t}
 </a>
 {/if}
-
-<table id="ptList" class="tablelist">
+	<div class="row">
+	<div class="col-md-6">
+<table id="ptList" class="table table-bordered table-hover datatable">
 <thead>
 <tr>
 <th>{t}Id{/t}</th>
@@ -28,3 +29,5 @@
 {/section}
 </tbody>
 </table>
+</div>
+</div>

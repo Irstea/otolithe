@@ -1,7 +1,8 @@
 <h2>{t}Liste des espèces{/t}</h2>
 
-
-<table id="ptList" class="tableliste">
+	<div class="row">
+	<div class="col-md-6">
+<table id="ptList" class="table table-bordered table-hover datatable">
 <thead>
 <tr>
 <th>{t}Id{/t}</th>
@@ -20,6 +21,5 @@
 {/section}
 </tbody>
 </table>
-<script>
-setDataTables("ptList",true, true, true, 50);
-</script>
+</div>
+</div>

@@ -1,6 +1,3 @@
-<script>
-setDataTables("idListe",true , false, true, 100);
-</script>
 <h2>{t}Retour à la liste{/t}</h2>
 <a href="index.php?module=individuChange&individu_id=0">{t}Code de l'individu{/t}</a>
 {include file="gestion/individuSearch.tpl"}
@@ -8,7 +5,9 @@ setDataTables("idListe",true , false, true, 100);
 {if $droits.gestion == 1}
 <a href="index.php?module=individuChange&individu_id=0">{t}Nouveau poisson...{/t}</a>
 {/if}
-<table id="idListe" class="tableliste">
+	<div class="row">
+	<div class="col-md-12">
+<table id="idListe" class="table table-bordered table-hover datatable" data-page-length='100'>
 <thead>
 <tr>
 <th>{t}Code individu{/t}<br>{t}Tag{/t}</th>
@@ -40,3 +39,5 @@ setDataTables("idListe",true , false, true, 100);
 </table>
 {/if}
 <br>
+</div>
+</div>

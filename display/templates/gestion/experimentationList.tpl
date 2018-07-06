@@ -4,8 +4,9 @@
 {t}Nouvelle experimentation...{/t}
 </a>
 {/if}
-
-<table id="expList" class="tablelist">
+	<div class="row">
+	<div class="col-md-6">
+<table id="expList" class="table table-bordered table-hover datatable">
 <thead>
 <tr>
 <th>{t}Id{/t}</th>
@@ -34,3 +35,5 @@
 {/section}
 </tbody>
 </table>
+</div>
+</div>

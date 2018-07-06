@@ -4,10 +4,9 @@
 {if $droits.gestion == 1}
 <a href="index.php?module=photolectureExport" title="{t}Séparateur : tabulation, UTF-8, chiffres décimaux avec points{/t}">{t}Exporter la liste au format CSV{/t}</a>
 {/if}
-<script>
-setDataTables("idListe",true , false, true, 100);
-</script>
-<table id="idListe" class="tableliste">
+	<div class="row">
+	<div class="col-md-12">
+<table id="idListe" class="table table-bordered table-hover datatable" data-page-length='100'>
 <thead>
 <tr>
 <th>{t}Individu{/t}</th>
@@ -71,6 +70,7 @@ setDataTables("idListe",true , false, true, 100);
 {/section}
 </tdata>
 </table>
-
+</div>
+</div>
 {/if}
 
