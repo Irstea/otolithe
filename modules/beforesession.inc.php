@@ -6,5 +6,4 @@
 
 include_once 'modules/classes/search.class.php';
 require_once 'framework/translateId/translateId.class.php';
-
 ?>

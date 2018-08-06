@@ -1,8 +1,3 @@
-<script type="text/javascript" src="/display/javascript/calendar/calendar.js"></script>
-<script type="text/javascript" src="/display/javascript/calendar/lang/calendar-fr.js"></script>
-<script type="text/javascript" src="/display/javascript/calendar/calendar-setup.js"></script>
-<style type="text/css">@import url(display/javascript/calendar/aqua/theme.css);</style>
-
 <h2>{t}Modification d'une photo{/t}</h2>
 <div class="row">
 <div class="col-sm-12">
@@ -55,7 +50,7 @@
 <div class="form-group">
 		<label for="photoload" class="control-label col-md-4">{t}Fichier JPG ou TIFF contenant la photo :{/t}</label>
 		<div class="col-md-8">
-			<input id="MAX_FILE_SIZE" class="form-control" type="hidden" name="MAX_FILE_SIZE" value="50000000">
+			<input id="MAX_FILE_SIZE" class="form-control" type="hidden" name="MAX_FILE_SIZE" value="{$maxfilesize}">
 			<input id="photoload" class="form-control" type="file" name="photoload" accept="image/jpeg,image/jpg,image/tiff" >
 		</div>
 </div>
@@ -68,7 +63,7 @@
 <div class="form-group">
 <label for="photo_date" class="control-label col-md-4">{t}Date de prise de vue :{/t}</label>
 <div class="col-md-8">
-<input id="photo_date" class="form-control datepicker" class="date" name="photo_date" id="photo_date" value="{$data.photo_date}" maxlength="10" size="10">
+<input id="photo_date" class="form-control datepicker" name="photo_date" id="photo_date" value="{$data.photo_date}" maxlength="10" size="10">
 </div>
 </div>
 <div class="form-group">

@@ -1,6 +1,5 @@
-<script type="text/javascript" src="/display/javascript/jquery-ui-1.10.3/jquery-1.9.1.js"></script>
-<script type="text/javascript" src="/display/javascript/jquery-ui-1.10.3/ui/jquery-ui.js"></script>
-<script type="text/javascript" src="/display/javascript/jquerysvg/jquery.svg.js"></script>
+<script type="text/javascript" src="/display/javascript/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/display/javascript/jquery-svg-1.5/jquery.svg.min.js"></script>
 
 <style type="text/css">
 @import "/display/javascript/jquerysvg/jquery.svg.css";
@@ -213,16 +212,12 @@ function setCircle(svg, x, y, rayon_initial) {
 <a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}" onclick="return confirm('{t}Les modifications apportées dans cette page vont être perdues. Confirmez-vous cette opération ?{/t}')">{t}Retour au détail du poisson{/t}</a> > 
 <a href="index.php?module=pieceDisplay&piece_id={$piece.piece_id}" onclick="return confirm('{t}Les modifications apportées dans cette page vont être perdues. Confirmez-vous cette opération ?{/t}')">{t}Retour au détail de la pièce{/t}</a> >
 <a href="index.php?module=photoDisplay&photo_id={$data.photo_id}" onclick="return confirm('{t}Les modifications apportées dans cette page vont être perdues. Confirmez-vous cette opération ?{/t}')">{t}Retour à la photo{/t}</a>
-<table class="tablemulticolonne">
-<tr>
-<td>
+<div class="row">
+<div class="col-lg-12 col-sm-12">
 {include file="gestion/individuCartouche.tpl"}
-</td>
-<td>
+
 {include file="gestion/pieceCartouche.tpl"}
-</td>
-</tr>
-</table>
+</div>
 <form name="myForm" id="myForm" action="index.php" method="POST">
 {t}Enregistrez les points positionnés :{/t} 
 <input type="submit" value="Valider">

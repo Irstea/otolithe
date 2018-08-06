@@ -93,6 +93,11 @@ legend {
 	border-radius: 0.4em;
 	background-color: white;
 }
+
+.form-display dt {
+	white-space: normal;
+}
+
 .form-display > row > label {
 	text-align: right;
 }

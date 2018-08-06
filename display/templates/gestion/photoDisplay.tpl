@@ -23,92 +23,89 @@ $(document).ready(function() {
 </script>
 
 <h2>{t}Affichage d'une photo{/t}</h2>
+<div class="col-sm-12">
 <a href="index.php?module={$moduleListe}">{t}Retour à la liste{/t}</a> > 
 <a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}">{t}Retour au détail du poisson{/t}</a> > 
 <a href="index.php?module=pieceDisplay&piece_id={$data.piece_id}">{t}Retour au détail de la pièce{/t}</a>
-<table class="tablemulticolonne">
-<tr>
-<td>
+</div>
+<div class="col-lg-6 col-sm-12">
 {include file="gestion/individuCartouche.tpl"}
-</td>
-<td>
 {include file="gestion/pieceCartouche.tpl"}
-</td>
-</tr>
-</table>
+</div>
+
 {if $droits.gestion == 1}
+<div class="col-sm-12">
 <a href="index.php?module=photoChange&photo_id={$data.photo_id}&piece_id={$data.piece_id}">
 {t}Modifier la photo...{/t}
 </a>
+</div>
 {/if}
-<table class="tablemulticolonne">
-<tr>
-<td>
-<table class="tableaffichage">
-<tr>
-<td class="libelleSaisie">{t}Nom de la photo :{/t} </td>
-<td>
-{$data.photo_nom}
-</td>
-</tr>
-<tr>
-<td class="libelleSaisie">{t}Description :{/t} </td>
-<td>{$data.description}</td>
-</tr>
-<tr>
-<td class="libelleSaisie">{t}Nom du fichier :{/t} </td>
-<td>{$data.photo_filename}</td>
-</tr>
-<tr>
-<td class="libelleSaisie">{t}Date de prise de vue :{/t} </td>
-<td>{$data.photo_date}</td>
-</tr>
-<tr>
-<td class="libelleSaisie">{t}Couleur :{/t} </td>
-<td>
+<div class="col-sm-12">
+<div class="form-display col-sm-12 col-md-8">
+<dl class="dl-horizontal">
+<dt>{t}Nom de la photo :{/t} </dt>
+<dd>{$data.photo_nom}</dd>
+</dl>
+<dl class="dl-horizontal">
+<dt>{t}Description :{/t} </dt>
+<dd>{$data.description}</dd>
+</dl>
+<dl class="dl-horizontal">
+<dt>{t}Nom du fichier :{/t} </dt>
+<dd>{$data.photo_filename}</dd>
+</dl>
+<dl class="dl-horizontal">
+<dt>{t}Date de prise de vue :{/t} </dt>
+<dd>{$data.photo_date}</dd>
+</dl>
+<dl class="dl-horizontal">
+<dt>{t}Couleur :{/t} </dt>
+<dd>
 {if $data.color == "NB"}{t}Noir et blanc{/t}{else}{t}Couleur{/t}{/if}
-</td>
-</tr>
-<tr>
-<td class="libelleSaisie">{t}Type de lumière :{/t} </td>
-<td>{$data.lumieretype_libelle}</td>
-</tr>
-<tr>
-<td class="libelleSaisie">{t}Grossissement :{/t} </td>
-<td>{$data.grossissement}</td>
-</tr>
-<tr>
-<td class="libelleSaisie">{t}Repère :{/t} </td>
-<td>{$data.repere}</td>
-</tr>
-<tr>
-<td class="libelleSaisie">{t}URI :{/t} </td>
-<td>{$data.uri}</td>
-</tr>
-<tr>
-<td class="libelleSaisie">{t}Repère de mesure - longueur de référence :{/t} </td>
-<td>{$data.long_reference}</td>
-</tr>
-<tr>
-<td class="libelleSaisie">{t}Taille en pixels de la longueur de référence dans la photo :{/t} </td>
-<td>{$data.long_ref_pixel}</td>
-<tr>
-<td class="libelleSaisie">{t}Dimensions de la photo :{/t} </td>
-<td>{$data.photo_width}x{$data.photo_height}</td>
-</tr>
-</table>
-</td>
-<td>
+</dd>
+</dl>
+<dl class="dl-horizontal">
+<dt>{t}Type de lumière :{/t} </dt>
+<dd>{$data.lumieretype_libelle}</dd>
+</dl>
+<dl class="dl-horizontal">
+<dt>{t}Grossissement :{/t} </dt>
+<dd>{$data.grossissement}</dd>
+</dl>
+<dl class="dl-horizontal">
+<dt>{t}Repère :{/t} </dt>
+<dd>{$data.repere}</dd>
+</dl>
+<dl class="dl-horizontal">
+<dt>{t}URI :{/t} </dt>
+<dd>{$data.uri}</dd>
+</dl>
+<dl class="dl-horizontal">
+<dt>{t}Repère de mesure - longueur de référence :{/t} </dt>
+<dd>{$data.long_reference}</dd>
+</dl>
+<dl class="dl-horizontal">
+<dt>{t}Taille en pixels de la longueur de référence dans la photo :{/t} </dt>
+<dd>{$data.long_ref_pixel}</dd>
+</dl>
+<dl class="dl-horizontal">
+<dt>{t}Dimensions de la photo :{/t} </dt>
+<dd>{$data.photo_width}x{$data.photo_height}</dd>
+</dl>
+</div>
+<div class="col-md-4 col-sm-12">
 <a href="index.php?module=photoDisplayPhoto&photo_id={$data.photo_id}" title="{t}Attention : le temps de chargement peut être (très) long, selon la taille originale de la photo !{/t}">
 <!--  img src="{$photoPath}"-->
 <img src="index.php?module=photoGetThumbnail&photo_id={$data.photo_id}">
 </a>
-</td>
-</tr>
-</table>
+</div>
+</div>
 {if $droits.lecture == 1}
-<div style="border-style:solid;border-width: 1px;padding:5px;">
-<h3>{t}Création d'une nouvelle lecture simple{/t}</h3>
+<div class="col-sm-12">
+<div class="col-sm-12 col-lg-8">
+<div class="form-horizontal protoform">
+<fieldset>
+<legend>{t}Création d'une nouvelle lecture simple{/t}</legend>
 <form name="lecture" action="index.php" method="get">
 <input type="hidden" name="module" value="photolectureChange">
 <input type="hidden" name="photo_id" value="{$data.photo_id}">
@@ -123,8 +120,10 @@ $(document).ready(function() {
 </select>
 <input type="submit" value="{t}Réaliser une nouvelle lecture{/t}">
 </form>
+</fieldset>
 </div>
-<br>
+</div>
+</div>
 {/if}
 <div style="border-style:solid;border-width: 1px;padding:5px;">
 <h3>{t}Consultations individuelles, globales, modifications avec visualisation des points déjà tracés{/t}

@@ -170,6 +170,12 @@ $APPLI_mailToAdminPeriod = 7200;
 $APPLI_admin_ttl = 600; // Duree maxi d'inactivite pour acceder a un module d'administration
 $APPLI_lostPassword = 0; // Autorise la recuperation d'un nouveau mot de passe en cas de perte
 
+/* Taille maximale d'une photo telechargee dans le navigateur. 
+ * Doit etre compatible avec les directives du fichier php.ini : post_max_size et upload_max_filesize
+ * (directives non modifiables dans l'application)
+ */
+
+$APPLI_maxfilesize = 50000000; 
 /*
  * Activation de la recherche antivirale des pieces jointes
  */

@@ -1,4 +1,4 @@
-<div class=" col-sm-12 form-display">
+<div class=" col-sm-12 col-lg-6 form-display">
 <div class="row">
 <div class="col-sm-2">
 <a href="index.php?module=pieceDisplay&piece_id={$piece.piece_id}">

@@ -88,6 +88,10 @@ switch ($t_module["param"]) {
         $data = $_SESSION["it_photo"]->translateRow($data);
         $data = $_SESSION["it_piece"]->translateRow($data);
         $vue->set($data, "data");
+        /*
+         * taille maximale de telechargement d'une photo
+         */
+        $vue->set($APPLI_maxfilesize, "maxfilesize");
         break;
     case "write":
 		/*
