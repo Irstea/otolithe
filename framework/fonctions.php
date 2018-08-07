@@ -55,13 +55,17 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
  */
 function dataWrite($dataClass, $data)
 {
+    
     global $message, $module_coderetour, $log, $OBJETBDD_debugmode;
+    $dataClass->connection->beginTransaction();
     try {
         $id = $dataClass->ecrire($data);
+        $dataClass->connection->commit();
         $message->set(_("Enregistrement effectué"));
         $module_coderetour = 1;
         $log->setLog($_SESSION["login"], get_class($dataClass) . "-write", $id);
     } catch (Exception $e) {
+        $dataClass->connection->rollBack();
         if ($OBJETBDD_debugmode > 0) {
             foreach ($dataClass->getErrorData(1) as $messageError) {
                 $message->set($messageError);
@@ -99,12 +103,15 @@ function dataDelete($dataClass, $id)
         }
     }
     if ($ok) {
+        $dataClass->connection->beginTransaction();
         try {
             $ret = $dataClass->supprimer($id);
+            $dataClass->connection->commit();
             $message->set(_("Suppression effectuée"));
             $module_coderetour = 1;
             $log->setLog($_SESSION["login"], get_class($dataClass) . "-delete", $id);
         } catch (Exception $e) {
+            $dataClass->connection->rollBack();
             if ($OBJETBDD_debugmode > 0) {
                 foreach ($dataClass->getErrorData(1) as $messageError) {
                     $message->set($messageError);

@@ -199,8 +199,14 @@ $("#recherche").keyup(function() {
 			<table class="table" id="experimentations">
 			{section name=lst loop=$experimentations}
 			<tr>
-			<td><input class="form-control" type="checkbox" name="exp_id[]" value="{$experimentations[lst].exp_id}" {if $experimentations[lst].individu_id > 0}checked{/if}></td>
-			<td>{$experimentations[lst].exp_nom}</td>
+			<td>
+			<div class="checkbox">
+			<label>
+			<input type="checkbox" name="exp_id[]" value="{$experimentations[lst].exp_id}" {if $experimentations[lst].individu_id > 0}checked{/if}>
+			{$experimentations[lst].exp_nom}
+			</label>
+			</div>
+			</td>
 			</tr>
 			{/section}
 			</table>

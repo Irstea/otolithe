@@ -193,7 +193,7 @@ class Individu extends ObjetBdd {
 	 *
 	 * @see ObjetBDD::write()
 	 */
-	function write($data) {
+	function ecrire($data) {
 		$id = parent::ecrire ( $data );
 		if ($id > 0) {
 			/*
