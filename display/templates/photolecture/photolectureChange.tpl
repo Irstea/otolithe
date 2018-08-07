@@ -9,7 +9,7 @@ body > iframe { display: none; }
 </style>
 
 <script>
-{literal}
+
 var compteur=0;
 var numPointLigne = 1;
 var pointLigneX;
@@ -21,8 +21,8 @@ $(function(){
 	var image_witdh = $('#image_width').val();
 	var image_height = $('#image_height').val();
 	$('#container')
-	.css({"width":image_width+"px","height":image_height+"px","border":"0px"}) 
-	.svg({onLoad: drawIntro})
+	.css({ "width":image_width+"px","height":image_height+"px","border":"0px"}) 
+	.svg({ onLoad: drawIntro})
 	
 });
 function drawIntro(svg) {
@@ -33,13 +33,12 @@ function drawIntro(svg) {
 	var cy = 0;
 	var couleur = "";
 	var fillOpacity = 0;
-	{/literal}
+
 	var lien = "index.php?module=photoGetPhoto&photo_id={$photo.photo_id}&sizeX={$image_width}&sizeY={$image_height}";
-	{literal}
+
 	var myImage = svg.group();
 	svg.image(myImage, 0, 0, image_width, image_height, lien);
 	//var myImage = svg.image(0, 0, image_width, image_height, "");
-	{/literal}
 	{section name="lst" loop=$mesurePrec}
 	{section name="lst1" loop=$mesurePrec[lst].points}
 {if $smarty.section.lst1.index == 0 }
@@ -52,13 +51,10 @@ cy = '{$mesurePrec[lst].points[lst1].y}';
 r = '{$r}';
 couleur = '{$mesurePrec[lst].couleur}';
 fillOpacity = '{$fill}';
-{literal}
-svg.circle (myImage, cx, cy, r, {'stroke':couleur, 'fill':couleur, 'fill-opacity': fillOpacity});
-{/literal}
+svg.circle (myImage, cx, cy, r, { 'stroke':couleur, 'fill':couleur, 'fill-opacity': fillOpacity});
 {/section}
 {/section}
-	
-{literal}	
+		
 $("#resetCompteur").click(function() { 
 	console.log("reinitialisation du compteur");
 	compteur = 0;
@@ -75,7 +71,6 @@ $("#resetCompteur").click(function() {
 	/*
      * Generation des points existants (mode modification)
      */
-	{/literal}
 {if $data.photolecture_id > 0}
 $("#modeLecture").val(1);
 {section name="lst" loop=$data.points}
@@ -92,8 +87,7 @@ setCircle(svg,{$data.points_ref_lecture[lst].x},{$data.points_ref_lecture[lst].y
 {/section}
 $("#modeLecture").val(1);
 {/if}
-	{literal}
-	};
+};
 
 function setCircle(svg, x, y, rayon_initial) {
 	var ident = "circle"+compteur;
@@ -120,8 +114,8 @@ function setCircle(svg, x, y, rayon_initial) {
 		}
 		svg.circle(myCircle, X, Y, rayon, {
 		id: ident, stroke: couleur, fill: 'rgba(0,0,0,0)'});
-		svg.line(myCircle, X, Y - 7, X, Y + 7, {stroke: couleur, strokeWidth: 1});
-		svg.line(myCircle, X - 7, Y, X + 7, Y, {stroke: couleur, strokeWidth: 1});
+		svg.line(myCircle, X, Y - 7, X, Y + 7, { stroke: couleur, strokeWidth: 1});
+		svg.line(myCircle, X - 7, Y, X + 7, Y, { stroke: couleur, strokeWidth: 1});
 		svg.text(myCircle, X + 20, Y + 20, valeurCompteur+"", { 'text-anchor':'middle', 'fill':couleur, 'pointer-events': 'none'});
 	;
 	if (modeLecture != 3) {
@@ -160,7 +154,7 @@ function setCircle(svg, x, y, rayon_initial) {
 	 */
 	$(myCircle)
 	.hover(function() {
-		$(this).css({"cursor":"pointer"});
+		$(this).css({ "cursor":"pointer"});
 	})
 /*	.mouseenter(function() {
 		$("#text"+valeurCompteur).attr("disable","false");
@@ -205,7 +199,7 @@ function setCircle(svg, x, y, rayon_initial) {
 })
 	
 };
-{/literal}
+
 </script>
 <h2>{t}Mesure d'un otolithe ou d'une pièce calcifiée{/t}</h2>
 <a href="index.php?module={$moduleListe}" onclick="return confirm('{t}Les modifications apportées dans cette page vont être perdues. Confirmez-vous cette opération ?{/t}')">{t}Retour à la liste{/t}</a> > 
@@ -213,45 +207,107 @@ function setCircle(svg, x, y, rayon_initial) {
 <a href="index.php?module=pieceDisplay&piece_id={$piece.piece_id}" onclick="return confirm('{t}Les modifications apportées dans cette page vont être perdues. Confirmez-vous cette opération ?{/t}')">{t}Retour au détail de la pièce{/t}</a> >
 <a href="index.php?module=photoDisplay&photo_id={$data.photo_id}" onclick="return confirm('{t}Les modifications apportées dans cette page vont être perdues. Confirmez-vous cette opération ?{/t}')">{t}Retour à la photo{/t}</a>
 <div class="row">
-<div class="col-lg-12 col-sm-12">
+<div class="col-lg-8 col-sm-12">
 {include file="gestion/individuCartouche.tpl"}
 
 {include file="gestion/pieceCartouche.tpl"}
 </div>
-<form name="myForm" id="myForm" action="index.php" method="POST">
-{t}Enregistrez les points positionnés :{/t} 
-<input type="submit" value="Valider">
-{t}Si tous les points ont été supprimés, vous pouvez :{/t} 
-<input type="button" id="resetCompteur" value="{t}Réinitialiser le compteur{/t}" title="{t}Uniquement si tous les points ont été supprimés{/t}">
-<div id="container">
 </div>
-{t}Type de lecture pour le prochain point :{/t}
-<select id="modeLecture">
-<option value="0">{t}Point initial avec cercle élargi{/t}</option>
-<option value="1">{t}Lecture des points{/t}</option>
-<option value="2">{t}Mesure de la longueur de référence{/t}</option>
-<option value="3">{t}Tracé d'une ligne sur la photo (aide à la mesure){/t}</option>
-</select>
+<form class="form-inline" name="myForm" id="myForm" action="index.php" method="POST">
 <input type="hidden" name="photo_id" id="photo_id" value="{$data.photo_id}">
 <input type="hidden" name="module" value="photolectureWrite"}>
 <input type="hidden" name="lecteur_id" id="lecteur_id" value="{$data.lecteur_id}">
 <input type="hidden" name="photolecture_date" value="{$data.photolecture_date}">
 <input type="hidden" name="photolecture_id" value="{$data.photolecture_id}">
+<div class="col-sm-12">
+<div class="row">
+<div class="form-group">
+<div class="col-sm-offset-1">
+<label class="form-label" for="valider1">
+{t}Enregistrez les points positionnés :{/t} 
+</label>
+<button type="submit" class="btn btn-primary" id="valider1">
+{t}Valider{/t}
+</button>
+<label class="form-label" for="resetCompteur1">
+{t}Si tous les points ont été supprimés, vous pouvez :{/t} 
+</label>
+<button class="btn btn-info" id="resetCompteur1" title="{t}Uniquement si tous les points ont été supprimés{/t}">
+{t}Réinitialiser le compteur{/t}
+</button>
+</div>
+</div>
+</div>
+
+<div id="container">
+</div>
+<div class="form-horizontal col-sm-12">
+<div class="row">
+<div class="form-group">
+ <div class="col-sm-offset-1">
+<label for="modeLecture" class="control-label">
+{t}Type de lecture pour le prochain point :{/t}
+</label>
+<select class="form-control" id="modeLecture">
+<option value="0">{t}Point initial avec cercle élargi{/t}</option>
+<option value="1">{t}Lecture des points{/t}</option>
+<option value="2">{t}Mesure de la longueur de référence{/t}</option>
+<option value="3">{t}Tracé d'une ligne sur la photo (aide à la mesure){/t}</option>
+</select>
+
+<label for="photo_height" class="control-label">
 {t}Taille originale de la photo :{/t} 
-<input name="photo_width" id="photo_width" value="{$photo.photo_width}" readonly>x
-<input name="photo_height" id="photo_height" value="{$photo.photo_height}" readonly>
-<br>{t}Taille de lecture de la photo :{/t}
-<input name="photolecture_width" id="image_width" value="{$image_width}" readonly>x
-<input name="photolecture_height" id="image_height" value="{$image_height}" readonly>
-<br>{t}Coefficient de correction de la taille :{/t} 
-<input name="coef_correcteur" id="coef_correcteur" value="{$coef_correcteur}" readonly>
-<br>{t}Rayon (en pixels) du cercle élargi :{/t}
-<input id="rayon_cercle" name="rayon_point_initial" value="{$data.rayon_point_initial}">
-<br>{t}Recalcul automatique de l'ordre des points ?{/t} 
-<input type="radio" name="calculAuto" value="1" checked>{t}oui{/t}
-<input type="radio" name="calculAuto" value="0" >{t}non{/t}
-<br>{t}Nature de la strie finale :{/t} 
-<select name="final_stripe_id">
+</label>
+<input name="photo_width" class="form-control" id="photo_width" value="{$photo.photo_width}" readonly>
+x
+<input name="photo_height" class="form-control" id="photo_height" value="{$photo.photo_height}" readonly>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="form-group">
+ <div class="col-sm-offset-1">
+ <label for="image_width" class="control-label">
+{t}Taille de lecture de la photo :{/t}
+</label>
+<input  class="form-control" name="photolecture_width" id="image_width" value="{$image_width}" readonly>x
+<input  class="form-control" name="photolecture_height" id="image_height" value="{$image_height}" readonly>
+
+ <label for="coef_correcteur" class="control-label">
+{t}Coefficient de correction de la taille :{/t} 
+</label>
+<input class="form-control" name="coef_correcteur" id="coef_correcteur" value="{$coef_correcteur}" readonly>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="form-group">
+ <div class="col-sm-offset-1">
+ <label for="rayon_cercle" class="control-label">
+{t}Rayon (en pixels) du cercle élargi :{/t}
+</label>
+<input id="rayon_cercle" class="form-control" name="rayon_point_initial" value="{$data.rayon_point_initial}">
+<label for="calculAuto" class="control-label">
+{t}Recalcul automatique de l'ordre des points ?{/t} 
+</label>
+
+<label class="radio-inline" id="calculAuto">
+<input type="radio" id="calculAuto1" name="calculAuto" value="1" checked>{t}oui{/t}
+</label>
+<label class="radio-inline">
+<input type="radio" id="calculAuto0" name="calculAuto" value="0" >{t}non{/t}
+</label>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="form-group">
+ <div class="col-sm-offset-1">
+<label for="rayon_cercle" class="control-label">
+{t}Nature de la strie finale :{/t} 
+</label>
+<select name="final_stripe_id" id="final_stripe_id" class="form-control">
 <option value="" {if $data.final_stripe_id == ""}selected{/if}></option>
 {section name=lst loop=$finalStripe}
 <option value="{$finalStripe[lst].final_stripe_id}" {if $finalStripe[lst].final_stripe_id == $data.final_stripe_id}selected{/if}>
@@ -259,27 +315,48 @@ function setCircle(svg, x, y, rayon_initial) {
 </option>
 {/section}
 </select>
-<br>
+<label for="read_fiability" class="control-label">
 {t}Fiabilité de la lecture :{/t} 
-<select name="read_fiability">
+</label>
+<select name="read_fiability" id="read_fiability" class="form-control">
 <option value="" {if $data.read_fiability == ""}selected{/if}></option>
 <option value="0" {if $data.read_fiability == "0"}selected{/if}>0</option>
 <option value="0.5" {if $data.read_fiability == "0.5"}selected{/if}>0.5</option>
 <option value="1" {if $data.read_fiability == "1"}selected{/if}>1</option>
 </select>
-<br>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="form-group">
+ <div class="col-sm-offset-1">
+<label for="consensual_reading" class="control-label">
 {t}Lecture consensuelle :{/t}
+</label>
+<label class="radio-inline" id="consensual_reading">
 <input type="radio" value="1" name="consensual_reading" {if $data.consensual_reading == 1}checked{/if}>{t}oui{/t}
+</label>
+<label class="radio-inline">
 <input type="radio" value="0" name="consensual_reading" {if $data.consensual_reading != 1}checked{/if}>{t}non{/t}
-<br>{t}Année de naissance estimée :{/t}
-<input class="nombre" name="annee_naissance" value="{$data.annee_naissance}">
-
-<h3>{t}Points sélectionnés{/t}</h3>
-<table id="tableData">
+</label>
+<label for="annee_naissance" class="control-label">
+{t}Année de naissance estimée :{/t}
+</label>
+<input class="nombre" id="annee_naissance" name="annee_naissance" value="{$data.annee_naissance}">
+</div>
+</div>
+</div>
+</div>
+</div>
+<fieldset class="col-sm-12">
+<legend>{t}Points sélectionnés{/t}</legend>
+<table id="tableData" class="table table-bordered datatable-nopaging-nosort">
 <tr>
 <td colspan='5'>
+<label class="form-label" for="valider_bas">
 {t}Enregistrez les points positionnés :{/t} 
-<input type="submit" value="{t}Valider{/t}">
+</label>
+<button id="valider_bas" type="submit" class="btn btn-primary">{t}Valider{/t}</button>
 </td>
 </tr>
 <tr>
@@ -290,15 +367,26 @@ function setCircle(svg, x, y, rayon_initial) {
 <th>{t}Point de mesure de la longueur de référence{/t}</th>
 </tr>
 </table>
+</fieldset>
 </form>
+<div class="bg-info col-md-8 col-lg-6 col-sm-12">
+<ul>
+<li>
 {t}Pour supprimer un point, réalisez un double-clic sur celui-ci.{/t}
-<br>
+</li>
+<li>
 {t}Vous pouvez modifier manuellement l'ordre de lecture d'un point, si nécessaire.{/t}
-<br>
+</li>
+<li>
 {t}Pour tracer une ligne, positionnez le premier point, puis le second. Pour supprimer la ligne, supprimez d'abord le second point, avant de toucher au premier point.{/t}
-<br>
+</li>
+<li>
 {t}Le recalcul automatique de l'ordre des points ne fonctionne que si le premier point (origine) est saisi en premier (valeur "ordre de lecture" la plus faible de la série).{/t}
-<h3>{t}Légende{/t}</h3>
+</li>
+</ul>
+</div>
+<fielset class="col-sm-12">
+<legend>{t}Légende{/t}</legend>
 {section name="lst" loop=$mesurePrec}
 <div style="background-color:{$mesurePrec[lst].couleur};display:inline">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -308,3 +396,6 @@ function setCircle(svg, x, y, rayon_initial) {
  - {t}Résolution{/t} : {$mesurePrec[lst].photolecture_width}x{$mesurePrec[lst].photolecture_height}
 <br>
 {/section}
+</fielset>
+
+
