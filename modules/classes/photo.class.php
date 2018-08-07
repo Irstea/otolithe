@@ -94,6 +94,10 @@ class Photo extends ObjetBDD {
 			 */
 			if (strlen ( $data ["photo_nom"] ) == 0 && strlen ( $data ["photo_filename"] ) > 0)
 				$data ["photo_nom"] = $data ["photo_filename"];
+				// pixel cache max size
+				IMagick::setResourceLimit(imagick::RESOURCETYPE_MEMORY, 33554432);
+				// maximum amount of memory map to allocate for the pixel cache
+				IMagick::setResourceLimit(imagick::RESOURCETYPE_MAP, 33554432);
 			$image = new Imagick ();
 			$image->readImageBlob ( $data ["photoload"] );
 			$geo = $image->getimagegeometry ();
