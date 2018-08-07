@@ -1,47 +1,45 @@
 <h2>{t}Modification d'une expérimentation{/t}</h2>
-
+<div class="row">
 <a href="index.php?module=experimentationList">{t}Retour à la liste{/t}</a>
-<table class="tablesaisie">
-<form method="post" action="index.php?module=experimentationWrite">
-<input type="hidden" name="action" value="M">
-<input type="hidden" name="exp_id" value="{$data.exp_id}">
-<tr>
-<td class="libelleSaisie">{t}Nom{/t} : <span class="red">*</span></td>
-<td class="datamodif">
-<input id="exp_nom" name="exp_nom" value="{$data.exp_nom}" required></td>
-</tr>
-<tr>
-<td class="libelleSaisie">{t}Description :{/t}</td>
-<td class="datamodif">
-<input id="exp_description" name="exp_description" value="{$data.exp_description}" ></td>
-</tr>
-<tr>
-<td class="libelleSaisie">{t}Date de début  :{/t}</td>
-<td class="datamodif">
-<input id="exp_debut" name="exp_debut" value="{$data.exp_debut}" class="date">
-</td>
-</tr>
-
-<tr>
-<td class="libelleSaisie">{t}Date de fin :{/t}</td>
-<td class="datamodif">
-<input id="exp_fin" name="exp_fin" value="{$data.exp_fin}" class="date">
-</td>
-</tr>
-
-<tr>
-<td colspan="2"><div align="center">
-<input type="submit" value="Enregistrer">
-</form>
-{if $data.exp_id>0}
-<form action="index.php" method="post" onSubmit='return confirmSuppression()'>
-<input type="hidden" name="exp_id" value="{$data.exp_id}">
-<input type="hidden" name="module" value="experimentationDelete">
-<input type="submit" value="{t}Supprimer{/t}">
-</form>
-{/if}
 </div>
-</td>
-</tr>
-</table>
+<div class="row">
+<div class="col-md-8 col-lg-6">
+<form class="form-horizontal protoform" method="post" action="index.php">
+<input  type="hidden" name="moduleBase" value="experimentation">
+<input type="hidden" name="action" value="Write">
+<input type="hidden" name="exp_id" value="{$data.exp_id}">
+<div class="form-group">
+<label for="exp_nom" class="control-label col-md-4">{t}Nom :{/t} <span class="red">*</span>
+</label>
+<div class="col-md-8">
+<input id="exp_nom" class="form-control" name="exp_nom" value="{$data.exp_nom}" required></div>
+</div>
+<div class="form-group">
+<label for="" class="control-label col-md-4">{t}Description :{/t}</label>
+<div class="col-md-8">
+<input id="exp_description" class="form-control" name="exp_description" value="{$data.exp_description}" ></div>
+</div>
+<div class="form-group">
+<label for="" class="control-label col-md-4">{t}Date de début  :{/t}</label>
+<div class="col-md-8">
+<input id="exp_debut" class="form-control datepicker" name="exp_debut" value="{$data.exp_debut}" >
+</div>
+</div>
+
+<div class="form-group">
+<label for="" class="control-label col-md-4">{t}Date de fin :{/t}</label>
+<div class="col-md-8">
+<input id="exp_fin" class="form-control datepicker" name="exp_fin" value="{$data.exp_fin}" >
+</div>
+</div>
+<div class="form-group center">
+      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+      {if $data.exp_id > 0 }
+      <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+      {/if}
+ </div>
+ 
+</form>
+</div>
+</div>
 <span class="red">*</span><span class="messagebas">{t}Champ obligatoire{/t}</span>
