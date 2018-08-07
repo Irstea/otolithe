@@ -24,24 +24,29 @@ $(document).ready(function() {
 
 <h2>{t}Affichage d'une photo{/t}</h2>
 <div class="col-sm-12">
+<div class="row">
 <a href="index.php?module={$moduleListe}">{t}Retour à la liste{/t}</a> > 
 <a href="index.php?module=individuDisplay&individu_id={$piece.individu_id}">{t}Retour au détail du poisson{/t}</a> > 
 <a href="index.php?module=pieceDisplay&piece_id={$data.piece_id}">{t}Retour au détail de la pièce{/t}</a>
 </div>
-<div class="col-lg-6 col-sm-12">
+<div class="row">
+<div class="col-lg-8">
 {include file="gestion/individuCartouche.tpl"}
 {include file="gestion/pieceCartouche.tpl"}
 </div>
-
+</div>
 {if $droits.gestion == 1}
+<div class="row">
 <div class="col-sm-12">
 <a href="index.php?module=photoChange&photo_id={$data.photo_id}&piece_id={$data.piece_id}">
 {t}Modifier la photo...{/t}
 </a>
 </div>
+</div>
 {/if}
-<div class="col-sm-12">
-<div class="form-display col-sm-12 col-md-8">
+<div class="row">
+<div class="col-sm-12 col-md-6">
+<div class="form-display">
 <dl class="dl-horizontal">
 <dt>{t}Nom de la photo :{/t} </dt>
 <dd>{$data.photo_nom}</dd>
@@ -93,40 +98,53 @@ $(document).ready(function() {
 <dd>{$data.photo_width}x{$data.photo_height}</dd>
 </dl>
 </div>
-<div class="col-md-4 col-sm-12">
+</div>
+<div class="col-md-6 col-sm-12">
 <a href="index.php?module=photoDisplayPhoto&photo_id={$data.photo_id}" title="{t}Attention : le temps de chargement peut être (très) long, selon la taille originale de la photo !{/t}">
 <!--  img src="{$photoPath}"-->
 <img src="index.php?module=photoGetThumbnail&photo_id={$data.photo_id}">
 </a>
 </div>
 </div>
+
+
 {if $droits.lecture == 1}
-<div class="col-sm-12">
-<div class="col-sm-12 col-lg-8">
-<div class="form-horizontal protoform">
+<div class="row">
+<div class="col-sm-12 col-md-8">
 <fieldset>
 <legend>{t}Création d'une nouvelle lecture simple{/t}</legend>
-<form name="lecture" action="index.php" method="get">
+<form class="form-horizontal  form-inline" name="lecture" action="index.php" method="get">
 <input type="hidden" name="module" value="photolectureChange">
 <input type="hidden" name="photo_id" value="{$data.photo_id}">
 <input type="hidden" name="photolecture_id" value="0">
-{t}Résolution (approximative) de lecture :{/t} 
-<select class="resolution" name="resolution">
+<div class="form-group">
+<div class="col-sm-offset-1">
+<label class="control-label" for="resolution">
+{t}Résolution (approximative) de lecture :{/t}
+</label>
+<select class="resolution form-control" name="resolution" id="resolution">
 <option  value="1">800x600</option>
 <option  value="2">1024x768</option>
 <option  value="3">1280x1024</option>
 <option  value="4">1600x1300</option>
 <option value="5">{t}format initial{/t}</option>
 </select>
-<input type="submit" value="{t}Réaliser une nouvelle lecture{/t}">
+<button type="submit" class="btn btn-primary button-valid">{t}Réaliser une nouvelle lecture{/t}</button>
+</div>
 </form>
+</div>
 </fieldset>
 </div>
-</div>
-</div>
+
 {/if}
-<div style="border-style:solid;border-width: 1px;padding:5px;">
-<h3>{t}Consultations individuelles, globales, modifications avec visualisation des points déjà tracés{/t}
+
+<div class="col-sm-12">
+<fieldset>
+
+<legend>
+{t}Consultations individuelles, globales, modifications avec visualisation des points déjà tracés{/t}
+</legend>
+
 {if $ageDisplay != 1}
 <a href="index.php?module=photoDisplay&photo_id={$data.photo_id}&ageDisplay=1">
 {t}Afficher l'age calculé (nbre de points positionnés - 1) par chaque lecteur{/t}
@@ -134,13 +152,15 @@ $(document).ready(function() {
 {else}
 <a href="index.php?module=photoDisplay&photo_id={$data.photo_id}&ageDisplay=0">
 {t}Masquer l'age calculé (nbre de points positionnés - 1) par chaque lecteur{/t}
-{/if}
 </a>
-</h3>
-<form name="affichage" action="index.php" methode="get">
+{/if}
+
+
+
+<form class="form-inline" name="affichage" action="index.php" methode="get">
 <input type="hidden" name="module" value="photolectureSwap">
 <input type="hidden" name="photo_id" value="{$data.photo_id}">
-<table>
+<table class="datatable-nopaging table-bordered table-hover" data-order='[[2,"desc"]]'>
 <thead>
 <tr>
 {if $droits.lecture == 1}
@@ -166,7 +186,7 @@ $(document).ready(function() {
 <th><div title="{t}Si coché, la lecture sélectionnée pourra être modifiée{/t}">{t}Lecture à modifier{/t}</div></th>
 </tr>
 </thead>
-<tdata>
+<tbody>
 {section name="lst" loop=$photolecture}
 <tr>
 {if $droits.lecture == 1}
@@ -241,30 +261,56 @@ $(document).ready(function() {
 </div>
 </tr>
 {/section}
-</tdata>
+</tbody>
 </table>
+<div class="form-horizontal col-sm-12">
+<div class="row">
+<div class="form-group">
+<div class="col-sm-offset-1">
+<label for="resolution">
 {t}Résolution (approximative) d'affichage :{/t}
-<select class="resolution" name="resolution">
+</label>
+<select class="resolution form-control" name="resolution" id="resolution1">
 <option value="1">800x600</option>
 <option value="2">1024x768</option>
 <option value="3">1280x1024</option>
 <option value="4">1600x1300</option>
 <option value="5">{t}format initial{/t}</option>
 </select>
+<label for="fill">
 {t}Facteur de transparence des cercles affichés :{/t}
-<select id="fill" name="fill">
+</label>
+<select class="form-control" id="fill" name="fill">
 <option value="0">{t}Transparent{/t}</option>
 <option value="0.1">{t}Légèrement ombré{/t}</option>
 <option value="0.3">{t}Ombré{/t}</option>
 <option value="0.5">{t}Semi-opaque{/t}</option>
 <option value="1">{t}Opaque{/t}</option>
 </select>
-<br>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-offset-1">
+<div class="form-group">
+<label for="resolution">
 {t}Avec création d'une nouvelle lecture :{/t} 
-<input type="checkbox" name="photolecture_id_modif" value="0">
-<br>
-<div style="text-align:center;">
-<input type="submit" value="{t}Déclencher l'affichage des lectures sélectionnées, avec ou sans création/modification d'une lecture{/t}">
+</label>
+<input type="checkbox" name="photolecture_id_modif" value="0" id="photolecture_id_modif">
 </div>
+</div>
+<div class="center">
+<button  type="submit" class="btn btn-primary button-valid">
+{t}Déclencher l'affichage des lectures sélectionnées, avec ou sans création/modification d'une lecture{/t}
+</button>
+</div>
+</div>
+</div>
+
 </form>
+</fieldset>
+
 </div>
+</div>
+
+
