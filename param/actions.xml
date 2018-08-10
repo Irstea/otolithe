@@ -82,8 +82,8 @@
 	<photoChange action="modules/gestion/photo.php" param="change" droits="gestion" type="smarty"/>
 	<photoWrite action="modules/gestion/photo.php" param="write" droits="gestion" retourok="photoDisplay" retourko="photoChange" modulebefore="photoChange" />
 	<photoDelete action="modules/gestion/photo.php" param="delete" droits="gestion" retourok="pieceDisplay" retourko="photoChange" modulebefore="photoChange" />
-	<photoGetPhoto action="modules/gestion/photo.php" param="getPhoto" droits="lecture" type="ajax" />
-	<photoGetThumbnail action="modules/gestion/photo.php" param="getThumbnail" droits="lecture" type="ajax" />
+	<photoGetPhoto action="modules/gestion/photo.php" param="getPhoto" droits="lecture" type="binaire" />
+	<photoGetThumbnail action="modules/gestion/photo.php" param="getThumbnail" droits="lecture" type="binaire" />
 	<photoDisplayPhoto action="modules/gestion/photo.php" param="photoDisplay" droits="lecture" type="smarty" />
 	
 	<lecteurList action="modules/gestion/lecteur.php" param="list" droits="gestionCompte" type="smarty"  />

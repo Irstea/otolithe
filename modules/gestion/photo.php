@@ -136,23 +136,24 @@ switch ($t_module["param"]) {
 		/*
 		 * Affiche le contenu d'une photo
 		 */
-		if (! isset($_REQUEST["sizeX"]))
+        if (! isset($_REQUEST["sizeX"])) {
             $_REQUEST["sizeX"] = 0;
-        if (! isset($_REQUEST["sizeY"]))
+        }
+        if (! isset($_REQUEST["sizeY"])) {
             $_REQUEST["sizeY"] = 0;
-        header('Content-Type: image/jpeg');
+        }
+        $photoname = $dataClass->getPhotoName($id,  0, $_REQUEST["sizeX"], $_REQUEST["sizeY"]);
+        $vue->setParam (array("disposition"=>"inline", "filename"=>$photoname, "tmp_name"=>$APPLI_photoStockage."/".$photoname));
+        /*header('Content-Type: image/jpeg');
         echo $dataClass->getPhoto($id, 0, $_REQUEST["sizeX"], $_REQUEST["sizeY"]);
+        */
         break;
     case "getThumbnail":
 		/*
 		 * Affiche le contenu de la vignette
 		 */
-		if (! isset($_REQUEST["sizeX"]))
-            $_REQUEST["sizeX"] = 0;
-        if (! isset($_REQUEST["sizeY"]))
-            $_REQUEST["sizeY"] = 0;
-        header("Content-Type: image/jpeg");
-        echo $dataClass->getPhoto($id, 1);
+        $photoname = $dataClass->getPhotoName($id, 1);
+        $vue->setParam (array("disposition"=>"inline", "filename"=>$dataClass->getPhotoName($id, 1), "tmp_name"=>$APPLI_photoStockage."/".$photoname));
         break;
     case "photoDisplay":
 		/*

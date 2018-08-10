@@ -175,9 +175,13 @@ $APPLI_lostPassword = 0; // Autorise la recuperation d'un nouveau mot de passe e
  * (directives non modifiables dans l'application)
  */
 
-$APPLI_maxfilesize = 200000000; 
+$APPLI_maxfilesize = 150000000; 
 /*
  * Activation de la recherche antivirale des pieces jointes
  */
 $APPLI_virusscan = false;
+/*
+ * Stockage des photos temporaires
+ */
+$APPLI_photoStockage = "img";
 ?>

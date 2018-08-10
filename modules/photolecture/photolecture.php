@@ -34,8 +34,8 @@ switch ($t_module["param"]) {
                 $image_height = 1300;
                 break;
             case 5:
-                $image_width = 10000;
-                $image_height = 10000;
+                $image_width = 20000;
+                $image_height = 20000;
                 break;
             default:
                 $image_width = 800;

@@ -4,6 +4,9 @@
  * @author quinton
  *
  */
+class PhotoException extends Exception{
+};
+
 class Photo extends ObjetBDD {
 	public $format_thumbnail;
 	private $chemin = "img";
@@ -92,14 +95,39 @@ class Photo extends ObjetBDD {
 			/*
 			 * Donnees "peripheriques"
 			 */
-			if (strlen ( $data ["photo_nom"] ) == 0 && strlen ( $data ["photo_filename"] ) > 0)
+			if (strlen ( $data ["photo_nom"] ) == 0 && strlen ( $data ["photo_filename"] ) > 0) {
 				$data ["photo_nom"] = $data ["photo_filename"];
+			}
+			/*
+			 * Gestion de l'extension du fichier
+			 * on force celle fournie dans le fichier telecharge
+			 */
+			$filenameOri = explode (".",$data["photo_filename"]);
+			$filenameCible = explode(".",$data["photo_nom"]);
+			$nbsegmentOri = count($filenameOri);
+			$nbsegmentCible = count($filenameCible);
+			if ($filenameOri[$nbsegmentOri] != $filenameCible [$nbsegmentCible]) {
+			    $filenameCible[$nbsegmentCible] = $filenameOri[$nbsegmentOri];
+			    $data["photo_nom"] = "";
+			    for ($i = 0; $i < $nbsegmentCible;$i ++) {
+			        $data["photo_nom"] .= $filenameCible[$i];
+			        if ($i < ($nbsegmentCible - 1)) {
+			            $data["photo_nom"] .= ".";
+			        }
+			    }
+			}
 				// pixel cache max size
-				IMagick::setResourceLimit(imagick::RESOURCETYPE_MEMORY, 33554432);
+				//IMagick::setResourceLimit(imagick::RESOURCETYPE_MEMORY, 33554432);
 				// maximum amount of memory map to allocate for the pixel cache
-				IMagick::setResourceLimit(imagick::RESOURCETYPE_MAP, 33554432);
+				//IMagick::setResourceLimit(imagick::RESOURCETYPE_MAP, 33554432);
 			$image = new Imagick ();
+			try {
 			$image->readImageBlob ( $data ["photoload"] );
+			} catch (ImagickException $ie) {
+			    $message = _("Imagick - impossible de charger la photo ");
+			    $message .= $ie->getMessage();
+			    throw new PhotoException($message);
+			}
 			$geo = $image->getimagegeometry ();
 			$data ["photo_width"] = $geo ["width"];
 			$data ["photo_height"] = $geo ["height"];
@@ -108,14 +136,27 @@ class Photo extends ObjetBDD {
 			/*
 			 * Generation du thumbnail
 			 */
+			try {
 			$image->resizeImage ( $this->format_thumbnail, $this->format_thumbnail, imagick::FILTER_LANCZOS, 1, true );
-			$image->setformat ( "jpeg" );
+			} catch(ImagickException $ie) {
+			    $message = _("Imagick - impossible de redimensionner la photo");
+			    $message .= $ie->getMessage();
+			    throw new PhotoException($message);
+			}
+			try {
+			$image->setformat( "jpeg" );
+			} catch(ImagickException $ie) {
+			    $message = _("Imagick - impossible de définir le format de la photo");
+			    $message .= $ie->getMessage();
+			    throw new PhotoException($message);
+			}
 			$dataPhoto ["photo_thumbnail"] = pg_escape_bytea ( $image->getimageblob () );
 			/*
 			 * Suppression le cas echeant de la photo dans le dossier img
 			 */
 			if ($data ["photo_id"] > 0) {
 				global $APPLI_photoStockage;
+				try {
 				$dossier = opendir ( $APPLI_photoStockage );
 				while ( false !== ($entry = readdir ( $dossier )) ) {
 					$racineFichier = "photo" . $data ["photo_id"] . "-";
@@ -135,6 +176,11 @@ class Photo extends ObjetBDD {
 						 */
 						unlink ( $APPLI_photoStockage . "/" . $entry );
 					}
+				}
+				}catch (Exception $e) {
+				    $message = _("Problème rencontré lors du parcours des photos existantes ou de leur suppression");
+				    $message .= $e->getMessage();
+				    throw new PhotoException($message);
 				}
 			}
 		}
@@ -209,6 +255,14 @@ class Photo extends ObjetBDD {
 			return $photo;
 		}
 	}
+	/**
+	 * @deprecated
+	 * @param unknown $id
+	 * @param number $thumbnail
+	 * @param number $sizeX
+	 * @param number $sizeY
+	 * @return string
+	 */
 	function getPhoto($id, $thumbnail = 0, $sizeX = 0, $sizeY = 0) {
 		/*
 		 * Regeneration du chemin d'acces au fichier de la photo
@@ -224,6 +278,33 @@ class Photo extends ObjetBDD {
 		}
 	}
 	/**
+	 * Retourne le nom de la photo
+	 * @param int $id
+	 * @param number $thumbnail
+	 * @param number $sizeX
+	 * @param number $sizeY
+	 * @return string
+	 */
+	function getPhotoName($id, $thumbnail = 0, $sizeX = 0, $sizeY = 0) {
+	    if ($thumbnail == 1) {
+	        $nomPhoto = "thumbnail";
+	        $extension = "jpg";
+	    } else {
+	        $nomPhoto = "photo";
+	        /*
+	         * Recuperation de l'extension a partir du nom du fichier
+	         */
+	        $sql = "select photo_filename from photo where photo_id = :photo_id";
+	        
+	        $dphoto = $this->lireParamAsPrepared($sql, array("photo_id"=>$id));
+	        $photoname = explode(".", $dphoto["photo_filename"]);
+	        $extension = $photoname [count($photoname) - 1];
+	    }
+	    $nomPhoto .= $id . '-' . $sizeX . 'x' . $sizeY . ".".$extension;
+	    return $nomPhoto;
+	}
+	
+	/**
 	 * Fonction permettant d'ecrire la photo dans un dossier temporaire, pour telechargement depuis le navigateur
 	 *
 	 * @param int $id        	
@@ -236,15 +317,13 @@ class Photo extends ObjetBDD {
 	function writeFilePhoto($id, $thumbnail = 0, $sizeX = 0, $sizeY = 0) {
 		if ($id > 0) {
 			$this->UTF8 = false;
-			$this->codageHtml = false;
 			if ($thumbnail == 1) {
 				$colonne = "photo_thumbnail";
-				$nomPhoto = "thumbnail";
 			} else {
 				$colonne = "photo_data";
-				$nomPhoto = "photo";
 			}
-			$nomPhoto .= $id . '-' . $sizeX . 'x' . $sizeY . ".jpg";
+			$nomPhoto = $this ->getPhotoName($id, $thumbnail,$sizeX, $sizeY);
+			
 			/*
 			 * On recherche si la photo existe ou non
 			 */
@@ -256,6 +335,7 @@ class Photo extends ObjetBDD {
 				$photoRef = $this->getBlobReference ( $id, $colonne );
 				if (! is_null ( $photoRef )) {
 					$image = new Imagick ();
+					try {
 					$image->readimagefile ( $photoRef );
 					if ($sizeX > 0 && $sizeY > 0) {
 						/*
@@ -264,13 +344,18 @@ class Photo extends ObjetBDD {
 						$geo = $image->getimagegeometry ();
 						if ($geo ["width"] > $sizeX || $geo ["height"] > $sizeY) {
 							$image->resizeImage ( $sizeX, $sizeY, imagick::FILTER_LANCZOS, 1, true );
-							$image->setformat ( "JPEG" );
+							//$image->setformat ( "JPEG" );
 						}
 					}
 					/*
 					 * Ecriture de la photo
 					 */
 					$image->writeimage ( $path );
+					}catch (Exception $e) {
+					    $message = _("Problème d'écriture de la photo dans le dossier temporaire");
+					    $message .= $e->getMessage();
+					    throw (new PhotoException($message));
+					}
 				}
 			}
 			return ($path);
