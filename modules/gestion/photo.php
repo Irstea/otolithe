@@ -142,8 +142,15 @@ switch ($t_module["param"]) {
         if (! isset($_REQUEST["sizeY"])) {
             $_REQUEST["sizeY"] = 0;
         }
-        $photoname = $dataClass->getPhotoName($id,  0, $_REQUEST["sizeX"], $_REQUEST["sizeY"]);
-        $vue->setParam (array("disposition"=>"inline", "filename"=>$photoname, "tmp_name"=>$APPLI_photoStockage."/".$photoname));
+        $_REQUEST["original_format"] == 1 ? $isOrigin = true : $isOrigin = false;
+        try {
+        $photoname = $dataClass->getPhotoName($id,  0, $_REQUEST["sizeX"], $_REQUEST["sizeY"], $isOrigin);
+        printr($photoname);
+        }catch (PhotoException $pe) {
+            $message->setSyslog($pe->getMessage());
+        }
+        isset($_REQUEST["disposition"]) ? $disposition = $_REQUEST["disposition"] : $disposition = "inline";
+        $vue->setParam (array("disposition"=>$disposition, "filename"=>$photoname, "tmp_name"=>$APPLI_photoStockage."/".$photoname));
         /*header('Content-Type: image/jpeg');
         echo $dataClass->getPhoto($id, 0, $_REQUEST["sizeX"], $_REQUEST["sizeY"]);
         */
@@ -152,14 +159,18 @@ switch ($t_module["param"]) {
 		/*
 		 * Affiche le contenu de la vignette
 		 */
+        try {
         $photoname = $dataClass->getPhotoName($id, 1);
+        }catch (PhotoException $pe) {
+            $message->setSyslog($pe->getMessage());
+        }
         $vue->setParam (array("disposition"=>"inline", "filename"=>$dataClass->getPhotoName($id, 1), "tmp_name"=>$APPLI_photoStockage."/".$photoname));
         break;
     case "photoDisplay":
 		/*
 		 * Affiche a l'ecran la photo en pleine resolution
 		 */
-		$dataClass->writeFilePhoto($id);
+        $dataClass->writeFilePhoto($id,0,0,0,true);
         $vue->set($_SESSION["it_photo"]->setValue($id), "photo_id");
         $vue->set("gestion/photoDisplayPhoto.tpl", "corps");
         break;

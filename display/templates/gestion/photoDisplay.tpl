@@ -100,7 +100,7 @@ $(document).ready(function() {
 </div>
 </div>
 <div class="col-md-6 col-sm-12">
-<a href="index.php?module=photoDisplayPhoto&photo_id={$data.photo_id}" title="{t}Attention : le temps de chargement peut être (très) long, selon la taille originale de la photo !{/t}">
+<a href="index.php?module=photoGetPhoto&photo_id={$data.photo_id}&disposition=attachment&original_format=1" title="{t}Attention : le temps de chargement peut être (très) long, selon la taille originale de la photo !{/t}">
 <!--  img src="{$photoPath}"-->
 <img src="index.php?module=photoGetThumbnail&photo_id={$data.photo_id}">
 </a>

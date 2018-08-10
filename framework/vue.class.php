@@ -548,7 +548,7 @@ class VueBinaire extends Vue
             }
             header('Content-Type: ' . $this->param["content_type"]);
             header('Content-Transfer-Encoding: binary');
-            if ($this->param["disposition"] == "attachment" && strlen($this->param["filename"] > 0)) {
+            if ($this->param["disposition"] == "attachment" && strlen($this->param["filename"]) > 0) {
                 header('Content-Disposition: attachment; filename="' . basename($this->param["filename"]) . '"');
             } else {
                 header('Content-Disposition: inline');
