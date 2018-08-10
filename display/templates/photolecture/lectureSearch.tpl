@@ -5,18 +5,24 @@ $(".auto").change( function () {
 });
 });
 </script>
-<table id="lectureSearch" class="tableaffichage">
-<form id="searchBox" method="GET" action="index.php">
+<div class="col-sm-12 col-md-8 ">
+<form id="searchBox" method="GET" action="index.php" class="form-horizontal protoform">
 <input type="hidden" name="module" value="{$modulePostSearch}">
 <input type="hidden" name="isSearch" value="1">
-<tr>
-<td>
+
+<div class="form-group">
+<label for="codeindividu" class="control-label col-sm-2">
 {t}Code ou TAG de l'individu :{/t}
-<input name="codeindividu" value="{$lectureSearch.codeindividu}" maxlength="50" size="30" autofocus>
-</td>
-<td>
+</label>
+<div class="col-sm-4">
+<input name="codeindividu" id="codeindividu" value="{$lectureSearch.codeindividu}" class="form-control" autofocus>
+</div>
+
+<label for="exp_id" class="control-label col-sm-2">
 {t}Expérimentation :{/t}
-<select class="auto" name="exp_id">
+</label>
+<div class="col-sm-4">
+<select class="auto form-control" id="exp_id" name="exp_id">
 {section name="lst" loop=$experimentation}
 <option value="{$experimentation[lst].exp_id}" {if $experimentation[lst].exp_id == $lectureSearch.exp_id}selected{/if}>
 {$experimentation[lst].exp_nom}
@@ -24,11 +30,15 @@ $(".auto").change( function () {
 {/section}
 </select>
 </td>
-</tr>
-<tr>
-<td>
+</div>
+</div>
+
+<div class="form-group">
+<label for="site" class="control-label col-sm-2">
 {t}Site de pêche :{/t}
-<select class="auto" name="site">
+</label>
+<div class="col-sm-4">
+<select class="auto form-control" id="site" name="site">
 <option value="">{t}Sélectionnez le site global de pêche{/t}</option>
 {section name="lst" loop=$site}
 <option value="{$site[lst].site}" {if $site[lst].site == $lectureSearch.site}selected{/if}>
@@ -36,10 +46,13 @@ $(".auto").change( function () {
 </option>
 {/section}
 </select>
-</td>
-<td>
+</div>
+
+<label for="zonesite" class="control-label col-sm-2">
 {t}Zone précise de pêche :{/t}
- <select class="auto" name="zonesite">
+</label>
+<div class="col-sm-4">
+ <select class="auto form-control" name="zonesite">
 <option value="">{t}Sélectionnez le site précis de pêche{/t}</option>
 {section name="lst" loop=$zone}
 <option value="{$zone[lst].zonesite}" {if $zone[lst].zonesite == $lectureSearch.zonesite}selected{/if}>
@@ -47,12 +60,15 @@ $(".auto").change( function () {
 </option>
 {/section}
 </select>
-</td>
-</tr>
-<tr>
-<td>
+</div>
+</div>
+
+<div class="form-group">
+<label for="lecteur_id" class="control-label col-sm-2">
 {t}Lecteur :{/t} 
-<select class="auto" name="lecteur_id">
+</label>
+<div class="col-sm-4">
+<select class="auto form-control" id="lecteur_id" name="lecteur_id">
 <option value="">{t}Sélectionnez le lecteur{/t}</option>
 {section name="lst" loop=$lecteur}
 <option value="{$lecteur[lst].lecteur_id}" {if $lecteur[lst].lecteur_id == $lectureSearch.lecteur_id}selected{/if}>
@@ -60,12 +76,10 @@ $(".auto").change( function () {
 </option>
 {/section}
 </select>
-</td>
-<td>
-<div class="center">
-<input type="submit" value="{t}Rechercher...{/t}">
 </div>
-</td>
-</tr>
+<div class="center col-sm-6">
+<button class="btn btn-success" type="submit">{t}Rechercher...{/t}</button> 
+</div>
+</div>
 </form>
-</table>
+</div>

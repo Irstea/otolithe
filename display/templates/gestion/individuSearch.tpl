@@ -75,7 +75,5 @@ $(".auto").change( function () {
 <div class="center col-sm-12">
 <button class="btn btn-success" type="submit">{t}Rechercher...{/t}</button> 
 </div>
-</td>
 </div>
 </form>
-</table>
