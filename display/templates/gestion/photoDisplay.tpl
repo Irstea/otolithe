@@ -103,6 +103,8 @@ $(document).ready(function() {
 <a href="index.php?module=photoGetPhoto&photo_id={$data.photo_id}&disposition=attachment&original_format=1" title="{t}Attention : le temps de chargement peut être (très) long, selon la taille originale de la photo !{/t}">
 <!--  img src="{$photoPath}"-->
 <img src="index.php?module=photoGetThumbnail&photo_id={$data.photo_id}">
+<br>
+{t}Télécharger la photo dans le format original{/t}
 </a>
 </div>
 </div>
