@@ -195,7 +195,7 @@ class Individu extends ObjetBdd {
 	 */
 	function ecrire($data) {
 		$id = parent::ecrire ( $data );
-		if ($id > 0) {
+		if ($id > 0 && is_array($data["exp_id"])) {
 			/*
 			 * Ecriture des experimentations
 			 */

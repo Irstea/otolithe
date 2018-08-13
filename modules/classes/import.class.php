@@ -42,25 +42,29 @@ class Import
 
     private $colonnes = array(
         "exp_id",
+        "espece_id",
+        "tag",
+        "codeindividu",
+        "sexe",
+        "longueur",
+        "poids",
+        "remarque",
+        "parasite",
+        "age",
         "piecetype_id",
         "piececode",
-        "espece_id",
-        "codeindividu",
-        "tag",
-        "poids",
-        "longueur",
-        "site",
-        "peche_code",
         "peche_date",
-        "peche_remarque",
-        "peche_code_id",
-        "remarque"
+        "site",
+        "zonesite",
+        "campagne",
+        "peche_engin",
+        "personne",
+        "operateur"
     );
 
     private $colnum = array(
         "poids",
-        "longueur",
-        "peche_code_id"
+        "longueur"
     );
 
     private $handle;
@@ -109,8 +113,9 @@ class Import
                 $value = $data[$range];
                 if (in_array($value, $this->colonnes)) {
                     $this->fileColumn[$range] = $value;
-                } else
+                } else {
                     throw new HeaderException("Header column $range is not recognized ($value)");
+                }
             }
         } else {
             throw new FichierException("$filename not found or not readable");
@@ -139,7 +144,7 @@ class Import
     function readLine()
     {
         if ($this->handle) {
-            $data = fgetcsv($this->handle, 1000, $this->separator);
+            $data = fgetcsv($this->handle, null, $this->separator);
             if ($data !== false) {
                 if ($this->utf8_encode) {
                     foreach ($data as $key => $value)
@@ -147,8 +152,9 @@ class Import
                 }
             }
             return $data;
-        } else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -167,71 +173,74 @@ class Import
      */
     function importAll()
     {
-        $date = date('d/m/Y H:i:s');
         $num = 1;
         $maxuid = 0;
         $minuid = 99999999;
-        while (($data = $this->readLine()) !== false) {
-            /*
-             * Preparation du tableau
-             */
-            $values = $this->prepareLine($data);
-            $num ++;
-            /*
-             * Controle de la ligne
-             */
-            $resControle = $this->controlLine($values);
-            if ($resControle["code"] == false) {
-                throw new ImportException("Line $num : " . $resControle["message"]);
-            }
-            /*
-             * Lancement de l'ecriture des informations
-             */
-            $individu_id = 0;
-            $di = $values;
-            $di["individu_id"] = 0;
-            $peche_id = 0;
-            try {
+        /*
+         * Suppression du reformatage de la date
+         */
+        $this->peche->auto_date = 0;
+        while (($data = $this->readLine())) {
+            if (count($data) > 0) {
                 /*
-                 * Traitement de la peche
+                 * Preparation du tableau
                  */
-                if (strlen($values["site"]) > 0 || strlen($values["peche_date"]) > 0 || strlen($values["peche_remarque"]) > 0) {
-                    $peche_id = $this->peche->ecrire($values);
-                    if ($peche_id > 0) {
-                        $di["peche_id"] = $peche_id;
+                $values = $this->prepareLine($data);
+                $num ++;
+                /*
+                 * Lancement de l'ecriture des informations
+                 */
+                $individu_id = 0;
+                $di = $values;
+                $di["individu_id"] = 0;
+                $peche_id = 0;
+                try {
+                    /*
+                     * Traitement de la peche
+                     */
+                    if (strlen($values["site"]) > 0 || strlen($values["peche_date"]) > 0 || strlen($values["campagne"]) > 0 || strlen($values["zonesite"]) > 0 || strlen($values["peche_engin"]) > 0 || strlen($values["personne"]) > 0 || strlen($values["operateur"]) > 0) {
+                        $values["peche_date"] = $this->formatDate($values["peche_date"]);
+                        $peche_id = $this->peche->ecrire($values);
+                        if ($peche_id > 0) {
+                            $di["peche_id"] = $peche_id;
+                        }
                     }
+                    /*
+                     * Traitement de l'individu
+                     */
+                    $individu_id = $this->individu->ecrire($di);
+                    /*
+                     * Rattachement a l'experimentation
+                     */
+                    $data_ie = array(
+                        "individu_id" => $individu_id,
+                        "exp_id" => $values["exp_id"]
+                    );
+                    $this->ie->ecrire($data_ie);
+                    /*
+                     * Rajout de la piece
+                     */
+                    if ($values["piecetype_id"] > 0) {
+                        $dp = $values;
+                        $dp["individu_id"] = $individu_id;
+                        $this->piece->ecrire($dp);
+                    }
+                } catch (PDOException $pe) {
+                    throw new ImportException("PDOException - Line $num: error when import data. " . $pe->getMessage());
+                } catch (ObjetBDDException $oe) {
+                    throw new ImportException("Line $num: error when importing data. ".$oe->getMessage());
                 }
                 /*
-                 * Traitement de l'individu
+                 * Mise a jour des bornes de l'uid
                  */
-                $individu_id = $this->individu->ecrire($di);
-                /*
-                 * Rattachement a l'experimentation
-                 */
-                $data_ie = array(
-                    "individu_id" => $individu_id,
-                    "exp_id" => $values["exp_id"]
-                );
-                $this->ie->ecrire($data_ie);
-                /*
-                 * Rajout de la piece
-                 */
-                if ($values["piecetype_id"] > 0) {
-                    $dp = $values;
-                    $dp["individu_id"] = $individu_id;
-                    $this->piece->ecrire($dp);
+                if ($individu_id < $minuid) {
+                    $minuid = $individu_id;
                 }
-            } catch (PDOException $pe) {
-                throw new ImportException("Line $num : error when import container<br>" . $pe->getMessage());
+                if ($individu_id > $maxuid) {
+                    $maxuid = $individu_id;
+                }
+                $this->nbTreated ++;
             }
-            /*
-             * Mise a jour des bornes de l'uid
-             */
-            if ($individu_id < $minuid)
-                $minuid = $individu_id;
-            if ($individu_id > $maxuid)
-                $maxuid = $individu_id;
-            $this->nbTreated ++;
         }
         $this->minuid = $minuid;
         $this->maxuid = $maxuid;
@@ -307,7 +316,7 @@ class Import
          */
         if (strlen($data["codeindividu"]) == 0 && strlen($data["tag"]) == 0) {
             $retour["code"] = false;
-            $retour["message"] .= "Aucun code (codeindividu ou tag) n'a été indiqué. ";
+            $retour["message"] .= _("Aucun code (codeindividu ou tag) n'a été indiqué.");
         }
         /*
          * Verification de l'experimentation
@@ -321,7 +330,7 @@ class Import
         }
         if ($ok == false) {
             $retour["code"] = false;
-            $retour["message"] .= "Le numéro de l'expérimentation est manquant, inconnu ou non autorisé. ";
+            $retour["message"] .= " " . _("Le numéro de l'expérimentation est manquant, inconnu ou non autorisé.");
         }
         /*
          * Verification de l'espece
@@ -335,7 +344,7 @@ class Import
         }
         if ($ok == false) {
             $retour["code"] = false;
-            $retour["message"] .= "Le numéro d'espèce est manquant ou non connu. ";
+            $retour["message"] .= " " . _("Le numéro d'espèce est manquant ou non connu.");
         }
         /*
          * Verification que le type de la piece soit renseigne si le code de
@@ -343,7 +352,7 @@ class Import
          */
         if (strlen($data["piececode"]) > 0 && strlen($data["piecetype_id"]) == 0) {
             $retour["code"] = false;
-            $retour["message"] .= "La pièce dispose d'un code, mais son type n'a pas été indiqué. ";
+            $retour["message"] .= " " . _("La pièce dispose d'un code, mais son type n'a pas été indiqué.");
         }
         /*
          * Verification du type de la piece
@@ -358,10 +367,10 @@ class Import
             }
             if ($ok == false) {
                 $retour["code"] = false;
-                $retour["message"] .= "Le statut de l'échantillon n'est pas connu. ";
+                $retour["message"] .= " " . _("Le type de pièce indiqué n'est pas connu.");
             }
         }
-        
+
         /*
          * Verification des champs numeriques
          */
@@ -369,11 +378,52 @@ class Import
             if (strlen($data[$key]) > 0) {
                 if (! is_numeric($data[$key])) {
                     $retour["code"] = false;
-                    $retour["message"] .= "Le champ $key n'est pas numérique. ";
+                    $retour["message"] .= " " . sprintf(_("Le champ %s n'est pas numérique."), $key);
                 }
             }
         }
+        /*
+         * Verification de la date
+         */
+        if (strlen($data["peche_date"]) > 0) {
+            if (strlen($this->formatDate($data["peche_date"])) == 0) {
+                $retour["code"] = false;
+                $retour["message"] .= " " . _("La date de pêche est mal formatée");
+            }
+        }
         return $retour;
+    }
+
+    /**
+     * Fonction reformatant la date en testant le format francais, puis standard
+     *
+     * @param string $date
+     * @return string
+     */
+    function formatDate($date)
+    {
+        $val = "";
+        /*
+         * Verification du format de date
+         */
+        $result = date_parse_from_format($_SESSION["MASKDATE"], $date);
+        if ($result["warning_count"] > 0) {
+            /*
+             * Test du format general
+             */
+            $result = date_parse($date);
+        }
+        if ($result["warning_count"] == 0) {
+            $val = $result["year"] . "-" . str_pad($result["month"], 2, "0", STR_PAD_LEFT) . "-" . str_pad($result["day"], 2, "0", STR_PAD_LEFT);
+            if (strlen($result["hour"]) > 0 && strlen($result["minute"]) > 0) {
+                $val .= " " . str_pad($result["hour"], 2, "0", STR_PAD_LEFT) . ":" . str_pad($result["minute"], 2, "0", STR_PAD_LEFT);
+                if (strlen($result["second"]) == 0) {
+                    $result["second"] = 0;
+                }
+                $val .= ":" . str_pad($result["second"], 2, "0", STR_PAD_LEFT);
+            }
+        }
+        return $val;
     }
 }
 ?>

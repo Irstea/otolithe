@@ -1539,7 +1539,7 @@ class ObjetBDD
          * Verification du tableau de valeurs
          */
         if (! is_array($lignes) && strlen($lignes) > 0) {
-            throw new ObjetBDDException("data is not an array");
+            throw new ObjetBDDException("EcrireTableNN - data is not an array");
         }
         
         if (! is_array($lignes)) {

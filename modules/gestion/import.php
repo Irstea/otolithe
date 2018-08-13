@@ -39,10 +39,12 @@ switch ($t_module ["param"]) {
 		break;
 	
 	case "control" :
+	    $vue->set("gestion/import.tpl", "corps" );
+	    $vue->set( $_REQUEST ["separator"], "separator");
+	    $vue->set( $_REQUEST ["utf8_encode"], "utf8_encode");
 		/*
 		 * Lancement des controles
 		 */
-	    $vue->set("gestion/import.tpl", "corps" );
 		unset ( $_SESSION ["filename"] );
 		if (file_exists ( $_FILES ['upfile'] ['tmp_name'] )) {
 			/*
@@ -57,6 +59,7 @@ switch ($t_module ["param"]) {
 					 */
 				    $vue->set( 1, "erreur");
 				    $vue->set($resultat , "erreurs");
+				    $module_coderetour = -1;
 				} else {
 					/*
 					 * Deplacement du fichier dans le dossier temporaire
@@ -74,6 +77,7 @@ switch ($t_module ["param"]) {
 				}
 			} catch ( Exception $e ) {
 				$message->set(  $e->getMessage ());
+				$module_coderetour = -1;
 			}
 		}
 		$import->fileClose();
@@ -82,15 +86,19 @@ switch ($t_module ["param"]) {
 	case "import" :
 		if (isset ( $_SESSION ["filename"] )) {
 			if (file_exists ( $_SESSION ["filename"] )) {
+			    $bdd->beginTransaction();
 				try {
 					$import->initFile ( $_SESSION ["filename"], $_SESSION["separator"], $_SESSION["utf8_encode"] );
 					$import->importAll();
 					$message ->set(  "Import effectué. ". $import->nbTreated . " lignes traitées");
 					$message->set( "Premier id généré : ".$import->minuid);
 					$message->set( "Dernier id généré : ". $import->maxuid);
+					$bdd->commit();
 					$module_coderetour = 1;
 				} catch ( Exception $e ) {
 					$message->set(  $e->getMessage ());
+					$module_coderetour = -1;
+					$bdd->rollBack();
 				}
 			}
 		}

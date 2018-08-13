@@ -80,17 +80,17 @@
 <li><b>sexe</b> : {t}sexe du poisson (1 : mâle, 2 : femelle, 3 : juvénile, 4 : indifférencié){/t}</li>
 <li><b>longueur</b> : {t}longueur du poisson (mm){/t}</li>
 <li><b>poids</b> : {t}poids du poisson (g){/t}</li>
-<li><b>remarque</b> : {t}remarques concernant le poisson<{/t}</li>
+<li><b>remarque</b> : {t}remarques concernant le poisson{/t}</li>
 <li><b>parasite</b> : {t}parasites éventuels rencontrés{/t}</li>
 <li><b>age</b> : {t}âge du poisson (g){/t}</li>
 <li><b>piecetype_id</b> : {t}code du type de pièce calcifiée à analyser{/t} <a href="index.php?module=piecetypeList">{t}Consultez la liste des types de pièces{/t}</a></li>
 <li><b>piececode</b> : {t}si le type de pièce est indiqué, vous pouvez renseigner un code spécifique attaché à la pièce{/t}</li>
-<li><b>peche_date</b> : {t}date de la pêche, au format aaaa-mm-dd{/t}</li>
+<li><b>peche_date</b> : {t}date de la pêche, au format aaaa-mm-dd ou dd/mm/aaaa{/t}</li>
 <li><b>site</b> : {t}site de la pêche{/t}</li>
-<li><b>peche_zone</b> : {t}zone précise de la pêche (précision concernant le site){/t}</li>
+<li><b>zonesite</b> : {t}zone précise de la pêche (précision concernant le site){/t}</li>
 <li><b>campagne</b> : {t}campagne de pêche{/t}</li>
-<li><b>engin</b> : {t}engin utilisé{/t}</li>
-<li><b>pecheur</b> : {t}références du pêcheur{/t}</li>
+<li><b>peche_engin</b> : {t}engin utilisé{/t}</li>
+<li><b>personne</b> : {t}références du pêcheur{/t}</li>
 <li><b>operateur</b> : {t}références de l'opérateur ayant traité le poisson{/t}</li>
 </ul>
 <div class="center">
