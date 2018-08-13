@@ -60,3 +60,6 @@ COMMENT ON COLUMN "dbparam"."dbparam_value" IS 'Valeur du paramètre';
 
 insert into dbparam(dbparam_id, dbparam_name) values (1, 'APPLI_title');
 
+create sequence seq_espece_espece_id owned by espece.espece_id;
+alter table espece alter column espece_id  set default nextval ('seq_espece_espece_id' ::regclass) ;
+select setval('seq_espece_espece_id', (select max(espece_id) from espece));

@@ -112,6 +112,10 @@
 	<photolectureSwap action="modules/photolecture/photolecture.php" param="swap" droits="lecture" retourko="photolectureDisplay" retourok="photolectureChange" />
 
 	<especeList action="modules/gestion/espece.php" param="list" droits="consult" type="smarty"  />
+	<especeChange action="modules/gestion/espece.php" param="change" droits="gestion" type="smarty"  />
+	<especeWrite action="modules/gestion/espece.php" param="write" droits="gestion"  modulebefore="especeChange" retourok="especeList" retourko="especeChange"/>
+	<especeDelete action="modules/gestion/espece.php" param="delete" droits="gestion"  modulebefore="especeChange" retourok="especeList" retourko="especeChange"/>
+	
 	<especeSearchAjax action="modules/gestion/espece.php" param="searchAjax" droits="gestion" type="ajax" />
 
 	<importChange action="modules/gestion/import.php" param="change" droits="gestionCompte" retourlogin="1"  />

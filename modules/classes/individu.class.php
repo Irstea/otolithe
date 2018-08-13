@@ -444,7 +444,7 @@ class Espece extends ObjetBDD {
 		if (is_array ( $param ) == false)
 			$param = array ();
 		$this->table = "espece";
-		$this->id_auto = 0;
+		$this->id_auto = 1;
 		$this->colonnes = array (
 				"espece_id" => array (
 						"type" => 1,
@@ -453,50 +453,10 @@ class Espece extends ObjetBDD {
 						"defaultValue" => 0 
 				),
 				"nom_id" => array (
-						"longueur" => 100 
+						"type"=>0,"requis"=>1
 				),
 				"nom_fr" => array (
-						"longueur" => 100 
-				),
-				"nom_vern" => array (
-						"longueur" => 100 
-				),
-				"nom_eng" => array (
-						"longueur" => 100 
-				),
-				"nom_esp" => array (
-						"longueur" => 100 
-				),
-				
-				"auteur" => array (
-						"longueur" => 100 
-				),
-				"phylum" => array (
-						"longueur" => 100 
-				),
-				"subphylum" => array (
-						"longueur" => 100 
-				),
-				"classe" => array (
-						"longueur" => 100 
-				),
-				"ordre" => array (
-						"longueur" => 100 
-				),
-				"famille" => array (
-						"longueur" => 100 
-				),
-				"genre" => array (
-						"longueur" => 100 
-				),
-				"code_asfis" => array (
-						"longueur" => 100 
-				),
-				"taxocode" => array (
-						"longueur" => 100 
-				),
-				"code_rubin" => array (
-						"longueur" => 100 
+						"type"=>0
 				) 
 		);
 		$param ["fullDescription"] = 1;
