@@ -9,7 +9,7 @@
 {/if}
 	<div class="row">
 	<div class="col-md-12">
-<table id="idListe" class="table table-bordered table-hover datatable" data-page-length='100'>
+<table id="idListe" class="table table-bordered table-hover datatable" data-searching="true" data-page-length='100'>
 <thead>
 <tr>
 <th>{t}Code individu{/t}</th>
