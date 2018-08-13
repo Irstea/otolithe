@@ -29,6 +29,14 @@ switch ($t_module["param"]) {
 		$id = dataWrite($dataClass, $_REQUEST);
         if ($id > 0) {
             $_REQUEST["lecteur_id"] = $id;
+            if ($id == $dataClass->getIdFromLogin($_SESSION["login"])) {
+                /*
+                 * Rechargement des droits
+                 */
+                require_once 'modules/classes/individu.class.php';
+                $experimentation = new Experimentation($bdd, $ObjetBDDParam);
+                $_SESSION["experimentations"] = $experimentation->getExpAutorisees($id);
+            }
         }
         break;
     case "delete":

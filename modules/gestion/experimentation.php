@@ -42,7 +42,6 @@ switch ($t_module["param"]) {
             $lecteur = new Lecteur($bdd, $ObjetBDDParam);
             $lecteur_id = $lecteur->getIdFromLogin($_SESSION['login']);
             if ($lecteur_id > 0) {
-                require_once 'modules/classes/individu.class.php';
                 $experimentation = new Experimentation($bdd, $ObjetBDDParam);
                 $_SESSION["experimentations"] = $experimentation->getExpAutorisees($lecteur_id);
             }
