@@ -27,18 +27,22 @@ $import->initControl ( $_SESSION ["experimentations"], $piecetype->getList(), $e
 /*
  * Traitement
  */
-$smarty->assign("corps", "gestion/import.tpl" );
+
 switch ($t_module ["param"]) {
 	case "change":
 		/*
 		 * Affichage du masque de selection du fichier a importer
 		 */
+	    $vue->set("gestion/import.tpl", "corps" );
+	    $vue->set( $_REQUEST ["separator"], "separator");
+	    $vue->set( $_REQUEST ["utf8_encode"], "utf8_encode");
 		break;
 	
 	case "control" :
 		/*
 		 * Lancement des controles
 		 */
+	    $vue->set("gestion/import.tpl", "corps" );
 		unset ( $_SESSION ["filename"] );
 		if (file_exists ( $_FILES ['upfile'] ['tmp_name'] )) {
 			/*
@@ -74,8 +78,6 @@ switch ($t_module ["param"]) {
 		}
 		$import->fileClose();
 		$module_coderetour = 1;
-		$vue->set( $_REQUEST ["separator"], "separator");
-		$vue->set( $_REQUEST ["utf8_encode"], "utf8_encode");
 		break;
 	case "import" :
 		if (isset ( $_SESSION ["filename"] )) {

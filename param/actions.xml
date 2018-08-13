@@ -118,7 +118,7 @@
 	
 	<especeSearchAjax action="modules/gestion/espece.php" param="searchAjax" droits="gestion" type="ajax" />
 
-	<importChange action="modules/gestion/import.php" param="change" droits="gestionCompte" retourlogin="1"  />
+	<importChange action="modules/gestion/import.php" param="change" droits="gestionCompte" retourlogin="1" type="smarty" />
 	<importControl action="modules/gestion/import.php" param="control" droits="gestionCompte" modulebefore="importChange,importControl,importImport" retourok="importChange"  />
 	<importImport action="modules/gestion/import.php" param="import" droits="gestionCompte" modulebefore="importControl,importChange" retourok="importChange" retourko="importChange"  />
 
