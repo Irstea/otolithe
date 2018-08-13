@@ -11,7 +11,7 @@
 	<item module="importChange" label="Import" tooltip="Importer des poissons" droits="gestionCompte"/>
 </item>
 
-<item module="parametres" label="Paramètres" tooltip="Paramètres généraux de l'application">
+<item module="parametres" label="Paramètres" tooltip="Paramètres généraux de l'application" loginrequis="1" >
 	<item module="experimentationList" label="Expérimentations" tooltip="Liste des expérimentations" droits="consult"/>
 	<item module="piecetypeList" label="Pièces" tooltip="Liste des types de pièces calcifiées" droits="consult"/>
 	<item module="especeList" label="Espèces" tooltip="Liste des espèces" droits="consult"/>

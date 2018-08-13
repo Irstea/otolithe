@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-04 16:09+0200\n"
+"POT-Creation-Date: 2018-08-13 17:22+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -14,101 +14,180 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. (itstool) path: menu/item@label
-#. (itstool) path: item/item@label
-#: ../../../param/menu.xml:8 ../../../param/menu.xml:9
-msgid "Gestion"
-msgstr "Modules"
+#: ../../../param/menu.xml:8
+#, fuzzy
+msgid "Lectures"
+msgstr "hours"
 
 #. (itstool) path: menu/item@tooltip
+#: ../../../param/menu.xml:8
+msgid "Lecture des pièces calcifiées"
+msgstr "Reading calcified parts"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:9
+msgid "Poissons"
+msgstr "Fishes"
+
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:8 ../../../param/menu.xml:9
-msgid "Modules de l'application"
-msgstr "Application modules"
+#: ../../../param/menu.xml:9
+#: ../../../display/templates/gestion/individuListe.tpl:1
+#, fuzzy
+msgid "Liste des poissons"
+msgstr "List of groups of logins"
 
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:10
-msgid "Exemple"
-msgstr "Example"
+msgid "Lectures réalisées"
+msgstr "Performed readings"
 
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:10
-msgid "Exemple de module"
-msgstr "Module example"
+msgid "Liste des lectures réalisées"
+msgstr "List of performed readings"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:11
+msgid "Import"
+msgstr "Import"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:11
+msgid "Importer des poissons"
+msgstr "Import fish"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:13
+#: ../../../param/menu.xml:14
+#, fuzzy
+msgid "Paramètres"
+msgstr "Setting"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../../param/menu.xml:14
+#, fuzzy
+msgid "Paramètres généraux de l'application"
+msgstr "Application Settings"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:15
+msgid "Expérimentations"
+msgstr "Experiments"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:15
+#: ../../../display/templates/gestion/experimentationList.tpl:1
+msgid "Liste des expérimentations"
+msgstr "Experiment list"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:16
+msgid "Pièces"
+msgstr "Parts"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:16
+#, fuzzy
+msgid "Liste des types de pièces calcifiées"
+msgstr "List of groups of logins"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:17
+msgid "Espèces"
+msgstr "Species"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:17
+#: ../../../display/templates/gestion/especeList.tpl:1
+#, fuzzy
+msgid "Liste des espèces"
+msgstr "List of groups of logins"
+
+#. (itstool) path: menu/item@label
+#: ../../../param/menu.xml:21
 msgid "Administration"
 msgstr "Administration"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:13
+#: ../../../param/menu.xml:21
 msgid "Administration de l'application"
 msgstr "Application administration"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:14
+#: ../../../param/menu.xml:22
 msgid "Liste des comptes locaux"
 msgstr "local accounts list"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:14
+#: ../../../param/menu.xml:22
 msgid "Liste des logins - identification via la base de données"
 msgstr "List of logins - identification via the database"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:15
+#: ../../../param/menu.xml:23
+msgid "Lecteurs"
+msgstr "Readers"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:23
+#: ../../../display/templates/gestion/lecteurListe.tpl:1
+#, fuzzy
+msgid "Liste des lecteurs"
+msgstr "local accounts list"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:24
 msgid "ACL - droits"
 msgstr "ACL - rights"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:15
+#: ../../../param/menu.xml:24
 msgid "applications et droits gérés"
 msgstr "applications and rights managed"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:16
+#: ../../../param/menu.xml:25
 msgid "ACL - logins"
 msgstr "ACL - logins"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:16
+#: ../../../param/menu.xml:25
 msgid "Logins déclarés dans le module de gestion des droits"
 msgstr "Logins declared in the rights management module"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:17
+#: ../../../param/menu.xml:26
 msgid "ACL - groupes de logins"
 msgstr "ACL - login groups"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:17
+#: ../../../param/menu.xml:26
 #, fuzzy
 msgid "Groupes de logins et logins rattachés aux groupes"
 msgstr "Groups of logins and logins attached to groups"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:18
+#: ../../../param/menu.xml:27
 msgid "Paramètres de l'application"
 msgstr "Application Settings"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:18
+#: ../../../param/menu.xml:27
 #, fuzzy
 msgid "Liste des paramètres pérennes de l'application"
 msgstr "List of long-term parameters of the application"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:19 ../../../display/templates/phpinfo.tpl:1
+#: ../../../param/menu.xml:28 ../../../display/templates/phpinfo.tpl:1
 msgid "PHP info"
 msgstr "PHP info"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:19
+#: ../../../param/menu.xml:28
 msgid "configuration générale du serveur PHP"
 msgstr "general configuration of the PHP server"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:21 ../../../framework/common.inc.php:269
+#: ../../../param/menu.xml:30 ../../../framework/common.inc.php:266
 #: ../../../framework/identification/disconnect.php:11
 #: ../../../display/templates/entete.tpl:21
 #: ../../../display/templates/entete.tpl:40
@@ -117,23 +196,23 @@ msgid "Connexion"
 msgstr "Sign in"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:21
+#: ../../../param/menu.xml:30
 msgid "S'identifier dans l'application"
 msgstr "Sign in to the app"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:22 ../../../display/templates/entete.tpl:36
+#: ../../../param/menu.xml:31 ../../../display/templates/entete.tpl:36
 #: ../../../display/templates/entete.tpl:37
 msgid "Déconnexion"
 msgstr "Sign out"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:22
+#: ../../../param/menu.xml:31
 msgid "Déconnexion de l'application"
 msgstr "Sign out of the app"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:23
+#: ../../../param/menu.xml:32
 #: ../../../display/templates/ident/loginChangePassword.tpl:33
 #: ../../../display/templates/entete.tpl:32
 #: ../../../display/templates/entete.tpl:33
@@ -141,69 +220,70 @@ msgid "Modifier le mot de passe"
 msgstr "Change your password"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:23
+#: ../../../param/menu.xml:32
 msgid "Modifiez votre mot de passe (identification locale uniquement)"
 msgstr "Change your password (local identification only)"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:25
+#: ../../../param/menu.xml:34
 msgid "?"
 msgstr "?"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:25
+#: ../../../param/menu.xml:34
 msgid "Aide"
 msgstr "Help"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:26
+#: ../../../param/menu.xml:35
 msgid "A propos"
 msgstr "About"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:26
-msgid "A propos de Collec-Science"
+#: ../../../param/menu.xml:35
+#, fuzzy
+msgid "A propos d'Otolithe"
 msgstr "A propos de"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:27
+#: ../../../param/menu.xml:36
 msgid "Nouveautés"
 msgstr "What's new?"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:27
+#: ../../../param/menu.xml:36
 msgid "Quoi de neuf dans l'application ?"
 msgstr "What's new in the app?"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:28
+#: ../../../param/menu.xml:37
 msgid "Lexique"
 msgstr "Glossary"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:28
+#: ../../../param/menu.xml:37
 msgid "Lexique des termes utilisés dans le logiciel"
 msgstr "Glossary of terms used in the software"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:29
+#: ../../../param/menu.xml:38
 #, fuzzy
 msgid "Français"
 msgstr "French"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:29
+#: ../../../param/menu.xml:38
 #, fuzzy
 msgid "Libellés en français"
 msgstr "Labels in French"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:30
+#: ../../../param/menu.xml:39
 msgid "English"
 msgstr "English"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:30
+#: ../../../param/menu.xml:39
 msgid "Labels in English"
 msgstr "Labels in English"
 
@@ -284,7 +364,7 @@ msgid "Vous n'êtes pas identifié."
 msgstr "You are not signed in."
 
 #: ../../../framework/dbparam/dbparam.php:18
-#: ../../../framework/fonctions.php:61
+#: ../../../framework/fonctions.php:64
 msgid "Enregistrement effectué"
 msgstr "Saved"
 
@@ -300,20 +380,20 @@ msgstr ""
 "You do not have access to this function. Please identify yourself, if "
 "applicable"
 
-#: ../../../framework/common.inc.php:235
+#: ../../../framework/common.inc.php:232
 msgid "Echec de connexion à la base de données de gestion des droits (GACL)"
 msgstr "Failed to connect to rights management database (GACL)"
 
-#: ../../../framework/common.inc.php:238
+#: ../../../framework/common.inc.php:235
 msgid "Echec de connexion à la base de données principale"
 msgstr "Failed to connect to the main database"
 
-#: ../../../framework/common.inc.php:252
+#: ../../../framework/common.inc.php:249
 msgid ""
 "Vous avez été déconnecté, votre session était ouverte depuis trop longtemps"
 msgstr "You have been disconnected, your session has been open for too long"
 
-#: ../../../framework/common.inc.php:267
+#: ../../../framework/common.inc.php:264
 #: ../../../framework/identification/disconnect.php:9
 msgid "Vous êtes maintenant déconnecté"
 msgstr "You are now signed off"
@@ -328,15 +408,15 @@ msgstr "Error reading information in the database"
 msgid "Erreur: type d'affichage non défini pour le module demandé : %s"
 msgstr "Error: display type not defined for the requested module: %s"
 
-#: ../../../framework/fonctions.php:70
+#: ../../../framework/fonctions.php:74
 msgid "Problème lors de l'enregistrement..."
 msgstr "Problem when saving ..."
 
-#: ../../../framework/fonctions.php:104
+#: ../../../framework/fonctions.php:110
 msgid "Suppression effectuée"
 msgstr "Deletion done"
 
-#: ../../../framework/fonctions.php:113
+#: ../../../framework/fonctions.php:120
 msgid "Problème lors de la suppression"
 msgstr "Problem when deleting"
 
@@ -472,13 +552,117 @@ msgstr ""
 msgid "Le champ %s est obligatoire, mais n'a pas été renseigné."
 msgstr "The field %s is required, but has not been filled out."
 
+#: ../../../modules/administration/index.php:2
+#, fuzzy
+msgid "Module administration"
+msgstr "Administration"
+
+#: ../../../modules/photolecture/photolecture.php:149
+msgid "Vous ne disposez pas des droits nécessaires pour réaliser une lecture"
+msgstr "You are not granted to read"
+
+#: ../../../modules/classes/photo.class.php:137
+msgid "Imagick - impossible de charger la photo "
+msgstr "Imagick - impossible to load the photo"
+
+#: ../../../modules/classes/photo.class.php:152
+msgid "Imagick - impossible de redimensionner la photo"
+msgstr "Imagick - impossible to resize the photo"
+
+#: ../../../modules/classes/photo.class.php:159
+msgid "Imagick - impossible de définir le format de la photo"
+msgstr "Imagick - impossible to define the format of the photo"
+
+#: ../../../modules/classes/photo.class.php:191
+msgid ""
+"Problème rencontré lors du parcours des photos existantes ou de leur "
+"suppression"
+msgstr "An error occurred when browsing existing photos or deleting them"
+
+#: ../../../modules/classes/photo.class.php:385
+msgid "Problème d'écriture de la photo dans le dossier temporaire"
+msgstr "Problem of writing the photo in the temporary folder"
+
+#: ../../../modules/classes/individu.class.php:234
+msgid "Des photos sont rattachées au poisson, sa suppression est impossible"
+msgstr "Photos are attached to the fish, its removable is impossible"
+
+#: ../../../modules/classes/import.class.php:321
+msgid "Aucun code (codeindividu ou tag) n'a été indiqué."
+msgstr "No code (individual code or tag) has been specified."
+
+#: ../../../modules/classes/import.class.php:335
+msgid "Le numéro de l'expérimentation est manquant, inconnu ou non autorisé."
+msgstr "Experiment number is missing, unknown or unautorized."
+
+#: ../../../modules/classes/import.class.php:349
+msgid "Le numéro d'espèce est manquant ou non connu."
+msgstr "Specie number is missing or unknown"
+
+#: ../../../modules/classes/import.class.php:365
+#, fuzzy
+msgid "Le sexe indiqué n'existe pas dans la base de données."
+msgstr "List of logins declared in the database"
+
+#: ../../../modules/classes/import.class.php:375
+msgid "La pièce dispose d'un code, mais son type n'a pas été indiqué."
+msgstr "The piece has a code, but its type has not been specified"
+
+#: ../../../modules/classes/import.class.php:390
+msgid "Le type de pièce indiqué n'est pas connu."
+msgstr "The type of piece is unknown"
+
+#: ../../../modules/classes/import.class.php:401
+#, fuzzy, php-format
+msgid "Le champ %s n'est pas numérique."
+msgstr "The field %1$s is not numeric. Entered value: %2$s"
+
+#: ../../../modules/classes/import.class.php:411
+msgid "La date de pêche est mal formatée"
+msgstr "The date of fishing is poorly formatted"
+
 #: ../../../param/param.default.inc.php:11
 msgid "4/7/2018"
 msgstr "2018-07-04"
 
 #: ../../../display/templates/main.tpl:1
-msgid "Page d'accueil de l'application"
-msgstr "Application home page"
+msgid ""
+"Bienvenue dans l'application de lecture des otolithes et autres pièces "
+"calcifiées !"
+msgstr "Welcome to the Otoliths and Calcified Pieces Reading App!"
+
+#: ../../../display/templates/main.tpl:5
+msgid ""
+"Le logiciel Otolithe permet à différents lecteurs de positionner des points "
+"sur une photo, notamment pour déterminer l'emplacement de stries de "
+"croissance"
+msgstr ""
+"Otolithe software allows different readers to position points on a photo, "
+"including determining the location of growth streaks"
+
+#: ../../../display/templates/main.tpl:7
+msgid ""
+"Les différentes lectures peuvent être comparées pour déterminer une lecture "
+"consensuelle"
+msgstr ""
+"The different readings can be compared to determine a consensual reading"
+
+#: ../../../display/templates/main.tpl:9
+msgid "Pour toute demande d'évolution, ou pour signaler une anomalie :"
+msgstr "For any evolution request, or to report an anomaly:"
+
+#: ../../../display/templates/main.tpl:12
+msgid "Pour les personnels IRSTEA : déclarez un ticket dans"
+msgstr "for Irstea staff: declare a ticket into"
+
+#: ../../../display/templates/main.tpl:12
+msgid "la forge IRSTEA"
+msgstr "Irstea Forge"
+
+#: ../../../display/templates/main.tpl:14
+msgid ""
+"Pour les autres personnes : envoyez une demande par courriel à l'adresse"
+msgstr "For others, send a request at "
 
 #: ../../../display/templates/ident/loginliste.tpl:1
 msgid "Liste des logins déclarés dans la base de données"
@@ -513,6 +697,8 @@ msgstr "Account used for web service"
 #: ../../../display/templates/ident/loginliste.tpl:22
 #: ../../../display/templates/ident/loginsaisie.tpl:104
 #: ../../../display/templates/ident/loginsaisie.tpl:167
+#: ../../../display/templates/photolecture/photolectureChange.tpl:296
+#: ../../../display/templates/photolecture/photolectureChange.tpl:337
 msgid "oui"
 msgstr "yes"
 
@@ -531,10 +717,19 @@ msgstr "Password:"
 #: ../../../display/templates/ident/loginAdmin.tpl:24
 #: ../../../display/templates/ident/loginChangePassword.tpl:67
 #: ../../../display/templates/ident/loginsaisie.tpl:175
+#: ../../../display/templates/photolecture/photolectureChange.tpl:230
+#: ../../../display/templates/photolecture/photolectureChange.tpl:359
 #: ../../../display/templates/droits/appliChange.tpl:25
 #: ../../../display/templates/droits/acoChange.tpl:16
 #: ../../../display/templates/droits/groupChange.tpl:13
 #: ../../../display/templates/droits/loginChange.tpl:23
+#: ../../../display/templates/gestion/piecetypeChange.tpl:21
+#: ../../../display/templates/gestion/experimentationChange.tpl:52
+#: ../../../display/templates/gestion/photoChange.tpl:132
+#: ../../../display/templates/gestion/lecteurChange.tpl:48
+#: ../../../display/templates/gestion/pieceChange.tpl:66
+#: ../../../display/templates/gestion/especeChange.tpl:33
+#: ../../../display/templates/gestion/individuChange.tpl:190
 msgid "Valider"
 msgstr "Save and return"
 
@@ -623,6 +818,7 @@ msgid "Nom de famille :"
 msgstr "Last name :"
 
 #: ../../../display/templates/ident/loginsaisie.tpl:82
+#: ../../../display/templates/gestion/lecteurChange.tpl:20
 msgid "Prénom :"
 msgstr "First name:"
 
@@ -640,6 +836,8 @@ msgstr "Account used for web service:"
 
 #: ../../../display/templates/ident/loginsaisie.tpl:108
 #: ../../../display/templates/ident/loginsaisie.tpl:170
+#: ../../../display/templates/photolecture/photolectureChange.tpl:299
+#: ../../../display/templates/photolecture/photolectureChange.tpl:340
 msgid "non"
 msgstr "no"
 
@@ -701,6 +899,14 @@ msgstr "punctuation or special characters"
 #: ../../../display/templates/droits/acoChange.tpl:18
 #: ../../../display/templates/droits/groupChange.tpl:15
 #: ../../../display/templates/droits/loginChange.tpl:25
+#: ../../../display/templates/gestion/piecetypeChange.tpl:23
+#: ../../../display/templates/gestion/experimentationChange.tpl:54
+#: ../../../display/templates/gestion/photoDisplay.tpl:185
+#: ../../../display/templates/gestion/photoChange.tpl:134
+#: ../../../display/templates/gestion/lecteurChange.tpl:50
+#: ../../../display/templates/gestion/pieceChange.tpl:68
+#: ../../../display/templates/gestion/especeChange.tpl:35
+#: ../../../display/templates/gestion/individuChange.tpl:192
 msgid "Supprimer"
 msgstr "Delete..."
 
@@ -724,21 +930,339 @@ msgstr ""
 msgid "Pour tout problème :"
 msgstr "For any problem:"
 
-#: ../../../display/templates/dbparam/dbparamListChange.tpl:2
+#: ../../../display/templates/dbparam/dbparamListChange.tpl:1
 msgid "Paramètres pérennes de l'application"
 msgstr "List of long-term parameters of the application"
 
-#: ../../../display/templates/dbparam/dbparamListChange.tpl:10
+#: ../../../display/templates/dbparam/dbparamListChange.tpl:9
 msgid "Paramètre"
 msgstr "Setting"
 
-#: ../../../display/templates/dbparam/dbparamListChange.tpl:11
+#: ../../../display/templates/dbparam/dbparamListChange.tpl:10
 msgid "Valeur"
 msgstr "Value"
 
-#: ../../../display/templates/dbparam/dbparamListChange.tpl:24
+#: ../../../display/templates/dbparam/dbparamListChange.tpl:23
 msgid "Enregistrer"
 msgstr "Save"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:204
+msgid "Mesure d'un otolithe ou d'une pièce calcifiée"
+msgstr "Measurement of an otolith or calcified piece"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:205
+#: ../../../display/templates/photolecture/photolectureChange.tpl:206
+#: ../../../display/templates/photolecture/photolectureChange.tpl:207
+#: ../../../display/templates/photolecture/photolectureChange.tpl:208
+msgid ""
+"Les modifications apportées dans cette page vont être perdues. Confirmez-"
+"vous cette opération ?"
+msgstr "Changes made on this page will be lost. Do you confirm this operation?"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:205
+#: ../../../display/templates/photolecture/photolectureDisplay.tpl:8
+#: ../../../display/templates/gestion/piecetypeChange.tpl:3
+#: ../../../display/templates/gestion/pieceDisplay.tpl:4
+#: ../../../display/templates/gestion/photoDisplay.tpl:28
+#: ../../../display/templates/gestion/individuDisplay.tpl:4
+#: ../../../display/templates/gestion/photoChange.tpl:7
+#: ../../../display/templates/gestion/pieceChange.tpl:4
+#: ../../../display/templates/gestion/especeChange.tpl:4
+#: ../../../display/templates/gestion/individuChange.tpl:30
+#, fuzzy
+msgid "Retour à la liste"
+msgstr "Back to the list of logins"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:206
+#: ../../../display/templates/photolecture/photolectureDisplay.tpl:9
+#: ../../../display/templates/gestion/photoDisplay.tpl:29
+#: ../../../display/templates/gestion/pieceChange.tpl:8
+msgid "Retour au détail du poisson"
+msgstr "Back to the detail of the fish"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:207
+#: ../../../display/templates/photolecture/photolectureDisplay.tpl:10
+#: ../../../display/templates/gestion/photoDisplay.tpl:30
+#: ../../../display/templates/gestion/photoChange.tpl:15
+#: ../../../display/templates/gestion/pieceChange.tpl:14
+msgid "Retour au détail de la pièce"
+msgstr "Back to the detail of the piece"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:208
+#: ../../../display/templates/photolecture/photolectureDisplay.tpl:11
+#, fuzzy
+msgid "Retour à la photo"
+msgstr "Back to"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:227
+#: ../../../display/templates/photolecture/photolectureChange.tpl:357
+msgid "Enregistrez les points positionnés :"
+msgstr "Record positionned points:"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:233
+msgid "Si tous les points ont été supprimés, vous pouvez :"
+msgstr "If all points have been deleted, you can:"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:235
+msgid "Uniquement si tous les points ont été supprimés"
+msgstr "Only if all points have been deleted"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:236
+#, fuzzy
+msgid "Réinitialiser le compteur"
+msgstr "Reset ..."
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:249
+msgid "Type de lecture pour le prochain point :"
+msgstr "type of reading for the next point:"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:252
+msgid "Point initial avec cercle élargi"
+msgstr "Initial point with enlarged circle"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:253
+msgid "Lecture des points"
+msgstr "Reading of points"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:254
+msgid "Mesure de la longueur de référence"
+msgstr "Reference length measurement"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:255
+msgid "Tracé d'une ligne sur la photo (aide à la mesure)"
+msgstr "Plot of a line on the picture (help at the measure)"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:259
+msgid "Taille originale de la photo :"
+msgstr "Original size of the photo:"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:271
+msgid "Taille de lecture de la photo :"
+msgstr "Reading size of the photo:"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:277
+msgid "Coefficient de correction de la taille :"
+msgstr "Coefficient of correction of the size:"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:288
+msgid "Rayon (en pixels) du cercle élargi :"
+msgstr "Radius (in pixels) of the enlarged circle:"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:292
+msgid "Recalcul automatique de l'ordre des points ?"
+msgstr "Automatic recalculation of the order of points?"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:308
+#: ../../../display/templates/photolecture/photolectureDisplay.tpl:52
+msgid "Nature de la strie finale :"
+msgstr "Nature of final streak:"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:319
+#: ../../../display/templates/photolecture/photolectureDisplay.tpl:53
+msgid "Fiabilité de la lecture :"
+msgstr "Reading fiability:"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:334
+msgid "Lecture consensuelle :"
+msgstr "Consensual reading:"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:343
+#: ../../../display/templates/photolecture/photolectureDisplay.tpl:55
+msgid "Année de naissance estimée :"
+msgstr "Estimated birth year:"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:352
+msgid "Points sélectionnés"
+msgstr "Selected points"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:363
+msgid "N°"
+msgstr "#"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:366
+msgid "Ordre de lecture"
+msgstr "Reading order"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:367
+msgid "Point de mesure de la longueur de référence"
+msgstr "Point of measure of reference length"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:375
+msgid "Pour supprimer un point, réalisez un double-clic sur celui-ci."
+msgstr "To delete a point, double-click on it."
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:378
+msgid ""
+"Vous pouvez modifier manuellement l'ordre de lecture d'un point, si "
+"nécessaire."
+msgstr "You can manualy change the reading order of a point, if necessary."
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:381
+msgid ""
+"Pour tracer une ligne, positionnez le premier point, puis le second. Pour "
+"supprimer la ligne, supprimez d'abord le second point, avant de toucher au "
+"premier point."
+msgstr ""
+"To draw a line, position the first point, then the second point. To delete "
+"the line, first delete the second point before the first point."
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:384
+msgid ""
+"Le recalcul automatique de l'ordre des points ne fonctionne que si le "
+"premier point (origine) est saisi en premier (valeur \"ordre de lecture\" la "
+"plus faible de la série)."
+msgstr ""
+"Automatic recalculation of the order of the points only works if the first "
+"point (origin) is entered first (value \"reading order\" the lowest of the "
+"series)."
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:389
+#: ../../../display/templates/photolecture/photolectureDisplay.tpl:44
+msgid "Légende"
+msgstr "Legend"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:395
+#: ../../../display/templates/photolecture/photolectureDisplay.tpl:50
+msgid "lecture du"
+msgstr "Reading of"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:396
+#: ../../../display/templates/photolecture/photolectureDisplay.tpl:51
+#: ../../../display/templates/gestion/photoDisplay.tpl:173
+msgid "Résolution"
+msgstr "Resolution"
+
+#: ../../../display/templates/photolecture/lectureSearch.tpl:15
+#: ../../../display/templates/gestion/individuSearch.tpl:15
+msgid "Code ou TAG de l'individu :"
+msgstr "Code or tag of fish:"
+
+#: ../../../display/templates/photolecture/lectureSearch.tpl:22
+#: ../../../display/templates/gestion/individuSearch.tpl:36
+msgid "Expérimentation :"
+msgstr "Experimentation:"
+
+#: ../../../display/templates/photolecture/lectureSearch.tpl:38
+#: ../../../display/templates/gestion/individuSearch.tpl:50
+#, fuzzy
+msgid "Site de pêche :"
+msgstr "Password:"
+
+#: ../../../display/templates/photolecture/lectureSearch.tpl:42
+#: ../../../display/templates/gestion/individuSearch.tpl:54
+msgid "Sélectionnez le site global de pêche"
+msgstr "Select the global fishing site"
+
+#: ../../../display/templates/photolecture/lectureSearch.tpl:52
+#: ../../../display/templates/gestion/individuSearch.tpl:63
+msgid "Zone précise de pêche :"
+msgstr "Precise fishing area:"
+
+#: ../../../display/templates/photolecture/lectureSearch.tpl:56
+#: ../../../display/templates/gestion/individuSearch.tpl:67
+msgid "Sélectionnez le site précis de pêche"
+msgstr "Select the precise fishing site"
+
+#: ../../../display/templates/photolecture/lectureSearch.tpl:68
+msgid "Lecteur :"
+msgstr "Reader:"
+
+#: ../../../display/templates/photolecture/lectureSearch.tpl:72
+#, fuzzy
+msgid "Sélectionnez le lecteur"
+msgstr "Sign in"
+
+#: ../../../display/templates/photolecture/lectureSearch.tpl:81
+#: ../../../display/templates/gestion/individuSearch.tpl:76
+#, fuzzy
+msgid "Rechercher..."
+msgstr "Search:"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:1
+msgid "Consultation de la lecture de pièces"
+msgstr "Viewing pieces reading"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:5
+msgid "Séparateur : tabulation, UTF-8, chiffres décimaux avec points"
+msgstr "Separator: tabulation, UTF-8, decimal digits with points"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:5
+msgid "Exporter la liste au format CSV"
+msgstr "Export the list at CSV format"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:12
+#: ../../../display/templates/gestion/individuChange.tpl:45
+msgid "Individu"
+msgstr "Fish"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:13
+msgid "Pièce"
+msgstr "Piece"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:13
+msgid "traitement"
+msgstr "traitment"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:14
+msgid "Photo"
+msgstr "Photo"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:14
+msgid "Couleur/NB"
+msgstr "Color/BW"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:15
+msgid "Résolution de prise de vue"
+msgstr "Shooting resolution"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:16
+msgid "Date de prise de vue"
+msgstr "Shooting date"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:17
+msgid "Longueur de référence"
+msgstr "Reference length"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:18
+#: ../../../display/templates/gestion/photoDisplay.tpl:171
+msgid "Lecteur"
+msgstr "Reader"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:19
+#: ../../../display/templates/gestion/photoDisplay.tpl:172
+msgid "Date de lecture"
+msgstr "Reading date"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:20
+msgid "Résolution de lecture"
+msgstr "Reading resolution"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:21
+#: ../../../display/templates/gestion/photoDisplay.tpl:180
+msgid "Longueur de référence mesurée"
+msgstr "Mesured reference length"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:22
+msgid "Longueur réelle totale de la mesure"
+msgstr "Total actual length of measurement"
+
+#: ../../../display/templates/photolecture/photolectureList.tpl:23
+#: ../../../display/templates/gestion/individuListe.tpl:18
+msgid "Age"
+msgstr "Age"
+
+#: ../../../display/templates/photolecture/photolectureDisplay.tpl:7
+msgid "Affichage des mesures d'un otolithe"
+msgstr "Display of the measurements of an otolith"
+
+#: ../../../display/templates/photolecture/photolectureDisplay.tpl:21
+msgid "Résolution d'affichage :"
+msgstr "Display resolution:"
+
+#: ../../../display/templates/photolecture/photolectureDisplay.tpl:54
+#: ../../../display/templates/gestion/photoDisplay.tpl:183
+msgid "Lecture consensuelle"
+msgstr "Consensual reading"
 
 #: ../../../display/templates/droits/appliChange.tpl:2
 msgid "Modification d'une application (module de gestion des droits)"
@@ -755,6 +1279,9 @@ msgid "Nom de l'application :"
 msgstr "Name of the application:"
 
 #: ../../../display/templates/droits/appliChange.tpl:19
+#: ../../../display/templates/gestion/experimentationChange.tpl:18
+#: ../../../display/templates/gestion/photoDisplay.tpl:55
+#: ../../../display/templates/gestion/photoChange.tpl:45
 msgid "Description :"
 msgstr "Description:"
 
@@ -823,6 +1350,8 @@ msgid "Nom de l'application"
 msgstr "Name of the application"
 
 #: ../../../display/templates/droits/appliList.tpl:13
+#: ../../../display/templates/gestion/experimentationList.tpl:14
+#: ../../../display/templates/gestion/pieceDisplay.tpl:60
 msgid "Description"
 msgstr "Description"
 
@@ -867,6 +1396,9 @@ msgid "Liste des droits disponibles pour l'application"
 msgstr "List of available rights for the application"
 
 #: ../../../display/templates/droits/appliDisplay.tpl:11
+#: ../../../display/templates/gestion/pieceDisplay.tpl:20
+#: ../../../display/templates/gestion/pieceDisplay.tpl:71
+#: ../../../display/templates/gestion/individuDisplay.tpl:12
 msgid "Modifier..."
 msgstr "Edit"
 
@@ -938,14 +1470,833 @@ msgstr ": activate to sort column ascending"
 msgid ": activer pour trier la colonne par ordre décroissant"
 msgstr ": activate to sort column descending"
 
-#: ../../../display/templates/main_js.tpl:145
+#: ../../../display/templates/main_js.tpl:148
 msgid "Valeur numérique..."
 msgstr "Numerical value..."
 
-#: ../../../display/templates/main_js.tpl:165
+#: ../../../display/templates/main_js.tpl:168
 msgid "Confirmez-vous la suppression ?"
 msgstr "Do you confirm the deletion?"
+
+#: ../../../display/templates/gestion/experimentationList.tpl:4
+#, fuzzy
+msgid "Nouvelle experimentation..."
+msgstr "New application"
+
+#: ../../../display/templates/gestion/experimentationList.tpl:12
+#: ../../../display/templates/gestion/especeList.tpl:14
+#: ../../../display/templates/gestion/piecetypeList.tpl:12
+msgid "Id"
+msgstr "Id"
+
+#: ../../../display/templates/gestion/experimentationList.tpl:13
+#: ../../../display/templates/gestion/pieceDisplay.tpl:59
+#: ../../../display/templates/gestion/lecteurListe.tpl:12
+#: ../../../display/templates/gestion/piecetypeList.tpl:13
+msgid "Nom"
+msgstr "Name"
+
+#: ../../../display/templates/gestion/experimentationList.tpl:15
+msgid "Date de début"
+msgstr "Begining date"
+
+#: ../../../display/templates/gestion/experimentationList.tpl:16
+msgid "Date de fin"
+msgstr "End date"
+
+#: ../../../display/templates/gestion/especeList.tpl:8
+#, fuzzy
+msgid "Nouvelle espèce..."
+msgstr "New application"
+
+#: ../../../display/templates/gestion/especeList.tpl:15
+#, fuzzy
+msgid "Nom latin"
+msgstr "Name of the application"
+
+#: ../../../display/templates/gestion/especeList.tpl:16
+#, fuzzy
+msgid "Nom français"
+msgstr "French"
+
+#: ../../../display/templates/gestion/piecetypeChange.tpl:1
+#, fuzzy
+msgid "Modification d'un type de pièce"
+msgstr "Password change failed"
+
+#: ../../../display/templates/gestion/piecetypeChange.tpl:14
+msgid "Nom du type de pièce :"
+msgstr "Name of the type of the piece:"
+
+#: ../../../display/templates/gestion/piecetypeChange.tpl:29
+#: ../../../display/templates/gestion/experimentationChange.tpl:61
+#: ../../../display/templates/gestion/import.tpl:104
+#: ../../../display/templates/gestion/photoChange.tpl:145
+#: ../../../display/templates/gestion/lecteurChange.tpl:58
+#: ../../../display/templates/gestion/especeChange.tpl:44
+#: ../../../display/templates/gestion/individuChange.tpl:220
+#, fuzzy
+msgid "Champ obligatoire"
+msgstr "Mandatory data"
+
+#: ../../../display/templates/gestion/individuSearch.tpl:23
+msgid "Sexe de l'animal :"
+msgstr "Fish sexe:"
+
+#: ../../../display/templates/gestion/individuSearch.tpl:27
+msgid "Sélectionnez le sexe recherché"
+msgstr "Select the sexe"
+
+#: ../../../display/templates/gestion/experimentationChange.tpl:1
+#, fuzzy
+msgid "Modification d'une expérimentation"
+msgstr "Edit the group and its attachments to the logins"
+
+#: ../../../display/templates/gestion/experimentationChange.tpl:3
+#, fuzzy
+msgid "Retour à la liste des expérimentations"
+msgstr "Back to the list of applications"
+
+#: ../../../display/templates/gestion/experimentationChange.tpl:12
+#: ../../../display/templates/gestion/lecteurChange.tpl:14
+msgid "Nom :"
+msgstr "Name:"
+
+#: ../../../display/templates/gestion/experimentationChange.tpl:23
+msgid "Date de début  :"
+msgstr "Begining date:"
+
+#: ../../../display/templates/gestion/experimentationChange.tpl:30
+#, fuzzy
+msgid "Date de fin :"
+msgstr "Date:"
+
+#: ../../../display/templates/gestion/experimentationChange.tpl:36
+#, fuzzy
+msgid "Liste des lecteurs rattachés"
+msgstr "Logins attached"
+
+#: ../../../display/templates/gestion/pieceDisplay.tpl:1
+msgid "Affichage d'une pièce"
+msgstr "Piece display"
+
+#: ../../../display/templates/gestion/pieceDisplay.tpl:8
+#: ../../../display/templates/gestion/photoChange.tpl:11
+#: ../../../display/templates/gestion/individuChange.tpl:35
+#, fuzzy
+msgid "Retour au poisson"
+msgstr "Back to the list of logins"
+
+#: ../../../display/templates/gestion/pieceDisplay.tpl:17
+msgid "Détail de la pièce"
+msgstr "Detail of the piece"
+
+#: ../../../display/templates/gestion/pieceDisplay.tpl:25
+#: ../../../display/templates/gestion/pieceChange.tpl:32
+msgid "Type de pièce :"
+msgstr "Piece type:"
+
+#: ../../../display/templates/gestion/pieceDisplay.tpl:32
+#: ../../../display/templates/gestion/pieceChange.tpl:45
+msgid "Code de la pièce :"
+msgstr "Piece code:"
+
+#: ../../../display/templates/gestion/pieceDisplay.tpl:37
+#: ../../../display/templates/gestion/pieceChange.tpl:52
+#, fuzzy
+msgid "Traitement effectué :"
+msgstr "Saved"
+
+#: ../../../display/templates/gestion/pieceDisplay.tpl:46
+#, fuzzy
+msgid "Photos rattachées"
+msgstr "Logins attached"
+
+#: ../../../display/templates/gestion/pieceDisplay.tpl:50
+#, fuzzy
+msgid "Nouvelle photo"
+msgstr "New application"
+
+#: ../../../display/templates/gestion/pieceDisplay.tpl:61
+#, fuzzy
+msgid "Date"
+msgstr "Date:"
+
+#: ../../../display/templates/gestion/pieceDisplay.tpl:62
+msgid "Couleur ?"
+msgstr "Color?"
+
+#: ../../../display/templates/gestion/pieceDisplay.tpl:63
+msgid "Dimensions"
+msgstr "Sizes"
+
+#: ../../../display/templates/gestion/pieceDisplay.tpl:64
+msgid "Miniature"
+msgstr "Thumbnail"
+
+#: ../../../display/templates/gestion/import.tpl:1
+#, fuzzy
+msgid "Import d'individus dans la base de données"
+msgstr "List of logins declared in the database"
+
+#: ../../../display/templates/gestion/import.tpl:8
+msgid "N° de ligne"
+msgstr "Line number"
+
+#: ../../../display/templates/gestion/import.tpl:9
+msgid "Anomalie(s) détectée(s)"
+msgstr "Detected anomalies"
+
+#: ../../../display/templates/gestion/import.tpl:30
+msgid "Nom du fichier à importer (CSV) :"
+msgstr "Name of the file to import (CSV):"
+
+#: ../../../display/templates/gestion/import.tpl:36
+msgid "Séparateur utilisé :"
+msgstr "Used separator:"
+
+#: ../../../display/templates/gestion/import.tpl:39
+msgid "Point-virgule"
+msgstr "Semicolon"
+
+#: ../../../display/templates/gestion/import.tpl:40
+msgid "Virgule"
+msgstr "Comma"
+
+#: ../../../display/templates/gestion/import.tpl:41
+msgid "Tabulation"
+msgstr "Tabulation"
+
+#: ../../../display/templates/gestion/import.tpl:46
+msgid "Encodage du fichier :"
+msgstr "File encoding:"
+
+#: ../../../display/templates/gestion/import.tpl:55
+msgid "Lancer les contrôles"
+msgstr "Start the controls"
+
+#: ../../../display/templates/gestion/import.tpl:66
+msgid "Contrôles OK. Vous pouvez réaliser l'import du fichier"
+msgstr "Checks OK. You can import the file"
+
+#: ../../../display/templates/gestion/import.tpl:67
+msgid "Déclencher l'import"
+msgstr "Start import"
+
+#: ../../../display/templates/gestion/import.tpl:74
+msgid ""
+"Pour importer des individus dans la base, préparez un fichier CSV avec les "
+"informations suivantes :"
+msgstr ""
+"For import fishes in the database, prepare a CSV file with theses "
+"informations:"
+
+#: ../../../display/templates/gestion/import.tpl:76
+msgid "code de l'expérimentation (obligatoire)"
+msgstr "Experimentation code (mandatory)"
+
+#: ../../../display/templates/gestion/import.tpl:76
+#, fuzzy
+msgid "Consultez la liste des expérimentations"
+msgstr "Back to the list of applications"
+
+#: ../../../display/templates/gestion/import.tpl:77
+#, fuzzy
+msgid "code de l'espèce (obligatoire)"
+msgstr "Mandatory data"
+
+#: ../../../display/templates/gestion/import.tpl:77
+#, fuzzy
+msgid "Consultez la liste des espèces"
+msgstr "Back to the list of groups"
+
+#: ../../../display/templates/gestion/import.tpl:78
+msgid ""
+"N° de l'étiquette posée sur le poisson (le codeindividu ou le tag sont "
+"obligatoires)"
+msgstr "Label number placed on the fish (codeindividu or tag are mandatory)"
+
+#: ../../../display/templates/gestion/import.tpl:79
+msgid "identifiant du poisson ou hptag"
+msgstr "fish identifier or hptag"
+
+#: ../../../display/templates/gestion/import.tpl:80
+msgid ""
+"sexe du poisson (1 : mâle, 2 : femelle, 3 : juvénile, 4 : indifférencié)"
+msgstr "Fish sexe (1: male, 2: female, 3: juvenile, 4: undifferentiated)"
+
+#: ../../../display/templates/gestion/import.tpl:81
+msgid "longueur du poisson (mm)"
+msgstr "filsh length (mm)"
+
+#: ../../../display/templates/gestion/import.tpl:82
+msgid "poids du poisson (g)"
+msgstr "fish weight (g)"
+
+#: ../../../display/templates/gestion/import.tpl:83
+msgid "remarques concernant le poisson"
+msgstr "Fish remarks"
+
+#: ../../../display/templates/gestion/import.tpl:84
+msgid "parasites éventuels rencontrés"
+msgstr "possible parasites encountered"
+
+#: ../../../display/templates/gestion/import.tpl:85
+msgid "âge du poisson"
+msgstr "Fish age"
+
+#: ../../../display/templates/gestion/import.tpl:86
+msgid "code du type de pièce calcifiée à analyser"
+msgstr "Code of the type of the calcified piece to analyse"
+
+#: ../../../display/templates/gestion/import.tpl:86
+msgid "Consultez la liste des types de pièces"
+msgstr "Show the list of the types of pieces"
+
+#: ../../../display/templates/gestion/import.tpl:87
+msgid ""
+"si le type de pièce est indiqué, vous pouvez renseigner un code spécifique "
+"attaché à la pièce"
+msgstr ""
+"If the type of the piece is specified, you can enter a specific code "
+"attached to the piece"
+
+#: ../../../display/templates/gestion/import.tpl:88
+msgid "date de la pêche, au format aaaa-mm-dd ou dd/mm/aaaa"
+msgstr "Fishing date, at format aaaa-mm-dd"
+
+#: ../../../display/templates/gestion/import.tpl:89
+msgid "site de la pêche"
+msgstr "Fishing site"
+
+#: ../../../display/templates/gestion/import.tpl:90
+msgid "zone précise de la pêche (précision concernant le site)"
+msgstr "precise area of fishing"
+
+#: ../../../display/templates/gestion/import.tpl:91
+msgid "campagne de pêche"
+msgstr "Fishing campaign"
+
+#: ../../../display/templates/gestion/import.tpl:92
+#, fuzzy
+msgid "engin utilisé"
+msgstr "Login used:"
+
+#: ../../../display/templates/gestion/import.tpl:93
+msgid "références du pêcheur"
+msgstr "references of the fisherman"
+
+#: ../../../display/templates/gestion/import.tpl:94
+msgid "références de l'opérateur ayant traité le poisson"
+msgstr "reference of the operator who treated the fish"
+
+#: ../../../display/templates/gestion/import.tpl:97
+msgid "Téléchargez un modèle de fichier CSV"
+msgstr "Download a model of CSV file"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:25
+msgid "Affichage d'une photo"
+msgstr "Display a photo"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:42
+#, fuzzy
+msgid "Modifier la photo..."
+msgstr "Edit"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:51
+#: ../../../display/templates/gestion/photoChange.tpl:39
+#, fuzzy
+msgid "Nom de la photo :"
+msgstr "Name of the application:"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:59
+#: ../../../display/templates/gestion/photoChange.tpl:58
+#, fuzzy
+msgid "Nom du fichier :"
+msgstr "Last name :"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:63
+#: ../../../display/templates/gestion/photoChange.tpl:64
+msgid "Date de prise de vue :"
+msgstr "Shooting date:"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:67
+#: ../../../display/templates/gestion/photoChange.tpl:70
+msgid "Couleur :"
+msgstr "Color:"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:69
+#: ../../../display/templates/gestion/photoChange.tpl:73
+msgid "Noir et blanc"
+msgstr "Black and white"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:69
+#: ../../../display/templates/gestion/photoChange.tpl:76
+#, fuzzy
+msgid "Couleur"
+msgstr "Value"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:73
+#: ../../../display/templates/gestion/photoChange.tpl:81
+msgid "Type de lumière :"
+msgstr "Light type:"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:77
+#: ../../../display/templates/gestion/photoChange.tpl:93
+msgid "Grossissement :"
+msgstr "Magnification:"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:81
+#: ../../../display/templates/gestion/photoChange.tpl:99
+msgid "Repère :"
+msgstr "Mark:"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:85
+msgid "URI :"
+msgstr "URI:"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:89
+#: ../../../display/templates/gestion/photoChange.tpl:111
+msgid "Repère de mesure - longueur de référence :"
+msgstr "Measurement mark - reference length:"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:93
+#: ../../../display/templates/gestion/photoChange.tpl:117
+msgid "Taille en pixels de la longueur de référence dans la photo :"
+msgstr "Size in pixels of the reference length into the photo:"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:97
+#: ../../../display/templates/gestion/photoChange.tpl:123
+msgid "Dimensions de la photo :"
+msgstr "Size of the photo:"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:103
+msgid ""
+"Attention : le temps de chargement peut être (très) long, selon la taille "
+"originale de la photo !"
+msgstr ""
+"Warning: the loading time can be very long, depending on the original size "
+"of the photo!"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:107
+msgid "Télécharger la photo dans le format original"
+msgstr "Download the photo in the original format"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:117
+msgid "Création d'une nouvelle lecture simple"
+msgstr "Create a new simple reading"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:125
+msgid "Résolution (approximative) de lecture :"
+msgstr "(Approximate) reading resolution:"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:132
+#: ../../../display/templates/gestion/photoDisplay.tpl:280
+msgid "format initial"
+msgstr "initial format"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:134
+msgid "Réaliser une nouvelle lecture"
+msgstr "Make a new reading"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:147
+msgid ""
+"Consultations individuelles, globales, modifications avec visualisation des "
+"points déjà tracés"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:152
+msgid ""
+"Afficher l'age calculé (nbre de points positionnés - 1) par chaque lecteur"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:156
+msgid ""
+"Masquer l'age calculé (nbre de points positionnés - 1) par chaque lecteur"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:169
+#, fuzzy
+msgid "Modification unique"
+msgstr "Authentication successful!"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:175
+msgid "Age ou nb de segments positionnés (nb points - 1)"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:176
+msgid "Strie finale"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:177
+msgid "Année de naissance estimée"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:178
+msgid "Fiabilité de la lecture"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:181
+msgid "Longueur totale lue"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:182
+msgid "Longueur réelle calculée"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:187
+msgid "Consulter..."
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:188
+msgid "Si coché, la lecture sélectionnée pourra être modifiée"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:188
+msgid "Lecture à modifier"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:273
+msgid "Résolution (approximative) d'affichage :"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:283
+msgid "Facteur de transparence des cercles affichés :"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:286
+msgid "Transparent"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:287
+msgid "Légèrement ombré"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:288
+msgid "Ombré"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:289
+msgid "Semi-opaque"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:290
+msgid "Opaque"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:299
+msgid "Avec création d'une nouvelle lecture :"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:306
+msgid ""
+"Déclencher l'affichage des lectures sélectionnées, avec ou sans création/"
+"modification d'une lecture"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:1
+msgid "Affichage du détail d'un individu"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:8
+msgid "Données générales"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:16
+#: ../../../display/templates/gestion/individuChange.tpl:74
+msgid "Code de l'individu :"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:20
+#: ../../../display/templates/gestion/individuCartouche.tpl:19
+#: ../../../display/templates/gestion/individuChange.tpl:82
+msgid "Tag :"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:24
+#: ../../../display/templates/gestion/individuChange.tpl:48
+msgid "Espèce :"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:28
+#: ../../../display/templates/gestion/individuChange.tpl:59
+msgid "Sexe :"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:32
+msgid "Longueur (mm):"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:36
+msgid "Poids (g):"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:40
+#: ../../../display/templates/gestion/individuChange.tpl:106
+msgid "Remarque :"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:44
+#: ../../../display/templates/gestion/individuChange.tpl:114
+#, fuzzy
+msgid "Parasite :"
+msgstr "Date:"
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:48
+#: ../../../display/templates/gestion/individuChange.tpl:122
+msgid "Age :"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:54
+#, fuzzy
+msgid "Pièces rattachées"
+msgstr "Logins attached"
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:58
+#, fuzzy
+msgid "Nouvelle pièce"
+msgstr "New application"
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:63
+msgid "Type"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:64
+msgid "Code"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:65
+#, fuzzy
+msgid "Traitement réalisé"
+msgstr "Processing..."
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:66
+#, fuzzy
+msgid "Nbre photos rattachées"
+msgstr "Logins attached"
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:85
+msgid "Expérimentation(s)"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:98
+#: ../../../display/templates/gestion/individuChange.tpl:130
+msgid "Données concernant la pêche"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:101
+#: ../../../display/templates/gestion/individuChange.tpl:133
+#, fuzzy
+msgid "Site :"
+msgstr "Date:"
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:105
+#: ../../../display/templates/gestion/individuChange.tpl:141
+msgid "Zone précise :"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:109
+#: ../../../display/templates/gestion/individuCartouche.tpl:16
+#: ../../../display/templates/gestion/individuChange.tpl:149
+#, fuzzy
+msgid "Date de pêche :"
+msgstr "Password:"
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:113
+#: ../../../display/templates/gestion/individuChange.tpl:157
+msgid "Campagne :"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:117
+#: ../../../display/templates/gestion/individuChange.tpl:165
+#, fuzzy
+msgid "Engin :"
+msgstr "Login:"
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:121
+#: ../../../display/templates/gestion/individuChange.tpl:173
+msgid "Pêcheur :"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuDisplay.tpl:125
+#: ../../../display/templates/gestion/individuChange.tpl:181
+msgid "Opérateur :"
+msgstr ""
+
+#: ../../../display/templates/gestion/lecteurListe.tpl:4
+#, fuzzy
+msgid "Nouveau..."
+msgstr "New login"
+
+#: ../../../display/templates/gestion/lecteurListe.tpl:13
+#, fuzzy
+msgid "Prénom"
+msgstr "First name:"
+
+#: ../../../display/templates/gestion/lecteurListe.tpl:14
+#, fuzzy
+msgid "Login de connexion"
+msgstr "Sign out"
+
+#: ../../../display/templates/gestion/photoChange.tpl:1
+#, fuzzy
+msgid "Modification d'une photo"
+msgstr "Add / edit an account"
+
+#: ../../../display/templates/gestion/photoChange.tpl:51
+msgid "Fichier JPG ou TIFF contenant la photo :"
+msgstr ""
+
+#: ../../../display/templates/gestion/photoChange.tpl:105
+msgid "Adresse de stockage (fichiers dans arborescence) :"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuCartouche.tpl:10
+msgid "Code :"
+msgstr ""
+
+#: ../../../display/templates/gestion/lecteurChange.tpl:1
+#, fuzzy
+msgid "Modification d'un lecteur"
+msgstr "Add / edit an account"
+
+#: ../../../display/templates/gestion/lecteurChange.tpl:3
+#, fuzzy
+msgid "Retour à la liste des lecteurs"
+msgstr "Back to the list of logins"
+
+#: ../../../display/templates/gestion/lecteurChange.tpl:26
+msgid "Login de connexion :"
+msgstr ""
+
+#: ../../../display/templates/gestion/lecteurChange.tpl:33
+msgid "Expérimentations autorisées :"
+msgstr ""
+
+#: ../../../display/templates/gestion/pieceChange.tpl:1
+#, fuzzy
+msgid "Modification d'une pièce"
+msgstr "Add / edit an account"
+
+#: ../../../display/templates/gestion/pieceChange.tpl:24
+msgid "Caractéristiques"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuListe.tpl:2
+msgid "Code de l'individu"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuListe.tpl:8
+#, fuzzy
+msgid "Nouveau poisson..."
+msgstr "New login"
+
+#: ../../../display/templates/gestion/individuListe.tpl:15
+msgid "Code individu"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuListe.tpl:16
+msgid "Tag"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuListe.tpl:17
+msgid "Espèce"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuListe.tpl:19
+msgid "Sexe"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuListe.tpl:20
+msgid "Nbre de pièces"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuListe.tpl:21
+msgid "Date de pêche"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuListe.tpl:22
+msgid "Zone de pêche"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuListe.tpl:23
+msgid "Expérimentation"
+msgstr ""
+
+#: ../../../display/templates/gestion/piecetypeList.tpl:1
+#, fuzzy
+msgid "Liste des types de pièces"
+msgstr "List of groups of logins"
+
+#: ../../../display/templates/gestion/piecetypeList.tpl:4
+#, fuzzy
+msgid "Nouveau type de pièce..."
+msgstr "New root group"
+
+#: ../../../display/templates/gestion/especeChange.tpl:1
+#, fuzzy
+msgid "Modification d'une espèce"
+msgstr "Add / edit an account"
+
+#: ../../../display/templates/gestion/especeChange.tpl:10
+#, fuzzy
+msgid "Description de l'espèce"
+msgstr "Description:"
+
+#: ../../../display/templates/gestion/especeChange.tpl:18
+#, fuzzy
+msgid "Nom latin :"
+msgstr "Name of the application:"
+
+#: ../../../display/templates/gestion/especeChange.tpl:25
+#, fuzzy
+msgid "Nom français :"
+msgstr "French"
+
+#: ../../../display/templates/gestion/individuChange.tpl:26
+#, fuzzy
+msgid "Modification d'un poisson"
+msgstr "Add / edit an account"
+
+#: ../../../display/templates/gestion/individuChange.tpl:51
+msgid "espèce à chercher"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuChange.tpl:51
+msgid "Tapez au moins 3 caractères..."
+msgstr ""
+
+#: ../../../display/templates/gestion/individuChange.tpl:63
+msgid "Sélectionnez..."
+msgstr ""
+
+#: ../../../display/templates/gestion/individuChange.tpl:90
+msgid "Longueur (mm) :"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuChange.tpl:98
+msgid "Poids (g) :"
+msgstr ""
+
+#: ../../../display/templates/gestion/individuChange.tpl:198
+msgid "Liste des expérimentations de rattachement"
+msgstr ""
 
 #: ../../../display/templates/entete.tpl:34
 msgid "Mot de passe"
 msgstr "Password"
+
+#~ msgid "Gestion"
+#~ msgstr "Modules"
+
+#~ msgid "Modules de l'application"
+#~ msgstr "Application modules"
+
+#~ msgid "Exemple"
+#~ msgstr "Example"
+
+#~ msgid "Exemple de module"
+#~ msgstr "Module example"
+
+#~ msgid "Page d'accueil de l'application"
+#~ msgstr "Application home page"

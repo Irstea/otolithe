@@ -38,7 +38,7 @@ $(".auto").change( function () {
 {t}Site de pêche :{/t}
 </label>
 <div class="col-sm-4">
-<select class="auto form-control" id="site" name="site">
+<select class="auto form-control combobox" id="site" name="site">
 <option value="">{t}Sélectionnez le site global de pêche{/t}</option>
 {section name="lst" loop=$site}
 <option value="{$site[lst].site}" {if $site[lst].site == $lectureSearch.site}selected{/if}>
@@ -52,7 +52,7 @@ $(".auto").change( function () {
 {t}Zone précise de pêche :{/t}
 </label>
 <div class="col-sm-4">
- <select class="auto form-control" name="zonesite">
+ <select class="auto form-control combobox" name="zonesite">
 <option value="">{t}Sélectionnez le site précis de pêche{/t}</option>
 {section name="lst" loop=$zone}
 <option value="{$zone[lst].zonesite}" {if $zone[lst].zonesite == $lectureSearch.zonesite}selected{/if}>
