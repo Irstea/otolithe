@@ -32,6 +32,22 @@
 <input id="exp_fin" class="form-control datepicker" name="exp_fin" value="{$data.exp_fin}" >
 </div>
 </div>
+<fieldset>
+<legend>{t}Liste des lecteurs rattachés{/t}</legend>
+{foreach $lecteurs as $lecteur}
+<div class="col-sm-10 col-sm-offset-2">
+      <div class="checkbox">
+        <label>
+<input type="checkbox" name="lecteur_id[]" {if $lecteur["is_reader"] == 1}checked{/if} value="{$lecteur["lecteur_id"]}">
+&nbsp;
+{$lecteur["lecteur_prenom"]}&nbsp;{$lecteur["lecteur_nom"]}
+</label>
+</div>
+</div>
+{/foreach}
+
+</fieldset>
+
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.exp_id > 0 }

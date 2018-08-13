@@ -145,7 +145,6 @@ switch ($t_module["param"]) {
         $_REQUEST["original_format"] == 1 ? $isOrigin = true : $isOrigin = false;
         try {
         $photoname = $dataClass->getPhotoName($id,  0, $_REQUEST["sizeX"], $_REQUEST["sizeY"], $isOrigin);
-        printr($photoname);
         }catch (PhotoException $pe) {
             $message->setSyslog($pe->getMessage());
         }

@@ -244,6 +244,19 @@ class Experimentation extends ObjetBdd {
 		parent::__construct ( $bdd, $param );
 	}
 	/**
+	 * Ajout de la mise a jour de la liste des lecteurs
+	 * {@inheritDoc}
+	 * @see ObjetBDD::ecrire()
+	 */
+	function ecrire($data) { 
+	    $id = parent::ecrire($data);
+	    if ($id > 0) {
+	        $this->ecrireTableNN("lecteur_experimentation", "exp_id", "lecteur_id", $id, $data["lecteur_id"]);
+	    }
+	    return $id;
+	}
+	
+	/**
 	 * Reecriture de l'affichage de la liste
 	 * (non-PHPdoc)
 	 *
@@ -306,6 +319,21 @@ class Experimentation extends ObjetBdd {
 					order by exp_nom";
 			return $this->getListeParam ( $sql );
 		}
+	}
+	/**
+	 * Retourne les lecteurs associes a une experimentation
+	 * @param int $exp_id
+	 * @return array|string[]|array[]|string|boolean
+	 */
+	function getReaders($exp_id) {
+	    $sql = "select l.lecteur_id, login, lecteur_nom, lecteur_prenom, 
+                case when exp_id is not null then 1 else 0 end as is_reader
+                from lecteur l
+                left outer join lecteur_experimentation le on (l.lecteur_id = le.lecteur_id and exp_id = :exp_id)
+               order by lecteur_nom, lecteur_prenom
+	           "
+	    ;
+	    return $this->getListeParamAsPrepared($sql, array("exp_id"=>$exp_id));
 	}
 	
 	/**

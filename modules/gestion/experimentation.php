@@ -26,6 +26,8 @@ switch ($t_module["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		dataRead($dataClass, $id, "gestion/experimentationChange.tpl");
+		$vue->set($dataClass->getReaders($id),"lecteurs");
+		
         break;
     case "write":
 		/*
