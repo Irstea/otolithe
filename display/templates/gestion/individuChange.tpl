@@ -62,7 +62,7 @@ $("#recherche").keyup(function() {
 						<select id="sexe_id" class="form-control" name="sexe_id">
 						<option value="" {if $data.sexe_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
 						{section name=lst loop=$sexes}
-						<option value="{$sexes[lst].sexe_id}" {if $sexes[lst].sexe_id} = $data.sexe_id}selected{/if}>
+						<option value="{$sexes[lst].sexe_id}" {if $sexes[lst].sexe_id == $data.sexe_id}selected{/if}>
 						{$sexes[lst].sexe_libelle}
 						</option>
 						{/section}

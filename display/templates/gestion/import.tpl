@@ -77,12 +77,12 @@
 <li><b>espece_id</b> : {t}code de l'espèce (obligatoire){/t} <a href="index.php?module=especeList">{t}Consultez la liste des espèces{/t}</a></li>
 <li><b>tag</b> : {t}N° de l'étiquette posée sur le poisson (le codeindividu ou le tag sont obligatoires){/t}</li>
 <li><b>codeindividu</b> : {t}identifiant du poisson ou hptag{/t}</li>
-<li><b>sexe</b> : {t}sexe du poisson (1 : mâle, 2 : femelle, 3 : juvénile, 4 : indifférencié){/t}</li>
+<li><b>sexe_id</b> : {t}sexe du poisson (1 : mâle, 2 : femelle, 3 : juvénile, 4 : indifférencié){/t}</li>
 <li><b>longueur</b> : {t}longueur du poisson (mm){/t}</li>
 <li><b>poids</b> : {t}poids du poisson (g){/t}</li>
 <li><b>remarque</b> : {t}remarques concernant le poisson{/t}</li>
 <li><b>parasite</b> : {t}parasites éventuels rencontrés{/t}</li>
-<li><b>age</b> : {t}âge du poisson (g){/t}</li>
+<li><b>age</b> : {t}âge du poisson{/t}</li>
 <li><b>piecetype_id</b> : {t}code du type de pièce calcifiée à analyser{/t} <a href="index.php?module=piecetypeList">{t}Consultez la liste des types de pièces{/t}</a></li>
 <li><b>piececode</b> : {t}si le type de pièce est indiqué, vous pouvez renseigner un code spécifique attaché à la pièce{/t}</li>
 <li><b>peche_date</b> : {t}date de la pêche, au format aaaa-mm-dd ou dd/mm/aaaa{/t}</li>

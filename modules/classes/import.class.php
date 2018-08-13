@@ -45,7 +45,7 @@ class Import
         "espece_id",
         "tag",
         "codeindividu",
-        "sexe",
+        "sexe_id",
         "longueur",
         "poids",
         "remarque",
@@ -64,7 +64,8 @@ class Import
 
     private $colnum = array(
         "poids",
-        "longueur"
+        "longueur",
+        "sexe_id"
     );
 
     private $handle;
@@ -228,7 +229,7 @@ class Import
                 } catch (PDOException $pe) {
                     throw new ImportException("PDOException - Line $num: error when import data. " . $pe->getMessage());
                 } catch (ObjetBDDException $oe) {
-                    throw new ImportException("Line $num: error when importing data. ".$oe->getMessage());
+                    throw new ImportException("Line $num: error when importing data. " . $oe->getMessage());
                 }
                 /*
                  * Mise a jour des bornes de l'uid
@@ -268,11 +269,12 @@ class Import
      * @param array $piecetype
      * @param array $espece
      */
-    function initControl($experimentation, $piecetype, $espece)
+    function initControl($experimentation, $piecetype, $espece, $sexe)
     {
         $this->experimentation = $experimentation;
         $this->piecetype = $piecetype;
         $this->espece = $espece;
+        $this->sexe = $sexe;
     }
 
     /**
@@ -346,6 +348,24 @@ class Import
             $retour["code"] = false;
             $retour["message"] .= " " . _("Le numéro d'espèce est manquant ou non connu.");
         }
+
+        /*
+         * Verification du sexe
+         */
+        if (strlen($data["sexe_id"]) > 0) {
+            $ok = false;
+            foreach ($this->sexe as $value) {
+                if ($data["sexe_id"] == $value["sexe_id"]) {
+                    $ok = true;
+                    break;
+                }
+            }
+            if ($ok == false) {
+                $retour["code"] = false;
+                $retour["message"] .= " " . _("Le sexe indiqué n'existe pas dans la base de données.");
+            }
+        }
+
         /*
          * Verification que le type de la piece soit renseigne si le code de
          * la piece est renseigne

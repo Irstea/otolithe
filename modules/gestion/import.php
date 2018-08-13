@@ -21,9 +21,10 @@ $individu = new Individu( $bdd, $ObjetBDDParam );
 $piece = new  Piece( $bdd, $ObjetBDDParam );
 $peche = new Peche($bdd, $ObjetBDDParam);
 $ie = new Individu_experimentation($bdd, $ObjetBDDParam);
+$sexe = new Sexe($bdd, $ObjetBDDParam);
 
 $import->initClasses ( $individu, $piece, $ie, $peche );
-$import->initControl ( $_SESSION ["experimentations"], $piecetype->getList(), $espece->getList());
+$import->initControl ( $_SESSION ["experimentations"], $piecetype->getList(), $espece->getList(), $sexe->getListe());
 /*
  * Traitement
  */
