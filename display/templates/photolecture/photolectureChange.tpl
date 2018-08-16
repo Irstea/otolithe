@@ -238,60 +238,59 @@ function setCircle(svg, x, y, rayon_initial) {
 </div>
 </div>
 </div>
-
+<!-- Affichage de la photo -->
 <div id="container" class="col-sm-12 container">
 </div>
+
+<!-- Parametres de saisie -->
 <div class="form-horizontal col-sm-12">
 <div class="row">
-<div class="form-group">
- <div class="col-sm-offset-1">
-<label for="modeLecture" class="control-label">
+<div class="form-group col-sm-12">
+
+<div class="col-sm-12">
+<label for="modeLecture" class="control-label col-sm-4">
 {t}Type de lecture pour le prochain point :{/t}
 </label>
-<select class="form-control" id="modeLecture">
+<select class="form-control col-sm-8" id="modeLecture">
 <option value="0">{t}Point initial avec cercle élargi{/t}</option>
 <option value="1">{t}Lecture des points{/t}</option>
 <option value="2">{t}Mesure de la longueur de référence{/t}</option>
 <option value="3">{t}Tracé d'une ligne sur la photo (aide à la mesure){/t}</option>
 </select>
-
-<label for="photo_height" class="control-label">
+</div>
+<label for="photo_height" class="control-label col-sm-4">
 {t}Taille originale de la photo :{/t} 
 </label>
+<div class="col-sm-8">
 <input name="photo_width" class="form-control" id="photo_width" value="{$photo.photo_width}" readonly>
 x
 <input name="photo_height" class="form-control" id="photo_height" value="{$photo.photo_height}" readonly>
 </div>
-</div>
-</div>
-<div class="row">
-<div class="form-group">
- <div class="col-sm-offset-1">
- <label for="image_width" class="control-label">
+ <label for="image_width" class="control-label col-sm-4">
 {t}Taille de lecture de la photo :{/t}
 </label>
+<div class="col-sm-8">
 <input  class="form-control" name="photolecture_width" id="image_width" value="{$image_width}" readonly>x
 <input  class="form-control" name="photolecture_height" id="image_height" value="{$image_height}" readonly>
+</div>
 
- <label for="coef_correcteur" class="control-label">
+ <label for="coef_correcteur" class="control-label col-sm-4">
 {t}Coefficient de correction de la taille :{/t} 
 </label>
-<input class="form-control" name="coef_correcteur" id="coef_correcteur" value="{$coef_correcteur}" readonly>
-</div>
-</div>
+<input class="form-control col-sm-8" name="coef_correcteur" id="coef_correcteur" value="{$coef_correcteur}" readonly>
 </div>
 
-<div class="row">
-<div class="form-group">
- <div class="col-sm-offset-1">
- <label for="rayon_cercle" class="control-label">
+ <label for="rayon_cercle" class="control-label col-sm-4">
 {t}Rayon (en pixels) du cercle élargi :{/t}
 </label>
+<div class="col-sm-8">
 <input id="rayon_cercle" class="form-control" name="rayon_point_initial" value="{$data.rayon_point_initial}">
-<label for="calculAuto" class="control-label">
+</div>
+
+<label for="calculAuto" class="control-label col-sm-4">
 {t}Recalcul automatique de l'ordre des points ?{/t} 
 </label>
-
+<div class="col-sm-8">
 <label class="radio-inline" id="calculAuto">
 <input type="radio" id="calculAuto1" name="calculAuto" value="1" checked>{t}oui{/t}
 </label>
@@ -299,14 +298,11 @@ x
 <input type="radio" id="calculAuto0" name="calculAuto" value="0" >{t}non{/t}
 </label>
 </div>
-</div>
-</div>
-<div class="row">
-<div class="form-group">
- <div class="col-sm-offset-1">
-<label for="rayon_cercle" class="control-label">
+
+<label for="rayon_cercle" class="control-label col-sm-4">
 {t}Nature de la strie finale :{/t} 
 </label>
+<div class="col-sm-8">
 <select name="final_stripe_id" id="final_stripe_id" class="form-control">
 <option value="" {if $data.final_stripe_id == ""}selected{/if}></option>
 {section name=lst loop=$finalStripe}
@@ -315,9 +311,12 @@ x
 </option>
 {/section}
 </select>
-<label for="read_fiability" class="control-label">
+</div>
+
+<label for="read_fiability" class="control-label col-sm-4">
 {t}Fiabilité de la lecture :{/t} 
 </label>
+<div class="col-sm-8">
 <select name="read_fiability" id="read_fiability" class="form-control">
 <option value="" {if $data.read_fiability == ""}selected{/if}></option>
 <option value="0" {if $data.read_fiability == "0"}selected{/if}>0</option>
@@ -325,14 +324,10 @@ x
 <option value="1" {if $data.read_fiability == "1"}selected{/if}>1</option>
 </select>
 </div>
-</div>
-</div>
-<div class="row">
-<div class="form-group">
- <div class="col-sm-offset-1">
-<label for="consensual_reading" class="control-label">
+<label for="consensual_reading" class="control-label col-sm-4">
 {t}Lecture consensuelle :{/t}
 </label>
+<div class="col-sm-8">
 <label class="radio-inline" id="consensual_reading">
 <input type="radio" value="1" name="consensual_reading" {if $data.consensual_reading == 1}checked{/if}>{t}oui{/t}
 </label>
@@ -346,7 +341,7 @@ x
 </div>
 </div>
 </div>
-</div>
+
 <fieldset class="col-sm-12">
 <legend>{t}Points sélectionnés{/t}</legend>
 <table id="tableData" class="table table-bordered ">
