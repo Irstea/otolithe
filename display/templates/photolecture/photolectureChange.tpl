@@ -1,11 +1,8 @@
 <script type="text/javascript" src="/display/javascript/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/display/javascript/jquery-svg-1.5/jquery.svg.min.js"></script>
-
+<link type="text/css" href="/display/javascript/jquerysvg/jquery.svg.css" rel="stylesheet">
 <style type="text/css">
-@import "/display/javascript/jquerysvg/jquery.svg.css";
-{literal}
 body > iframe { display: none; }
-{/literal}
 </style>
 
 <script>
@@ -17,11 +14,11 @@ var pointLigneY;
 var pointLigne2X;
 var pointLigne2Y;
 
-$(function(){
-	var image_witdh = $('#image_width').val();
+$(document).ready(function(){
+	var image_width = $('#image_width').val();
 	var image_height = $('#image_height').val();
 	$('#container')
-	.css({ "width":image_width+"px","height":image_height+"px","border":"0px"}) 
+	.css({ "width":image_width+"px","height":image_height+"px","border":"none"}) 
 	.svg({ onLoad: drawIntro})
 	
 });
@@ -221,14 +218,16 @@ function setCircle(svg, x, y, rayon_initial) {
 <input type="hidden" name="photolecture_id" value="{$data.photolecture_id}">
 <div class="col-sm-12">
 <div class="row">
-<div class="form-group">
-<div class="col-sm-offset-1">
+<div class="form-group col-sm-12">
+<div class="col-sm-6">
 <label class="form-label" for="valider1">
 {t}Enregistrez les points positionnés :{/t} 
 </label>
 <button type="submit" class="btn btn-primary" id="valider1">
 {t}Valider{/t}
 </button>
+</div>
+<div class="col-sm-6">
 <label class="form-label" for="resetCompteur1">
 {t}Si tous les points ont été supprimés, vous pouvez :{/t} 
 </label>
@@ -238,8 +237,9 @@ function setCircle(svg, x, y, rayon_initial) {
 </div>
 </div>
 </div>
+</div>
 
-<div id="container">
+<div id="container" class="col-sm-12 container">
 </div>
 <div class="form-horizontal col-sm-12">
 <div class="row">
@@ -347,10 +347,9 @@ x
 </div>
 </div>
 </div>
-</div>
 <fieldset class="col-sm-12">
 <legend>{t}Points sélectionnés{/t}</legend>
-<table id="tableData" class="table table-bordered datatable-nopaging-nosort">
+<table id="tableData" class="table table-bordered ">
 <tr>
 <td colspan='5'>
 <label class="form-label" for="valider_bas">
