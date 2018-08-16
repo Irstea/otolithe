@@ -112,26 +112,29 @@ $(document).ready(function() {
 
 {if $droits.lecture == 1}
 <div class="row">
-<div class="col-sm-12 col-md-8">
-<fieldset>
+
+
+<fieldset class="col-sm-12 col-md-8">
 <legend>{t}Création d'une nouvelle lecture simple{/t}</legend>
-<form class="form-horizontal  form-inline" name="lecture" action="index.php" method="get">
+<div class="row">
+<form class=" protoform form-inline" name="lecture" action="index.php" method="get">
 <input type="hidden" name="module" value="photolectureChange">
 <input type="hidden" name="photo_id" value="{$data.photo_id}">
 <input type="hidden" name="photolecture_id" value="0">
-<div class="form-group">
-<div class="col-sm-offset-1">
-<label class="control-label" for="resolution">
+
+<div class="form-group col-sm-12 form-horizontal">
+
+<label class="control-label col-sm-6" for="resolution">
 {t}Résolution (approximative) de lecture :{/t}
 </label>
-<select class="resolution form-control" name="resolution" id="resolution">
+<select class="resolution form-control col-sm-3" name="resolution" id="resolution">
 <option  value="1">800x600</option>
 <option  value="2">1024x768</option>
 <option  value="3">1280x1024</option>
 <option  value="4">1600x1300</option>
 <option value="5">{t}format initial{/t}</option>
 </select>
-<button type="submit" class="btn btn-primary button-valid">{t}Réaliser une nouvelle lecture{/t}</button>
+<button type="submit" class="btn btn-primary button-valid col-sm-3">{t}Réaliser une nouvelle lecture{/t}</button>
 </div>
 </form>
 </div>
@@ -139,7 +142,7 @@ $(document).ready(function() {
 </div>
 
 {/if}
-
+<div class="row">
 <div class="col-sm-12">
 <fieldset>
 
@@ -267,8 +270,7 @@ $(document).ready(function() {
 </table>
 <div class="form-horizontal col-sm-12">
 <div class="row">
-<div class="form-group">
-<div class="col-sm-offset-1">
+<div class="form-group col-sm-12">
 <label for="resolution">
 {t}Résolution (approximative) d'affichage :{/t}
 </label>
@@ -291,23 +293,21 @@ $(document).ready(function() {
 </select>
 </div>
 </div>
-</div>
 <div class="row">
-<div class="col-sm-offset-1">
-<div class="form-group">
+<div class="form-group col-sm-12 col-md-8">
+<div class="col-sm-6">
 <label for="resolution">
 {t}Avec création d'une nouvelle lecture :{/t} 
 </label>
 <input type="checkbox" name="photolecture_id_modif" value="0" id="photolecture_id_modif">
 </div>
-</div>
-<div class="center">
+<div class="center col-sm-6">
 <button  type="submit" class="btn btn-primary button-valid">
 {t}Déclencher l'affichage des lectures sélectionnées, avec ou sans création/modification d'une lecture{/t}
 </button>
 </div>
 </div>
-</div>
+
 
 </form>
 </fieldset>
