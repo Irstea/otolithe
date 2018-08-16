@@ -155,13 +155,9 @@ class Individu extends ObjetBdd
     {
         if ($id > 0 && is_numeric($id)) {
             $sql = "select individu_id, nom_id, peche_id, codeindividu, tag, longueur, poids, 
-					remarque, parasite, age, sexe_libelle,
-					naturetraitement_libelle, semaine_dissection, mortalite,
-					peche_date
+					remarque, parasite, age, sexe_libelle, peche_date
 				from " . $this->table . " 
 						left outer join sexe using (sexe_id)
-						left outer join traitementindividu using (individu_id)
-						left outer join naturetraitement using (naturetraitement_id)
 						left outer join espece using (espece_id)
 						left outer join peche using (peche_id)
 						where individu_id = " . $id;
@@ -591,42 +587,4 @@ class Naturetraitement extends ObjetBdd
     }
 }
 
-/**
- * ORM de gestion de la table traitementindividu
- *
- * @author quinton
- *        
- */
-class Traitementindividu extends ObjetBdd
-{
-
-    function __construct($bdd, $param)
-    {
-        $this->param = $param;
-        $this->table = "traitementindividu";
-        $this->id_auto = 1;
-        $this->colonnes = array(
-            "traitementindividu_id" => array(
-                "type" => 1,
-                "key" => 1,
-                "requis" => 1
-            ),
-            "individu_id" => array(
-                "type" => 1,
-                "requis" => 1,
-                "parentAttrib" => 1
-            ),
-            "semaine_dissection" => array(
-                "longueur" => 255
-            ),
-            "mortalite" => array(
-                "longueur" => 255
-            )
-        );
-        if (! is_array($param))
-            $param == array();
-        $param["fullDescription"] = 1;
-        parent::__construct($bdd, $param);
-    }
-}
 ?>
