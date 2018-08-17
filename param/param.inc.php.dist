@@ -1,0 +1,164 @@
+<?php
+/** Fichier cree le 4 mai 07 par quinton
+ * Renommez le fichier en param.inc.php
+ * ajustez les parametres a votre implementation
+ * conservez une sauvegarde de ces parametres pour ne pas les perdre 
+ * lors de la mise en place d'une nouvelle version
+ * tous les parametres presents dans param.default.inc.php peuvent etre utilises
+ * rename this file to param.inc.php
+ * adjust params to your implementation
+ * please, backup this file
+ * you can use all params from param.default.inc.php
+ */
+ /*
+  * Affichage des erreurs et des messages
+  * display errors and messages
+  */
+$APPLI_modeDeveloppement = false;
+$_ERROR_display = 0;
+$ERROR_level = E_ERROR ;
+$OBJETBDD_debugmode = 0;
+
+/*
+ * code de l'application dans la gestion des droits
+ */
+$GACL_aco = "otolithe";
+
+/*
+ * Mode d'identification
+ * BDD : uniquement a partir des comptes internes / internal accounts
+ * LDAP : uniquement a partir des comptes de l'annuaires LDAP / LDAP accounts only
+ * LDAP-BDD : essai avec le compte LDAP, sinon avec le compte interne / LDAP account, on fail internal account
+ * CAS : identification auprès d'un serveur CAS / CAS server only
+ */
+$ident_type = "BDD";
+ /*
+  * Adresse du serveur CAS
+  * CAS server address
+  */
+// $CAS_address = "http://localhost/CAS";
+/*
+ * Parametres concernant la base de donnees
+ * Database parameters
+ */
+$BDD_login = "otolithe";
+$BDD_passwd = "otolithePassword";
+$BDD_dsn = "pgsql:host=localhost;dbname=otolithe";
+$BDD_schema = "otolithe,gacl,public";
+
+/*
+ * Rights management, logins and logs records database
+ */
+$GACL_dblogin = "otolithe";
+$GACL_dbpasswd = "otolithePassword";
+$GACL_aco = "otolithe";
+$GACL_dsn = "pgsql:host=localhost;dbname=otolithe";
+$GACL_schema = "gacl";
+
+/*
+ * Lien vers le site d'assistance
+ * help site address
+ */
+//$APPLI_assist_address = "https://gitlab.irstea.fr/eabx-applis_web/otolithe/issues/new";
+/*
+ * Adresse d'acces a l'application (figure dans les mails envoyes)
+ * URL of software (in send emails)
+ */
+$APPLI_address = "https://otolithe.adressecomplete.com";
+/*
+ * Adresse mail figurant dans le champ expediteur, lors de l'envoi de mails
+ * mail sender
+ */
+$APPLI_mail = "nepasrepondre@otolithe.adressecomplete.com";
+/*
+ * Activer l'envoi de mails
+ */
+//$MAIL_enabled = 1;
+/*
+ * Activer la fonction de reinitialisation d'un mot de passe perdu
+ * identification de type BDD ou LDAP-BDD pour les comptes declares localement
+ * necessite que l'envoi de mails soit possible ($MAIL_enabled = 1)
+  * activation of reinit lost password function
+  * mail send must be activate with $MAIL_enabled = 1
+ */
+$APPLI_lostPassword = 1;
+/*
+ * Cles utilisees pour la generation des jetons
+ * cryptographics key used for token generation
+ */
+$privateKey = "param/id_otolithe";
+$pubKey = "param/id_otolithe.pub";
+
+
+
+/*
+ * Configuration LDAP / LDAP configuration
+ */
+$LDAP ["address" ] = "localhost";
+/*
+ * pour une identification en LDAPS :
+ * port = 636
+ * tls = true;
+ */
+$LDAP ["port" ] = 636;
+$LDAP [ "tls"] = true;
+/*
+ * chemin d'accès a l'identification
+ */
+$LDAP [ "basedn"] = "ou=people,ou=example,o=societe,c=fr";
+$LDAP [ "user_attrib" ] = "uid";
+/* 
+ * Pour une authentification LDAP à un Active Directory
+ * avec le User Principal Name (UPN) de la forme sAMAccountName@UPN_Suffix
+ * pour ne demander que le sAMAccountName à l'utilisateur
+ * alors définir le upn_suffix en décommentant les lignes ci-dessous
+ * pour demander l'UPN entier à l'utilisateur
+ * alors définir le upn_suffix à une chaîne vide : $LDAP [ "upn_suffix"] = "";
+ *
+ * For LDAP authentification with Active directory, with User Principal Name (UPN) 
+ * as sAMAccountName@UPN_Suffix, 
+ * uncomment theses lines.
+ * to request the entire UPN from the user, 
+ * define upn_suffix as: $LDAP [ "upn_suffix"] = "";
+ */
+//$LDAP [ "basedn"] = ""; 
+//$LDAP [ "user_attrib" ] = "";
+//$LDAP [ "upn_suffix"] = "mydomain.lan";
+
+
+/*
+ * Recherche des groupes dans l'annuaire LDAP
+ * Decommenter la premiere ligne pour activer la fonction
+ *
+ * for research groups in LDAP directory, uncomment the first line
+ */
+ //$LDAP [ "groupSupport" ] = true;
+$LDAP [ "groupAttrib" ] = "supannentiteaffectation";
+$LDAP [ "commonNameAttrib" ] = "displayname";
+$LDAP [ "mailAttrib" ] = "mail";
+$LDAP [ 'attributgroupname' ] = "cn";
+$LDAP [ 'attributloginname' ] = "memberuid";
+$LDAP [ 'basedngroup' ] = 'ou=group,ou=example,o=societe,c=fr';
+
+/*
+ * Chemin d'acces au fichier param.ini
+ * Consultez la documentation pour plus d'informations
+ * param.ini path. Show doc.
+ */
+$paramIniFile = "./param.ini";
+/*
+ * Traitement de param.ini dans un contexte multi-bases (cf. documentation)
+ */
+//$chemin = substr($_SERVER["DOCUMENT_ROOT"],0, strpos($_SERVER["DOCUMENT_ROOT"],"/bin"));
+//$paramIniFile = "$chemin/param.ini";
+
+/*
+ * Parametres SMARTY complementaires, charges systematiquement
+ * Ne pas modifier !
+ * SMARTY params
+ * don't change theses lines! 
+ */
+$SMARTY_variables["melappli"] = $APPLI_mail;
+$SMARTY_variables["ident_type"] = $ident_type;
+$SMARTY_variables["appliAssist"] = $APPLI_assist_address;
+?>

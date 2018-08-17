@@ -13,7 +13,7 @@
   <table id="TAB1" populated="true" UUID="f4f0c874-fbe0-4a78-9135-94f7ba91facb" name="lecteur" objectType="TABLE" physicalName="lecteur" >
    <remarks>personne realisant la lecture d&apos;une photo</remarks>
    <folder id="FOLTAB11" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL2" populated="true" UUID="35019adb-ffae-4fe5-854c-ebcc93ebe5ad" autoIncrement="true" defaultValue="nextval(&apos;seq_lecteur_lecteur_id&apos;::regclass)" name="lecteur_id" nullable="0" physicalName="lecteur_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL2" populated="true" UUID="35019adb-ffae-4fe5-854c-ebcc93ebe5ad" autoIncrement="true" defaultValue="" name="lecteur_id" nullable="0" physicalName="lecteur_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL3" populated="true" UUID="91f0e1ca-03f0-40cb-90b9-dad19dd8c23c" autoIncrement="false" defaultValue="" name="login" nullable="0" physicalName="login" precision="0" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
@@ -39,7 +39,7 @@
   <table id="TAB8" populated="true" UUID="14add449-8c2c-4f7b-b590-9bd3890555b2" name="piecetype" objectType="TABLE" physicalName="piecetype" >
    <remarks>Type de piece</remarks>
    <folder id="FOLTAB81" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL9" populated="true" UUID="1bf637ca-79f4-4100-b351-de5242b4e258" autoIncrement="true" defaultValue="nextval(&apos;seq_piecetype_piecetype_id&apos;::regclass)" name="piecetype_id" nullable="0" physicalName="piecetype_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL9" populated="true" UUID="1bf637ca-79f4-4100-b351-de5242b4e258" autoIncrement="true" defaultValue="" name="piecetype_id" nullable="0" physicalName="piecetype_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL10" populated="true" UUID="f7f681d0-c73d-45e3-8b20-20ab8f9e2722" autoIncrement="false" defaultValue="" name="piecetype_libelle" nullable="0" physicalName="piecetype_libelle" precision="0" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
@@ -82,7 +82,7 @@
   <table id="TAB19" populated="true" UUID="74fa6793-0614-4826-8a54-75fe01914236" name="piece" objectType="TABLE" physicalName="piece" >
    <remarks>Pieces analysees</remarks>
    <folder id="FOLTAB191" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL20" populated="true" UUID="f886649b-0ff8-4ee3-8351-5a3106b44672" autoIncrement="true" defaultValue="nextval(&apos;seq_piece_piece_id&apos;::regclass)" name="piece_id" nullable="0" physicalName="piece_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL20" populated="true" UUID="f886649b-0ff8-4ee3-8351-5a3106b44672" autoIncrement="true" defaultValue="" name="piece_id" nullable="0" physicalName="piece_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL21" populated="true" UUID="c84ad91e-2243-4d34-a819-b57c8d7803fb" autoIncrement="false" defaultValue="" name="individu_id" nullable="0" physicalName="individu_id" precision="0" referenceCount="2" scale="0" sourceDataTypeName="int4" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
@@ -91,10 +91,10 @@
     <column id="COL22" populated="true" UUID="0ae87cae-e517-497d-90c9-dd9f56113595" autoIncrement="false" defaultValue="" name="piecetype_id" nullable="0" physicalName="piecetype_id" precision="0" referenceCount="2" scale="0" sourceDataTypeName="int4" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL23" populated="true" UUID="3cc587f1-3a8a-4598-92de-dc01b15695eb" autoIncrement="false" defaultValue="" name="piececode" nullable="1" physicalName="piececode" precision="255" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL23" populated="true" UUID="3944410b-ecc8-440f-b237-8f3ad84b6c31" autoIncrement="false" defaultValue="" name="traitementpiece_id" nullable="1" physicalName="traitementpiece_id" precision="0" referenceCount="2" scale="0" sourceDataTypeName="int4" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL24" populated="true" UUID="3944410b-ecc8-440f-b237-8f3ad84b6c31" autoIncrement="false" defaultValue="" name="traitementpiece_id" nullable="1" physicalName="traitementpiece_id" precision="0" referenceCount="2" scale="0" sourceDataTypeName="int4" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL24" populated="true" UUID="3cc587f1-3a8a-4598-92de-dc01b15695eb" autoIncrement="false" defaultValue="" name="piececode" nullable="1" physicalName="piececode" precision="255" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
     </folder>
@@ -111,10 +111,10 @@
   <table id="TAB27" populated="true" UUID="9c2d0d9d-ab7f-44e9-8ef4-fc84ee9d3b32" name="lecteur_experimentation" objectType="TABLE" physicalName="lecteur_experimentation" >
    <remarks>Table des experimentations autorisees pour un lecteur</remarks>
    <folder id="FOLTAB271" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL28" populated="true" UUID="8d2070d4-260c-459f-9f6e-f28e7f021fc8" autoIncrement="false" defaultValue="nextval(&apos;seq_lecteur_lecteur_id&apos;::regclass)" name="lecteur_id" nullable="0" physicalName="lecteur_id" precision="0" primaryKeySeq="0" referenceCount="2" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL28" populated="true" UUID="8d2070d4-260c-459f-9f6e-f28e7f021fc8" autoIncrement="false" defaultValue="" name="lecteur_id" nullable="0" physicalName="lecteur_id" precision="0" primaryKeySeq="0" referenceCount="2" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL29" populated="true" UUID="a2c53ab6-366a-4c6d-9908-2dece7bc0a9d" autoIncrement="false" defaultValue="nextval(&apos;otolithe.seq_experimentation_exp_id&apos;::regclass)" name="exp_id" nullable="0" physicalName="exp_id" precision="0" primaryKeySeq="1" referenceCount="2" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL29" populated="true" UUID="a2c53ab6-366a-4c6d-9908-2dece7bc0a9d" autoIncrement="false" defaultValue="" name="exp_id" nullable="0" physicalName="exp_id" precision="0" primaryKeySeq="1" referenceCount="2" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     </folder>
@@ -132,7 +132,7 @@
   <table id="TAB33" populated="true" UUID="558873fc-8cbb-44fe-8fd3-269f76f926f8" name="traitementpiece" objectType="TABLE" physicalName="traitementpiece" >
    <remarks></remarks>
    <folder id="FOLTAB331" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL34" populated="true" UUID="8f2bdc70-e327-494d-b842-9e74379c0ad1" autoIncrement="true" defaultValue="nextval(&apos;otolithe.traitementpiece_traitement_id_seq&apos;::regclass)" name="traitementpiece_id" nullable="0" physicalName="traitementpiece_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL34" populated="true" UUID="8f2bdc70-e327-494d-b842-9e74379c0ad1" autoIncrement="true" defaultValue="" name="traitementpiece_id" nullable="0" physicalName="traitementpiece_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL35" populated="true" UUID="fa4228f8-fcc0-4710-ae89-34802e1d2f24" autoIncrement="false" defaultValue="" name="traitementpiece_libelle" nullable="0" physicalName="traitementpiece_libelle" precision="0" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
@@ -172,7 +172,7 @@
   <table id="TAB43" populated="true" UUID="a6b61242-c142-4b97-91ce-9f7732972012" name="experimentation" objectType="TABLE" physicalName="experimentation" >
    <remarks>Experimentation a laquelle est rattache le poisson</remarks>
    <folder id="FOLTAB431" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL44" populated="true" UUID="665dc284-8a7c-4e65-a756-e863169b4d70" autoIncrement="true" defaultValue="nextval(&apos;otolithe.seq_experimentation_exp_id&apos;::regclass)" name="exp_id" nullable="0" physicalName="exp_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL44" populated="true" UUID="665dc284-8a7c-4e65-a756-e863169b4d70" autoIncrement="true" defaultValue="" name="exp_id" nullable="0" physicalName="exp_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL45" populated="true" UUID="960748ac-e550-4a93-97d9-e02d2e3f4885" autoIncrement="false" defaultValue="" name="exp_nom" nullable="0" physicalName="exp_nom" precision="0" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
@@ -201,7 +201,7 @@
   <table id="TAB51" populated="true" UUID="caedce5f-8852-4d8b-aaa0-08cda2bd4491" name="photolecture" objectType="TABLE" physicalName="photolecture" >
    <remarks>Lecture realisee par une personne</remarks>
    <folder id="FOLTAB511" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL52" populated="true" UUID="f4d00208-7a0d-40d1-b062-3c813c12b94d" autoIncrement="true" defaultValue="nextval(&apos;seq_photolecture_photolecture_id&apos;::regclass)" name="photolecture_id" nullable="0" physicalName="photolecture_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL52" populated="true" UUID="f4d00208-7a0d-40d1-b062-3c813c12b94d" autoIncrement="true" defaultValue="" name="photolecture_id" nullable="0" physicalName="photolecture_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL53" populated="true" UUID="64e7cbb8-76df-4bed-9e7b-0642424a15c2" autoIncrement="false" defaultValue="" name="photo_id" nullable="0" physicalName="photo_id" precision="0" referenceCount="2" scale="0" sourceDataTypeName="int4" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
@@ -210,41 +210,41 @@
     <column id="COL54" populated="true" UUID="ededb98d-6fce-4ea3-b8f9-30d046957bbe" autoIncrement="false" defaultValue="" name="lecteur_id" nullable="0" physicalName="lecteur_id" precision="0" referenceCount="2" scale="0" sourceDataTypeName="int4" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL55" populated="true" UUID="bfe8285b-e52b-458d-9680-e5af93e3950c" autoIncrement="false" defaultValue="" name="centre" nullable="1" physicalName="centre" precision="50" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL55" populated="true" UUID="fe379415-ca5c-41e0-a80f-bb8a50a66184" autoIncrement="false" autoIncrementSequenceName="final_stripe_final_stripe_id_seq" defaultValue="" name="final_stripe_id" nullable="1" physicalName="final_stripe_id" precision="0" referenceCount="2" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL56" populated="true" UUID="db565684-8bc5-4c19-bc27-570271dc355d" autoIncrement="false" defaultValue="" name="bordure" nullable="1" physicalName="bordure" precision="50" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL56" populated="true" UUID="bfe8285b-e52b-458d-9680-e5af93e3950c" autoIncrement="false" defaultValue="" name="centre" nullable="1" physicalName="centre" precision="50" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL57" populated="true" UUID="9b3da094-f613-40f1-bbc7-bd39e3590719" autoIncrement="false" defaultValue="" name="points" nullable="1" physicalName="points" precision="0" referenceCount="1" scale="0" sourceDataTypeName="geometry" type="1111" userDefinedTypeUUID="d9e42a14-4d15-4b55-b176-ecbba383bbdd" >
+    <column id="COL57" populated="true" UUID="db565684-8bc5-4c19-bc27-570271dc355d" autoIncrement="false" defaultValue="" name="bordure" nullable="1" physicalName="bordure" precision="50" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL58" populated="true" UUID="71abf81e-0e1d-40b8-91fe-f0a3fb98f83c" autoIncrement="false" autoIncrementSequenceName="photolecture_photolecture_date_seq" defaultValue="" name="photolecture_date" nullable="0" physicalName="photolecture_date" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
+    <column id="COL58" populated="true" UUID="9b3da094-f613-40f1-bbc7-bd39e3590719" autoIncrement="false" defaultValue="" name="points" nullable="1" physicalName="points" precision="0" referenceCount="1" scale="0" sourceDataTypeName="geometry" type="1111" userDefinedTypeUUID="d9e42a14-4d15-4b55-b176-ecbba383bbdd" >
      <remarks></remarks>
     </column>
-    <column id="COL59" populated="true" UUID="62381ba0-0523-4c96-a132-0e954e6fd69d" autoIncrement="false" autoIncrementSequenceName="photolecture_points_ref_lecture_seq" defaultValue="" name="points_ref_lecture" nullable="1" physicalName="points_ref_lecture" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="1111" userDefinedTypeUUID="d9e42a14-4d15-4b55-b176-ecbba383bbdd" >
+    <column id="COL59" populated="true" UUID="71abf81e-0e1d-40b8-91fe-f0a3fb98f83c" autoIncrement="false" autoIncrementSequenceName="photolecture_photolecture_date_seq" defaultValue="" name="photolecture_date" nullable="0" physicalName="photolecture_date" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
+     <remarks></remarks>
+    </column>
+    <column id="COL60" populated="true" UUID="62381ba0-0523-4c96-a132-0e954e6fd69d" autoIncrement="false" autoIncrementSequenceName="photolecture_points_ref_lecture_seq" defaultValue="" name="points_ref_lecture" nullable="1" physicalName="points_ref_lecture" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="1111" userDefinedTypeUUID="d9e42a14-4d15-4b55-b176-ecbba383bbdd" >
      <remarks>Emplacement des points utilises pour lire la longueur de reference</remarks>
     </column>
-    <column id="COL60" populated="true" UUID="1edd4aa0-d61c-4ae1-b42e-5b5ffeccd18e" autoIncrement="false" defaultValue="" name="long_ref_mesuree" nullable="1" physicalName="long_ref_mesuree" precision="0" referenceCount="1" scale="0" sourceDataTypeName="float8" type="8" userDefinedTypeUUID="4fc90970-b2e5-41dd-911c-cc605d87e7a8" >
+    <column id="COL61" populated="true" UUID="1edd4aa0-d61c-4ae1-b42e-5b5ffeccd18e" autoIncrement="false" defaultValue="" name="long_ref_mesuree" nullable="1" physicalName="long_ref_mesuree" precision="0" referenceCount="1" scale="0" sourceDataTypeName="float8" type="8" userDefinedTypeUUID="4fc90970-b2e5-41dd-911c-cc605d87e7a8" >
      <remarks></remarks>
     </column>
-    <column id="COL61" populated="true" UUID="d6258f0e-e9d0-44c6-a2b9-1dec555801ee" autoIncrement="false" defaultValue="" name="photolecture_height" nullable="1" physicalName="photolecture_height" precision="0" referenceCount="1" scale="0" sourceDataTypeName="int4" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL62" populated="true" UUID="d6258f0e-e9d0-44c6-a2b9-1dec555801ee" autoIncrement="false" defaultValue="" name="photolecture_height" nullable="1" physicalName="photolecture_height" precision="0" referenceCount="1" scale="0" sourceDataTypeName="int4" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks>Hauteur de la photo utilisee pour la lecture</remarks>
     </column>
-    <column id="COL62" populated="true" UUID="42b5754e-7a95-45cd-95d3-d2f1a63cbc7a" autoIncrement="false" defaultValue="" name="photolecture_width" nullable="1" physicalName="photolecture_width" precision="0" referenceCount="1" scale="0" sourceDataTypeName="int4" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL63" populated="true" UUID="42b5754e-7a95-45cd-95d3-d2f1a63cbc7a" autoIncrement="false" defaultValue="" name="photolecture_width" nullable="1" physicalName="photolecture_width" precision="0" referenceCount="1" scale="0" sourceDataTypeName="int4" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks>Largeur de la photo affichee pour realiser la lecture</remarks>
     </column>
-    <column id="COL63" populated="true" UUID="1e8d8989-ac44-4b9a-9b2e-1332ea8f14c5" autoIncrement="false" defaultValue="" name="long_totale_lue" nullable="1" physicalName="long_totale_lue" precision="0" referenceCount="1" scale="0" sourceDataTypeName="float8" type="8" userDefinedTypeUUID="4fc90970-b2e5-41dd-911c-cc605d87e7a8" >
+    <column id="COL64" populated="true" UUID="1e8d8989-ac44-4b9a-9b2e-1332ea8f14c5" autoIncrement="false" defaultValue="" name="long_totale_lue" nullable="1" physicalName="long_totale_lue" precision="0" referenceCount="1" scale="0" sourceDataTypeName="float8" type="8" userDefinedTypeUUID="4fc90970-b2e5-41dd-911c-cc605d87e7a8" >
      <remarks>Somme des segments entre chacun des points</remarks>
     </column>
-    <column id="COL64" populated="true" UUID="b831cd8b-ebb4-458f-9573-d8bc1175e004" autoIncrement="false" defaultValue="" name="long_totale_reel" nullable="1" physicalName="long_totale_reel" precision="0" referenceCount="1" scale="0" sourceDataTypeName="float8" type="8" userDefinedTypeUUID="4fc90970-b2e5-41dd-911c-cc605d87e7a8" >
+    <column id="COL65" populated="true" UUID="b831cd8b-ebb4-458f-9573-d8bc1175e004" autoIncrement="false" defaultValue="" name="long_totale_reel" nullable="1" physicalName="long_totale_reel" precision="0" referenceCount="1" scale="0" sourceDataTypeName="float8" type="8" userDefinedTypeUUID="4fc90970-b2e5-41dd-911c-cc605d87e7a8" >
      <remarks>Longueur totale réelle calculée pour le lecteur
 (long_reference / long_ref_mesuree * long_totale_lue)</remarks>
     </column>
-    <column id="COL65" populated="true" UUID="42303d5c-323c-41ac-8898-adf221cc0473" autoIncrement="false" autoIncrementSequenceName="photolecture_rayon_point_initial_seq" defaultValue="" name="rayon_point_initial" nullable="1" physicalName="rayon_point_initial" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="6" userDefinedTypeUUID="7e55bcd0-7606-4153-b749-9c397f12c4d8" >
-     <remarks></remarks>
-    </column>
-    <column id="COL66" populated="true" UUID="fe379415-ca5c-41e0-a80f-bb8a50a66184" autoIncrement="false" autoIncrementSequenceName="final_stripe_final_stripe_id_seq" defaultValue="" name="final_stripe_id" nullable="1" physicalName="final_stripe_id" precision="0" referenceCount="2" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL66" populated="true" UUID="42303d5c-323c-41ac-8898-adf221cc0473" autoIncrement="false" autoIncrementSequenceName="photolecture_rayon_point_initial_seq" defaultValue="" name="rayon_point_initial" nullable="1" physicalName="rayon_point_initial" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="6" userDefinedTypeUUID="7e55bcd0-7606-4153-b749-9c397f12c4d8" >
      <remarks></remarks>
     </column>
     <column id="COL67" populated="true" UUID="d714c48e-8cb2-4c97-bf0a-fda17e625ed5" autoIncrement="false" autoIncrementSequenceName="photolecture_read_fiability_seq" defaultValue="" name="read_fiability" nullable="1" physicalName="read_fiability" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="6" userDefinedTypeUUID="7e55bcd0-7606-4153-b749-9c397f12c4d8" >
@@ -270,28 +270,28 @@
   <table id="TAB72" populated="true" UUID="a5e308bd-a5ee-4d3b-ba80-8315065a2b4f" name="photo" objectType="TABLE" physicalName="photo" >
    <remarks>photos associees a une piece</remarks>
    <folder id="FOLTAB721" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL73" populated="true" UUID="822fafe9-087f-4f91-93ad-6292687845ef" autoIncrement="true" defaultValue="nextval(&apos;seq_photo_photo_id&apos;::regclass)" name="photo_id" nullable="0" physicalName="photo_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL73" populated="true" UUID="822fafe9-087f-4f91-93ad-6292687845ef" autoIncrement="true" defaultValue="" name="photo_id" nullable="0" physicalName="photo_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL74" populated="true" UUID="0161761e-f616-45fb-8ab5-61a1b210d69c" autoIncrement="false" defaultValue="" name="piece_id" nullable="0" physicalName="piece_id" precision="0" referenceCount="2" scale="0" sourceDataTypeName="int4" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL75" populated="true" UUID="62ca2c47-6d36-4c22-a0a3-8d2f1e4e40bb" autoIncrement="false" defaultValue="" name="photo_nom" nullable="1" physicalName="photo_nom" precision="0" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL75" populated="true" UUID="84dc2348-0df7-487e-b023-4dab1033235b" autoIncrement="false" defaultValue="" name="lumieretype_id" nullable="1" physicalName="lumieretype_id" precision="0" referenceCount="2" scale="0" sourceDataTypeName="int4" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL76" populated="true" UUID="c43aa5fe-5fec-4d94-89e7-14da0b16c8cb" autoIncrement="false" defaultValue="" name="description" nullable="1" physicalName="description" precision="0" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL76" populated="true" UUID="62ca2c47-6d36-4c22-a0a3-8d2f1e4e40bb" autoIncrement="false" defaultValue="" name="photo_nom" nullable="1" physicalName="photo_nom" precision="0" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL77" populated="true" UUID="51cdb126-2a74-4bb1-ae43-ee721064637b" autoIncrement="false" defaultValue="" name="photo_filename" nullable="1" physicalName="photo_filename" precision="0" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL77" populated="true" UUID="c43aa5fe-5fec-4d94-89e7-14da0b16c8cb" autoIncrement="false" defaultValue="" name="description" nullable="1" physicalName="description" precision="0" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL78" populated="true" UUID="a18a6c29-c379-4a23-9e8f-2b54d5b6ec22" autoIncrement="false" defaultValue="" name="photo_date" nullable="1" physicalName="photo_date" precision="0" referenceCount="1" scale="0" sourceDataTypeName="date" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
+    <column id="COL78" populated="true" UUID="51cdb126-2a74-4bb1-ae43-ee721064637b" autoIncrement="false" defaultValue="" name="photo_filename" nullable="1" physicalName="photo_filename" precision="0" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL79" populated="true" UUID="dc172828-b480-42e2-b715-dc8465e65ce1" autoIncrement="false" defaultValue="" name="color" nullable="1" physicalName="color" precision="2" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL79" populated="true" UUID="a18a6c29-c379-4a23-9e8f-2b54d5b6ec22" autoIncrement="false" defaultValue="" name="photo_date" nullable="1" physicalName="photo_date" precision="0" referenceCount="1" scale="0" sourceDataTypeName="date" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
      <remarks></remarks>
     </column>
-    <column id="COL80" populated="true" UUID="84dc2348-0df7-487e-b023-4dab1033235b" autoIncrement="false" defaultValue="" name="lumieretype_id" nullable="1" physicalName="lumieretype_id" precision="0" referenceCount="2" scale="0" sourceDataTypeName="int4" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL80" populated="true" UUID="dc172828-b480-42e2-b715-dc8465e65ce1" autoIncrement="false" defaultValue="" name="color" nullable="1" physicalName="color" precision="0" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
     <column id="COL81" populated="true" UUID="7a2b8649-ebfd-4014-b154-be7039678100" autoIncrement="false" defaultValue="" name="grossissement" nullable="1" physicalName="grossissement" precision="0" referenceCount="1" scale="0" sourceDataTypeName="int4" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
@@ -335,7 +335,7 @@
   <table id="TAB92" populated="true" UUID="0bd86e22-0734-4250-be9a-c7a77d372877" name="individu" objectType="TABLE" physicalName="individu" >
    <remarks></remarks>
    <folder id="FOLTAB921" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL93" populated="true" UUID="2591637f-6dc2-469a-af2b-cff0cba6a623" autoIncrement="true" defaultValue="nextval(&apos;seq_individu_individu_id&apos;::regclass)" name="individu_id" nullable="0" physicalName="individu_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL93" populated="true" UUID="2591637f-6dc2-469a-af2b-cff0cba6a623" autoIncrement="true" defaultValue="" name="individu_id" nullable="0" physicalName="individu_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL94" populated="true" UUID="587a631b-051f-4547-9235-c183d0b98f3f" autoIncrement="false" defaultValue="" name="espece_id" nullable="0" physicalName="espece_id" precision="0" referenceCount="2" scale="0" sourceDataTypeName="int4" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
@@ -385,7 +385,7 @@
   <table id="TAB108" populated="true" UUID="eac8170c-d271-460d-a188-4bd9155a9b3a" name="peche" objectType="TABLE" physicalName="peche" >
    <remarks>Date de peche et lieu de capture</remarks>
    <folder id="FOLTAB1081" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL109" populated="true" UUID="e0bc31cc-d805-4163-8790-89949a8b680b" autoIncrement="true" defaultValue="nextval(&apos;seq_peche_peche_id&apos;::regclass)" name="peche_id" nullable="0" physicalName="peche_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL109" populated="true" UUID="e0bc31cc-d805-4163-8790-89949a8b680b" autoIncrement="true" defaultValue="" name="peche_id" nullable="0" physicalName="peche_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL110" populated="true" UUID="2316da45-4801-4192-b031-12c1222d736d" autoIncrement="false" defaultValue="" name="site" nullable="1" physicalName="site" precision="0" referenceCount="1" scale="0" sourceDataTypeName="varchar" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
@@ -507,16 +507,16 @@
     <column-mapping id="CMP148" populated="true" UUID="aa04c974-d3d1-4f1d-8f5b-20b859b13de3" fk-column-ref="COL22" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL9" />
    </relationship>
    <relationship id="REL149" populated="true" UUID="bbd21781-50e2-4925-b6e7-ec69c6509edf" deferrability="7" deleteRule="3" fk-table-ref="TAB51" fkCardinality="7" identifying="false" name="final_stripe_photolecture_fk" physicalName="final_stripe_photolecture_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
-    <column-mapping id="CMP150" populated="true" UUID="e7ac3ab8-b42e-4820-bc6a-5bdc0fa34eb2" fk-column-ref="COL66" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL14" />
+    <column-mapping id="CMP150" populated="true" UUID="e7ac3ab8-b42e-4820-bc6a-5bdc0fa34eb2" fk-column-ref="COL55" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL14" />
    </relationship>
    <relationship id="REL151" populated="true" UUID="fe8e4ad5-152b-4217-9861-ffd4df928b11" deferrability="7" deleteRule="3" fk-table-ref="TAB72" fkCardinality="7" identifying="false" name="fk_photo_piece" physicalName="fk_photo_piece" pk-table-ref="TAB19" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP152" populated="true" UUID="bf36d3eb-0ec2-4f5e-8bb2-24646b6464fe" fk-column-ref="COL74" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL20" />
    </relationship>
    <relationship id="REL153" populated="true" UUID="7cf07611-9410-4140-bd5d-4187f63b466f" deferrability="7" deleteRule="3" fk-table-ref="TAB19" fkCardinality="7" identifying="false" name="fk_piece_traitement" physicalName="fk_piece_traitement" pk-table-ref="TAB33" pkCardinality="2" updateRule="3" >
-    <column-mapping id="CMP154" populated="true" UUID="371c4724-17b4-4d0b-82f0-5717fa8e1d30" fk-column-ref="COL24" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL34" />
+    <column-mapping id="CMP154" populated="true" UUID="371c4724-17b4-4d0b-82f0-5717fa8e1d30" fk-column-ref="COL23" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL34" />
    </relationship>
    <relationship id="REL155" populated="true" UUID="f604bbbc-c61f-4a24-ada9-2c4ae7a614f0" deferrability="7" deleteRule="3" fk-table-ref="TAB72" fkCardinality="7" identifying="false" name="fk_photo_lumieretype" physicalName="fk_photo_lumieretype" pk-table-ref="TAB38" pkCardinality="2" updateRule="3" >
-    <column-mapping id="CMP156" populated="true" UUID="9fc013af-11c7-49e2-94b3-daa391c491bd" fk-column-ref="COL80" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL39" />
+    <column-mapping id="CMP156" populated="true" UUID="9fc013af-11c7-49e2-94b3-daa391c491bd" fk-column-ref="COL75" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL39" />
    </relationship>
    <relationship id="REL157" populated="true" UUID="ac0a7ae3-3347-443f-ad21-c3cb8e294099" deferrability="7" deleteRule="3" fk-table-ref="TAB27" fkCardinality="7" identifying="true" name="experimentation_lecteur_experimentation_fk" physicalName="experimentation_lecteur_experimentation_fk" pk-table-ref="TAB43" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP158" populated="true" UUID="e361eb21-c24b-4d57-b1b2-4c54f73f3b2d" fk-column-ref="COL29" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL44" />
@@ -546,6 +546,11 @@
  </target-database>
  <ddl-generator type="ca.sqlpower.architect.ddl.GenericDDLGenerator" allow-connection="true"> </ddl-generator>
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
+ <compare-dm-settings  ddlGenerator="ca.sqlpower.architect.ddl.PostgresDDLGenerator"  outputFormatAsString="SQL"  saveFlag="true" >
+  <source-stuff   datastoreTypeAsString="DATABASE"   connectName="localhost-otolithe"   filePath=""  />
+  <target-stuff   datastoreTypeAsString="PROJECT"   filePath=""  />
+  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
+ </compare-dm-settings>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
  <play-pen zoom="0.6774851316907392" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
   <table-pane table-ref="TAB1" x="798" y="814" bgColor="0xe8cfdb" fgColor="0x000000" rounded="false" dashed="false"/>
@@ -567,7 +572,7 @@
   <table-link relationship-ref="REL143" pkConnection="0.7909090909090909" fkConnection="0.1388888888888889" rLineColor="0x313739" pkLabelText="" fkLabelText="" orientation="18"/>
   <table-link relationship-ref="REL153" pkConnection="0.5621890547263682" fkConnection="0.35331230283911674" rLineColor="0x313739" pkLabelText="" fkLabelText="" orientation="132"/>
   <table-link relationship-ref="REL157" pkConnection="0.4108527131782946" fkConnection="0.6527777777777778" rLineColor="0x313739" pkLabelText="" fkLabelText="" orientation="33"/>
-  <table-link relationship-ref="REL145" pkConnection="0.572992700729927" fkConnection="0.2803738317757009" rLineColor="0x313739" pkLabelText="" fkLabelText="" orientation="72"/>
+  <table-link relationship-ref="REL145" pkConnection="0.8637992831541219" fkConnection="0.0" rLineColor="0x313739" pkLabelText="" fkLabelText="" orientation="40"/>
   <table-link relationship-ref="REL149" pkConnection="0.49050632911392406" fkConnection="0.5363636363636364" rLineColor="0x313739" pkLabelText="" fkLabelText="" orientation="132"/>
   <table-link relationship-ref="REL161" pkConnection="0.5042016806722689" fkConnection="0.4920212765957447" rLineColor="0x313739" pkLabelText="" fkLabelText="" orientation="33"/>
   <table-link relationship-ref="REL155" pkConnection="0.5907692307692308" fkConnection="0.37254901960784315" rLineColor="0x313739" pkLabelText="" fkLabelText="" orientation="40"/>

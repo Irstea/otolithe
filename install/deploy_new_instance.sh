@@ -21,8 +21,8 @@ a2ensite 000-default
 
 # creation of directory
 cd /var/www/html
-mkdir collec-science
-cd collec-science
+mkdir otolithe
+cd otolithe
 
 # download software
 echo "download software"
@@ -42,7 +42,7 @@ cd otolithe/install
 su postgres -c "psql -f init_by_psql.sql"
 cd ../..
 echo "you may verify the configuration of access to postgresql"
-echo "look at /etc/postgresql/9.6/main/pg_hba.conf (verify your version). Only theses lines must be activate:"
+echo "look at /etc/postgresql/10/main/pg_hba.conf (verify your version). Only theses lines must be activate:"
 echo '# "local" is for Unix domain socket connections only
 local   all             all                                     peer
 # IPv4 local connections:
@@ -78,7 +78,7 @@ chown www-data otolithe/param/id_otholite
 echo "creation of virtual site"
 cp otolithe/install/apache2/otholite.conf /etc/apache2/sites-available/
 a2ensite otolithe
-echo "you must modify the file /etc/apache2/sites-available/collec-science.conf"
+echo "you must modify the file /etc/apache2/sites-available/otolithe.conf"
 echo "address of your instance, ssl parameters),"
 echo "then run this command:"
 echo "service apache2 reload"
