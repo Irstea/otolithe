@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Controleur de l'application (modele MVC)
  * Fichier modifie le 21 mars 2013 par Eric Quinton
@@ -7,12 +8,12 @@
 /**
  * Lecture des parametres
  */
-include_once ("framework/common.inc.php");
+include_once("framework/common.inc.php");
 /**
  * Verification des donnees entrantes.
  * Codage UTF-8
  */
-if (! check_encoding($_REQUEST)) {
+if (!check_encoding($_REQUEST)) {
     $message->set(_("Problème dans les données fournies : l'encodage des caractères n'est pas celui attendu"));
     $_REQUEST["module"] = "default";
     unset($_REQUEST["moduleBase"]);
@@ -21,20 +22,24 @@ if (! check_encoding($_REQUEST)) {
 /**
  * Verification de la version de la base de donnees
  */
-if (! isset($_SESSION["dbversion"])) {
-    require_once "framework/dbversion/dbversion.class.php";
-    $dbversion = new DbVersion($bdd, $ObjetBDDParam);
-    if ($dbversion->verifyVersion($APPLI_dbversion)) {
-        $_SESSION["dbversion"] = $APPLI_dbversion;
-    } else {
-        if ($APPLI_modeDeveloppement) {
-            unset($_SESSION["dbversion"]);
-        }
+if (!isset($_SESSION["dbversion"])) {
+    try {
+        require_once "framework/dbversion/dbversion.class.php";
+        $dbversion = new DbVersion($bdd, $ObjetBDDParam);
+        if ($dbversion->verifyVersion($APPLI_dbversion)) {
+            $_SESSION["dbversion"] = $APPLI_dbversion;
+        } else {
+            if ($APPLI_modeDeveloppement) {
+                unset($_SESSION["dbversion"]);
+            }
         // traduction: bien conserver inchangées les chaînes %1$s, %2$s
-        $message->set(sprintf(_('La base de données n\'est pas dans la version attendue (%1$s). Version actuelle : %2$s'),$APPLI_dbversion,$dbversion->getLastVersion()["dbversion_number"]));
-        $_REQUEST["module"] = "default";
-        unset($_REQUEST["moduleBase"]);
-        unset($_REQUEST["action"]);
+            $message->set(sprintf(_('La base de données n\'est pas dans la version attendue (%1$s). Version actuelle : %2$s'), $APPLI_dbversion, $dbversion->getLastVersion()["dbversion_number"]));
+            $_REQUEST["module"] = "default";
+            unset($_REQUEST["moduleBase"]);
+            unset($_REQUEST["action"]);
+        }
+    } catch (ObjetBDDException $e) {
+        $message->set($e->getMessage());
     }
 }
 /**
@@ -64,7 +69,7 @@ $_REQUEST = htmlDecode($_REQUEST);
  * * si method=put : Replace
  * * si method=delete : Delete
  */
-if (! isset($_REQUEST["module"])) {
+if (!isset($_REQUEST["module"])) {
     if (isset($_REQUEST["moduleBase"]) && isset($_REQUEST["action"])) {
         $_REQUEST["module"] = $_REQUEST["moduleBase"] . $_REQUEST["action"];
     } else {
@@ -93,7 +98,7 @@ if (! isset($_REQUEST["module"])) {
                 /*
                  * Prepositionnement par defaut de la valeur uid (la plus frequente)
                  */
-                if (! isset($_REQUEST["uid"])) {
+                if (!isset($_REQUEST["uid"])) {
                     $_REQUEST["uid"] = $uri[4];
                 }
                 switch ($_SERVER["REQUEST_METHOD"]) {
@@ -169,7 +174,7 @@ while (isset($module)) {
     /*
      * Preparation de la vue
      */
-    if (! isset($vue) && isset($t_module["type"])) {
+    if (!isset($vue) && isset($t_module["type"])) {
         switch ($t_module["type"]) {
             case "ajax":
             case "json":
@@ -229,7 +234,7 @@ while (isset($module)) {
                 "BDD",
                 "LDAP",
                 "LDAP-BDD"
-            )) && ! isset($_REQUEST["login"]) && strlen($_SESSION["login"]) == 0 && ! isset($_COOKIE["tokenIdentity"])) {
+            )) && !isset($_REQUEST["login"]) && strlen($_SESSION["login"]) == 0 && !isset($_COOKIE["tokenIdentity"])) {
                 /*
                  * Gestion de la saisie du login
                  */
@@ -246,7 +251,7 @@ while (isset($module)) {
                 /*
                  * Verification du login
                  */
-                if (! isset($_SESSION["login"])) {
+                if (!isset($_SESSION["login"])) {
                     /*
                      * Purge des anciens enregistrements dans log
                      */
@@ -338,7 +343,7 @@ while (isset($module)) {
                                  */
                                 $cookieParam = session_get_cookie_params();
                                 $cookieParam["lifetime"] = $tokenIdentityValidity;
-                                if (! $APPLI_modeDeveloppement) {
+                                if (!$APPLI_modeDeveloppement) {
                                     $cookieParam["secure"] = true;
                                 }
                                 $cookieParam["httponly"] = true;
@@ -361,18 +366,18 @@ while (isset($module)) {
      */
     $resident = 1;
     $motifErreur = "ok";
-    if ($t_module["loginrequis"] == 1 && ! isset($_SESSION["login"])) {
+    if ($t_module["loginrequis"] == 1 && !isset($_SESSION["login"])) {
         $resident = 0;
     }
     /*
      * Verification des droits
      */
     if (strlen($t_module["droits"]) > 1) {
-        if (! isset($_SESSION["login"])) {
+        if (!isset($_SESSION["login"])) {
             $resident = 0;
             $motifErreur = "nologin";
         } else {
-            
+
             $resident = 0;
             foreach ($droits_array as $key => $value) {
                 if ($_SESSION["droits"][$value] == 1) {
@@ -396,11 +401,11 @@ while (isset($module)) {
                 $beforeok = true;
             }
         }
-        if (! $beforeok) {
+        if (!$beforeok) {
             $resident = 0;
             if ($APPLI_modeDeveloppement) {
                 // traduction: conserver inchangée la chaîne %s
-                $message->set(sprintf(_('Module précédent enregistré : %s'),$_SESSION["moduleBefore"]));
+                $message->set(sprintf(_('Module précédent enregistré : %s'), $_SESSION["moduleBefore"]));
             }
             $motifErreur = "errorbefore";
         }
@@ -425,7 +430,7 @@ while (isset($module)) {
                 "BDD",
                 "LDAP",
                 "LDAP-BDD"
-            )) && ! isset($_REQUEST["loginAdmin"]) && ! $loginForm) {
+            )) && !isset($_REQUEST["loginAdmin"]) && !$loginForm) {
                 /*
                  * saisie du login en mode admin
                  */
@@ -465,7 +470,7 @@ while (isset($module)) {
         }
         $message->setSyslog($e->getMessage());
     }
-    
+
     unset($module_coderetour);
     
     /*
@@ -475,7 +480,7 @@ while (isset($module)) {
         /*
          * Mise a niveau de la variable stockant le module precedemment appele
          */
-        if (! $isAjax && $module != "default") {
+        if (!$isAjax && $module != "default") {
             $_SESSION["moduleBefore"] = $module;
         }
         include $t_module["action"];
@@ -485,7 +490,7 @@ while (isset($module)) {
          */
         if (isset($module_coderetour)) {
             switch ($module_coderetour) {
-                case - 1:
+                case -1:
                     unset($vue);
                     $module = $t_module["retourko"];
                     break;
@@ -533,18 +538,18 @@ if ($isHtml) {
     /*
      * Affichage du menu
      */
-    if (! isset($_SESSION["menu"])) {
+    if (!isset($_SESSION["menu"])) {
         include_once 'framework/navigation/menu.class.php';
         $menu = new Menu($APPLI_menufile);
         $_SESSION["menu"] = $menu->generateMenu();
     }
-    
+
     $vue->set($_SESSION["menu"], "menu");
     if (isset($_SESSION["login"])) {
         $vue->set(1, "isConnected");
         $vue->set($_SESSION["login"], "login");
     }
-    $vue->set($_SESSION["APPLI_title"] , "APPLI_title");
+    $vue->set($_SESSION["APPLI_title"], "APPLI_title");
     /*
      * Gestion de l'internationalisation
      */

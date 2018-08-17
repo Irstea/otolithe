@@ -8,8 +8,7 @@
 function objetBDDparamInit()
 {
     global $ObjetBDDParam, $DEFAULT_formatdate, $OBJETBDD_debugmode, $FORMATDATE;
-    echo "test<br>";
-    if (! isset($DEFAULT_formatdate)) {
+     if (! isset($DEFAULT_formatdate)) {
         $DEFAULT_formatdate = "fr";
     }
     if (! isset($OBJETBDD_debugmode)) {

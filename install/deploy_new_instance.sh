@@ -1,16 +1,19 @@
 #!/bin/bash
 # install a new instance into a server
 # must be executed with login root
-# creation : Eric Quinton - 2017-05-04
+# creation : Eric Quinton - 2018-08-17
+# tested with debian 9.5
+# php7.0 : if new version, change in the first lines of the script
 
 downloadPath="https://gitlab.irstea.fr/eabx-applis_web/otolithe/-/archive/master/otolithe-master.zip"
+phpinifile="/etc/php/7.0/apache2/php.ini"
 
 echo "this script will install apache server and php, postgresql and deploy the current version of otolithe"
 read -p "Do you want to continue [y/n]?" response
 if [ "$response" = "y" ] 
 then
 # installing packages
-apt-get install unzip apache2 libapache2-mod-php7.0 php7.0 php7.0-ldap php7.0-pgsql php7.0-mbstring php7.0-xml php7.0-zip php7.0-imagick php7.0-gd php7.0-ldap fop postgresql postgresql-client
+apt-get install unzip apache2 libapache2-mod-php7.0 php7.0 php7.0-ldap php7.0-pgsql php7.0-mbstring php7.0-xml php7.0-zip php7.0-imagick php7.0-gd php7.0-ldap fop postgresql postgresql-client postgresql-9.6-postgis-2.3
 a2enmod ssl
 a2enmod headers
 a2enmod rewrite
@@ -73,6 +76,16 @@ echo "generate encryption keys for identification tokens"
 openssl genpkey -algorithm rsa -out otolithe/param/id_otolithe -pkeyopt rsa_keygen_bits:2048
 openssl rsa -in otolithe/param/id_otolithe -pubout -out otolithe/param/id_otolithe.pub
 chown www-data otolithe/param/id_otolithe
+
+# adjust php.ini values
+upload_max_filesize="=100M"
+post_max_size="=50M"
+max_execution_time="=120"
+max_input_time="=240"
+for key in upload_max_filesize post_max_size max_execution_time max_input_time
+do
+ sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" $phpinifile
+done
 
 # creation of virtual host
 echo "creation of virtual site"

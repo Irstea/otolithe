@@ -43,8 +43,6 @@ COMMENT ON COLUMN "dbversion"."dbversion_date" IS 'Date de la version';
 
 ALTER SEQUENCE "dbversion_dbversion_id_seq" OWNED BY "dbversion"."dbversion_id";
 
-insert into dbversion(dbversion_number, dbversion_date) values ('0.1', '2017-09-01');
-
 /*
  * Creation de la table de saisie des parametres locaux aux donnees
  */
@@ -63,3 +61,6 @@ insert into dbparam(dbparam_id, dbparam_name) values (1, 'APPLI_title');
 create sequence seq_espece_espece_id owned by espece.espece_id;
 alter table espece alter column espece_id  set default nextval ('seq_espece_espece_id' ::regclass) ;
 select setval('seq_espece_espece_id', (select max(espece_id) from espece));
+
+insert into dbversion (dbversion_number, dbversion_date)
+values ('2.0', '2018-08-17');
