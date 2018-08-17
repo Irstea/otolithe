@@ -60,4 +60,4 @@ create extension postgis schema public;
  * Creation des tables dans le schema col
  * Tables creation in schema col
  */
-\ir pgsql/otolithe_create_2.0.sql
+\ir pgsql/otolithe_create-2.0.sql

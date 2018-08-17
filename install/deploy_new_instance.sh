@@ -71,12 +71,12 @@ chmod -R 770 otolithe/img
 # generate rsa key for encrypted tokens
 echo "generate encryption keys for identification tokens"
 openssl genpkey -algorithm rsa -out otolithe/param/id_otolithe -pkeyopt rsa_keygen_bits:2048
-openssl rsa -in otolithe/param/id_collec -pubout -out otolithe/param/id_otolithe.pub
-chown www-data otolithe/param/id_otholite
+openssl rsa -in otolithe/param/id_otolithe -pubout -out otolithe/param/id_otolithe.pub
+chown www-data otolithe/param/id_otolithe
 
 # creation of virtual host
 echo "creation of virtual site"
-cp otolithe/install/apache2/otholite.conf /etc/apache2/sites-available/
+cp otolithe/install/apache2/otolithe.conf /etc/apache2/sites-available/
 a2ensite otolithe
 echo "you must modify the file /etc/apache2/sites-available/otolithe.conf"
 echo "address of your instance, ssl parameters),"
