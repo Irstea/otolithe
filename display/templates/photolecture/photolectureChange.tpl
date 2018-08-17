@@ -39,7 +39,11 @@ function drawIntro(svg) {
 	{section name="lst" loop=$mesurePrec}
 	{section name="lst1" loop=$mesurePrec[lst].points}
 {if $smarty.section.lst1.index == 0 }
+{if $mesurePrec[lst].rayon_point_initial > 0}
 {assign var = 'r' value = $mesurePrec[lst].rayon_point_initial}
+{else}
+{assign var = 'r' value = '7'}
+{/if}
 {else}
 {assign var = 'r' value = '7'}
 {/if}
@@ -253,7 +257,7 @@ function setCircle(svg, x, y, rayon_initial) {
 </label>
 <select class="form-control col-sm-8" id="modeLecture">
 <option value="0">{t}Point initial avec cercle élargi{/t}</option>
-<option value="1">{t}Lecture des points{/t}</option>
+<option value="1" selected>{t}Lecture des points{/t}</option>
 <option value="2">{t}Mesure de la longueur de référence{/t}</option>
 <option value="3">{t}Tracé d'une ligne sur la photo (aide à la mesure){/t}</option>
 </select>
