@@ -6,9 +6,9 @@ switch ($t_module["param"]) {
 
     case "display":
 		/*
-		 * Display the detail of the record
-		 */
-		$data = $dataClass->getDetail($id);
+         * Display the detail of the record
+         */
+        $data = $dataClass->getDetail($id);
         $dataT = $_SESSION["it_photo"]->translateRow($data);
         $dataT = $_SESSION["it_piece"]->translateRow($dataT);
         /*
@@ -54,14 +54,14 @@ switch ($t_module["param"]) {
         break;
     case "change":
 		/*
-		 * open the form to modify the record
-		 * If is a new record, generate a new record with default value :
-		 * $_REQUEST["idParent"] contains the identifiant of the parent record
-		 */
+         * open the form to modify the record
+         * If is a new record, generate a new record with default value :
+         * $_REQUEST["idParent"] contains the identifiant of the parent record
+         */
 		/*
-		 * Recuperation des informations sur la piece et le poisson
-		 */
-		include_once 'modules/classes/piece.class.php';
+         * Recuperation des informations sur la piece et le poisson
+         */
+        include_once 'modules/classes/piece.class.php';
         $piece = new Piece($bdd, $ObjetBDDParam);
         $piece_id = $_SESSION["it_piece"]->getValue($_REQUEST["piece_id"]);
         $dataPiece = $piece->getDetail($piece_id);
@@ -83,7 +83,7 @@ switch ($t_module["param"]) {
          * Lecture des types de lumiere
          */
         $lumieretype = new LumiereType($bdd, $ObjetBDDParam);
-        $vue->set($lumieretype->getListe(),"lumieretype");
+        $vue->set($lumieretype->getListe(), "lumieretype");
         $data = dataRead($dataClass, $id, "gestion/photoChange.tpl", $piece_id);
         $data = $_SESSION["it_photo"]->translateRow($data);
         $data = $_SESSION["it_piece"]->translateRow($data);
@@ -95,12 +95,12 @@ switch ($t_module["param"]) {
         break;
     case "write":
 		/*
-		 * write record in database
-		 */
+         * write record in database
+         */
 		/*
-		 * On recherche si une photo a ete telechargee
-		 */
-		if ($_FILES["photoload"]["size"] > 10) {
+         * On recherche si une photo a ete telechargee
+         */
+        if ($_FILES["photoload"]["size"] > 10) {
             /*
              * Recherche antivirale
              */
@@ -114,7 +114,7 @@ switch ($t_module["param"]) {
                     $log->setLog($_SESSION["login"], "Document-ecrire", $texte_erreur);
                 }
             }
-            if (! $virus) {
+            if (!$virus) {
 
                 $_REQUEST["photoload"] = fread(fopen($_FILES["photoload"]["tmp_name"], "r"), $_FILES["photoload"]["size"]);
                 $_REQUEST["photo_filename"] = $_FILES["photoload"]["name"];
@@ -123,53 +123,51 @@ switch ($t_module["param"]) {
         $_REQUEST["photo_id"] = $_SESSION["it_photo"]->getValue($_REQUEST["photo_id"]);
         $_REQUEST["piece_id"] = $_SESSION["it_piece"]->getValue($_REQUEST["piece_id"]);
         $id = dataWrite($dataClass, $_REQUEST);
-        if ($id > 0)
+        if ($id > 0) {
             $_REQUEST["photo_id"] = $_SESSION["it_photo"]->setValue($id);
+        }
         break;
     case "delete":
 		/*
-		 * delete record
-		 */
-		dataDelete($dataClass, $id);
+         * delete record
+         */
+        dataDelete($dataClass, $id);
         break;
     case "getPhoto":
 		/*
-		 * Affiche le contenu d'une photo
-		 */
-        if (! isset($_REQUEST["sizeX"])) {
+         * Affiche le contenu d'une photo
+         */
+        if (!isset($_REQUEST["sizeX"])) {
             $_REQUEST["sizeX"] = 0;
         }
-        if (! isset($_REQUEST["sizeY"])) {
+        if (!isset($_REQUEST["sizeY"])) {
             $_REQUEST["sizeY"] = 0;
         }
         $_REQUEST["original_format"] == 1 ? $isOrigin = true : $isOrigin = false;
         try {
-        $photoname = $dataClass->getPhotoName($id,  0, $_REQUEST["sizeX"], $_REQUEST["sizeY"], $isOrigin);
-        }catch (PhotoException $pe) {
+            $photoname = $dataClass->getPhotoName($id, 0, $_REQUEST["sizeX"], $_REQUEST["sizeY"], $isOrigin);
+        } catch (PhotoException $pe) {
             $message->setSyslog($pe->getMessage());
         }
         isset($_REQUEST["disposition"]) ? $disposition = $_REQUEST["disposition"] : $disposition = "inline";
-        $vue->setParam (array("disposition"=>$disposition, "filename"=>$photoname, "tmp_name"=>$APPLI_photoStockage."/".$photoname));
-        /*header('Content-Type: image/jpeg');
-        echo $dataClass->getPhoto($id, 0, $_REQUEST["sizeX"], $_REQUEST["sizeY"]);
-        */
+        $vue->setParam(array("disposition" => $disposition, "filename" => $photoname, "tmp_name" => $APPLI_photoStockage . "/" . $photoname));
         break;
     case "getThumbnail":
 		/*
-		 * Affiche le contenu de la vignette
-		 */
+         * Affiche le contenu de la vignette
+         */
         try {
-        $photoname = $dataClass->getPhotoName($id, 1);
-        }catch (PhotoException $pe) {
+            $photoname = $dataClass->getPhotoName($id, 1);
+        } catch (PhotoException $pe) {
             $message->setSyslog($pe->getMessage());
         }
-        $vue->setParam (array("disposition"=>"inline", "filename"=>$dataClass->getPhotoName($id, 1), "tmp_name"=>$APPLI_photoStockage."/".$photoname));
+        $vue->setParam(array("disposition" => "inline", "filename" => $dataClass->getPhotoName($id, 1), "tmp_name" => $APPLI_photoStockage . "/" . $photoname));
         break;
     case "photoDisplay":
 		/*
-		 * Affiche a l'ecran la photo en pleine resolution
-		 */
-        $dataClass->writeFilePhoto($id,0,0,0,true);
+         * Affiche a l'ecran la photo en pleine resolution
+         */
+        $dataClass->writeFilePhoto($id, 0, 0, 0, true);
         $vue->set($_SESSION["it_photo"]->setValue($id), "photo_id");
         $vue->set("gestion/photoDisplayPhoto.tpl", "corps");
         break;

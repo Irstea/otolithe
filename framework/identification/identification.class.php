@@ -211,13 +211,13 @@ class Identification
         // le cookie de session.
         // Note : cela détruira la session et pas seulement les données de session !
         if (isset($_COOKIE[session_name()])) {
-            setcookie(session_name(), '', time() - 42000, "/");
+            setcookie(session_name(), '', time() - 42000, "/", "", true);
         }
         /*
          * Suppression du cookie d'identification
          */
         if (isset($_COOKIE["tokenIdentity"])) {
-            setcookie("tokenIdentity", '', time() - 42000, "/");
+            setcookie("tokenIdentity", '', time() - 42000, "/", "", true);
         }
         // Finalement, on détruit la session.
         session_destroy();

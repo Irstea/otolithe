@@ -1,15 +1,17 @@
 <?php
 
+
+/**
+ * Traitement des exceptions
+ */
+class PhotoException extends Exception
+{
+}
 /**
  * Classe de gestion des photos
  * @author quinton
  *
  */
-class PhotoException extends Exception
-{
-}
-;
-
 class Photo extends ObjetBDD
 {
 
@@ -17,7 +19,7 @@ class Photo extends ObjetBDD
 
     private $chemin = "img";
 
-    function __construct($bdd, $param)
+    function __construct($bdd, $param = array())
     {
         $this->param = $param;
         $this->table = "photo";
@@ -84,8 +86,6 @@ class Photo extends ObjetBDD
             )
         );
         $this->format_thumbnail = 200;
-        if (! is_array($param))
-            $param == array();
         $param["fullDescription"] = 1;
         parent::__construct($bdd, $param);
     }
@@ -119,7 +119,7 @@ class Photo extends ObjetBDD
             if ($filenameOri[$nbsegmentOri] != $filenameCible[$nbsegmentCible]) {
                 $filenameCible[$nbsegmentCible] = $filenameOri[$nbsegmentOri];
                 $data["photo_nom"] = "";
-                for ($i = 0; $i < $nbsegmentCible; $i ++) {
+                for ($i = 0; $i < $nbsegmentCible; $i++) {
                     $data["photo_nom"] .= $filenameCible[$i];
                     if ($i < ($nbsegmentCible - 1)) {
                         $data["photo_nom"] .= ".";
@@ -221,8 +221,9 @@ class Photo extends ObjetBDD
             $sql = "select photo_id, piece_id, photo_nom, description, photo_date, color, photo_height, photo_width
 				from " . $this->table . " where piece_id = " . $piece_id;
             return $this->getListParam($sql);
-        } else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -288,8 +289,7 @@ class Photo extends ObjetBDD
             $nomPhoto .= $id . '-' . $sizeX . 'x' . $sizeY . ".jpg";
             $filename = $this->chemin . '/' . $nomPhoto;
             if (file_exists($filename)) {
-                $image = file_get_contents($filename);
-                return $image;
+                return file_get_contents($filename);
             }
         }
     }
@@ -352,12 +352,12 @@ class Photo extends ObjetBDD
              * On recherche si la photo existe ou non
              */
             $path = $this->chemin . '/' . $nomPhoto;
-            if (! file_exists($path)) {
+            if (!file_exists($path)) {
                 /*
                  * On cree la photo
                  */
                 $photoRef = $this->getBlobReference($id, $colonne);
-                if (! is_null($photoRef)) {
+                if (!is_null($photoRef)) {
                     $image = new Imagick();
                     try {
                         $image->readimagefile($photoRef);
@@ -407,8 +407,9 @@ class Photo extends ObjetBDD
 				left outer join lumieretype using(lumieretype_id)
 				where photo_id = " . $id;
             return ($this->lireParam($sql));
-        } else
+        } else {
             return null;
+        }
     }
 }
 
@@ -421,7 +422,7 @@ class Photo extends ObjetBDD
 class LumiereType extends ObjetBDD
 {
 
-    function __construct($bdd, $param)
+    function __construct($bdd, $param = array())
     {
         $this->param = $param;
         $this->table = "lumieretype";
@@ -439,8 +440,6 @@ class LumiereType extends ObjetBDD
                 "longueur" => 255
             )
         );
-        if (! is_array($param))
-            $param == array();
         $param["fullDescription"] = 1;
         parent::__construct($bdd, $param);
     }
@@ -455,7 +454,7 @@ class LumiereType extends ObjetBDD
 class Lecteur extends ObjetBdd
 {
 
-    function __construct($bdd, $param)
+    function __construct($bdd, $param = array())
     {
         $this->param = $param;
         $this->table = "lecteur";
@@ -479,8 +478,6 @@ class Lecteur extends ObjetBdd
                 "longueur" => 50
             )
         );
-        if (! is_array($param))
-            $param == array();
         $param["fullDescription"] = 1;
         parent::__construct($bdd, $param);
     }
@@ -501,10 +498,11 @@ class Lecteur extends ObjetBdd
             if ($res["lecteur_id"] > 0) {
                 return $res["lecteur_id"];
             } else {
-                return - 1;
+                return -1;
             }
-        } else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -545,7 +543,7 @@ class Lecteur extends ObjetBdd
 class Photolecture extends ObjetBdd
 {
 
-    function __construct($bdd, $param)
+    function __construct($bdd, $param = array())
     {
         $this->param = $param;
         $this->table = "photolecture";
@@ -614,9 +612,7 @@ class Photolecture extends ObjetBdd
                 "type" => 1
             )
         );
-        if (! is_array($param))
-            $param == array();
-        $param["srid"] = - 1;
+        $param["srid"] = -1;
         $param["fullDescription"] = 1;
         parent::__construct($bdd, $param);
     }
@@ -711,7 +707,7 @@ class Photolecture extends ObjetBdd
              */
             $nbPoint = count($pointTemp);
             $i = 1;
-            for ($i = 1; $i <= $nbPoint; $i ++) {
+            for ($i = 1; $i <= $nbPoint; $i++) {
                 $x = $points[$i - 1]["x"];
                 $y = $points[$i - 1]["y"];
                 $min = 999999;
@@ -759,7 +755,7 @@ class Photolecture extends ObjetBdd
                 }
                 $x0 = $value["x"];
                 $y0 = $value["y"];
-                $i ++;
+                $i++;
                 $virgule = ",";
             }
             $data["points"] .= ')';
@@ -775,7 +771,7 @@ class Photolecture extends ObjetBdd
             $i = 0;
             $mesure = array();
             foreach ($pointsMesure as $key => $value) {
-                $i ++;
+                $i++;
                 $data["points_ref_lecture"] .= $virgule . floor($value["x"] * $coef) . " " . floor($value["y"] * $coef);
                 $mesure[$i]["x"] = $value["x"];
                 $mesure[$i]["y"] = $value["y"];
@@ -810,8 +806,6 @@ class Photolecture extends ObjetBdd
                 $data["long_totale_reel"] = $data["long_totale_lue"] / $data["long_ref_mesuree"] * $dataPhoto["long_reference"];
             }
         }
-
-        // print_r($data);
         return parent::ecrire($data);
     }
 
@@ -826,8 +820,7 @@ class Photolecture extends ObjetBdd
      */
     function calculDistance($x1, $y1, $x2, $y2)
     {
-        $dist = sqrt(pow(abs($x2 - $x1), 2) + (pow(abs($y2 - $y1), 2)));
-        return $dist;
+        return sqrt(pow(abs($x2 - $x1), 2) + (pow(abs($y2 - $y1), 2)));
     }
 
     /**
@@ -853,8 +846,9 @@ class Photolecture extends ObjetBdd
 						left outer join final_stripe using(final_stripe_id) 
 						where photo_id = " . $photo_id . " order by photolecture_date desc";
             return $this->getListeParam($sql);
-        } else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -887,7 +881,7 @@ class Photolecture extends ObjetBdd
             /*
              * Preparation de la clause where
              */
-            if (! is_array($id)) {
+            if (!is_array($id)) {
                 $where = " where photolecture_id = " . $id;
             } else {
                 /*
@@ -895,7 +889,7 @@ class Photolecture extends ObjetBdd
                  */
                 $where = " where photolecture_id in (";
                 $virgule = "";
-                foreach ($id as $key => $value) {
+                foreach ($id as $value) {
                     if ($value != $id_exclu && $value > 0) {
                         $where .= $virgule . $value;
                         $virgule = ",";
@@ -929,7 +923,7 @@ class Photolecture extends ObjetBdd
                      * Rajout de la couleur
                      */
                     $data[$key]["couleur"] = $couleur[$icolor];
-                    $icolor ++;
+                    $icolor++;
                 }
                 /*
                  * Recalcul du rayon initial
@@ -957,7 +951,7 @@ class Photolecture extends ObjetBdd
         $alpt = explode(",", $lpt);
         $i = 0;
         $data = array();
-        foreach ($alpt as $key1 => $value1) {
+        foreach ($alpt as $value1) {
             /*
              * Separation des valeurs x et y
              */
@@ -967,7 +961,7 @@ class Photolecture extends ObjetBdd
              */
             $data[$i]["x"] = floor($xy[0] / $coef);
             $data[$i]["y"] = floor($xy[1] / $coef);
-            $i ++;
+            $i++;
         }
         return $data;
     }
@@ -980,14 +974,15 @@ class Photolecture extends ObjetBdd
      */
     function lirePoints($id)
     {
-        if ($id > 0) {
+        if ($id > 0 && is_numeric($id)) {
             $sql = "select photolecture_id,
 		st_astext(points) as points,
 		st_astext(points_ref_lecture) as points_ref_lecture
 		from " . $this->table . " where photolecture_id = " . $id;
             return $this->lireParam($sql);
-        } else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -1050,16 +1045,18 @@ class Photolecture extends ObjetBdd
         /*
          * On verifie qu'on ait bien une clause where...
          */
-        if ($where == " where ")
+        if ($where == " where ") {
             $where = "";
+        }
         $order = " order by codeindividu, tag, piece_id, photo_id, photolecture_date";
         $data = $this->getListeParam($sql . $where . $order);
         /*
          * Mise au format des dates
          */
         foreach ($data as $key => $value) {
-            if (strlen($data[$key]["photo_date"] > 1))
+            if (strlen($data[$key]["photo_date"] > 1)) {
                 $data[$key]["photo_date"] = $this->formatDateDBversLocal($value["photo_date"]);
+            }
         }
         return ($data);
     }
@@ -1068,7 +1065,7 @@ class Photolecture extends ObjetBdd
 class Final_stripe extends ObjetBDD
 {
 
-    function __construct($bdd, $param)
+    function __construct($bdd, $param = array())
     {
         $this->param = $param;
         $this->table = "final_stripe";
@@ -1089,8 +1086,6 @@ class Final_stripe extends ObjetBDD
                 "requis" => 1
             )
         );
-        if (! is_array($param))
-            $param == array();
         $param["fullDescription"] = 1;
         parent::__construct($bdd, $param);
     }

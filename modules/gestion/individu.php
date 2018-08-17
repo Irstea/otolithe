@@ -11,12 +11,12 @@ $id = $_REQUEST["individu_id"];
 switch ($t_module["param"]) {
     case "list":
 		/*
-		 * Display the list of all records of the table
-		 */
+         * Display the list of all records of the table
+         */
 		/*
-		 * Mise a jour du module d'affichage de la liste
-		*/
-		$_SESSION["moduleListe"] = "individuList";
+         * Mise a jour du module d'affichage de la liste
+         */
+        $_SESSION["moduleListe"] = "individuList";
         /*
          * Gestion des criteres de recherche
          */
@@ -58,9 +58,9 @@ switch ($t_module["param"]) {
         break;
     case "display":
 		/*
-		 * Display the detail of the record
-		 */
-		$data = $dataClass->getDetail($id);
+         * Display the detail of the record
+         */
+        $data = $dataClass->getDetail($id);
         $dataT = $_SESSION["it_individu"]->translateRow($data);
         $dataT = $_SESSION["it_peche"]->translateRow($dataT);
         $vue->set($dataT, "data");
@@ -98,11 +98,11 @@ switch ($t_module["param"]) {
         break;
     case "change":
 		/*
-		 * open the form to modify the record
-		 * If is a new record, generate a new record with default value :
-		 * $_REQUEST["idParent"] contains the identifiant of the parent record
-		 */
-		$data = dataRead($dataClass, $id, "gestion/individuChange.tpl");
+         * open the form to modify the record
+         * If is a new record, generate a new record with default value :
+         * $_REQUEST["idParent"] contains the identifiant of the parent record
+         */
+        $data = dataRead($dataClass, $id, "gestion/individuChange.tpl");
         $dataT = $_SESSION["it_individu"]->translateRow($data);
         $dataT = $_SESSION["it_peche"]->translateRow($dataT);
         $vue->set($dataT, "data");
@@ -131,18 +131,20 @@ switch ($t_module["param"]) {
         break;
     case "write":
 		/*
-		 * write record in database
-		 */
+         * write record in database
+         */
 		/*
-		 * Recuperation des cles reelles
-		 */
-		if (is_array($_REQUEST["exp_id"])) {
+         * Recuperation des cles reelles
+         */
+        if (is_array($_REQUEST["exp_id"])) {
             $exp_id = array();
-            foreach ($_REQUEST["exp_id"] as $value)
+            foreach ($_REQUEST["exp_id"] as $value) {
                 $exp_id[] = $_SESSION["it_experimentation"]->getValue($value);
+            }
             $_REQUEST["exp_id"] = $exp_id;
-        } else
+        } else {
             $_REQUEST["exp_id"] = $_SESSION["it_experimentation"]->getValue($_REQUEST["exp_id"]);
+        }
         $_REQUEST["peche_id"] = $_SESSION["it_peche"]->getValue($_REQUEST["peche_id"]);
         include_once 'modules/classes/peche.class.php';
         $peche = new Peche($bdd, $ObjetBDDParam);
@@ -152,9 +154,9 @@ switch ($t_module["param"]) {
         break;
     case "delete":
 		/*
-		 * delete record
-		 */
-		dataDelete($dataClass, $id);
+         * delete record
+         */
+        dataDelete($dataClass, $id);
         break;
 }
 ?>

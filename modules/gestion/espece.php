@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author Eric Quinton
  * @copyright Copyright (c) 2015, IRSTEA / Eric Quinton
@@ -6,27 +7,28 @@
  *  Creation 12 juin 2015
  */
 include_once 'modules/classes/individu.class.php';
-$dataClass = new Espece($bdd,$ObjetBDDParam);
+$dataClass = new Espece($bdd, $ObjetBDDParam);
 $id = $_REQUEST["espece_id"];
 
 switch ($t_module["param"]) {
-	case "searchAjax" :
-		if (strlen($_REQUEST["libelle"]) > 2 ) 
+	case "searchAjax":
+		if (strlen($_REQUEST["libelle"]) > 2) {
 			$vue->set($dataClass->getEspeceJSON($_REQUEST["libelle"]));
-			break;
+		}
+		break;
 	case "list":
 		/*
 		 * Display the list of all records of the table
 		 */
-	    $vue->set($dataClass->getListe() , "data");
-	    $vue->set("gestion/especeList.tpl" , "corps");
+		$vue->set($dataClass->getListe(), "data");
+		$vue->set("gestion/especeList.tpl", "corps");
 		break;
 	case "display":
 		/*
 		 * Display the detail of the record
 		 */
-		$vue->set( $dataClass->lire($id), "data");
-		$vue->set( "example/exampleDisplay.tpl", "corps");
+		$vue->set($dataClass->lire($id), "data");
+		$vue->set("example/exampleDisplay.tpl", "corps");
 
 		break;
 	case "change":

@@ -1,9 +1,8 @@
 <?php
-
 class Individu extends ObjetBdd
 {
 
-    function __construct($bdd, $param)
+    function __construct($bdd, $param = array())
     {
         $this->param = $param;
         $this->table = "individu";
@@ -47,8 +46,7 @@ class Individu extends ObjetBdd
                 "type" => 1
             )
         );
-        if (! is_array($param))
-            $param == array();
+
         $param["fullDescription"] = 1;
         parent::__construct($bdd, $param);
     }
@@ -78,9 +76,9 @@ class Individu extends ObjetBdd
          */
         $where = "";
         $is_where = 0;
-        if (! $data["exp_id"] > 0)
+        if (!$data["exp_id"] > 0) {
             $data["exp_id"] = 0;
-
+        }
         if ($is_where == 0) {
             $where = " where ";
             $is_where = 1;
@@ -166,9 +164,9 @@ class Individu extends ObjetBdd
              * Mise en forme de la date de peche
              */
 
-            if (strlen($data["peche_date"]) > 0)
+            if (strlen($data["peche_date"]) > 0) {
                 $data["peche_date"] = $this->formatDateDBversLocal($data["peche_date"]);
-
+            }
             return $data;
         }
     }
@@ -189,8 +187,9 @@ class Individu extends ObjetBdd
 						left outer join espece using (espece_id)
 						where individu_id = " . $id;
             return $this->lireParam($sql);
-        } else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -227,7 +226,7 @@ class Individu extends ObjetBdd
             );
             $res = $this->lireParamAsPrepared($sql, $aid);
             if ($res["nb"] > 0) {
-                throw new Exception(_("Des photos sont rattachées au poisson, sa suppression est impossible"));
+                throw new ObjetBDDException(_("Des photos sont rattachées au poisson, sa suppression est impossible"));
             }
         }
         /*
@@ -253,7 +252,7 @@ class Individu extends ObjetBdd
 class Experimentation extends ObjetBdd
 {
 
-    function __construct($bdd, $param)
+    function __construct($bdd, $param = array())
     {
         $this->param = $param;
         $this->table = "experimentation";
@@ -280,8 +279,7 @@ class Experimentation extends ObjetBdd
                 "defaultValue" => "getFinAnnee"
             )
         );
-        if (! is_array($param))
-            $param == array();
+
         $param["fullDescription"] = 1;
         parent::__construct($bdd, $param);
     }
@@ -406,8 +404,9 @@ class Experimentation extends ObjetBdd
 					where lecteur_id = " . $lecteur_id . "
 					order by e.exp_nom";
             return $this->getListeParam($sql);
-        } else
+        } else {
             return null;
+        }
     }
 }
 
@@ -420,7 +419,7 @@ class Experimentation extends ObjetBdd
 class Individu_experimentation extends ObjetBdd
 {
 
-    function __construct($bdd, $param)
+    function __construct($bdd, $param = array())
     {
         $this->param = $param;
         $this->table = "individu_experimentation";
@@ -438,8 +437,6 @@ class Individu_experimentation extends ObjetBdd
                 "key" => 1
             )
         );
-        if (! is_array($param))
-            $param == array();
         $param["fullDescription"] = 1;
         $param["id_auto"] = 0;
         parent::__construct($bdd, $param);
@@ -458,8 +455,9 @@ class Individu_experimentation extends ObjetBdd
 				inner join experimentation using (exp_id)
 				where individu_id = " . $individu_id;
             return $this->getListeParam($sql);
-        } else
+        } else {
             return null;
+        }
     }
 }
 
@@ -472,7 +470,7 @@ class Individu_experimentation extends ObjetBdd
 class Sexe extends ObjetBdd
 {
 
-    function __construct($bdd, $param)
+    function __construct($bdd, $param = array())
     {
         $this->param = $param;
         $this->table = "sexe";
@@ -493,8 +491,6 @@ class Sexe extends ObjetBdd
                 "requis" => 1
             )
         );
-        if (! is_array($param))
-            $param == array();
         $param["fullDescription"] = 1;
         parent::__construct($bdd, $param);
     }
@@ -509,10 +505,8 @@ class Sexe extends ObjetBdd
 class Espece extends ObjetBDD
 {
 
-    public function __construct($p_connection, $param = NULL)
+    public function __construct($p_connection, $param = array())
     {
-        if (is_array($param) == false)
-            $param = array();
         $this->table = "espece";
         $this->id_auto = 1;
         $this->colonnes = array(
@@ -564,7 +558,7 @@ class Espece extends ObjetBDD
 class Naturetraitement extends ObjetBdd
 {
 
-    function __construct($bdd, $param)
+    function __construct($bdd, $param = array())
     {
         $this->param = $param;
         $this->table = "naturetraitement";
@@ -580,8 +574,6 @@ class Naturetraitement extends ObjetBdd
                 "requis" => 1
             )
         );
-        if (! is_array($param))
-            $param == array();
         $param["fullDescription"] = 1;
         parent::__construct($bdd, $param);
     }

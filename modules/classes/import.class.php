@@ -15,17 +15,14 @@
 class FichierException extends Exception
 {
 }
-;
 
 class HeaderException extends Exception
 {
 }
-;
 
 class ImportException extends Exception
 {
 }
-;
 
 /**
  * Classe realisant l'import
@@ -82,8 +79,6 @@ class Import
 
     private $individu, $piece, $ie, $peche;
 
-    private $initIdentifiers = false;
-
     public $minuid, $maxuid;
 
     /**
@@ -97,8 +92,9 @@ class Import
      */
     function initFile($filename, $separator = ",", $utf8_encode = false)
     {
-        if ($separator == "tab")
+        if ($separator == "tab") {
             $separator = "\t";
+        }
         $this->separator = $separator;
         $this->utf8_encode = $utf8_encode;
         /*
@@ -110,7 +106,7 @@ class Import
              */
             $data = $this->readLine();
             $range = 0;
-            for ($range = 0; $range < count($data); $range ++) {
+            for ($range = 0; $range < count($data); $range++) {
                 $value = $data[$range];
                 if (in_array($value, $this->colonnes)) {
                     $this->fileColumn[$range] = $value;
@@ -148,8 +144,9 @@ class Import
             $data = fgetcsv($this->handle, null, $this->separator);
             if ($data !== false) {
                 if ($this->utf8_encode) {
-                    foreach ($data as $key => $value)
+                    foreach ($data as $key => $value) {
                         $data[$key] = utf8_encode($value);
+                    }
                 }
             }
             return $data;
@@ -163,8 +160,9 @@ class Import
      */
     function fileClose()
     {
-        if ($this->handle)
+        if ($this->handle) {
             fclose($this->handle);
+        }
     }
 
     /**
@@ -181,13 +179,13 @@ class Import
          * Suppression du reformatage de la date
          */
         $this->peche->auto_date = 0;
-        while (($data = $this->readLine())) {
+        while ($data = $this->readLine()) {
             if (count($data) > 0) {
                 /*
                  * Preparation du tableau
                  */
                 $values = $this->prepareLine($data);
-                $num ++;
+                $num++;
                 /*
                  * Lancement de l'ecriture des informations
                  */
@@ -240,7 +238,7 @@ class Import
                 if ($individu_id > $maxuid) {
                     $maxuid = $individu_id;
                 }
-                $this->nbTreated ++;
+                $this->nbTreated++;
             }
         }
         $this->minuid = $minuid;
@@ -257,7 +255,7 @@ class Import
     {
         $nb = count($data);
         $values = array();
-        for ($i = 0; $i < $nb; $i ++)
+        for ($i = 0; $i < $nb; $i++)
             $values[$this->fileColumn[$i]] = $data[$i];
         return $values;
     }
@@ -288,9 +286,9 @@ class Import
         $retour = array();
         while (($data = $this->readLine()) !== false) {
             $values = $this->prepareLine($data);
-            $num ++;
+            $num++;
             $controle = $this->controlLine($values);
-            if ($controle["code"] == false) {
+            if (! $controle["code"]) {
                 $retour[] = array(
                     "line" => $num,
                     "message" => $controle["message"]
@@ -312,7 +310,7 @@ class Import
             "code" => true,
             "message" => ""
         );
-        $emptyLine = true;
+
         /*
          * Verification que le codeindividu ou le tag sont renseignes
          */
@@ -330,7 +328,7 @@ class Import
                 break;
             }
         }
-        if ($ok == false) {
+        if (! $ok ) {
             $retour["code"] = false;
             $retour["message"] .= " " . _("Le numéro de l'expérimentation est manquant, inconnu ou non autorisé.");
         }
@@ -344,7 +342,7 @@ class Import
                 break;
             }
         }
-        if ($ok == false) {
+        if (! $ok ) {
             $retour["code"] = false;
             $retour["message"] .= " " . _("Le numéro d'espèce est manquant ou non connu.");
         }
@@ -360,7 +358,7 @@ class Import
                     break;
                 }
             }
-            if ($ok == false) {
+            if (!$ok) {
                 $retour["code"] = false;
                 $retour["message"] .= " " . _("Le sexe indiqué n'existe pas dans la base de données.");
             }
@@ -385,7 +383,7 @@ class Import
                     break;
                 }
             }
-            if ($ok == false) {
+            if (!$ok ) {
                 $retour["code"] = false;
                 $retour["message"] .= " " . _("Le type de pièce indiqué n'est pas connu.");
             }
@@ -396,7 +394,7 @@ class Import
          */
         foreach ($this->colnum as $key) {
             if (strlen($data[$key]) > 0) {
-                if (! is_numeric($data[$key])) {
+                if (!is_numeric($data[$key])) {
                     $retour["code"] = false;
                     $retour["message"] .= " " . sprintf(_("Le champ %s n'est pas numérique."), $key);
                 }

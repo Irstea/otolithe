@@ -219,10 +219,6 @@ function initGettext($langue)
      */
     // var_dump($langue); // aide à la traduction lors du développement
     setlocale(LC_ALL, "C.UTF-8", "C"); // setlocale pour linux // C = localisation portable par défaut
-                                       // Attention : La valeur retournée par setlocale() dépend du système sur lequel PHP est installé. setlocale() retourne exactement ce que la fonction système setlocale retourne.
-                                       // TODO aide au diagnostic : vérifier que setlocale a réussi ou que le fichier de langue existe bien
-                                       // $path = realpath("./locales") . "/C/LC_MESSAGES/$langue.mo";
-                                       // var_dump( $path, file_exists( $path ) );
     putenv("LANG=C.UTF-8"); // putenv pour windows // non testé
     bindtextdomain($langue, realpath("./locales"));
     bind_textdomain_codeset($langue, "UTF-8");
@@ -321,10 +317,13 @@ class VirusException extends Exception
 class FileException extends Exception
 {
 }
-
+/**
+ * Lancement du test antiviral pour le fichier telecharge
+ * $file: array contenant les donnees du fichier telecharge
+ */
 function testScan($file)
 {
-    if (file_exists($file)) {
+    if (file_exists($file) && $APPLI_virusscan) {
         if (extension_loaded('clamav')) {
             $retcode = cl_scanfile($file["tmp_name"], $virusname);
             if ($retcode == CL_VIRUS) {

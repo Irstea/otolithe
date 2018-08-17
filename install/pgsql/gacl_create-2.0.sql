@@ -1,5 +1,5 @@
 /*
- * Collec-Science - 4 mai 2018
+ * Otolithe - 16/08/2018
  * Script de creation des tables necessaires a la gestion des droits
  * deux schemas sont necessaires, l'un pour les donnees proprement dites, 
  * l'autre pour la gestion des droits (habilitations et des traces)

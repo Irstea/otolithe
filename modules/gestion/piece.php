@@ -6,9 +6,9 @@ $id = $_SESSION["it_piece"]->getValue($_REQUEST["piece_id"]);
 switch ($t_module["param"]) {
     case "display":
 		/*
-		 * Display the detail of the record
-		 */
-		$data = $dataClass->getDetail($id);
+         * Display the detail of the record
+         */
+        $data = $dataClass->getDetail($id);
         $dataT = $_SESSION["it_piece"]->translateRow($data);
         $dataT = $_SESSION["it_individu"]->translateRow($dataT);
         $vue->set($dataT, "data");
@@ -40,14 +40,14 @@ switch ($t_module["param"]) {
         break;
     case "change":
 		/*
-		 * open the form to modify the record
-		 * If is a new record, generate a new record with default value :
-		 * $_REQUEST["idParent"] contains the identifiant of the parent record
-		 */
+         * open the form to modify the record
+         * If is a new record, generate a new record with default value :
+         * $_REQUEST["idParent"] contains the identifiant of the parent record
+         */
 		/*
-		 * Recuperation des tables de parametres
-		 */
-		$traitementpiece = new Traitementpiece($bdd, $ObjetBDDParam);
+         * Recuperation des tables de parametres
+         */
+        $traitementpiece = new Traitementpiece($bdd, $ObjetBDDParam);
         $vue->set($traitementpiece->getListe(), "traitementpiece");
         $piecetype = new Piecetype($bdd, $ObjetBDDParam);
         $vue->set($piecetype->getListe(), "piecetype");
@@ -69,19 +69,20 @@ switch ($t_module["param"]) {
         break;
     case "write":
 		/*
-		 * write record in database
-		 */
-		$_REQUEST["piece_id"] = $_SESSION["it_piece"]->getValue($_REQUEST["piece_id"]);
+         * write record in database
+         */
+        $_REQUEST["piece_id"] = $_SESSION["it_piece"]->getValue($_REQUEST["piece_id"]);
         $_REQUEST["individu_id"] = $_SESSION["it_individu"]->getValue($_REQUEST["individu_id"]);
         $id = dataWrite($dataClass, $_REQUEST);
-        if ($id > 0)
+        if ($id > 0) {
             $_REQUEST["piece_id"] = $_SESSION["it_piece"]->setValue($id);
+        }
         break;
     case "delete":
 		/*
-		 * delete record
-		 */
-		dataDelete($dataClass, $id);
+         * delete record
+         */
+        dataDelete($dataClass, $id);
         break;
 }
 ?>
