@@ -1,18 +1,19 @@
 <?php
-/** Fichier cree le 4 mai 07 par quinton
-*
-*UTF-8
-* 
-* Parametres par defaut de l'application
-* Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
-*/
+
+/** 
+ * Fichier cree le 4 mai 07 par quinton
+ * UTF-8
+ * 
+ * Parametres par defaut de l'application
+ * Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
+ */
 $APPLI_version = "2.0";
 $APPLI_dbversion = "2.0";
 $APPLI_versiondate = _("17/8/2018");
 //$APPLI_versiondate = "3/7/2018";
 $language = "fr";
 $DEFAULT_formatdate = "fr";
-$APPLI_languageList = array("fr","en");
+$APPLI_languageList = array("fr", "en");
 /*
  * Navigation a partir du fichier xml
  */
@@ -53,21 +54,21 @@ $ident_type = "BDD";
 $CAS_address = "http://localhost/CAS";
 $CAS_port = 443;
 $LDAP = array(
-		"address"=>"localhost",
-		"port" => 389,
-		"rdn" => "cn=manager,dc=example,dc=com",
-		"basedn" => "ou=people,ou=example,o=societe,c=fr",
-		"user_attrib" => "uid",
-		"v3" => true,
-		"tls" => false,
-		"upn_suffix" => "", //pour Active Directory
-		"groupSupport"=>false,
-		"groupAttrib"=>"supannentiteaffectation",
-		"commonNameAttrib"=>"displayname",
-		"mailAttrib"=>"mail",
-		'attributgroupname' => "cn",
-		'attributloginname' => "memberuid",
-		'basedngroup' => 'ou=example,o=societe,c=fr'
+    "address" => "localhost",
+    "port" => 389,
+    "rdn" => "cn=manager,dc=example,dc=com",
+    "basedn" => "ou=people,ou=example,o=societe,c=fr",
+    "user_attrib" => "uid",
+    "v3" => true,
+    "tls" => false,
+    "upn_suffix" => "", //pour Active Directory
+    "groupSupport" => false,
+    "groupAttrib" => "supannentiteaffectation",
+    "commonNameAttrib" => "displayname",
+    "mailAttrib" => "mail",
+    'attributgroupname' => "cn",
+    'attributloginname' => "memberuid",
+    'basedngroup' => 'ou=example,o=societe,c=fr'
 );
 
 /*
@@ -81,16 +82,17 @@ $BDD_schema = "public";
  * Parametres concernant SMARTY
  */
 $display = "display"; // Dossier de base contenant tout l'affichage
-$SMARTY_param = array("templates"=> "$display/templates",
-		"templates_c"=>"$display/templates_c",
-		"cache"=>false,
-		"cache_dir"=>"$display/smarty_cache",
-		"template_main"=>"main.htm"
+$SMARTY_param = array(
+    "templates" => "$display/templates",
+    "templates_c" => "$display/templates_c",
+    "cache" => false,
+    "cache_dir" => "$display/smarty_cache",
+    "template_main" => "main.htm"
 );
 
 /*
  * Variables de base de l'application
- */ 
+ */
 $APPLI_mail = "proto@proto.com";
 $APPLI_nom = "Prototype d'application";
 $APPLI_code = 'proto';
@@ -107,14 +109,14 @@ $APPLI_isFullDns = false;
  * Variables systematiques pour SMARTY
  */
 $SMARTY_variables = array(
-		"entete"=>"entete.tpl",
-		"enpied"=>"enpied.tpl",
-		"corps"=>"main.tpl",
-		"melappli"=>$APPLI_mail,
-		"ident_type"=>$ident_type,
-        "appliAssist"=>$APPLI_assist_address,
-        "display"=>"/$display",
-        "favicon"=>"/favicon.png"
+    "entete" => "entete.tpl",
+    "enpied" => "enpied.tpl",
+    "corps" => "main.tpl",
+    "melappli" => $APPLI_mail,
+    "ident_type" => $ident_type,
+    "appliAssist" => $APPLI_assist_address,
+    "display" => "/$display",
+    "favicon" => "/favicon.png"
 );
 /*
  * Variables liees a GACL et l'identification via base de donnees
@@ -128,14 +130,14 @@ $GACL_schema = "gacl";
 /*
  * Gestion des erreurs
  */
-$ERROR_level=E_ERROR;
+$ERROR_level = E_ERROR;
 /*
  * Pour le developpement :
  * $ERROR_level = E_ALL & ~E_NOTICE & E_STRICT 
  * En production :
  * $ERROR_level = E_ERROR ;
- */ 
-$ERROR_display=0;
+ */
+$ERROR_display = 0;
 $ADODB_debugmode = 0;
 $OBJETBDD_debugmode = 1;
 /*
