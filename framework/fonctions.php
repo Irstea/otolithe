@@ -55,7 +55,7 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
  */
 function dataWrite($dataClass, $data)
 {
-    
+
     global $message, $module_coderetour, $log, $OBJETBDD_debugmode;
     $dataClass->connection->beginTransaction();
     try {
@@ -74,7 +74,7 @@ function dataWrite($dataClass, $data)
             $message->set(_("Problème lors de l'enregistrement..."));
         }
         $message->setSyslog($e->getMessage());
-        $module_coderetour = - 1;
+        $module_coderetour = -1;
     }
     return ($id);
 }
@@ -89,16 +89,16 @@ function dataWrite($dataClass, $data)
 function dataDelete($dataClass, $id)
 {
     global $message, $module_coderetour, $log, $OBJETBDD_debugmode;
-    $module_coderetour = - 1;
+    $module_coderetour = -1;
     $ok = true;
     if (is_array($id)) {
         foreach ($id as $value) {
-            if (! (is_numeric($value) && $value > 0)) {
+            if (!(is_numeric($value) && $value > 0)) {
                 $ok = false;
             }
         }
     } else {
-        if (! (is_numeric($id) && $id > 0)) {
+        if (!(is_numeric($id) && $id > 0)) {
             $ok = false;
         }
     }
@@ -120,10 +120,10 @@ function dataDelete($dataClass, $id)
                 $message->set(_("Problème lors de la suppression"));
             }
             $message->setSyslog($e->getMessage());
-            $ret = - 1;
+            $ret = -1;
         }
     } else {
-        $ret = - 1;
+        $ret = -1;
     }
     return ($ret);
 }
@@ -145,7 +145,7 @@ function setlanguage($langue)
     /*
      * Chargement de la langue par defaut
      */
-    include ('locales/' . $language . ".php");
+    include('locales/' . $language . ".php");
     /*
      * On gere le cas ou la langue selectionnee n'est pas la langue par defaut
      */
@@ -185,7 +185,7 @@ function setlanguage($langue)
      */
     $cookieParam = session_get_cookie_params();
     $cookieParam["lifetime"] = $APPLI_cookie_ttl;
-    if (! $APPLI_modeDeveloppement) {
+    if (!$APPLI_modeDeveloppement) {
         $cookieParam["secure"] = true;
     }
     $cookieParam["httponly"] = true;
@@ -198,7 +198,17 @@ function initGettext($langue)
     /*
      * Pour smarty-gettext (gettext)
      */
-
+    global $language, $APPLI_languageList;
+    /* 
+     * verification que $langue figure bien dans la liste autorisee
+     */
+    $localLanguage = $language;
+    foreach ($APPLI_languageList as $value) {
+        if ($langue == $value) {
+            $localLanguage = $value;
+            break;
+        }
+    }
     /*
      * Attention :
      * gettext fonctionne avec setlocale. Le problème est que setlocale dépend des locales installées sur le serveur.
@@ -220,9 +230,9 @@ function initGettext($langue)
     // var_dump($langue); // aide à la traduction lors du développement
     setlocale(LC_ALL, "C.UTF-8", "C"); // setlocale pour linux // C = localisation portable par défaut
     putenv("LANG=C.UTF-8"); // putenv pour windows // non testé
-    bindtextdomain($langue, realpath("./locales"));
-    bind_textdomain_codeset($langue, "UTF-8");
-    textdomain($langue);
+    bindtextdomain($localLanguage, realpath("./locales"));
+    bind_textdomain_codeset($localLanguage, "UTF-8");
+    textdomain($localLanguage);
 }
 
 /**
@@ -236,13 +246,13 @@ function check_encoding($data)
     $result = true;
     if (is_array($data)) {
         foreach ($data as $value) {
-            if (! check_encoding($value)) {
+            if (!check_encoding($value)) {
                 $result = false;
             }
         }
     } else {
         if (strlen($data) > 0) {
-            if (! mb_check_encoding($data, "UTF-8")) {
+            if (!mb_check_encoding($data, "UTF-8")) {
                 $result = false;
             }
         }
@@ -268,7 +278,7 @@ function getIPClientAddress()
     } else if (isset($_SERVER["REMOTE_ADDR"])) {
         return $_SERVER["REMOTE_ADDR"];
     } else {
-        return - 1;
+        return -1;
     }
 }
 

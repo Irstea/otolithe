@@ -12,6 +12,7 @@ $APPLI_versiondate = _("17/8/2018");
 //$APPLI_versiondate = "3/7/2018";
 $language = "fr";
 $DEFAULT_formatdate = "fr";
+$APPLI_languageList = array("fr","en");
 /*
  * Navigation a partir du fichier xml
  */
