@@ -69,6 +69,7 @@ chmod -R 750 .
 mkdir otolithe/display/templates_c
 chgrp -R www-data .
 chmod -R 770 otolithe/display/templates_c
+mkdir otolithe/img
 chmod -R 770 otolithe/img
 
 # generate rsa key for encrypted tokens
@@ -82,6 +83,7 @@ upload_max_filesize="=100M"
 post_max_size="=50M"
 max_execution_time="=120"
 max_input_time="=240"
+memory_limit="=1024M"
 for key in upload_max_filesize post_max_size max_execution_time max_input_time
 do
  sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" $phpinifile
