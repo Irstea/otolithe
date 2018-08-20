@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-16 09:47+0200\n"
+"POT-Creation-Date: 2018-08-16 10:29+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -56,7 +56,6 @@ msgstr "Import fish"
 
 #. (itstool) path: menu/item@label
 #: ../../../param/menu.xml:14
-#, fuzzy
 msgid "Paramètres"
 msgstr "Setting"
 
@@ -1156,9 +1155,8 @@ msgstr "Select the reader"
 
 #: ../../../display/templates/photolecture/lectureSearch.tpl:81
 #: ../../../display/templates/gestion/individuSearch.tpl:76
-#, fuzzy
 msgid "Rechercher..."
-msgstr "Search:"
+msgstr "Search..."
 
 #: ../../../display/templates/photolecture/photolectureList.tpl:1
 msgid "Consultation de la lecture de pièces"
@@ -1512,7 +1510,6 @@ msgstr "Name of the type of the piece:"
 #: ../../../display/templates/gestion/lecteurChange.tpl:58
 #: ../../../display/templates/gestion/especeChange.tpl:44
 #: ../../../display/templates/gestion/individuChange.tpl:220
-#, fuzzy
 msgid "Champ obligatoire"
 msgstr "Mandatory data"
 
@@ -1576,7 +1573,7 @@ msgstr "Piece code:"
 #: ../../../display/templates/gestion/pieceDisplay.tpl:37
 #: ../../../display/templates/gestion/pieceChange.tpl:52
 msgid "Traitement effectué :"
-msgstr "Processing done:"
+msgstr "Treatment performed:"
 
 #: ../../../display/templates/gestion/pieceDisplay.tpl:46
 msgid "Photos rattachées"
@@ -2218,7 +2215,7 @@ msgstr "Weight (g):"
 
 #: ../../../display/templates/gestion/individuChange.tpl:198
 msgid "Liste des expérimentations de rattachement"
-msgstr "List of attachment experiments"
+msgstr "List of related experiments"
 
 #: ../../../display/templates/entete.tpl:34
 msgid "Mot de passe"
