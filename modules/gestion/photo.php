@@ -97,6 +97,24 @@ switch ($t_module["param"]) {
 		/*
          * write record in database
          */
+        /*
+         * Recherche des erreurs de telechargement
+         */
+        if (isset($_FILES["photoload"]["error"]) && $_FILES["photoload"]["error"] != UPLOAD_ERR_OK) {
+            switch ($_FILES["photoload"]["error"]) {
+                case (UPLOAD_ERR_INI_SIZE or UPLOAD_ERR_FORM_SIZE):
+                    $message->set(_("La taille de la photo excède la taille autorisée"));
+                    break;
+                case UPLOAD_ERR_NO_FILE:
+                /*
+                     * No action
+                     */
+                    break;
+                default:
+                    $message->set(_("Une erreur s'est produite lors du chargement de la photo. Si le problème persiste, contactez votre support technique"));
+            }
+        }
+
 		/*
          * On recherche si une photo a ete telechargee
          */
@@ -145,12 +163,15 @@ switch ($t_module["param"]) {
         }
         $_REQUEST["original_format"] == 1 ? $isOrigin = true : $isOrigin = false;
         try {
-            $photoname = $dataClass->getPhotoName($id, 0, $_REQUEST["sizeX"], $_REQUEST["sizeY"], $isOrigin);
+            $photopath = $dataClass->writeFilePhoto($id, 0, $_REQUEST["sizeX"], $_REQUEST["sizeY"], $isOrigin);
         } catch (PhotoException $pe) {
             $message->setSyslog($pe->getMessage());
         }
+        $pn = explode("/", $photopath);
+        $pnn = count($pn);
+        $photoname = $pn[(count($pn)-1)];
         isset($_REQUEST["disposition"]) ? $disposition = $_REQUEST["disposition"] : $disposition = "inline";
-        $vue->setParam(array("disposition" => $disposition, "filename" => $photoname, "tmp_name" => $APPLI_photoStockage . "/" . $photoname));
+        $vue->setParam(array("disposition" => $disposition, "filename" => $photoname, "tmp_name" => $photopath));
         break;
     case "getThumbnail":
 		/*
