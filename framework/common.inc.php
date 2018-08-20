@@ -155,6 +155,9 @@ if (isset ( $_SESSION ["LANG"] ) &&  ! $APPLI_modeDeveloppement) {
 		$langue = explode ( ';', $_SERVER ['HTTP_ACCEPT_LANGUAGE'] );
 		$langue = substr ( $langue [0], 0, 2 );
 	}
+	if (!isset($langue)) {
+		$langue = $language = "fr";
+	}
 	/*
 	 * Mise a niveau du langage
 	 */

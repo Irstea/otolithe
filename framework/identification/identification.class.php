@@ -872,6 +872,9 @@ class Log extends ObjetBDD
         if (is_null($module)) {
             $module = "unknown";
         }
+        if (!isset($_SESSION["MASKDATELONG"])) {
+        	$_SESSION["MASKDATELONG"] = "d/m/Y H:i:s";
+        }
         $data["nom_module"] = $GACL_aco . "-" . $module;
         $data["log_date"] = date($_SESSION["MASKDATELONG"]);
         $data["ipaddress"] = $this->getIPClientAddress();
