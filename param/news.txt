@@ -1,5 +1,20 @@
 Nouveautés
 ===========
+Version 2.0 du 18 août 2018
+---------------------------
+Refonte de l'interface et intégration de la dernière version du framework
+Nouveautés et améliorations :
+- il est possible de modifier directement une espèce ou en rajouter une
+- gestion des photos TIFF : il est possible de télécharger une photo au format TIFF. Toutefois, la saisie des points se fait obligatoirement avec une photo au format JPG (transformation dynamique). Quelques limitations à l'utilisation des photos TIFF :
+> Elles doivent être "propres", c'est à dire sans anomalies (les appareils de laboratoire peuvent générer des fichiers mal formatés)
+> leur taille est volontairement limitée à 50 Mo. Au delà, des problèmes de performance au niveau du serveur peuvent être ressenties, voire bloquer totalement le serveur.
+- les données affichées dans le détail d'un poisson ont été volontairement réduites, pour ne pas "polluer" toutes les expérimentations avec des données spécifiques à certaines
+- l'importation de données permet de renseigner tous les champs gérés par l'application pour les poissons. Un fichier CSV vierge peut être téléchargé
+- il est maintenant possible de renseigner directement les lecteurs depuis le détail d'une expérimentation
+
+Correction de bugs
+- si l'opérateur qui crée une expérimentation est indiqué comme lecteur de celle-ci, il récupère les droits automatiquement sans être obligé de se reconnecter
+
 Version 1.5.1 du 11 octobre 2017
 ------------------------------
 Extension de la fonction d'import automatique, pour rajouter des informations complémentaires (besoin exprimé pour des lectures de rayons d'esturgeons)
