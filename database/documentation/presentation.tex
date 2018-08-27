@@ -1,0 +1,100 @@
+\chapter{Le logiciel Otolithe}
+\section{Présentation}
+
+Le logiciel Otolithe a été conçu pour faciliter la lecture des pièces calcifiées de poissons (otolithes, écailles, rayons de nageoires, etc.). Il permet à chaque lecteur de positionner des points sur des photos, et de comparer ensuite chaque lecture.
+
+Il a été conçu pour l'unité de recherche \textit{Écosystèmes aquatiques et changements globaux} d'IRSTEA, à Cestas (33).
+
+La première version est parue à l'automne 2013, la version 2.0 est sortie en août 2018.
+
+Le code comprend environ 6400 lignes (commentaires compris), dont 2200 concernent l'affichage des pages web. Il a été écrit en PHP, les pages web sont générées en HTML et Javascript avec le composant Smarty.
+
+\section{Fonctionnalités générales}
+
+L'application est organisée autour de la notion d'expérimentation : une expérimentation regroupe les poissons qui font l'objet d'une lecture par un groupe de lecteurs définis.
+
+Un poisson peut être rattaché à plusieurs expérimentations.
+
+Les poissons peuvent être saisis ou importés, à partir d'un fichier au format CSV.
+
+Pour un poisson, on peut décrire une ou plusieurs pièces calcifiées, et rattacher à celles-ci une ou plusieurs photos.
+
+Les lecteurs positionnent des points sur les photos. Une fois toutes les lectures réalisées, il est possible de les afficher simultanément et, au besoin, réaliser une lecture consensuelle.
+
+Les résultats des lectures peuvent être exportées dans un fichier au format CSV.
+
+Les lecteurs ne peuvent accéder qu'aux poissons qui font partie des expérimentations qui leur sont ouvertes : il est ainsi possible de gérer des lots de poissons différents avec des lecteurs différents, tout en conservant la confidentialité des lectures.
+
+\section{Technologie employée}
+\subsection{Base de données}
+
+L'application a été conçue pour fonctionner avec Postgresql, en version 9.5. 
+
+\subsection{Langage de développement et framework utilisé}
+Le logiciel a été écrit en PHP, en s'appuyant sur le framework \textit{Prototypephp} \cite{prototypephp}, développé parallèlement par l'auteur du logiciel.
+
+Il utilise la classe \textit{Smarty} \cite{smarty} pour gérer l'affichage des pages HTML. Celles-ci sont générées en utilisant \textit{Jquery} \cite{jquery}  et divers composants associés. Le rendu général est réalisé avec \textit{Bootstrap} \cite{bootstrap}.
+
+
+
+\subsection{Liste des composants externes utilisés}
+% \usepackage{array} is required
+\begin{longtable}{|>{\raggedright\arraybackslash}p{3cm}|c|c|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{3cm}|}
+\hline 
+\textbf{Nom} & \textbf{Version} & \textbf{Licence} & \textbf{Usage} & \textbf{Site} \\ 
+\hline 
+\endhead
+PrototypePHP & 4/7/2018 & LGPL & Framework & \href{https://github.com/equinton/prototypephp}{github.com/ equinton/ prototypephp} \\ 
+\hline 
+Smarty & 3.1.31 & LGPL & Générateur de pages HTML & \href{http://www.smarty.net}{www.smarty.net} \\ 
+\hline 
+Smarty-gettext & 1.1.1 & LGPL & Gestion du multi-linguisme avec Smarty & \href{https://github.com/smarty-gettext/smarty-gettext}{https://github.com/smarty-gettext/smarty-gettext} \\
+\hline
+PHPCAS & 1.3.5 & Apache 2.0 & Identification auprès d'un serveur CAS & \href{https://wiki.jasig.org/display/CASC/phpCAS}{wiki.jasig.org/ display/ CASC/ phpCAS} \\ 
+\hline 
+Bootstrap & 3.3.7 & MIT & Présentation HTML & \href{http://getbootstrap.com}{get.bootstrap.com} \\ 
+\hline 
+js-cookie-master & 2.1.4 & MIT & Gestion des cookies dans le navigateur & \href{https://github.com/js-cookie/js-cookie}{github.com/ js-cookie/ js-cookie} \\ 
+\hline 
+Datatables & 1.10.15 & MIT & Affichage des tableaux HTML & \href{http://www.datatables.net/}{www.datatables. net} \\ 
+\hline 
+Datetime-moment &  & MIT & Formatage des dates dans les tableaux & \href{https://datatables.net/plug-ins/sorting/datetime-moment}{datatables.net/ plug-ins/ sorting/ datetime-moment} \\ 
+\hline 
+Moment &  & MIT & Composant utilisé par datetime-moment & \href{http://momentjs.com} {momentjs.com}\\ 
+\hline 
+JQuery & 3.3.1 & $\approx$ BSD & Commandes Javascript & \href{http://jquery.com/}{jquery.com} \\ 
+\hline 
+JQuery-ui & 1.12.1 & $\approx$ BSD & Commandes Javascript pour les rendus graphiques & \href{http://jqueryui.com/}{jqueryui.com} \\ 
+\hline 
+Jquery-timepicker-addon &  & MIT & Time picker & \href{https://github.com/trentrichardson/jQuery-Timepicker-Addon}{github.com/ trentrichardson/ jQuery-Timepicker-Addon} \\ 
+\hline 
+Magnific-popup & 1.1.0 & MIT & Affichage des photos & \href{http://dimsemenov.com/plugins/magnific-popup/}{dimsemenov .com/plugins/ magnific-popup/}\\ 
+\hline 
+Smartmenus &  & MIT & Génération du menu HTML & \href{http://www.smartmenus .org}{www.smartmenus .org} \\ 
+\hline 
+AlpacaJS & 1.5.23 & Apache 2 & Génération et saisie des métadonnées (pour une version future) & 
+\href{http://www.alpacajs.org/}{www.alpacajs.org}\\
+\hline
+\caption{Table des composants externes utilisés dans l'application}
+\end{longtable} 
+
+\section{Sécurité}
+
+L'application a été conçue pour résister aux attaques dites opportunistes selon la nomenclature ASVS v3 \cite{asvs} de l'OWASP \cite{owasp}. Des tests d'attaque ont été réalisés en août 2018 avec le logiciel ZapProxy \cite{zaproxy}, et n'ont pas détecté de faiblesse particulière.
+
+La gestion des droits est conçue pour qu'un lecteur ne puisse accéder qu'aux poissons faisant partie de ou des expérimentations auxquelles il est rattaché. 
+
+Hormis le droit \textit{admin} qui permet de tout faire dans le logiciel, y compris paramétrer la gestion des droits, les droits suivants sont gérés :
+\begin{itemize}
+\item gestion : permet de modifier les données concernant un poisson, ajouter une photo, etc.
+\item gestionCompte : permet de rajouter des comptes, de créer une expérimentation et d'y rattacher des lecteurs.
+\end{itemize}
+
+Les lecteurs ne peuvent que réaliser des lectures ou modifier les leurs.
+
+\section{Licence}
+Le logiciel est diffusé selon les termes de la licence GNU AFFERO GENERAL PUBLIC LICENSE version 3, en date du 19 novembre 2007 \cite{agpl}.
+
+\section{Copyright}
+
+L'application est en cours de dépôt auprès de l'Agence de protection des programmes \cite{app}.

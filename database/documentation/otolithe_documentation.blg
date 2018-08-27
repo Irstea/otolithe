@@ -1,0 +1,102 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: otolithe_documentation.aux
+The style file: plainnat.bst
+A level-1 auxiliary file: presentation.aux
+A level-1 auxiliary file: installation.aux
+A level-1 auxiliary file: administration.aux
+A level-1 auxiliary file: utilisation.aux
+A level-1 auxiliary file: lecture.aux
+Database file #1: otolithe.bib
+Warning--entry type for "prototypephp" isn't style-file defined
+--line 2 of file otolithe.bib
+Warning--entry type for "pphp-doc" isn't style-file defined
+--line 10 of file otolithe.bib
+Warning--entry type for "tls" isn't style-file defined
+--line 19 of file otolithe.bib
+Warning--entry type for "fop" isn't style-file defined
+--line 27 of file otolithe.bib
+Warning--entry type for "jquery" isn't style-file defined
+--line 35 of file otolithe.bib
+Warning--entry type for "smarty" isn't style-file defined
+--line 43 of file otolithe.bib
+Warning--entry type for "bootstrap" isn't style-file defined
+--line 51 of file otolithe.bib
+Warning--entry type for "asvs" isn't style-file defined
+--line 59 of file otolithe.bib
+Warning--entry type for "owasp" isn't style-file defined
+--line 67 of file otolithe.bib
+Warning--entry type for "zaproxy" isn't style-file defined
+--line 75 of file otolithe.bib
+Warning--entry type for "token" isn't style-file defined
+--line 83 of file otolithe.bib
+Warning--entry type for "phpgacl" isn't style-file defined
+--line 91 of file otolithe.bib
+Warning--entry type for "agpl" isn't style-file defined
+--line 99 of file otolithe.bib
+Warning--entry type for "pgadmin" isn't style-file defined
+--line 107 of file otolithe.bib
+Warning--entry type for "clamav" isn't style-file defined
+--line 115 of file otolithe.bib
+Warning--entry type for "clamavarchlinux" isn't style-file defined
+--line 123 of file otolithe.bib
+Warning--entry type for "clamaveq" isn't style-file defined
+--line 131 of file otolithe.bib
+Warning--entry type for "mozillagenerator" isn't style-file defined
+--line 138 of file otolithe.bib
+Warning--entry type for "app" isn't style-file defined
+--line 146 of file otolithe.bib
+Warning--entry type for "digitOcean" isn't style-file defined
+--line 154 of file otolithe.bib
+Warning--entry type for "zeroPostgres" isn't style-file defined
+--line 161 of file otolithe.bib
+Warning--entry type for "replicationPostgres" isn't style-file defined
+--line 168 of file otolithe.bib
+Warning--entry type for "replicationTutorial" isn't style-file defined
+--line 175 of file otolithe.bib
+Warning--entry type for "debphp7" isn't style-file defined
+--line 182 of file otolithe.bib
+Warning--entry type for "gimp" isn't style-file defined
+--line 189 of file otolithe.bib
+You've used 25 entries,
+            2773 wiz_defined-function locations,
+            702 strings with 7940 characters,
+and the built_in function-call counts, 7535 in all, are:
+= -- 656
+> -- 261
+< -- 25
++ -- 107
+- -- 78
+* -- 397
+:= -- 1142
+add.period$ -- 75
+call.type$ -- 25
+change.case$ -- 101
+chr.to.int$ -- 21
+cite$ -- 50
+duplicate$ -- 375
+empty$ -- 801
+format.name$ -- 105
+if$ -- 1615
+int.to.chr$ -- 5
+int.to.str$ -- 1
+missing$ -- 0
+newline$ -- 133
+num.names$ -- 100
+pop$ -- 301
+preamble$ -- 1
+purify$ -- 76
+quote$ -- 0
+skip$ -- 346
+stack$ -- 0
+substring$ -- 50
+swap$ -- 31
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 275
+warning$ -- 0
+while$ -- 75
+width$ -- 0
+write$ -- 307
+(There were 25 warnings)
