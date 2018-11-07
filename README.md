@@ -10,3 +10,5 @@ For install this software:
 - execute this script : it will install all necessary packages, create the database, etc.
 - edit the file /etc/apache2/sites-available/otolithe.conf and adapt it to your configuration
 - reload apache server
+
+A manual of installation and usage is available in french at https://github.com/Irstea/otolithe/raw/master/database/documentation/otolithe_documentation.pdf
