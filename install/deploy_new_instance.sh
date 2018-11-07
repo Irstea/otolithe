@@ -5,7 +5,7 @@
 # tested with debian 9.5
 # php7.0 : if new version, change in the first lines of the script
 
-downloadPath="https://gitlab.irstea.fr/eabx-applis_web/otolithe/-/archive/master/otolithe-master.zip"
+downloadPath="https://github.com/Irstea/otolithe/archive/master.zip"
 phpinifile="/etc/php/7.0/apache2/php.ini"
 
 echo "this script will install apache server and php, postgresql and deploy the current version of otolithe"
