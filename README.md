@@ -6,6 +6,7 @@ The code of version 2.0 has been desposited from Agence pour la Protection des P
 For install this software:
 - install a linux server (Ubuntu or Debian)
 - download install/deploy_new_instance.sh
+- verify the content of the script, particulary the variable phpinifile (version of php). It may be 7.2 for Ubuntu 18.04.
 - execute this script : it will install all necessary packages, create the database, etc.
 - edit the file /etc/apache2/sites-available/otolithe.conf and adapt it to your configuration
 - reload apache server
