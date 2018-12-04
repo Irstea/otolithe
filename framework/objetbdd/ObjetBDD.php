@@ -703,8 +703,8 @@ class ObjetBDD
     /**
      * Function ecrire
      *
-     * @param
-     *            array with the name of the columns as identifiers of items
+     * @param array $dataBrute with the name of the columns as identifiers of items
+     * 
      * @return int of item, or error code
      */
     function ecrire($dataBrute)
@@ -737,7 +737,6 @@ class ObjetBDD
         if ($this->auto_date == 1) {
             $data = $this->utilDatesLocaleVersDB($data);
         }
-        
         /*
          * Traitement pour determiner le type de traitement (insert, update)
          */

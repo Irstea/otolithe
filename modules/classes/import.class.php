@@ -10,7 +10,7 @@
  * Classes d'exception
  *
  * @author quinton
- *        
+ *
  */
 class FichierException extends Exception
 {
@@ -28,7 +28,7 @@ class ImportException extends Exception
  * Classe realisant l'import
  *
  * @author quinton
- *        
+ *
  */
 class Import
 {
@@ -56,13 +56,13 @@ class Import
         "campagne",
         "peche_engin",
         "personne",
-        "operateur"
+        "operateur",
     );
 
     private $colnum = array(
         "poids",
         "longueur",
-        "sexe_id"
+        "sexe_id",
     );
 
     private $handle;
@@ -90,7 +90,7 @@ class Import
      * @throws HeaderException
      * @throws FichierException
      */
-    function initFile($filename, $separator = ",", $utf8_encode = false)
+    public function initFile($filename, $separator = ",", $utf8_encode = false)
     {
         if ($separator == "tab") {
             $separator = "\t";
@@ -125,7 +125,7 @@ class Import
      * @param Individu $individu
      * @param Piece $piece
      */
-    function initClasses(Individu $individu, Piece $piece, Individu_experimentation $ie, Peche $peche)
+    public function initClasses(Individu $individu, Piece $piece, Individu_experimentation $ie, Peche $peche)
     {
         $this->individu = $individu;
         $this->piece = $piece;
@@ -138,7 +138,7 @@ class Import
      *
      * @return array|NULL
      */
-    function readLine()
+    public function readLine()
     {
         if ($this->handle) {
             $data = fgetcsv($this->handle, null, $this->separator);
@@ -158,7 +158,7 @@ class Import
     /**
      * Ferme le fichier
      */
-    function fileClose()
+    public function fileClose()
     {
         if ($this->handle) {
             fclose($this->handle);
@@ -170,7 +170,7 @@ class Import
      *
      * @throws ImportException
      */
-    function importAll()
+    public function importAll()
     {
         $num = 1;
         $maxuid = 0;
@@ -198,7 +198,9 @@ class Import
                      * Traitement de la peche
                      */
                     if (strlen($values["site"]) > 0 || strlen($values["peche_date"]) > 0 || strlen($values["campagne"]) > 0 || strlen($values["zonesite"]) > 0 || strlen($values["peche_engin"]) > 0 || strlen($values["personne"]) > 0 || strlen($values["operateur"]) > 0) {
-                        $values["peche_date"] = $this->formatDate($values["peche_date"]);
+                        $values["peche_date"] = $this->formatDate(
+                            $values["peche_date"]
+                        );
                         $peche_id = $this->peche->ecrire($values);
                         if ($peche_id > 0) {
                             $di["peche_id"] = $peche_id;
@@ -213,7 +215,7 @@ class Import
                      */
                     $data_ie = array(
                         "individu_id" => $individu_id,
-                        "exp_id" => $values["exp_id"]
+                        "exp_id" => $values["exp_id"],
                     );
                     $this->ie->ecrire($data_ie);
                     /*
@@ -251,12 +253,14 @@ class Import
      * @param array $data
      * @return array[]
      */
-    function prepareLine($data)
+    public function prepareLine($data)
     {
         $nb = count($data);
         $values = array();
-        for ($i = 0; $i < $nb; $i++)
+        for ($i = 0; $i < $nb; $i++) {
             $values[$this->fileColumn[$i]] = $data[$i];
+        }
+
         return $values;
     }
 
@@ -267,7 +271,7 @@ class Import
      * @param array $piecetype
      * @param array $espece
      */
-    function initControl($experimentation, $piecetype, $espece, $sexe)
+    public function initControl($experimentation, $piecetype, $espece, $sexe)
     {
         $this->experimentation = $experimentation;
         $this->piecetype = $piecetype;
@@ -280,7 +284,7 @@ class Import
      *
      * @return array[]["line"=>int, "message"=>string]
      */
-    function controlAll()
+    public function controlAll()
     {
         $num = 1;
         $retour = array();
@@ -288,10 +292,10 @@ class Import
             $values = $this->prepareLine($data);
             $num++;
             $controle = $this->controlLine($values);
-            if (! $controle["code"]) {
+            if (!$controle["code"]) {
                 $retour[] = array(
                     "line" => $num,
-                    "message" => $controle["message"]
+                    "message" => $controle["message"],
                 );
             }
         }
@@ -304,11 +308,11 @@ class Import
      * @param array $data
      * @return array ["code"=>boolean,"message"=>string]
      */
-    function controlLine($data)
+    public function controlLine($data)
     {
         $retour = array(
             "code" => true,
-            "message" => ""
+            "message" => "",
         );
 
         /*
@@ -328,7 +332,7 @@ class Import
                 break;
             }
         }
-        if (! $ok ) {
+        if (!$ok) {
             $retour["code"] = false;
             $retour["message"] .= " " . _("Le numéro de l'expérimentation est manquant, inconnu ou non autorisé.");
         }
@@ -342,7 +346,7 @@ class Import
                 break;
             }
         }
-        if (! $ok ) {
+        if (!$ok) {
             $retour["code"] = false;
             $retour["message"] .= " " . _("Le numéro d'espèce est manquant ou non connu.");
         }
@@ -383,7 +387,7 @@ class Import
                     break;
                 }
             }
-            if (!$ok ) {
+            if (!$ok) {
                 $retour["code"] = false;
                 $retour["message"] .= " " . _("Le type de pièce indiqué n'est pas connu.");
             }
@@ -418,7 +422,7 @@ class Import
      * @param string $date
      * @return string
      */
-    function formatDate($date)
+    public function formatDate($date)
     {
         $val = "";
         /*
@@ -431,7 +435,11 @@ class Import
              */
             $result = date_parse($date);
         }
+
         if ($result["warning_count"] == 0) {
+            if (strlen($result["year"]) == 2) {
+                $result["year"] = "20" . $result["year"];
+            }
             $val = $result["year"] . "-" . str_pad($result["month"], 2, "0", STR_PAD_LEFT) . "-" . str_pad($result["day"], 2, "0", STR_PAD_LEFT);
             if (strlen($result["hour"]) > 0 && strlen($result["minute"]) > 0) {
                 $val .= " " . str_pad($result["hour"], 2, "0", STR_PAD_LEFT) . ":" . str_pad($result["minute"], 2, "0", STR_PAD_LEFT);
@@ -444,4 +452,3 @@ class Import
         return $val;
     }
 }
-?>
