@@ -393,7 +393,7 @@ switch ($t_module["param"]) {
             //$nomfichier = "lecture";
             //$export->exportCSVinit($nomfichier, 'tab');
             $colExclude = array(
-                "photolecture_id", "photo_id", "lecteur_id", "piece_id", "individu_id", "points", "points_ref_lecture",
+                "photolecture_id", "photo_id", "lecteur_id", "piece_id", "individu_id", "points", "points_ref_lecture","final_stripe_id"
             );
             $dataExport = array();
             
@@ -429,7 +429,7 @@ switch ($t_module["param"]) {
                         */
                         $ligne["dist-" . ($i - 1) . "-" . $i] = $dataClass->calculDistance($x1, $y1, $value1["x"], $value1["y"]);
                     }
-                    
+
                     $x1 = $value1["x"];
                     $y1 = $value1["y"];
                     $i++;
