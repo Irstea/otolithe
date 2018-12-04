@@ -364,10 +364,21 @@ class Experimentation extends ObjetBdd
             $sql = "select e.exp_id, exp_nom, individu_id
 					from experimentation e
 					left outer join individu_experimentation ie 
-					on (e.exp_id = ie.exp_id and ie.individu_id = " . $individu_id . ")
-					order by exp_nom";
-            return $this->getListeParam($sql);
+					on (e.exp_id = ie.exp_id and ie.individu_id = :individu_id)
+                    order by exp_nom";
+                    $data = $this->getListeParamAsPrepared(
+                        $sql, 
+                        array("individu_id"=>$individu_id)
+                    );
+        } else {
+            $sql = "select e.exp_id, exp_nom
+            from experimentation e
+            order by exp_nom";
+            $data = $this->getListeParam($sql);
+
         }
+            return $data;
+        
     }
 
     /**
