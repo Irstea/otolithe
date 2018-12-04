@@ -1,13 +1,23 @@
 <script>
 $(document).ready(function() {
-$(".auto").change( function () {
+/*$(".auto").change( function () {
 	$("#searchBox").submit() ;
+});
+*/
+var modulePostSearch = "{$modulePostSearch}";
+$("#btn-submit").on("keyup click", function () { 
+	$("#module").val(modulePostSearch);
+	$("#searchBox").submit();
+});
+$("#btn-export").on("keyup click", function () { 
+	$("#module").val("photolectureExport");
+	$("#searchBox").submit();
 });
 });
 </script>
 <div class="col-sm-12 col-md-8 ">
 <form id="searchBox" method="GET" action="index.php" class="form-horizontal protoform">
-<input type="hidden" name="module" value="{$modulePostSearch}">
+<input type="hidden" id="module" name="module" value="">
 <input type="hidden" name="isSearch" value="1">
 
 <div class="form-group">
@@ -77,9 +87,14 @@ $(".auto").change( function () {
 {/section}
 </select>
 </div>
-<div class="center col-sm-6">
-<button class="btn btn-success" type="submit">{t}Rechercher...{/t}</button> 
+<div class="center col-sm-3">
+<button id="btn-submit" class="btn btn-success" type="button">{t}Rechercher...{/t}</button> 
 </div>
+{if $droits.gestion == 1}
+<div class="center col-sm-3">
+<button id="btn-export" class="btn btn-info" type="button">{t}Exporter la liste{/t}</button>
+</div>
+{/if}
 </div>
 </form>
 </div>

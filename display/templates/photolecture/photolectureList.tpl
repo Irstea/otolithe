@@ -1,11 +1,8 @@
 <h2>{t}Consultation de la lecture de pièces{/t}</h2>
 {include file="photolecture/lectureSearch.tpl"}
 {if $isSearch == 1}
-{if $droits.gestion == 1}
-<a href="index.php?module=photolectureExport" title="{t}Séparateur : tabulation, UTF-8, chiffres décimaux avec points{/t}">{t}Exporter la liste au format CSV{/t}</a>
-{/if}
-	<div class="row">
-	<div class="col-md-12">
+<div class="row">
+<div class="col-md-12">
 <table id="idListe" class="table table-bordered table-hover datatable" data-page-length='100'>
 <thead>
 <tr>
