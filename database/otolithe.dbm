@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.1" last-position="0,0" last-zoom="1"
+	 default-schema="public" default-owner="postgres">
+<role name="talend"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<role name="alosa_r"
+      inherit="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<role name="collec"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<role name="prototypephp"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<role name="quinton"
+      superuser="true"
+      createdb="true"
+      createrole="true"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+	<roles names="alosa_r" role-type="member" />
+</role>
+
+<database name="otolithe" encoding="UTF8" lc-collate="fr_FR.UTF-8" lc-ctype="fr_FR.UTF-8" is-template="false" allow-conns="true">
+	<role name="quinton"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="otolithe" rect-visible="true" fill-color="#fcaf3e">
+	<role name="quinton"/>
+</schema>
+
+<extension name="postgis" cur-version="2.3.3">
+	<schema name="public"/>
+	<comment><![CDATA[PostGIS geometry, geography, and raster spatial types and functions]]></comment>
+</extension>
+
+<sequence name="espece_espece_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+</sequence>
+
+<table name="espece">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<comment><![CDATA[Liste des especes]]></comment>
+	<position x="1220" y="280"/>
+	<column name="espece_id" not-null="true" sequence="otolithe.espece_espece_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="nom_id" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="nom_fr">
+		<type name="character varying" length="0"/>
+	</column>
+	<constraint name="espece_pkey" type="pk-constr" table="otolithe.espece">
+		<columns names="espece_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="experimentation_exp_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+</sequence>
+
+<table name="experimentation">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<comment><![CDATA[Experimentation a laquelle est rattache le poisson]]></comment>
+	<position x="840" y="840"/>
+	<column name="exp_id" not-null="true" sequence="otolithe.experimentation_exp_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="exp_nom" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="exp_description">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="exp_debut">
+		<type name="date" length="0"/>
+	</column>
+	<column name="exp_fin">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="pk_experimentation" type="pk-constr" table="otolithe.experimentation">
+		<columns names="exp_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="final_stripe_final_stripe_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+</sequence>
+
+<table name="final_stripe">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<comment><![CDATA[Natures de la strie finale]]></comment>
+	<position x="80" y="680"/>
+	<column name="final_stripe_id" not-null="true" sequence="otolithe.final_stripe_final_stripe_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="final_stripe_code" not-null="true">
+		<type name="character varying" length="0"/>
+		<comment><![CDATA[Code utilisé]]></comment>
+	</column>
+	<column name="final_stripe_libelle" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<constraint name="final_stripe_pk" type="pk-constr" table="otolithe.final_stripe">
+		<columns names="final_stripe_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="individu_individu_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+</sequence>
+
+<table name="individu">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<position x="1240" y="540"/>
+	<column name="individu_id" not-null="true" sequence="otolithe.individu_individu_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="espece_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="peche_id">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="sexe_id">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="codeindividu">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="poids">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="remarque">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="parasite">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="age">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="longueur">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="tag">
+		<type name="character varying" length="0"/>
+	</column>
+	<constraint name="pk_individu" type="pk-constr" table="otolithe.individu">
+		<columns names="individu_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="individu_experimentation">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<position x="1240" y="840"/>
+	<column name="individu_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="exp_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="individu_experimentation_pk" type="pk-constr" table="otolithe.individu_experimentation">
+		<columns names="individu_id,exp_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="lecteur_lecteur_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+</sequence>
+
+<table name="lecteur">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<comment><![CDATA[personne realisant la lecture d'une photo]]></comment>
+	<position x="480" y="1040"/>
+	<column name="lecteur_id" not-null="true" sequence="otolithe.lecteur_lecteur_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="login" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="lecteur_nom">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="lecteur_prenom">
+		<type name="character varying" length="0"/>
+	</column>
+	<constraint name="pk_lecteur" type="pk-constr" table="otolithe.lecteur">
+		<columns names="lecteur_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="lecteur_experimentation">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<comment><![CDATA[Table des experimentations autorisees pour un lecteur]]></comment>
+	<position x="860" y="1060"/>
+	<column name="lecteur_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="exp_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="lecteur_experimentation_pk" type="pk-constr" table="otolithe.lecteur_experimentation">
+		<columns names="lecteur_id,exp_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="lumieretype">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<position x="80" y="300"/>
+	<column name="lumieretype_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="lumieretype_libelle" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<constraint name="pk_lumieretype" type="pk-constr" table="otolithe.lumieretype">
+		<columns names="lumieretype_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="peche_peche_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+</sequence>
+
+<table name="peche">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<comment><![CDATA[Date de peche et lieu de capture]]></comment>
+	<position x="1640" y="560"/>
+	<column name="peche_id" not-null="true" sequence="otolithe.peche_peche_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="site">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="zonesite">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="peche_date">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="campagne">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="peche_engin">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="personne">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="operateur">
+		<type name="character varying" length="0"/>
+	</column>
+	<constraint name="pk_sitepeche" type="pk-constr" table="otolithe.peche">
+		<columns names="peche_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="photo_photo_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+</sequence>
+
+<table name="photo">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<comment><![CDATA[photos associees a une piece]]></comment>
+	<position x="480" y="180"/>
+	<column name="photo_id" not-null="true" sequence="otolithe.photo_photo_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="piece_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="lumieretype_id">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="photo_nom">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="description">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="photo_filename">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="photo_date">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="color">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="grossissement">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="repere">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="photo_data">
+		<type name="bytea" length="0"/>
+	</column>
+	<column name="photo_thumbnail">
+		<type name="bytea" length="0"/>
+	</column>
+	<column name="uri">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="long_reference">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="photo_height">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Hauteur de la photo originale]]></comment>
+	</column>
+	<column name="photo_width">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Largeur de la photo originale]]></comment>
+	</column>
+	<column name="long_ref_pixel">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Longueur de reference en pixels - valeur par defaut pour photolecture, si non lu]]></comment>
+	</column>
+	<constraint name="pk_photo" type="pk-constr" table="otolithe.photo">
+		<columns names="photo_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="photolecture_photolecture_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+</sequence>
+
+<table name="photolecture">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<comment><![CDATA[Lecture realisee par une personne]]></comment>
+	<position x="480" y="580"/>
+	<column name="photolecture_id" not-null="true" sequence="otolithe.photolecture_photolecture_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="photo_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="lecteur_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="final_stripe_id">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="centre">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="points">
+		<type name="geometry" length="0"/>
+	</column>
+	<column name="points_ref_lecture">
+		<type name="geometry" length="0"/>
+		<comment><![CDATA[Emplacement des points utilises pour lire la longueur de reference]]></comment>
+	</column>
+	<column name="photolecture_date" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="long_ref_mesuree">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="photolecture_height">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Hauteur de la photo utilisee pour la lecture]]></comment>
+	</column>
+	<column name="photolecture_width">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Largeur de la photo affichee pour realiser la lecture]]></comment>
+	</column>
+	<column name="long_totale_lue">
+		<type name="double precision" length="0"/>
+		<comment><![CDATA[Somme des segments entre chacun des points]]></comment>
+	</column>
+	<column name="long_totale_reel">
+		<type name="double precision" length="0"/>
+		<comment><![CDATA[Longueur totale réelle calculée pour le lecteur
+(long_reference / long_ref_mesuree * long_totale_lue)]]></comment>
+	</column>
+	<column name="rayon_point_initial">
+		<type name="real" length="0"/>
+	</column>
+	<column name="read_fiability">
+		<type name="real" length="0"/>
+		<comment><![CDATA[Fiabilité de la lecture]]></comment>
+	</column>
+	<column name="consensual_reading">
+		<type name="smallint" length="0"/>
+		<comment><![CDATA[1 si lecture consensuelle]]></comment>
+	</column>
+	<column name="annee_naissance">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Année de naissance estimée]]></comment>
+	</column>
+	<constraint name="enforce_dims_points" type="ck-constr" table="otolithe.photolecture">
+			<expression><![CDATA[(st_ndims(points) = 2)]]></expression>
+	</constraint>
+	<constraint name="enforce_dims_points_ref_lecture" type="ck-constr" table="otolithe.photolecture">
+			<expression><![CDATA[(st_ndims(points_ref_lecture) = 2)]]></expression>
+	</constraint>
+	<constraint name="enforce_geotype_points" type="ck-constr" table="otolithe.photolecture">
+			<expression><![CDATA[((geometrytype(points) = 'MULTIPOINT'::text) OR (points IS NULL))]]></expression>
+	</constraint>
+	<constraint name="enforce_geotype_points_ref_lecture" type="ck-constr" table="otolithe.photolecture">
+			<expression><![CDATA[((geometrytype(points_ref_lecture) = 'MULTIPOINT'::text) OR (points_ref_lecture IS NULL))]]></expression>
+	</constraint>
+	<constraint name="pk_photolecture" type="pk-constr" table="otolithe.photolecture">
+		<columns names="photolecture_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="piece_piece_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+</sequence>
+
+<table name="piece">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<comment><![CDATA[Pieces analysees]]></comment>
+	<position x="840" y="580"/>
+	<column name="piece_id" not-null="true" sequence="otolithe.piece_piece_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="individu_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="piecetype_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="traitementpiece_id">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="piececode">
+		<type name="character varying" length="255"/>
+	</column>
+	<constraint name="pk_piece" type="pk-constr" table="otolithe.piece">
+		<columns names="piece_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="piecetype_piecetype_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+</sequence>
+
+<table name="piecetype">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<comment><![CDATA[Type de piece]]></comment>
+	<position x="820" y="280"/>
+	<column name="piecetype_id" not-null="true" sequence="otolithe.piecetype_piecetype_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="piecetype_libelle" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<constraint name="pk_piecetype" type="pk-constr" table="otolithe.piecetype">
+		<columns names="piecetype_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="sexe">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<position x="1620" y="740"/>
+	<column name="sexe_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="sexe_libelle" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="sexe_libellecourt" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<constraint name="pk_sexe" type="pk-constr" table="otolithe.sexe">
+		<columns names="sexe_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="traitementpiece_traitementpiece_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+</sequence>
+
+<table name="traitementpiece">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<position x="820" y="740"/>
+	<column name="traitementpiece_id" not-null="true" sequence="otolithe.traitementpiece_traitementpiece_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="traitementpiece_libelle" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<constraint name="pk_traitementpiece" type="pk-constr" table="otolithe.traitementpiece">
+		<columns names="traitementpiece_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="dbparam">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<comment><![CDATA[Table des parametres associes de maniere intrinseque a l'instance]]></comment>
+	<position x="100" y="920"/>
+	<column name="dbparam_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="dbparam_name" not-null="true">
+		<type name="character varying" length="0"/>
+		<comment><![CDATA[Nom du parametre]]></comment>
+	</column>
+	<column name="dbparam_value">
+		<type name="character varying" length="0"/>
+		<comment><![CDATA[Valeur du paramètre]]></comment>
+	</column>
+	<constraint name="dbparam_pk" type="pk-constr" table="otolithe.dbparam">
+		<columns names="dbparam_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="dbversion_dbversion_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+</sequence>
+
+<table name="dbversion">
+	<schema name="otolithe"/>
+	<role name="quinton"/>
+	<comment><![CDATA[Table des versions de la base de donnees]]></comment>
+	<position x="100" y="820"/>
+	<column name="dbversion_id" not-null="true" sequence="otolithe.dbversion_dbversion_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="dbversion_number" not-null="true">
+		<type name="character varying" length="0"/>
+		<comment><![CDATA[Numero de la version]]></comment>
+	</column>
+	<column name="dbversion_date" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Date de la version]]></comment>
+	</column>
+	<constraint name="dbversion_pk" type="pk-constr" table="otolithe.dbversion">
+		<columns names="dbversion_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="espece_individu_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.espece" table="otolithe.individu">
+	<columns names="espece_id" ref-type="src-columns"/>
+	<columns names="espece_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="peche_individu_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.peche" table="otolithe.individu">
+	<columns names="peche_id" ref-type="src-columns"/>
+	<columns names="peche_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sexe_individu_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.sexe" table="otolithe.individu">
+	<columns names="sexe_id" ref-type="src-columns"/>
+	<columns names="sexe_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="experimentation_individu_experimentation_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.experimentation" table="otolithe.individu_experimentation">
+	<columns names="exp_id" ref-type="src-columns"/>
+	<columns names="exp_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="individu_individu_experimentation_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.individu" table="otolithe.individu_experimentation">
+	<columns names="individu_id" ref-type="src-columns"/>
+	<columns names="individu_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="experimentation_lecteur_experimentation_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.experimentation" table="otolithe.lecteur_experimentation">
+	<columns names="exp_id" ref-type="src-columns"/>
+	<columns names="exp_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="lecteur_lecteur_experimentation_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.lecteur" table="otolithe.lecteur_experimentation">
+	<columns names="lecteur_id" ref-type="src-columns"/>
+	<columns names="lecteur_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_photo_lumieretype" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.lumieretype" table="otolithe.photo">
+	<columns names="lumieretype_id" ref-type="src-columns"/>
+	<columns names="lumieretype_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_photo_piece" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.piece" table="otolithe.photo">
+	<columns names="piece_id" ref-type="src-columns"/>
+	<columns names="piece_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="final_stripe_photolecture_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.final_stripe" table="otolithe.photolecture">
+	<columns names="final_stripe_id" ref-type="src-columns"/>
+	<columns names="final_stripe_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_photolecture_lecteur" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.lecteur" table="otolithe.photolecture">
+	<columns names="lecteur_id" ref-type="src-columns"/>
+	<columns names="lecteur_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_photolecture_photo" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.photo" table="otolithe.photolecture">
+	<columns names="photo_id" ref-type="src-columns"/>
+	<columns names="photo_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="individu_piece_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.individu" table="otolithe.piece">
+	<columns names="individu_id" ref-type="src-columns"/>
+	<columns names="individu_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_piece_piecetype" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.piecetype" table="otolithe.piece">
+	<columns names="piecetype_id" ref-type="src-columns"/>
+	<columns names="piecetype_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_piece_traitement" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.traitementpiece" table="otolithe.piece">
+	<columns names="traitementpiece_id" ref-type="src-columns"/>
+	<columns names="traitementpiece_id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_individu_espece" type="relfk"
+	 custom-color="#68e232"
+	 src-table="otolithe.individu"
+	 dst-table="otolithe.espece" reference-fk="espece_individu_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_individu_peche" type="relfk"
+	 custom-color="#d343f5"
+	 src-table="otolithe.individu"
+	 dst-table="otolithe.peche" reference-fk="peche_individu_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_individu_sexe" type="relfk"
+	 custom-color="#df0dd4"
+	 src-table="otolithe.individu"
+	 dst-table="otolithe.sexe" reference-fk="sexe_individu_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_individu_experimentation_experimentation" type="relfk"
+	 custom-color="#93147d"
+	 src-table="otolithe.individu_experimentation"
+	 dst-table="otolithe.experimentation" reference-fk="experimentation_individu_experimentation_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_individu_experimentation_individu" type="relfk"
+	 custom-color="#38ca00"
+	 src-table="otolithe.individu_experimentation"
+	 dst-table="otolithe.individu" reference-fk="individu_individu_experimentation_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_lecteur_experimentation_experimentation" type="relfk"
+	 custom-color="#04870a"
+	 src-table="otolithe.lecteur_experimentation"
+	 dst-table="otolithe.experimentation" reference-fk="experimentation_lecteur_experimentation_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_lecteur_experimentation_lecteur" type="relfk"
+	 custom-color="#ea585a"
+	 src-table="otolithe.lecteur_experimentation"
+	 dst-table="otolithe.lecteur" reference-fk="lecteur_lecteur_experimentation_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_photo_lumieretype" type="relfk"
+	 custom-color="#0c9cad"
+	 src-table="otolithe.photo"
+	 dst-table="otolithe.lumieretype" reference-fk="fk_photo_lumieretype"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_photo_piece" type="relfk"
+	 custom-color="#d5ac4c"
+	 src-table="otolithe.photo"
+	 dst-table="otolithe.piece" reference-fk="fk_photo_piece"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_photolecture_final_stripe" type="relfk"
+	 custom-color="#ea6e08"
+	 src-table="otolithe.photolecture"
+	 dst-table="otolithe.final_stripe" reference-fk="final_stripe_photolecture_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_photolecture_lecteur" type="relfk"
+	 custom-color="#23e9f8"
+	 src-table="otolithe.photolecture"
+	 dst-table="otolithe.lecteur" reference-fk="fk_photolecture_lecteur"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_photolecture_photo" type="relfk"
+	 custom-color="#36b658"
+	 src-table="otolithe.photolecture"
+	 dst-table="otolithe.photo" reference-fk="fk_photolecture_photo"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_piece_individu" type="relfk"
+	 custom-color="#2f781f"
+	 src-table="otolithe.piece"
+	 dst-table="otolithe.individu" reference-fk="individu_piece_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_piece_piecetype" type="relfk"
+	 custom-color="#0eb01a"
+	 src-table="otolithe.piece"
+	 dst-table="otolithe.piecetype" reference-fk="fk_piece_piecetype"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_piece_traitementpiece" type="relfk"
+	 custom-color="#493725"
+	 src-table="otolithe.piece"
+	 dst-table="otolithe.traitementpiece" reference-fk="fk_piece_traitement"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
