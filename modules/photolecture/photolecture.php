@@ -317,7 +317,32 @@ switch ($t_module["param"]) {
     /*
     * delete record
     */
-    dataDelete($dataClass, $id);
+    
+    /*  
+    * Recherche si l'utilisateur dispose des droits de suppression
+    */
+    $deleteOk = false;
+
+    foreach (array("admin", "gestionCompte") as $droit) {
+        if ($_SESSION["droits"][$droit] == 1) {
+            $deleteOk = true;
+            break;
+        }
+    }
+    if (! $deleteOk) {
+        /* 
+        * Recherche si l'utilisateur modifie sa lecture
+        */
+        if ($dataClass->getLecteur($id)["login"] == $_SESSION["login"]) {
+            $deleteOk = true;
+        }
+    }
+    if ($deleteOk) {
+        dataDelete($dataClass, $id);
+    } else {
+        $module_coderetour = -1;
+        $message->set(_("Vous ne disposez pas des droits suffisants pour supprimer la lecture"));
+    }
     break;
     case "list":
     /*
@@ -404,14 +429,14 @@ switch ($t_module["param"]) {
             foreach ($data as $row) {
                 $ligne = array();
                 /*
-                 * Recuperation des colonnes necessaires dans l'export
-                 */
+                * Recuperation des colonnes necessaires dans l'export
+                */
                 foreach ($row as $kcol => $vcol) {
                     if (!in_array($kcol, $colExclude)) {
                         $ligne[$kcol] = $vcol;
                     }
                 }
-               
+                
                 if (strlen($row["points"]) > 0) {
                     $dataPoints["points"] = $dataClass->calculPointsAffichage($row["points"], 1);
                 }
@@ -429,7 +454,7 @@ switch ($t_module["param"]) {
                         */
                         $ligne["dist-" . ($i - 1) . "-" . $i] = $dataClass->calculDistance($x1, $y1, $value1["x"], $value1["y"]);
                     }
-
+                    
                     $x1 = $value1["x"];
                     $y1 = $value1["y"];
                     $i++;
@@ -437,10 +462,10 @@ switch ($t_module["param"]) {
                 if ($i > $nbPoint) {
                     $nbPoint = $i;
                 }
-
+                
                 $dataExport[] = $ligne;
             }
-
+            
             /*
             * Ecriture de l'entete
             */
@@ -455,7 +480,7 @@ switch ($t_module["param"]) {
             //$export->exportCSV();
             //$vue->setFilename("otolithe_reads_" . date("Y-m-d") . ".csv");
             //$vue->setDelimiter("tab");
-           
+            
             $vue->set($dataExport);
             $vue->regenerateHeader();
         }

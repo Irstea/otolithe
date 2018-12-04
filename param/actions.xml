@@ -106,7 +106,7 @@
 	<photolectureDisplay action="modules/photolecture/photolecture.php" param="display" droits="lecture" type="smarty"/>
 	<photolectureChange action="modules/photolecture/photolecture.php" param="change" droits="lecture" retourko="photoDisplay" type="smarty" />
 	<photolectureWrite action="modules/photolecture/photolecture.php" param="write" droits="lecture" retourok="photoDisplay" retourko="photolectureChange" modulebefore="photolectureChange" />
-	<photolectureDelete action="modules/photolecture/photolecture.php" param="delete" droits="gestion" retourok="photoDisplay" retourko="photolectureChange" modulebefore="photoDisplay" />
+	<photolectureDelete action="modules/photolecture/photolecture.php" param="delete" droits="gestion" retourok="photoDisplay" retourko="photoDisplay" modulebefore="photoDisplay" />
 	<photolectureList action="modules/photolecture/photolecture.php" retourlogin="1" param="list" droits="lecture" type="smarty"  />
 	<photolectureExport action="modules/photolecture/photolecture.php" param="export" droits="gestion" type="csv" />
 	<photolectureSwap action="modules/photolecture/photolecture.php" param="swap" droits="lecture" retourko="photolectureDisplay" retourok="photolectureChange" />
