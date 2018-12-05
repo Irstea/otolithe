@@ -461,6 +461,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Année de naissance estimée]]></comment>
 	</column>
+	<column name="comment">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Commentaire sur la lecture]]></comment>
+	</column>
 	<constraint name="enforce_dims_points" type="ck-constr" table="otolithe.photolecture">
 			<expression><![CDATA[(st_ndims(points) = 2)]]></expression>
 	</constraint>

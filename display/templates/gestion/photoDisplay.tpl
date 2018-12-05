@@ -184,6 +184,7 @@ $(document).ready(function() {
 <th>{t}Longueur totale lue{/t}</th>
 <th>{t}Longueur réelle calculée{/t}</th>
 <th>{t}Lecture consensuelle{/t}</th>
+<th>{t}Commentaires{/t}</th>
 {if $droits.admin == 1}
 <th>{t}Supprimer{/t}</th>
 {/if}
@@ -244,7 +245,10 @@ $(document).ready(function() {
 <td class="center">
 {if $photolecture[lst].consensual_reading == 1}{$LANG["message"].15}{/if}
 </td>
-{if $droits.gestion == 1}
+<td class="textareaDisplay">
+{$photolecture[lst].comment}
+</td>
+{if $droits.lecture == 1}
 <td>
 <div class="center">
 <a href="index.php?module=photolectureDelete&photolecture_id={$photolecture[lst].photolecture_id}&photo_id={$data.photo_id}" onclick="return confirm('Confirmez-vous la suppression ?'); return false">

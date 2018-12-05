@@ -610,6 +610,9 @@ class Photolecture extends ObjetBdd
             "annee_naissance" => array(
                 "type" => 1,
             ),
+            "comment"=>array(
+                "type"=> 0
+            )
         );
         $param["srid"] = -1;
         $param["fullDescription"] = 1;

@@ -1,5 +1,6 @@
 <?php
-include_once 'modules/classes/individu.class.php';
+
+require_once 'modules/classes/individu.class.php';
 
 $dataClass = new Individu($bdd, $ObjetBDDParam);
 /*

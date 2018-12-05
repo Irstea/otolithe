@@ -342,6 +342,9 @@ x
 {t}Année de naissance estimée :{/t}
 </label>
 <input class="nombre" id="annee_naissance" name="annee_naissance" value="{$data.annee_naissance}">
+<label for="comment" class="control-label">
+{t}Commentaires{/t}
+<textarea class="form-control" rows="5" id="comment" name="comment">{$data.comment}</textarea>
 </div>
 </div>
 </div>
