@@ -239,7 +239,8 @@ values
 (1, 1, 'admin'),
 (2, 1, 'gestion'),
 (3, 1, 'consult'),
-(4, 1, 'gestionCompte');
+(4, 1, 'gestionCompte'),
+(5, 1, 'lecture');
 insert into aclgroup (aclgroup_id, groupe, aclgroup_id_parent) 
 values 
 (1, 'admin', null),
