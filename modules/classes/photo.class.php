@@ -612,6 +612,9 @@ class Photolecture extends ObjetBdd
             ),
             "commentaire"=>array(
                 "type"=> 0
+            ),
+            "remarkable_point"=>array(
+                "type"=>0
             )
         );
         $param["srid"] = -1;
@@ -1029,7 +1032,7 @@ class Photolecture extends ObjetBdd
                         photolecture_width, photolecture_height,
                         photo_nom, photo_date, color, long_reference, photo_height, photo_width,
                         piecetype_libelle, traitementpiece_libelle,
-                        rayon_point_initial, commentaire
+                        rayon_point_initial, commentaire, remarkable_point
 
                         from " . $this->table . " left join lecteur using(lecteur_id)
                         left join photo using (photo_id)
