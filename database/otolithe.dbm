@@ -461,7 +461,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Année de naissance estimée]]></comment>
 	</column>
-	<column name="comment">
+	<column name="commentaire">
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[Commentaire sur la lecture]]></comment>
 	</column>

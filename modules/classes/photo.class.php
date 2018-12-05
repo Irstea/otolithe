@@ -610,7 +610,7 @@ class Photolecture extends ObjetBdd
             "annee_naissance" => array(
                 "type" => 1,
             ),
-            "comment"=>array(
+            "commentaire"=>array(
                 "type"=> 0
             )
         );
@@ -842,7 +842,8 @@ class Photolecture extends ObjetBdd
                             photolecture_width,
                             photolecture_height,
                             read_fiability, consensual_reading, annee_naissance,
-                            final_stripe.*
+                            final_stripe.*,
+                            commentaire
                             from " . $this->table . "
                             left outer join lecteur using(lecteur_id)
                             left outer join final_stripe using(final_stripe_id)
@@ -1028,7 +1029,7 @@ class Photolecture extends ObjetBdd
                         photolecture_width, photolecture_height,
                         photo_nom, photo_date, color, long_reference, photo_height, photo_width,
                         piecetype_libelle, traitementpiece_libelle,
-                        rayon_point_initial
+                        rayon_point_initial, commentaire
 
                         from " . $this->table . " left join lecteur using(lecteur_id)
                         left join photo using (photo_id)

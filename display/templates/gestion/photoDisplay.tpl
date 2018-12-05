@@ -246,7 +246,7 @@ $(document).ready(function() {
 {if $photolecture[lst].consensual_reading == 1}{$LANG["message"].15}{/if}
 </td>
 <td class="textareaDisplay">
-{$photolecture[lst].comment}
+{$photolecture[lst].commentaire}
 </td>
 {if $droits.lecture == 1}
 <td>
