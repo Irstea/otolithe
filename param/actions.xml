@@ -60,23 +60,11 @@
 	<passwordlostIslost action="framework/identification/passwordLost.php" param="isLost" type="smarty"/>
 	<passwordlostSendmail action="framework/identification/passwordLost.php" param="sendMail" retourok="default"/>
 	<passwordlostReinitchange action="framework/identification/passwordLost.php" param="reinitChange" type="smarty" />
-	<passwordlostReinitwrite action="framework/identification/passwordLost.php" param="reinitWrite" (aclaco_id, aclappli_id, aco) 
-values 
-(1, 1, 'admin')default" retourok="connexion"/>
-(aclaco_id, aclappli_id, aco) 
-values 
-(1, 1, 'admin')
-(aclaco_id, aclappli_id, aco) 
-values 
-(1, 1, 'admin')" param="list" droits="admin" retourlogin="1" type="smarty" />
-(aclaco_id, aclappli_id, aco) 
-values 
-(1, 1, 'admin')ram.php" param="writeGlobal" droits="admin" (aclaco_id, aclappli_id, aco) 
-values 
-(1, 1, 'admin')
-(aclaco_id, aclappli_id, aco) 
-values 
-(1, 1, 'admin')
+	<passwordlostReinitwrite action="framework/identification/passwordLost.php" param="reinitWrite" modulebefore="passwordlostReinitchange" retourko="default" retourok="connexion"/>
+
+	<dbparamList action="framework/dbparam/dbparam.php" param="list" droits="admin" retourlogin="1" type="smarty" />
+	<dbparamWriteGlobal action="framework/dbparam/dbparam.php" param="writeGlobal" droits="admin" retourok="dbparamList" retourko="dbparamList" />
+
 <!-- Modules specifiques de l'application -->	
 	<individuList action="modules/gestion/individu.php" retourlogin="1" param="list" droits="lecture" type="smarty" />
 	<individuDisplay action="modules/gestion/individu.php" param="display" droits="lecture" type="smarty"/>
