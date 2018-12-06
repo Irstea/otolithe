@@ -634,6 +634,35 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
+<table name="metadatatype">
+	<schema name="otolithe"/>
+	<role name="postgres"/>
+	<position x="776" y="437"/>
+	<column name="metadatatype_id" not-null="true" identity-type="BY DEFAULT">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="metadatatype_name" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Nom du type de métadonnées]]></comment>
+	</column>
+	<column name="metadatatype_comment">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Description du type de métadonnées]]></comment>
+	</column>
+	<column name="metadatatype_description">
+		<type name="bytea" length="0"/>
+		<comment><![CDATA[Description externe du jeu de métadonnées (fichier PDF attaché, par exemple)]]></comment>
+	</column>
+	<column name="is_array" default-value="f">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Définit si les données sont sous forme de tableau ou uniques]]></comment>
+	</column>
+	<column name="metatadatatype_json">
+		<type name="json" length="0"/>
+		<comment><![CDATA[Description JSON au format AlpacaJS du type de métadonnées]]></comment>
+	</column>
+</table>
+
 <constraint name="espece_individu_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="otolithe.espece" table="otolithe.individu">
 	<columns names="espece_id" ref-type="src-columns"/>
