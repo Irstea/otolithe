@@ -406,6 +406,21 @@ x
 &nbsp;
 {$mesurePrec[lst].lecteur_prenom} {$mesurePrec[lst].lecteur_nom} - {t}lecture du{/t} {$mesurePrec[lst].photolecture_date}
  - {t}Résolution{/t} : {$mesurePrec[lst].photolecture_width}x{$mesurePrec[lst].photolecture_height}
+ - {t}Points remarquables :{/t} 
+<script>
+var rp = "{$mesurePrec[lst].remarkable_points}";
+if (rp.length > 0) {
+var arp = JSON.parse(rp);
+var i = 0 ;
+arp.forEach(function(p) {	
+	if (i > 0) {
+		document.write(",");
+	}
+document.write(p+1);
+i ++;
+})
+};
+</script>
 <br>
 {/section}
 </fielset>
