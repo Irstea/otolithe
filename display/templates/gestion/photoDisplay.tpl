@@ -179,6 +179,7 @@ $(document).ready(function() {
 <th>{t}Strie finale{/t}</th>
 <th>{t}Année de naissance estimée{/t}</th>
 <th>{t}Fiabilité de la lecture{/t}</th>
+<th>{t}Points remarquables{/t}</th>
 {/if}
 <th>{t}Longueur de référence mesurée{/t}</th>
 <th>{t}Longueur totale lue{/t}</th>
@@ -231,6 +232,22 @@ $(document).ready(function() {
 </td>
 <td class="center">
 {$photolecture[lst].read_fiability}
+</td>
+<td class="center">
+<script>
+var rp = "{$photolecture[lst].remarkable_points}";
+if (rp.length > 0) {
+var arp = JSON.parse(rp);
+var i = 0 ;
+arp.forEach(function(p) {	
+	if (i > 0) {
+		document.write(",");
+	}
+document.write(p+1);
+i ++;
+})
+};
+</script>
 </td>
 {/if}
 <td>

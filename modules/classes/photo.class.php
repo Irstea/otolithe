@@ -610,12 +610,12 @@ class Photolecture extends ObjetBdd
             "annee_naissance" => array(
                 "type" => 1,
             ),
-            "commentaire"=>array(
-                "type"=> 0
+            "commentaire" => array(
+                "type" => 0,
             ),
-            "remarkable_point"=>array(
-                "type"=>0
-            )
+            "remarkable_points" => array(
+                "type" => 0,
+            ),
         );
         $param["srid"] = -1;
         $param["fullDescription"] = 1;
@@ -681,6 +681,7 @@ class Photolecture extends ObjetBdd
                 } else {
                     $points[$dataBrute["rang" . $num]]["x"] = $dataBrute["pointx" . $num];
                     $points[$dataBrute["rang" . $num]]["y"] = $dataBrute["pointy" . $num];
+                    $points[$dataBrute["rang" . $num]]["remarkablePoint"] = $dataBrute["remarkablePoint" . $num];
                 }
             }
         }
@@ -730,14 +731,22 @@ class Photolecture extends ObjetBdd
                 /*
                  * Ecriture du point le plus pres
                  */
-                $points[$i]["x"] = $pointTemp[$ref]["x"];
+                /*$points[$i]["x"] = $pointTemp[$ref]["x"];
                 $points[$i]["y"] = $pointTemp[$ref]["y"];
+                $points[$i]["remarkablePoint"] = $pointTemp[$ref]["remarkablePoint"];
+                */
+                $points[$i] = $pointTemp[$ref];
                 /*
                  * Suppression du point traite
                  */
                 unset($pointTemp[$ref]);
             }
         }
+        /*
+         * Initialisation des points remarquables
+         */
+        $rp = array();
+        $pointNumber = 0;
         /*
          * Mise en forme des coordonnees
          */
@@ -762,10 +771,21 @@ class Photolecture extends ObjetBdd
                 $y0 = $value["y"];
                 $i++;
                 $virgule = ",";
+                /*
+                 * Traitement des points remarquables
+                 */
+                if ($value["remarkablePoint"] == 1) {
+                    $rp[] = $pointNumber;
+                }
+                $pointNumber++;
             }
             $data["points"] .= ')';
             $data["long_totale_lue"] = $longueur_totale * $coef;
         }
+        /* 
+        * Encodage de la liste des points remarquables
+         */
+        count($rp) > 0 ? $data["remarkable_points"] = json_encode($rp) : $data["remarkable_points"] = "";
 
         /*
          * Gestion de la longueur de reference
@@ -846,12 +866,12 @@ class Photolecture extends ObjetBdd
                             photolecture_height,
                             read_fiability, consensual_reading, annee_naissance,
                             final_stripe.*,
-                            commentaire
+                            commentaire, remarkable_points
                             from " . $this->table . "
                             left outer join lecteur using(lecteur_id)
                             left outer join final_stripe using(final_stripe_id)
-                            where photo_id = " . $photo_id . " order by photolecture_date desc";
-            return $this->getListeParam($sql);
+                            where photo_id = :photo_id order by photolecture_date desc";
+            return $this->getListeParamAsPrepared($sql, array("photo_id"=>$photo_id));
         } else {
             return null;
         }
@@ -880,7 +900,7 @@ class Photolecture extends ObjetBdd
                             final_stripe_code,
                             final_stripe_id,
                             final_stripe_libelle,
-                            read_fiability, consensual_reading, annee_naissance
+                            read_fiability, consensual_reading, annee_naissance, remarkable_points
                             from " . $this->table . "
                             left outer join lecteur using(lecteur_id)
                             left outer join final_stripe using (final_stripe_id)";
@@ -958,16 +978,16 @@ class Photolecture extends ObjetBdd
     }
 
     /**
-     * Calcule la position des points en pixels, pour affichage 
+     * Calcule la position des points en pixels, pour affichage
      * dans la resolution consideree
-     * $listepoint contient la valeur de st_astext(champ_postgis_concerne)
      *
-     * @param string $listepoint 
-     * @param number $coef 
-     * 
+     * @param string $listepoint        liste des points sous forme st_astext
+     * @param number $coef              coefficient de projection
+     * @param string $remarkable_points liste des points remarquables 
+     *
      * @return array
      */
-    public function calculPointsAffichage($listepoint, $coef)
+    public function calculPointsAffichage($listepoint, $coef, $remarkable_points = "")
     {
         /*
          * Nettoyage des donnees
@@ -976,6 +996,10 @@ class Photolecture extends ObjetBdd
         $alpt = explode(",", $lpt);
         $i = 0;
         $data = array();
+        /* 
+        * Decodage du champ json
+        */
+        $rp = json_decode($remarkable_points);
         foreach ($alpt as $value1) {
             /*
              * Separation des valeurs x et y
@@ -986,6 +1010,12 @@ class Photolecture extends ObjetBdd
              */
             $data[$i]["x"] = floor($xy[0] / $coef);
             $data[$i]["y"] = floor($xy[1] / $coef);
+            /* 
+            * Ajout du point remarquable
+             */
+            if (in_array($i, $rp)) {
+                $data[$i]["remarkablePoint"] = 1;
+            }
             $i++;
         }
         return $data;
@@ -994,20 +1024,26 @@ class Photolecture extends ObjetBdd
     /**
      * Retourne les points saisis en format lisible (st_astext)
      *
-     * @param integer $id
+     * @param integer $id 
+     * 
      * @return array
      */
     public function lirePoints($id)
     {
-        if ($id > 0 && is_numeric($id)) {
+        $data = array();
+        if ($id > 0) {
             $sql = "select photolecture_id,
                             st_astext(points) as points,
-                            st_astext(points_ref_lecture) as points_ref_lecture
-                            from " . $this->table . " where photolecture_id = " . $id;
-            return $this->lireParam($sql);
-        } else {
-            return null;
-        }
+                            st_astext(points_ref_lecture) as points_ref_lecture,
+                            remarkable_points
+                            from " . $this->table . " where photolecture_id = :id";
+            $data = $this->lireParamAsPrepared($sql, array("id"=>$id));
+            /* 
+            * recuperation des points remarquables
+             */
+             
+        } 
+        return $data;
     }
 
     /**
@@ -1032,7 +1068,7 @@ class Photolecture extends ObjetBdd
                         photolecture_width, photolecture_height,
                         photo_nom, photo_date, color, long_reference, photo_height, photo_width,
                         piecetype_libelle, traitementpiece_libelle,
-                        rayon_point_initial, commentaire, remarkable_point
+                        rayon_point_initial, commentaire, remarkable_points
 
                         from " . $this->table . " left join lecteur using(lecteur_id)
                         left join photo using (photo_id)

@@ -5,7 +5,7 @@ values
 
 set search_path = otolithe;
 alter table photolecture add column commentaire varchar, 
-add column remarkable_point json;
+add column remarkable_points json;
 comment on column photolecture.commentaire is 'Commentaires de lecture';
-COMMENT ON COLUMN otolithe.photolecture.remarkable_point IS 'Liste des points remarquables identifiés sur la photo';
+COMMENT ON COLUMN otolithe.photolecture.remarkable_points IS 'Liste des points remarquables identifiés sur la photo';
 

@@ -53,6 +53,21 @@ body > iframe { display: none; }
  - {t}Fiabilité de la lecture :{/t} {$data[lst].read_fiability} 
 {if $data[lst].consensual_reading == 1} - {t}Lecture consensuelle{/t}{/if}
 - {t}Année de naissance estimée :{/t} {$data[lst].annee_naissance}
+- {t}Points remarquables :{/t} 
+<script>
+var rp = "{$data[lst].remarkable_points}";
+if (rp.length > 0) {
+var arp = JSON.parse(rp);
+var i = 0 ;
+arp.forEach(function(p) {	
+	if (i > 0) {
+		document.write(",");
+	}
+document.write(p+1);
+i ++;
+})
+};
+</script>
 <br>
 {/section}
 </fielset>

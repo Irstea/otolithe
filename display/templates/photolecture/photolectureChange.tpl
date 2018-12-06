@@ -80,17 +80,17 @@ var rayon_initial = 1;
 {else}
 var rayon_initial = 0;
 {/if}
-setCircle(svg,{$data.points[lst].x},{$data.points[lst].y},rayon_initial);
+setCircle(svg,{$data.points[lst].x},{$data.points[lst].y},rayon_initial, {$data.points[lst].remarkablePoint});
 {/section}
 $("#modeLecture").val(2);
 {section name="lst" loop=$data.points_ref_lecture}
-setCircle(svg,{$data.points_ref_lecture[lst].x},{$data.points_ref_lecture[lst].y},0);
+setCircle(svg,{$data.points_ref_lecture[lst].x},{$data.points_ref_lecture[lst].y},0,{$data.points_ref_lecture[lst].remarkablePoint});
 {/section}
 $("#modeLecture").val(1);
 {/if}
 };
 
-function setCircle(svg, x, y, rayon_initial) {
+function setCircle(svg, x, y, rayon_initial,isRemarkable) {
 	var ident = "circle"+compteur;
 	var valeurCompteur = compteur; 
 	compteur++;
@@ -130,9 +130,16 @@ function setCircle(svg, x, y, rayon_initial) {
 	var pointReference ="<td></td>";
 	if (modeLecture == 2) {
 		pointReference = '<td><input type="text" size="10" name="pointRef'+valeurCompteur+'" id="pointRef'+valeurCompteur+'" value="1" ></td>';
+	} else {
+		pointReference = '<td>&nbsp;</td>';
 	};
+	var remarkablePoint = '<td class="center"><input type="checkbox" name="remarkablePoint'+valeurCompteur+'" id="remarkablePoint'+valeurCompteur+'" value="1"';
+	if (isRemarkable == 1) {
+		remarkablePoint += ' checked ';
+	}
+	remarkablePoint += '></td>';
 	var ligneFin = "</tr>";
-	 $('#tableData').append(ligneDebut + pointX + pointY + rang + pointReference + ligneFin);
+	 $('#tableData').append(ligneDebut + pointX + pointY + rang + remarkablePoint + pointReference + ligneFin);
 	} else {
 	/*
 	 * Traitement du trace de la ligne
@@ -356,7 +363,7 @@ x
 <legend>{t}Points sélectionnés{/t}</legend>
 <table id="tableData" class="table table-bordered ">
 <tr>
-<td colspan='5'>
+<td colspan='6'>
 <label class="form-label" for="valider_bas">
 {t}Enregistrez les points positionnés :{/t} 
 </label>
@@ -368,6 +375,7 @@ x
 <th>X</th>
 <th>Y</th>
 <th>{t}Ordre de lecture{/t}</th>
+<th>{t}Point remarquable{/t}</th>
 <th>{t}Point de mesure de la longueur de référence{/t}</th>
 </tr>
 </table>

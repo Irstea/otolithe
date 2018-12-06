@@ -259,7 +259,11 @@ switch ($t_module["param"]) {
         if ($data["photolecture_id"] > 0) {
             $dataPoint = $dataClass->lirePoints($data["photolecture_id"]);
             if (strlen($dataPoint["points"]) > 0) {
-                $data["points"] = $dataClass->calculPointsAffichage($dataPoint["points"], $coef);
+                $data["points"] = $dataClass->calculPointsAffichage(
+                    $dataPoint["points"], 
+                    $coef, 
+                    $data["remarkable_points"]
+                );
             }
             if (strlen($dataPoint["points_ref_lecture"]) > 0) {
                 $data["points_ref_lecture"] = $dataClass->calculPointsAffichage($dataPoint["points_ref_lecture"], $coef);
@@ -322,7 +326,7 @@ switch ($t_module["param"]) {
     * Recherche si l'utilisateur dispose des droits de suppression
     */
     $deleteOk = false;
-
+    
     foreach (array("admin", "gestionCompte") as $droit) {
         if ($_SESSION["droits"][$droit] == 1) {
             $deleteOk = true;
@@ -402,89 +406,102 @@ switch ($t_module["param"]) {
     /*
     * Recuperation des parametres de recherche
     */
-    if ($searchLecture->isSearch() == 1) {
-        $dataRecherche = $searchLecture->getParam();
-        $data = $dataClass->getListSearch($dataRecherche);
-        $data = $_SESSION["it_photolecture"]->translateList($data);
-        $data = $_SESSION["it_photo"]->translateList($data);
-        $data = $_SESSION["it_individu"]->translateList($data);
-        $data = $_SESSION["it_piece"]->translateList($data);
-        if (count($data) > 0) {
+    
+    $dataRecherche = $searchLecture->getParam();
+    $data = $dataClass->getListSearch($dataRecherche);
+    $data = $_SESSION["it_photolecture"]->translateList($data);
+    $data = $_SESSION["it_photo"]->translateList($data);
+    $data = $_SESSION["it_individu"]->translateList($data);
+    $data = $_SESSION["it_piece"]->translateList($data);
+    if (count($data) > 0) {
+        /*
+        * Recuperation de la classe permettant l'export
+        */
+        //include_once 'modules/classes/importDataFile.class.php';
+        //$export = new ImportDataFile();
+        //$nomfichier = "lecture";
+        //$export->exportCSVinit($nomfichier, 'tab');
+        $colExclude = array(
+            "photolecture_id", "photo_id", "lecteur_id", "piece_id", "individu_id", "points", "points_ref_lecture","final_stripe_id", "remarkable_points"
+        );
+        $dataExport = array();
+        
+        /*
+        * Traitement des lignes - on rajoute les coordonnees des points
+        */
+        $nbPoint = 0;
+        foreach ($data as $row) {
+            $ligne = array();
             /*
-            * Recuperation de la classe permettant l'export
+            * Recuperation des colonnes necessaires dans l'export
             */
-            //include_once 'modules/classes/importDataFile.class.php';
-            //$export = new ImportDataFile();
-            //$nomfichier = "lecture";
-            //$export->exportCSVinit($nomfichier, 'tab');
-            $colExclude = array(
-                "photolecture_id", "photo_id", "lecteur_id", "piece_id", "individu_id", "points", "points_ref_lecture","final_stripe_id"
-            );
-            $dataExport = array();
+            foreach ($row as $kcol => $vcol) {
+                if (!in_array($kcol, $colExclude)) {
+                    $ligne[$kcol] = $vcol;
+                }
+            }
+            /* Traitement des points remarquables */
+            $rp = json_decode($row["remarkable_points"]);
+            $i = 0;
+            $drp = "";
+            foreach ($rp as $vrp) {
+                if ($i > 0) {
+                    $drp .= ",";
+                }
+                $drp .= $vrp + 1;
+                $i ++;
+            }
+            $ligne["remarkable_points"] = $drp;
             
-            /*
-            * Traitement des lignes - on rajoute les coordonnees des points
-            */
-            $nbPoint = 0;
-            foreach ($data as $row) {
-                $ligne = array();
-                /*
-                * Recuperation des colonnes necessaires dans l'export
-                */
-                foreach ($row as $kcol => $vcol) {
-                    if (!in_array($kcol, $colExclude)) {
-                        $ligne[$kcol] = $vcol;
-                    }
-                }
-                
-                if (strlen($row["points"]) > 0) {
-                    $dataPoints["points"] = $dataClass->calculPointsAffichage($row["points"], 1);
-                }
-                
-                /*
-                * On rajoute les points a la suite
-                */
-                $i = 0;
-                foreach ($dataPoints["points"] as $value1) {
-                    $ligne["pointX" . $i] = $value1["x"];
-                    $ligne["pointY" . $i] = $value1["y"];
-                    if ($i > 0) {
-                        /*
-                        * Rajout de la distance au point precedent
-                        */
-                        $ligne["dist-" . ($i - 1) . "-" . $i] = $dataClass->calculDistance($x1, $y1, $value1["x"], $value1["y"]);
-                    }
-                    
-                    $x1 = $value1["x"];
-                    $y1 = $value1["y"];
-                    $i++;
-                }
-                if ($i > $nbPoint) {
-                    $nbPoint = $i;
-                }
-                
-                $dataExport[] = $ligne;
+            /* Traitement des points - calcul des coordonnees */
+            if (strlen($row["points"]) > 0) {
+                $dataPoints["points"] = $dataClass->calculPointsAffichage($row["points"], 1);
             }
             
             /*
-            * Ecriture de l'entete
+            * On rajoute les points a la suite
             */
-            //$export->setLigneCSV($entete);
-            /*
-            * Ecriture des donnees
-            */
-            //$export->setTableau($data);
-            /*
-            * Envoi du fichier
-            */
-            //$export->exportCSV();
-            //$vue->setFilename("otolithe_reads_" . date("Y-m-d") . ".csv");
-            //$vue->setDelimiter("tab");
+            $i = 0;
+            foreach ($dataPoints["points"] as $value1) {
+                $ligne["pointX" . $i] = $value1["x"];
+                $ligne["pointY" . $i] = $value1["y"];
+                if ($i > 0) {
+                    /*
+                    * Rajout de la distance au point precedent
+                    */
+                    $ligne["dist-" . ($i - 1) . "-" . $i] = $dataClass->calculDistance($x1, $y1, $value1["x"], $value1["y"]);
+                }
+                
+                $x1 = $value1["x"];
+                $y1 = $value1["y"];
+                $i++;
+            }
+            if ($i > $nbPoint) {
+                $nbPoint = $i;
+            }
             
-            $vue->set($dataExport);
-            $vue->regenerateHeader();
+            $dataExport[] = $ligne;
         }
+        
+        /*
+        * Ecriture de l'entete
+        */
+        //$export->setLigneCSV($entete);
+        /*
+        * Ecriture des donnees
+        */
+        //$export->setTableau($data);
+        /*
+        * Envoi du fichier
+        */
+        //$export->exportCSV();
+        //$vue->setFilename("otolithe_reads_" . date("Y-m-d") . ".csv");
+        //$vue->setDelimiter("tab");
+        
+        $vue->set($dataExport);
+        $vue->regenerateHeader();
     }
+    
     break;
     case "swap":
     /*
