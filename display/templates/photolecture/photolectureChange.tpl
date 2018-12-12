@@ -22,6 +22,12 @@ $(document).ready(function(){
 	.svg({ onLoad: drawIntro})
 	
 });
+
+	function deletePoint(idpoint) {
+		console.log("Suppression de "+idpoint);
+		$(idpoint).remove();
+	}
+
 function drawIntro(svg) {
 	var image_width = $('#image_width').val();
 	var image_height = $('#image_height').val();
@@ -37,29 +43,33 @@ function drawIntro(svg) {
 	svg.image(myImage, 0, 0, image_width, image_height, lien);
 	//var myImage = svg.image(0, 0, image_width, image_height, "");
 	{section name="lst" loop=$mesurePrec}
-	{section name="lst1" loop=$mesurePrec[lst].points}
-{if $smarty.section.lst1.index == 0 }
-{if $mesurePrec[lst].rayon_point_initial > 0}
-{assign var = 'r' value = $mesurePrec[lst].rayon_point_initial}
-{else}
-{assign var = 'r' value = '7'}
-{/if}
-{else}
-{assign var = 'r' value = '7'}
-{/if}
-cx = '{$mesurePrec[lst].points[lst1].x}';
-cy = '{$mesurePrec[lst].points[lst1].y}';
-r = '{$r}';
-couleur = '{$mesurePrec[lst].couleur}';
-fillOpacity = '{$fill}';
-svg.circle (myImage, cx, cy, r, { 'stroke':couleur, 'fill':couleur, 'fill-opacity': fillOpacity});
-{/section}
-{/section}
+		{section name="lst1" loop=$mesurePrec[lst].points}
+			{if $smarty.section.lst1.index == 0 }
+			{if $mesurePrec[lst].rayon_point_initial > 0}
+				{assign var = 'r' value = $mesurePrec[lst].rayon_point_initial}
+			{else}
+				{assign var = 'r' value = '7'}
+			{/if}
+			{else}
+				{assign var = 'r' value = '7'}
+			{/if}
+			cx = '{$mesurePrec[lst].points[lst1].x}';
+			cy = '{$mesurePrec[lst].points[lst1].y}';
+			r = '{$r}';
+			couleur = '{$mesurePrec[lst].couleur}';
+			fillOpacity = '{$fill}';
+			svg.circle (myImage, cx, cy, r, { 'stroke':couleur, 'fill':couleur, 'fill-opacity': fillOpacity});
+		{/section}
+	{/section}
 		
-$("#resetCompteur").click(function() { 
-	console.log("reinitialisation du compteur");
-	compteur = 0;
-});
+	$("#resetCompteur").click(function(event) { 
+		/* Reinitialisation du compteur */
+		console.log("reinitialisation du compteur");
+		compteur = 0;
+		event.preventDefault();
+	});
+
+
 	$(myImage).click(function(e){
 		   //var parentOffset = $(this).parent().offset(); 
 		   //or $(this).offset(); if you really just want the current element's offset
@@ -94,6 +104,7 @@ function setCircle(svg, x, y, rayon_initial,isRemarkable) {
 	var ident = "circle"+compteur;
 	var valeurCompteur = compteur; 
 	compteur++;
+	
 	var myCircle = svg.group();
 	var X = Math.floor(x);
 	var Y = Math.floor(y);
@@ -138,8 +149,9 @@ function setCircle(svg, x, y, rayon_initial,isRemarkable) {
 		remarkablePoint += ' checked ';
 	}
 	remarkablePoint += '></td>';
+	var dp = '<td class="center" id="point'+valeurCompteur+'"><img src="display/images/delete.png" height="25" title="{t}Supprimer le point courant{/t}"></td>';
 	var ligneFin = "</tr>";
-	 $('#tableData').append(ligneDebut + pointX + pointY + rang + remarkablePoint + pointReference + ligneFin);
+	 $('#tableData').append(ligneDebut + pointX + pointY + rang + remarkablePoint + pointReference + dp + ligneFin);
 	} else {
 	/*
 	 * Traitement du trace de la ligne
@@ -157,6 +169,17 @@ function setCircle(svg, x, y, rayon_initial,isRemarkable) {
 	}
 	numPointLigne ++;
 	}
+	/* suppression du point depuis le tableau */
+	$("#point"+valeurCompteur).mousedown(function(event) {
+		console.log("suppression du point "+valeurCompteur);
+		$("#pointx"+valeurCompteur).remove();
+       	$("#pointy"+valeurCompteur).remove();
+       	$("#ligne"+valeurCompteur).remove();
+		$(myCircle).remove(); 
+		if ((valeurCompteur + 1) == compteur) {
+       		compteur --;
+       	}
+	});
 	/*
 	 * Generation des evenements dans l'objet
 	 */
@@ -239,10 +262,10 @@ function setCircle(svg, x, y, rayon_initial,isRemarkable) {
 </button>
 </div>
 <div class="col-sm-6">
-<label class="form-label" for="resetCompteur1">
+<label class="form-label" for="resetCompteur">
 {t}Si tous les points ont été supprimés, vous pouvez :{/t} 
 </label>
-<button class="btn btn-info" id="resetCompteur1" title="{t}Uniquement si tous les points ont été supprimés{/t}">
+<button class="btn btn-info" id="resetCompteur" title="{t}Uniquement si tous les points ont été supprimés{/t}">
 {t}Réinitialiser le compteur{/t}
 </button>
 </div>
@@ -363,7 +386,7 @@ x
 <legend>{t}Points sélectionnés{/t}</legend>
 <table id="tableData" class="table table-bordered ">
 <tr>
-<td colspan='6'>
+<td colspan='7'>
 <label class="form-label" for="valider_bas">
 {t}Enregistrez les points positionnés :{/t} 
 </label>
