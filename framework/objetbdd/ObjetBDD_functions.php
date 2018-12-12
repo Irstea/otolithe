@@ -8,7 +8,7 @@
 function objetBDDparamInit()
 {
     global $ObjetBDDParam, $DEFAULT_formatdate, $OBJETBDD_debugmode, $FORMATDATE;
-     if (! isset($DEFAULT_formatdate)) {
+    if (! isset($DEFAULT_formatdate)) {
         $DEFAULT_formatdate = "fr";
     }
     if (! isset($OBJETBDD_debugmode)) {
@@ -62,7 +62,9 @@ function _new($classe)
  */
 function _ecrire($instance, $data)
 {
-    return $instance->ecrire($data);
+    $rep = $instance->ecrire($data);
+    //$instance->getErrorData(1);
+    return $rep;
 }
 
 ?>

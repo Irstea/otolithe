@@ -551,7 +551,7 @@ class ObjetBDD
      *            $id
      * @param boolean $getDefault
      * @param int $parentValue
-     * @return array|int
+     * @return unknown_type
      */
     function read($id, $getDefault = false, $parentValue = 0)
     {
@@ -587,7 +587,7 @@ class ObjetBDD
      *
      * @param
      *            $sql
-     * @return array|int
+     * @return unknown_type
      */
     function readSQL($sql)
     {
@@ -652,7 +652,7 @@ class ObjetBDD
      *
      * @param
      *            $id
-     * @return int
+     * @return unknown_type
      */
     function delete($id)
     {
@@ -693,7 +693,7 @@ class ObjetBDD
      *            $id
      * @param
      *            $champ
-     * @return int
+     * @return unknown_type
      */
     function deleteFromField($id, $champ)
     {
@@ -703,9 +703,9 @@ class ObjetBDD
     /**
      * Function ecrire
      *
-     * @param array $dataBrute with the name of the columns as identifiers of items
-     * 
-     * @return int of item, or error code
+     * @param
+     *            array with the name of the columns as identifiers of items
+     * @return Identifier of item, or error code
      */
     function ecrire($dataBrute)
     {
@@ -737,6 +737,7 @@ class ObjetBDD
         if ($this->auto_date == 1) {
             $data = $this->utilDatesLocaleVersDB($data);
         }
+        
         /*
          * Traitement pour determiner le type de traitement (insert, update)
          */
@@ -754,7 +755,7 @@ class ObjetBDD
                     /*
                      * Verification que la cle soit numerique
                      */
-                    if (! is_numeric($data[$value])) {
+                    if (is_numeric($data[$value]) == false) {
                         $this->errorData[] = array(
                             "code" => 1,
                             "colonne" => $key,
@@ -971,7 +972,7 @@ class ObjetBDD
      *
      * @param
      *            $data
-     * @return int
+     * @return unknown_type
      */
     function write($data)
     {
@@ -983,7 +984,7 @@ class ObjetBDD
      *
      * @param
      *            string - code de la requete SQL
-     * @return array contenant la liste des lignes concernees (identique a getListe)
+     * @return tableau contenant la liste des lignes concernees (identique a getListe)
      */
     function getListeParam($sql)
     {
@@ -1005,7 +1006,7 @@ class ObjetBDD
      *
      * @param
      *            $sql
-     * @return array
+     * @return unknown_type
      */
     function getListParam($sql)
     {
@@ -1015,7 +1016,7 @@ class ObjetBDD
     /**
      * function getliste
      *
-     * @return array: le contenu de la table
+     * @return le contenu de la table
      */
     function getListe($order = "")
     {
@@ -1039,7 +1040,7 @@ class ObjetBDD
     /**
      * synonyme de getListe()
      *
-     * @return array
+     * @return unknown_type
      */
     function getList()
     {
@@ -1052,7 +1053,7 @@ class ObjetBDD
      *
      * @param int $parentId
      * @param number $order
-     * @return array|NULL
+     * @return tableau|NULL
      */
     function getListFromParent($parentId, $order = "")
     {
@@ -1271,7 +1272,7 @@ class ObjetBDD
      *
      * @param
      *            string
-     * @return int
+     * @return code de retour de ADODB
      *         Utilitaire :
      *         Utilise les fonctions de connexion a la base de donnees pour executer un code SQL quelconque
      */
@@ -1302,7 +1303,7 @@ class ObjetBDD
     /**
      * Synonyme de vidageTable()
      *
-     * @return int
+     * @return unknown_type
      */
     function clearTable()
     {
@@ -1420,7 +1421,7 @@ class ObjetBDD
      * @param $format :
      *            si vaut 1, le resultat est retourne sous forme de texte, avec saut de ligne
      *            entre chaque erreur. Sinon, le tableau est retourne "brut"
-     * @return array|string
+     * @return unknown_type
      */
     function getErrorData($format = 0)
     {
@@ -1484,7 +1485,7 @@ class ObjetBDD
     /**
      * Encode en utf8 si demande
      *
-     * @param string|array $data
+     * @param unknown $data
      */
     private function utf8Encode($data)
     {
@@ -1513,8 +1514,7 @@ class ObjetBDD
      * @param
      *            $id
      * @param array $lignes
-     * @return int
-     *  Fonction permettant d'ecrire dans une table de relation N-N.
+     * @return unknown_type Fonction permettant d'ecrire dans une table de relation N-N.
      *         Gere la suppression et l'ajout des lignes
      *         Ne fonctionne que si la table ne possede que deux champs numeriques
      */
@@ -1538,7 +1538,7 @@ class ObjetBDD
          * Verification du tableau de valeurs
          */
         if (! is_array($lignes) && strlen($lignes) > 0) {
-            throw new ObjetBDDException("EcrireTableNN - data is not an array");
+            throw new ObjetBDDException("data is not an array");
         }
         
         if (! is_array($lignes)) {
@@ -1644,7 +1644,7 @@ class ObjetBDD
      *            $id
      * @param
      *            $lignes
-     * @return int
+     * @return unknown_type
      */
     function writeTableNN($nomTable, $nomCle1, $nomCle2, $id, $lignes)
     {
@@ -1774,7 +1774,7 @@ class ObjetBDD
      * @param int $id
      * @param string $fieldName
      *            : nom du champ contenant la donnee binaire
-     * @return int|NULL
+     * @return reference|NULL
      */
     function getBlobReference($id, $fieldName)
     {
@@ -1802,7 +1802,7 @@ class ObjetBDD
      * @param array $data
      *            : tableau des valeurs a inserer
      * @throws Exception
-     * @return array : tableau des resultats
+     * @return s array : tableau des resultats
      */
     function executeAsPrepared($sql, $data, $onlyExecute = false)
     {
@@ -1876,7 +1876,7 @@ class ObjetBDD
      *            : cle de l'enregistrement
      * @param string $field
      *            : nom de la colonne a mettre a jour
-     * @param int $ref
+     * @param reference $ref
      *            : reference du fichier ouvert
      * @throws Exception
      */

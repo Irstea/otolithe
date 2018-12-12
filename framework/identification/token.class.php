@@ -56,7 +56,7 @@ class Token
      *
      * @param string $login
      *            : login to transmit
-     * @param int $tokenExpire
+     * @param timestamp $tokenExpire
      *            : duration of validity of the token (seconds)
      * @return String : encrypted and encoded token
      */
@@ -99,9 +99,9 @@ class Token
     }
 
     /**
-     * Decrypt a json token, and extract the login
+     * Decrypt a token, and extract the login
      *
-     * @param string $token
+     * @param json $token
      */
     function openToken($json)
     {
@@ -168,7 +168,7 @@ class Token
             $type == "priv" ? $filename = $this->privateKey : $filename = $this->pubKey;
             if (file_exists($filename)) {
                 $handle = fopen($filename, "r");
-                if ($handle) {
+                if ($handle != false) {
                     $contents = fread($handle, filesize($filename));
                     if (! $contents) {
                         throw new TokenException("key " . $filename . " is empty");

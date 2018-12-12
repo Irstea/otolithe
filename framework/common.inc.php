@@ -1,9 +1,9 @@
 <?php
-
-/** Fichier cree le 4 mai 07 par quinton
+/**
+ * Fichier cree le 4 mai 07 par quinton
  * Modifie le 9/8/11 : mise en session de la classe smarty
  *
- *UTF-8
+ * UTF-8
  *
  * inclusions de base, ouverture de session
  *
@@ -12,8 +12,8 @@
 /**
  * Lecture des parametres de l'application
  */
-include_once("param/param.default.inc.php");
-include_once("param/param.inc.php");
+require_once "param/param.default.inc.php";
+require_once "param/param.inc.php";
 
 /**
  * Protection contre les IFRAMES
@@ -30,17 +30,20 @@ ini_set('session.gc_maxlifetime', $APPLI_session_ttl);
 /**
  * Integration de SMARTY
  */
-include_once("vendor/smarty/smarty/libs/Smarty.class.php");
+require_once "vendor/smarty/smarty/libs/Smarty.class.php";
 /**
- * integration de la classe ObjetBDD et des scripts associes
+ * Integration de la classe ObjetBDD et des scripts associes
  */
-include_once('framework/objetbdd/ObjetBDD.php');
-include_once('framework/objetbdd/ObjetBDD_functions.php');
-
+require_once 'framework/objetbdd/ObjetBDD.php';
+require_once 'framework/objetbdd/ObjetBDD_functions.php';
+if ($APPLI_utf8) {
+    $ObjetBDDParam["UTF8"] = true;
+}
+$ObjetBDDParam["codageHtml"] = false;
 /**
  * Integration de la classe gerant la navigation dans les modules
  */
-include_once("framework/navigation/navigation.class.php");
+require_once "framework/navigation/navigation.class.php";
 
 /**
  * Preparation de l'identification
@@ -57,13 +60,12 @@ ini_set("display_errors", $ERROR_display);
 /*
  * Appel des initialisations specifiques de l'application
  */
-include_once "modules/beforesession.inc.php";
+require_once "modules/beforesession.inc.php";
 /**
  * Demarrage de la session
  */
 @session_start();
 DEFINE("DATELONGMASK", "Y-m-d H:i:s");
-
 
 /*
  * Verification du cookie de session, et destruction le cas echeant
@@ -93,7 +95,15 @@ if (!$APPLI_modeDeveloppement) {
     $cookieParam["secure"] = true;
 }
 $cookieParam["httponly"] = true;
-setcookie(session_name(), session_id(), time() + $APPLI_session_ttl, $cookieParam["path"], $cookieParam["domain"], $cookieParam["secure"], $cookieParam["httponly"]);
+setcookie(
+    session_name(),
+    session_id(),
+    time() + $APPLI_session_ttl,
+    $cookieParam["path"],
+    $cookieParam["domain"],
+    $cookieParam["secure"],
+    $cookieParam["httponly"]
+);
 
 /*
  * Recuperation des parametres de l'application definis dans un fichier ini
@@ -127,15 +137,23 @@ $identification = new Identification();
 
 $identification->setidenttype($ident_type);
 if ($ident_type == "CAS") {
-    require_once "vendor/jasig/phpcas/CAS.php";
-    $identification->init_CAS($CAS_address, $CAS_port, $APPLI_address);
+    include_once "vendor/jasig/phpcas/CAS.php";
+    $identification->init_CAS($CAS_address, $CAS_port, "", $CAS_debug, $CAS_CApath);
 } elseif ($ident_type == "LDAP" || $ident_type == "LDAP-BDD") {
-    $identification->init_LDAP($LDAP["address"], $LDAP["port"], $LDAP["basedn"], $LDAP["user_attrib"], $LDAP["v3"], $LDAP["tls"], $LDAP["upn_suffix"]);
+    $identification->init_LDAP(
+        $LDAP["address"],
+        $LDAP["port"],
+        $LDAP["basedn"],
+        $LDAP["user_attrib"],
+        $LDAP["v3"],
+        $LDAP["tls"],
+        $LDAP["upn_suffix"]
+    );
 }
 /*
  * Chargement des fonction generiques
  */
-include_once 'framework/fonctions.php';
+require_once 'framework/fonctions.php';
 
 /*
  * Gestion de la langue a afficher
@@ -155,9 +173,6 @@ if (isset($_SESSION["LANG"]) && !$APPLI_modeDeveloppement) {
          */
         $langue = explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
         $langue = substr($langue[0], 0, 2);
-    }
-    if (!isset($langue)) {
-        $langue = $language = "fr";
     }
     /*
      * Mise a niveau du langage
@@ -263,7 +278,10 @@ $ipaddress = getIPClientAddress();
 if (isset($_SESSION["remoteIP"])) {
     if ($_SESSION["remoteIP"] != $ipaddress) {
         // Tentative d'usurpation de session - on ferme la session
-        $log->setLog($_SESSION["login"], "disconnect-ipaddress-changed", "old:" . $_SESSION["remoteIP"] . "-new:" . $ipaddress);
+        $log->setLog(
+            $_SESSION["login"], "disconnect-ipaddress-changed",
+            "old:" . $_SESSION["remoteIP"] . "-new:" . $ipaddress
+        );
         if ($identification->disconnect($APPLI_address) == 1) {
             $message->set(_("Vous êtes maintenant déconnecté"));
         } else {
@@ -286,28 +304,33 @@ if (isset($_SESSION["navigation"]) && !$APPLI_modeDeveloppement) {
 }
 
 /*
- * Traitement des parametres stockes en base de donnees
- * Par defaut, APPLI_title doit exister. Les autres parametres sont deduits
+ * Traitement des parametres stockes en
+ * base de donnees
  */
-if (!isset($_SESSION["APPLI_title"])) {
-    require_once 'framework/dbparam/dbparam.class.php';
-    $dbparam = new DbParam($bdd, $ObjetBDDParam);
-    $ldbparam = $dbparam->getList();
-    foreach ($ldbparam as $row) {
-        $_SESSION[$row["dbparam_name"]] = $row["dbparam_value"];
+/*
+ * Traitement des parametres stockes dans la base de donnees
+ */
+if (!$_SESSION["dbparamok"]) {
+    include_once 'framework/dbparam/dbparam.class.php';
+    try {
+        $dbparam = new DbParam($bdd, $ObjetBDDParam);
+        $dbparam->sessionSet();
+    } catch (Exception $e) {
+        $message->set(
+            _("Problème rencontré lors de la lecture de la table des paramètres"),
+            true
+        );
+        $message->setSyslog($e->getMessage());
     }
 }
-
 /*
  * Chargement des fonctions specifiques
  */
-include_once 'modules/fonctions.php';
+require_once 'modules/fonctions.php';
 
-include_once 'framework/functionsDebug.php';
+require_once 'framework/functionsDebug.php';
 
 /*
  * Chargement des traitements communs specifiques a l'application
  */
-include_once("modules/common.inc.php");
-
-?>
+require "modules/common.inc.php";

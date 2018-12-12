@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Controleur de l'application (modele MVC)
  * Fichier modifie le 21 mars 2013 par Eric Quinton
@@ -9,13 +8,12 @@
  * Lecture des parametres
  */
 require_once "framework/common.inc.php";
-
 /**
  * Verification des donnees entrantes.
  * Codage UTF-8
  */
 if (!check_encoding($_REQUEST)) {
-    $message->set(_("Problème dans les données fournies : l'encodage des caractères n'est pas celui attendu"));
+    $message->set(_("Problème dans les données fournies : l'encodage des caractères n'est pas celui attendu"), true);
     $_REQUEST["module"] = "default";
     unset($_REQUEST["moduleBase"]);
     unset($_REQUEST["action"]);
@@ -24,8 +22,8 @@ if (!check_encoding($_REQUEST)) {
  * Verification de la version de la base de donnees
  */
 if (!isset($_SESSION["dbversion"])) {
+    include_once "framework/dbversion/dbversion.class.php";
     try {
-        include_once "framework/dbversion/dbversion.class.php";
         $dbversion = new DbVersion($bdd, $ObjetBDDParam);
         if ($dbversion->verifyVersion($APPLI_dbversion)) {
             $_SESSION["dbversion"] = $APPLI_dbversion;
@@ -33,14 +31,18 @@ if (!isset($_SESSION["dbversion"])) {
             if ($APPLI_modeDeveloppement) {
                 unset($_SESSION["dbversion"]);
             }
-        // traduction: bien conserver inchangées les chaînes %1$s, %2$s
-            $message->set(sprintf(_('La base de données n\'est pas dans la version attendue (%1$s). Version actuelle : %2$s'), $APPLI_dbversion, $dbversion->getLastVersion()["dbversion_number"]));
+            // traduction: bien conserver inchangées les chaînes %1$s, %2$s
+            $message->set(sprintf(_('La base de données n\'est pas dans la version attendue (%1$s). Version actuelle : %2$s'), $APPLI_dbversion, $dbversion->getLastVersion()["dbversion_number"]), true);
             $_REQUEST["module"] = "default";
             unset($_REQUEST["moduleBase"]);
             unset($_REQUEST["action"]);
         }
-    } catch (ObjetBDDException $e) {
-        $message->set($e->getMessage());
+    } catch (Exception $e) {
+        $message->set(
+            _("Problème rencontré lors de la vérification de la version de la base de données"),
+            true
+        );
+        $message->setSyslog($e->getMessage());
     }
 }
 /**
@@ -129,12 +131,7 @@ if (!isset($_REQUEST["module"])) {
 if (strlen($_REQUEST["module"]) == 0) {
     $_REQUEST["module"] = "default";
 }
-/*
- * Stockage de l'UID appele, pour lien direct vers le detail d'un echantillon
- */
-if ($_REQUEST["uid"] > 0) {
-    $_SESSION["uid"] = $_REQUEST["uid"];
-}
+
 /**
  * Recuperation du module
  */
@@ -159,7 +156,7 @@ while (isset($module)) {
     $t_module = $navigation->getModule($module);
     if (count($t_module) == 0) {
         // traduction: conserver inchangée la chaîne %s
-        $message->set(sprintf(_('Le module demandé n\'existe pas (%s)'), $module));
+        $message->set(sprintf(_('Le module demandé n\'existe pas (%s)'), $module), true);
         $t_module = $navigation->getModule("default");
     }
     /*
@@ -202,7 +199,6 @@ while (isset($module)) {
                 $vue = new VueSmarty($SMARTY_param, $SMARTY_variables);
         }
     }
-
     /*
      * Verification si le login est requis
      */
@@ -231,11 +227,16 @@ while (isset($module)) {
             /*
              * Affichage de l'ecran de saisie du login si necessaire
              */
-            if (in_array($ident_type, array(
+            if (in_array(
+                $ident_type,
+                array(
                 "BDD",
                 "LDAP",
-                "LDAP-BDD"
-            )) && !isset($_REQUEST["login"]) && strlen($_SESSION["login"]) == 0 && !isset($_COOKIE["tokenIdentity"])) {
+                "LDAP-BDD",
+                )
+            ) && !isset($_REQUEST["login"]) && strlen($_SESSION["login"]) == 0 
+                && !isset($_COOKIE["tokenIdentity"])
+            ) {
                 /*
                  * Gestion de la saisie du login
                  */
@@ -248,7 +249,7 @@ while (isset($module)) {
                 }
                 $message->set(_("Veuillez utiliser votre login du domaine pour vous identifier"));
             } else {
-                
+
                 /*
                  * Verification du login
                  */
@@ -289,7 +290,7 @@ while (isset($module)) {
                         $_SESSION["login"] = $login;
                         unset($_SESSION["menu"]);
                         $message->set(_("Identification réussie !"));
-                        
+
                         /*
                          * Regeneration de l'identifiant de session
                          */
@@ -326,7 +327,7 @@ while (isset($module)) {
                                 $message->setSyslog($e->getMessage());
                             }
                         }
-                        
+
                         /*
                          * Integration des commandes post login
                          */
@@ -361,7 +362,6 @@ while (isset($module)) {
             }
         }
     }
-
     /*
      * Controles complementaires
      */
@@ -411,7 +411,7 @@ while (isset($module)) {
             $motifErreur = "errorbefore";
         }
     }
-    
+
     /*
      * Verification s'il s'agit d'un module d'administration
      */
@@ -430,7 +430,7 @@ while (isset($module)) {
             if (in_array($ident_type, array(
                 "BDD",
                 "LDAP",
-                "LDAP-BDD"
+                "LDAP-BDD",
             )) && !isset($_REQUEST["loginAdmin"]) && !$loginForm) {
                 /*
                  * saisie du login en mode admin
@@ -454,7 +454,7 @@ while (isset($module)) {
             }
         }
     }
-    
+
     /*
      * fin d'analyse du module
      */
@@ -473,7 +473,7 @@ while (isset($module)) {
     }
 
     unset($module_coderetour);
-    
+
     /*
      * Execution du module
      */
@@ -532,7 +532,6 @@ while (isset($module)) {
         }
     }
 }
-
 /*
  * Traitement de l'affichage vers le navigateur
  */
@@ -540,6 +539,7 @@ if ($isHtml) {
     /*
      * Affichage du menu
      */
+    $vue->set($_SESSION["APPLI_title"], "APPLI_title");
     if (!isset($_SESSION["menu"])) {
         include_once 'framework/navigation/menu.class.php';
         $menu = new Menu($APPLI_menufile);
@@ -551,7 +551,16 @@ if ($isHtml) {
         $vue->set(1, "isConnected");
         $vue->set($_SESSION["login"], "login");
     }
-    $vue->set($_SESSION["APPLI_title"], "APPLI_title");
+    /**
+     * Passage en parametre du nom du module courant
+     */
+    $vue->set($_SESSION["moduleBefore"], "lastModule");
+    /*
+     * Traitement des messages d'erreur - changement de classe d'affichage
+     */
+    if ($message->is_error) {
+        $vue->set(1, "messageError");
+    }
     /*
      * Gestion de l'internationalisation
      */
@@ -572,7 +581,7 @@ if ($isHtml) {
      * execution du code generique avant affichage
      */
     include 'modules/beforeDisplay.php';
-    
+
     /*
      * Envoi des droits
      */
@@ -595,5 +604,3 @@ $message->sendSyslog();
 /**
  * Fin de traitement
  */
-
-?>

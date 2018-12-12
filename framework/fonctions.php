@@ -12,7 +12,19 @@
  * @param int $id
  * @param string $smartyPage
  * @param int $idParent
+ *
  * @return array
+ */
+/**
+ * Lit un enregistrement dans la base de donnees, affecte le tableau a Smarty,
+ * et declenche l'affichage de la page associee
+ *
+ * @param ObjetBDD $dataClass  : instance de la classe
+ * @param mixed    $id         : identifiant
+ * @param string   $smartyPage : nom du template Smarty a utiliser
+ * @param int      $idParent   : identifiant du parent
+ *
+ * @return mixed
  */
 function dataRead($dataClass, $id, $smartyPage, $idParent = null)
 {
@@ -25,7 +37,7 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
             } catch (Exception $e) {
                 if ($OBJETBDD_debugmode > 0) {
                     foreach ($dataClass->getErrorData(1) as $messageError) {
-                        $message->set($messageError);
+                        $message->set($messageError, true);
                     }
                 } else {
                     $message->set(_("Erreur de lecture des informations dans la base de données"));
@@ -49,26 +61,26 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
 /**
  * Ecrit un enregistrement en base de donnees
  *
- * @param ObjetBDD $dataClass
- * @param array $data
+ * @param ObjetBDD $dataClass           : instance de la classe
+ * @param array    $data                : donnees a enregistrer
+ * @param boolean  $isPartOfTransaction : si true, requete faisant partie d'une transaction
+ *
  * @return int
  */
-function dataWrite($dataClass, $data)
+function dataWrite($dataClass, $data, $isPartOfTransaction = false)
 {
-
     global $message, $module_coderetour, $log, $OBJETBDD_debugmode;
-    $dataClass->connection->beginTransaction();
     try {
         $id = $dataClass->ecrire($data);
-        $dataClass->connection->commit();
-        $message->set(_("Enregistrement effectué"));
-        $module_coderetour = 1;
-        $log->setLog($_SESSION["login"], get_class($dataClass) . "-write", $id);
+        if (!$isPartOfTransaction) {
+            $message->set(_("Enregistrement effectué"));
+            $module_coderetour = 1;
+            $log->setLog($_SESSION["login"], get_class($dataClass) . "-write", $id);
+        }
     } catch (Exception $e) {
-        $dataClass->connection->rollBack();
         if ($OBJETBDD_debugmode > 0) {
             foreach ($dataClass->getErrorData(1) as $messageError) {
-                $message->set($messageError);
+                $message->set($messageError, true);
             }
         } else {
             $message->set(_("Problème lors de l'enregistrement..."));
@@ -82,11 +94,12 @@ function dataWrite($dataClass, $data)
 /**
  * Supprime un enregistrement en base de donnees
  *
- * @param ObjetBDD $dataClass
- * @param int $id
+ * @param ObjetBDD $dataClass : instance de la classe
+ * @param int      $id        : identifiant
+ *
  * @return int
  */
-function dataDelete($dataClass, $id)
+function dataDelete($dataClass, $id, $isPartOfTransaction = false)
 {
     global $message, $module_coderetour, $log, $OBJETBDD_debugmode;
     $module_coderetour = -1;
@@ -103,22 +116,30 @@ function dataDelete($dataClass, $id)
         }
     }
     if ($ok) {
-        $dataClass->connection->beginTransaction();
         try {
             $ret = $dataClass->supprimer($id);
-            $dataClass->connection->commit();
-            $message->set(_("Suppression effectuée"));
-            $module_coderetour = 1;
+            if (!$isPartOfTransaction) {
+                $message->set(_("Suppression effectuée"));
+                $module_coderetour = 1;
+            }
             $log->setLog($_SESSION["login"], get_class($dataClass) . "-delete", $id);
+
         } catch (Exception $e) {
-            $dataClass->connection->rollBack();
             if ($OBJETBDD_debugmode > 0) {
                 foreach ($dataClass->getErrorData(1) as $messageError) {
-                    $message->set($messageError);
+                    $message->set($messageError, true);
                 }
-            } else {
-                $message->set(_("Problème lors de la suppression"));
             }
+            /*
+             * recherche des erreurs liees a une violation de cle etrangere
+             */
+
+            if (strpos($e->getMessage(), "key violation")) {
+                $message->set(_("La suppression n'est pas possible : des informations sont référencées par cet enregistrement"), true);
+            } else {
+                $message->set(_("Problème lors de la suppression"), true);
+            }
+
             $message->setSyslog($e->getMessage());
             $ret = -1;
         }
@@ -131,7 +152,7 @@ function dataDelete($dataClass, $id)
 /**
  * Modifie la langue utilisee dans l'application
  *
- * @param string $langue
+ * @param string $langue : code du langage
  */
 function setlanguage($langue)
 {
@@ -145,7 +166,7 @@ function setlanguage($langue)
     /*
      * Chargement de la langue par defaut
      */
-    include('locales/' . $language . ".php");
+    include 'locales/' . $language . ".php";
     /*
      * On gere le cas ou la langue selectionnee n'est pas la langue par defaut
      */
@@ -193,22 +214,19 @@ function setlanguage($langue)
     setcookie('langue', $langue, time() + $APPLI_cookie_ttl, $cookieParam["path"], $cookieParam["domain"], $cookieParam["secure"], $cookieParam["httponly"]);
 }
 
+/**
+ * Initialisation de la langue pour gettext
+ *
+ * @param mixed $langue : code du langage
+ *
+ * @return mixed
+ */
 function initGettext($langue)
 {
     /*
      * Pour smarty-gettext (gettext)
      */
-    global $language, $APPLI_languageList;
-    /* 
-     * verification que $langue figure bien dans la liste autorisee
-     */
-    $localLanguage = $language;
-    foreach ($APPLI_languageList as $value) {
-        if ($langue == $value) {
-            $localLanguage = $value;
-            break;
-        }
-    }
+
     /*
      * Attention :
      * gettext fonctionne avec setlocale. Le problème est que setlocale dépend des locales installées sur le serveur.
@@ -229,16 +247,21 @@ function initGettext($langue)
      */
     // var_dump($langue); // aide à la traduction lors du développement
     setlocale(LC_ALL, "C.UTF-8", "C"); // setlocale pour linux // C = localisation portable par défaut
+    // Attention : La valeur retournée par setlocale() dépend du système sur lequel PHP est installé. setlocale() retourne exactement ce que la fonction système setlocale retourne.
+    // TODO aide au diagnostic : vérifier que setlocale a réussi ou que le fichier de langue existe bien
+    // $path = realpath("./locales") . "/C/LC_MESSAGES/$langue.mo";
+    // var_dump( $path, file_exists( $path ) );
     putenv("LANG=C.UTF-8"); // putenv pour windows // non testé
-    bindtextdomain($localLanguage, realpath("./locales"));
-    bind_textdomain_codeset($localLanguage, "UTF-8");
-    textdomain($localLanguage);
+    bindtextdomain($langue, realpath("./locales"));
+    bind_textdomain_codeset($langue, "UTF-8");
+    textdomain($langue);
 }
 
 /**
  * Fonction testant si la donnee fournie est de type UTF-8 ou non
  *
- * @param array|string $data
+ * @param array|string $data : tableau a tester
+ *
  * @return boolean
  */
 function check_encoding($data)
@@ -272,10 +295,10 @@ function getIPClientAddress()
      */
     if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
         return $_SERVER["HTTP_X_FORWARDED_FOR"];
+    } else if (isset($_SERVER["REMOTE_ADDR"])) {
         /*
          * Cas classique
          */
-    } else if (isset($_SERVER["REMOTE_ADDR"])) {
         return $_SERVER["REMOTE_ADDR"];
     } else {
         return -1;
@@ -285,7 +308,8 @@ function getIPClientAddress()
 /**
  * Fonction recursive decodant le html en retour de navigateur
  *
- * @param array|string $data
+ * @param array|string $data : tableau de valeurs
+ *
  * @return array|string
  */
 function htmlDecode($data)
@@ -304,9 +328,9 @@ function htmlDecode($data)
  * Fonction d'analyse des virus avec clamav
  *
  * @author quinton
- *        
+ *
  *         Exemple d'usage :
- *        
+ *
  *         $nomfiletest = "/tmp/eicar.com.txt";
  *         try {
  *         echo "analyse antivirale de $nomfiletest";
@@ -324,46 +348,63 @@ class VirusException extends Exception
 {
 }
 
+/**
+ * Gestion des exceptions pour les manipulations de fichiers
+ *
+ * @var mixed
+ */
 class FileException extends Exception
 {
 }
+
 /**
- * Lancement du test antiviral pour le fichier telecharge
- * $file: array contenant les donnees du fichier telecharge
+ * Test antiviral d'un fichier
+ *
+ * @param mixed $file
+ *
+ * @return mixed
  */
 function testScan($file)
 {
-    if (file_exists($file) && $APPLI_virusscan) {
-        if (extension_loaded('clamav')) {
-            $retcode = cl_scanfile($file["tmp_name"], $virusname);
-            if ($retcode == CL_VIRUS) {
-                $message = $file["name"] . " : " . cl_pretcode($retcode) . ". Virus found name : " . $virusname;
-                throw new VirusException($message);
-            }
-        } else {
-            /*
-             * Test avec clamscan
-             */
-            $clamscan = "/usr/bin/clamscan";
-            $clamscan_options = "-i --no-summary";
-            if (file_exists($clamscan)) {
-                exec("$clamscan $clamscan_options $file", $output);
-                if (count($output) > 0) {
-                    $message = $file["name"] . " : ";
-                    foreach ($output as $value) {
-                        $message .= $value . " ";
-                    }
+    global $APPLI_virusScan;
+    if ($APPLI_virusScan) {
+        if (file_exists($file)) {
+            if (extension_loaded('clamav')) {
+                $retcode = cl_scanfile($file["tmp_name"], $virusname);
+                if ($retcode == CL_VIRUS) {
+                    $message = $file["name"] . " : " . cl_pretcode($retcode) . ". Virus found name : " . $virusname;
                     throw new VirusException($message);
                 }
             } else {
-                throw new FileException("clamscan not found");
+                /*
+                 * Test avec clamscan
+                 */
+                $clamscan = "/usr/bin/clamscan";
+                $clamscan_options = "-i --no-summary";
+                if (file_exists($clamscan)) {
+                    exec("$clamscan $clamscan_options $file", $output);
+                    if (count($output) > 0) {
+                        $message = $file["name"] . " : ";
+                        foreach ($output as $value) {
+                            $message .= $value . " ";
+                        }
+                        throw new VirusException($message);
+                    }
+                } else {
+                    throw new FileException("clamscan not found");
+                }
             }
+        } else {
+            throw new FileException("$file not found");
         }
-    } else {
-        throw new FileException("$file not found");
     }
 }
 
+/**
+ * Retourne la liste des entetes transmises
+ *
+ * @return mixed
+ */
 function getHeaders()
 {
     $header = array();
@@ -378,20 +419,19 @@ function getHeaders()
      * Fonction equivalente pour NGINX
      */
     /*
-     * function apache_request_headers() {
-     * foreach($_SERVER as $key=>$value) {
-     * if (substr($key,0,5)=="HTTP_") {
-     * $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5)))));
-     * $out[$key]=$value;
-     * }else{
-     * $out[$key]=$value;
-     * }
-     * }
-     * return $out;
-     * }
-     * }
-     * printr($_SERVER);
-     * return apache_request_headers();
-     */
+ * function apache_request_headers() {
+ * foreach($_SERVER as $key=>$value) {
+ * if (substr($key,0,5)=="HTTP_") {
+ * $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5)))));
+ * $out[$key]=$value;
+ * }else{
+ * $out[$key]=$value;
+ * }
+ * }
+ * return $out;
+ * }
+ * }
+ * printr($_SERVER);
+ * return apache_request_headers();
+ */
 }
-?>

@@ -77,12 +77,12 @@ class Import
          * Gestion de la classe de manipulation XLS
          */
         if ($this->typeFichier == "xls") {
-//             if (class_exists("Spreadsheet_Excel_Reader")) {
-//                 $this->spreadsheet = new Spreadsheet_Excel_Reader();
-//             } else {
-//                 echo "La classe Spreadsheet_Excel_Reader n'est pas decrite - arret de l'application";
-//                 die();
-//             }
+            if (class_exists("Spreadsheet_Excel_Reader")) {
+                $this->spreadsheet = new Spreadsheet_Excel_Reader();
+            } else {
+                echo "La classe Spreadsheet_Excel_Reader n'est pas decrite - arret de l'application";
+                die();
+            }
         }
     }
 

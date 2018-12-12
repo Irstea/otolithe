@@ -102,7 +102,7 @@ class Aclaco extends ObjetBDD
      *
      * @param string $aco
      *            : aco a tester
-     * @return array : liste des logins trouves
+     * @return tableau : liste des logins trouves
      */
     function getLogins($aco)
     {
@@ -163,7 +163,7 @@ class Acllogin extends ObjetBDD
      * Retourne la liste des logins en indiquant s'ils sont ou non compris dans le groupe indiqué
      *
      * @param int $aclgroup_id
-     * @return array|NULL
+     * @return tableau|NULL
      */
     function getAllFromGroup($aclgroup_id)
     {
@@ -221,7 +221,7 @@ class Acllogin extends ObjetBDD
     /**
      * Retourne la liste des droits attribues a un login
      *
-     * @param string $login
+     * @param unknown $login
      * @return array
      */
     function getListDroits($login, $appli, $ldapParam = array())
@@ -452,7 +452,7 @@ class Aclgroup extends ObjetBDD
     /**
      * Fonction retournant tous les logins appartenant a un groupe
      *
-     * @param string $groupe
+     * @param unknown $groupe
      */
     function getLogins($groupe)
     {
