@@ -23,12 +23,8 @@ $(document).ready(function(){
 	
 });
 
-	function deletePoint(idpoint) {
-		console.log("Suppression de "+idpoint);
-		$(idpoint).remove();
-	}
-
 function drawIntro(svg) {
+	/* affichage de la photo et dessin des points existants */
 	var image_width = $('#image_width').val();
 	var image_height = $('#image_height').val();
 	var r = 0;

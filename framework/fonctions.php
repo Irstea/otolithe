@@ -40,7 +40,7 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
                         $message->set($messageError, true);
                     }
                 } else {
-                    $message->set(_("Erreur de lecture des informations dans la base de données"));
+                    $message->set(_("Erreur de lecture des informations dans la base de données"),true);
                 }
                 $message->setSyslog($e->getMessage());
             }
@@ -54,7 +54,7 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
     } else {
         global $module;
         // traduction: conserver inchangée la chaîne %s
-        $message->set(sprintf(_('Erreur: type d\'affichage non défini pour le module demandé : %s'), $module));
+        $message->set(sprintf(_('Erreur: type d\'affichage non défini pour le module demandé : %s'), $module), true);
     }
 }
 
@@ -83,7 +83,7 @@ function dataWrite($dataClass, $data, $isPartOfTransaction = false)
                 $message->set($messageError, true);
             }
         } else {
-            $message->set(_("Problème lors de l'enregistrement..."));
+            $message->set(_("Problème lors de l'enregistrement..."), true);
         }
         $message->setSyslog($e->getMessage());
         $module_coderetour = -1;

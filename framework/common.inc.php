@@ -248,10 +248,10 @@ if (!isset($bdd)) {
                     break;
             }
         } else {
-            $message->set(_("Echec de connexion à la base de données de gestion des droits (GACL)"));
+            $message->set(_("Echec de connexion à la base de données de gestion des droits (GACL)"),true);
         }
     } else {
-        $message->set(_("Echec de connexion à la base de données principale"));
+        $message->set(_("Echec de connexion à la base de données principale"),true);
     }
 }
 /*
@@ -265,7 +265,7 @@ $log = new Log($bdd_gacl, $ObjetBDDParam);
 if (time() - $_SESSION['ABSOLUTE_START'] > $APPLI_absolute_session) {
     $log->setLog($_SESSION["login"], "disconnect-absolute-time");
     $identification->disconnect($APPLI_address);
-    $message->set(_("Vous avez été déconnecté, votre session était ouverte depuis trop longtemps"));
+    $message->set(_("Vous avez été déconnecté, votre session était ouverte depuis trop longtemps"),true);
     /*
      * Desactivation du cookie d'identification deja charge le cas echeant
      */

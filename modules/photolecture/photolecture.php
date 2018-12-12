@@ -152,7 +152,7 @@ switch ($t_module["param"]) {
         }
     } else {
         $module_coderetour = -1;
-        $message->set(_("Vous ne disposez pas des droits nécessaires pour réaliser une lecture"));
+        $message->set(_("Vous ne disposez pas des droits nécessaires pour réaliser une lecture"), true);
     }
     if ($module_coderetour != -1) {
         $data = dataRead($dataClass, $id, "photolecture/photolectureChange.tpl", $_SESSION["it_photo"]->getValue($_REQUEST["photo_id"]));
@@ -345,7 +345,7 @@ switch ($t_module["param"]) {
         dataDelete($dataClass, $id);
     } else {
         $module_coderetour = -1;
-        $message->set(_("Vous ne disposez pas des droits suffisants pour supprimer la lecture"));
+        $message->set(_("Vous ne disposez pas des droits suffisants pour supprimer la lecture"), true);
     }
     break;
     case "list":

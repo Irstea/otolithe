@@ -67,7 +67,7 @@ switch ($t_module["param"]) {
                      */
                     $filename = $APPLI_photoStockage . '/' . bin2hex(openssl_random_pseudo_bytes(4));
                     if (!copy($_FILES['upfile']['tmp_name'], $filename)) {
-                        $message->set("Impossible de recopier le fichier importé dans le dossier temporaire");
+                        $message->set("Impossible de recopier le fichier importé dans le dossier temporaire", true);
                     } else {
                         $_SESSION["filename"] = $filename;
                         $_SESSION["separator"] = $_REQUEST["separator"];
@@ -77,7 +77,7 @@ switch ($t_module["param"]) {
                     }
                 }
             } catch (Exception $e) {
-                $message->set($e->getMessage());
+                $message->set($e->getMessage(), true);
                 $module_coderetour = -1;
             }
         }
@@ -97,7 +97,7 @@ switch ($t_module["param"]) {
                     $bdd->commit();
                     $module_coderetour = 1;
                 } catch (Exception $e) {
-                    $message->set($e->getMessage());
+                    $message->set($e->getMessage(), true);
                     $module_coderetour = -1;
                     $bdd->rollBack();
                 }

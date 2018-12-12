@@ -103,7 +103,7 @@ switch ($t_module["param"]) {
         if (isset($_FILES["photoload"]["error"]) && $_FILES["photoload"]["error"] != UPLOAD_ERR_OK) {
             switch ($_FILES["photoload"]["error"]) {
                 case (UPLOAD_ERR_INI_SIZE or UPLOAD_ERR_FORM_SIZE):
-                    $message->set(_("La taille de la photo excède la taille autorisée"));
+                    $message->set(_("La taille de la photo excède la taille autorisée"),true);
                     break;
                 case UPLOAD_ERR_NO_FILE:
                 /*
@@ -111,7 +111,7 @@ switch ($t_module["param"]) {
                      */
                     break;
                 default:
-                    $message->set(_("Une erreur s'est produite lors du chargement de la photo. Si le problème persiste, contactez votre support technique"));
+                    $message->set(_("Une erreur s'est produite lors du chargement de la photo. Si le problème persiste, contactez votre support technique"), true);
             }
         }
 
@@ -128,7 +128,7 @@ switch ($t_module["param"]) {
                 if ($retcode == CL_VIRUS) {
                     $virus = true;
                     $texte_erreur = $file["name"] . " : " . cl_pretcode($retcode) . ". Virus found name : " . $virusname;
-                    $message->set($texte_erreur);
+                    $message->set($texte_erreur, true);
                     $log->setLog($_SESSION["login"], "Document-ecrire", $texte_erreur);
                 }
             }

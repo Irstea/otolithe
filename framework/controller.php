@@ -351,11 +351,11 @@ while (isset($module)) {
                                 $cookieParam["httponly"] = true;
                                 setcookie('tokenIdentity', $token, time() + $tokenIdentityValidity, $cookieParam["path"], $cookieParam["domain"], $cookieParam["secure"], $cookieParam["httponly"]);
                             } catch (Exception $e) {
-                                $message->set($e->getMessage());
+                                $message->set($e->getMessage(),true);
                             }
                         }
                     } else {
-                        $message->set(_("Identification refusée"));
+                        $message->set(_("Identification refusée"),true);
                         $message->setSyslog("connexion ko from " . getIPClientAddress());
                     }
                 }
@@ -465,7 +465,7 @@ while (isset($module)) {
         $log->setLog($_SESSION["login"], $module, $motifErreur);
     } catch (Exception $e) {
         if ($OBJETBDD_debugmode > 0) {
-            $message->set($log->getErrorData(1));
+            $message->set($log->getErrorData(1),true);
         } else {
             $message->set(_("Erreur d'écriture dans le fichier de traces"));
         }

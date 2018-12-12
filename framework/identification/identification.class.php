@@ -334,7 +334,7 @@ class Identification
                 }
             } catch (Exception $e) {
                 $log->setLog($login, $module . "-connexion", "token-ko");
-                $message->set($e->getMessage());
+                $message->set($e->getMessage(), true);
             }
         } elseif ($ident_type == "HEADER") {
             /*
@@ -629,13 +629,13 @@ class LoginGestion extends ObjetBDD
                     if ($this->passwordVerify($_SESSION["login"], $pass1, $pass2)) {
                         $retour = $this->writeNewPassword($_SESSION["login"], $pass1);
                     } else {
-                        $message->set(_("La modification du mot de passe a échoué"));
+                        $message->set(_("La modification du mot de passe a échoué"), true);
                     }
                 } else {
-                    $message->set(_("L'ancien mot de passe est incorrect"));
+                    $message->set(_("L'ancien mot de passe est incorrect"), true);
                 }
             } else {
-                $message->set(_("Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application"));
+                $message->set(_("Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application"), true);
             }
         }
 
@@ -705,10 +705,10 @@ class LoginGestion extends ObjetBDD
 
                 $message->set(_("Le mot de passe a été modifié"));
             } else {
-                $message->set(_("Echec de modification du mot de passe pour une raison inconnue. Si le problème persiste, contactez l'assistance"));
+                $message->set(_("Echec de modification du mot de passe pour une raison inconnue. Si le problème persiste, contactez l'assistance"), true);
             }
         } else {
-            $message->set(_("Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application"));
+            $message->set(_("Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application"), true);
         }
         return $retour;
     }
@@ -750,16 +750,16 @@ class LoginGestion extends ObjetBDD
                     if ($nb == 0) {
                         $ok = true;
                     } else {
-                        $message->set(_("Le mot de passe a déjà été utilisé"));
+                        $message->set(_("Le mot de passe a déjà été utilisé"), true);
                     }
                 } else {
-                    $message->set(_("Le mot de passe n'est pas assez complexe"));
+                    $message->set(_("Le mot de passe n'est pas assez complexe"), true);
                 }
             } else {
-                $message->set(_("Le mot de passe est trop court"));
+                $message->set(_("Le mot de passe est trop court"), true);
             }
         } else {
-            $message->set(_("Le mot de passe n'est pas identique dans les deux zones"));
+            $message->set(_("Le mot de passe n'est pas identique dans les deux zones"), true);
         }
         return $ok;
     }

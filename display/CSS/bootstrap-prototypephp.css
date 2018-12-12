@@ -59,6 +59,9 @@ body {
 	font-style: italic;
 	color: #003A80;
 }
+.messageError {
+	color: #D1041D;
+}
 /* italique gris petit*/
 .messagebas {
 	color: #A4C400;
