@@ -170,6 +170,8 @@ CREATE TABLE "photolecture" (
                 "read_fiability" REAL,
                 "consensual_reading" SMALLINT,
                 "annee_naissance" INTEGER,
+                "commentaire" varchar, 
+                "remarkable_points" json
                 CONSTRAINT "pk_photolecture" PRIMARY KEY ("photolecture_id"),
                 CONSTRAINT enforce_dims_points CHECK (public.st_ndims(points) = 2),
                 CONSTRAINT enforce_dims_points_ref_lecture CHECK (public.st_ndims(points_ref_lecture) = 2),
@@ -186,6 +188,8 @@ COMMENT ON COLUMN "photolecture"."long_totale_reel" IS 'Longueur totale réelle 
 COMMENT ON COLUMN "photolecture"."read_fiability" IS 'Fiabilité de la lecture';
 COMMENT ON COLUMN "photolecture"."consensual_reading" IS '1 si lecture consensuelle';
 COMMENT ON COLUMN "photolecture"."annee_naissance" IS 'Année de naissance estimée';
+comment on column photolecture.commentaire is 'Commentaires de lecture';
+COMMENT ON COLUMN otolithe.photolecture.remarkable_points IS 'Liste des points remarquables identifiés sur la photo';
 
 
 ALTER SEQUENCE "photolecture_photolecture_id_seq" OWNED BY "photolecture"."photolecture_id";
@@ -788,7 +792,6 @@ VALUES
  * Fin de script
   * Mise a jour du numero de version
  */
- insert into dbversion (dbversion_number, dbversion_date)
- values
- ('2.0','2018-08-17')
- ;
+insert into dbversion ("dbversion_number", "dbversion_date")
+values 
+('2.1','2018-12-13');
