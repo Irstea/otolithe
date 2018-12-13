@@ -51,8 +51,11 @@ $LOG_duree = 365;
 $ident_header_login_var = "AUTH_USER";
 $ident_header_logout_address = "";
 $ident_type = "BDD";
+/* CAS parameters */
 $CAS_address = "http://localhost/CAS";
 $CAS_port = 443;
+$CAS_CApath="";
+/* LDAP parameters */
 $LDAP = array(
     "address" => "localhost",
     "port" => 389,
@@ -103,8 +106,7 @@ $APPLI_modeDeveloppementDroit = false;
 $APPLI_utf8 = true;
 $APPLI_menufile = "param/menu.xml";
 $APPLI_temp = "temp";
-$APPLI_assist_address = "https://gitlab.irstea.fr/eabx-applis_web/otolithe/issues/new";
-$APPLI_isFullDns = false;
+$APPLI_assist_address = "https://github.com/Irstea/otolithe/issues/new";
 /*
  * Variables systematiques pour SMARTY
  */
