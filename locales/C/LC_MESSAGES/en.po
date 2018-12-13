@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-20 11:21+0200\n"
+"POT-Creation-Date: 2018-12-13 10:49+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -168,18 +168,49 @@ msgid "Liste des paramètres pérennes de l'application"
 msgstr "List of long-term parameters of the application"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:28 ../../../display/templates/phpinfo.tpl:1
+#: ../../../param/menu.xml:29
+msgid "Structure de la base de données (HTML)"
+msgstr "Database structure (HTML)"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:29
+msgid "Liste des tables et des colonnes"
+msgstr "List of tables and columns"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:30
+msgid "Structure de la base de données (Latex)"
+msgstr "Database structure (Latex)"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:30
+msgid "Liste des tables et des colonnes sous forme de tableaux Latex"
+msgstr "List of tables and columns in Latex format"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:31
+msgid "Structure de la base de données des droits (HTML)"
+msgstr "Right management database structure (HTML)"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:31
+msgid ""
+"Liste des tables et des colonnes de la base de données de gestion des droits"
+msgstr "List of tables and columns of the right management database"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:32 ../../../display/templates/phpinfo.tpl:1
 msgid "PHP info"
 msgstr "PHP info"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:28
+#: ../../../param/menu.xml:32
 msgid "configuration générale du serveur PHP"
 msgstr "general configuration of the PHP server"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:30 ../../../framework/common.inc.php:266
-#: ../../../framework/identification/disconnect.php:11
+#: ../../../param/menu.xml:34 ../../../framework/common.inc.php:288
+#: ../../../framework/identification/disconnect.php:18
 #: ../../../display/templates/entete.tpl:21
 #: ../../../display/templates/entete.tpl:40
 #: ../../../display/templates/entete.tpl:41
@@ -187,23 +218,23 @@ msgid "Connexion"
 msgstr "Sign in"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:30
+#: ../../../param/menu.xml:34
 msgid "S'identifier dans l'application"
 msgstr "Sign in to the app"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:31 ../../../display/templates/entete.tpl:36
+#: ../../../param/menu.xml:35 ../../../display/templates/entete.tpl:36
 #: ../../../display/templates/entete.tpl:37
 msgid "Déconnexion"
 msgstr "Sign out"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:31
+#: ../../../param/menu.xml:35
 msgid "Déconnexion de l'application"
 msgstr "Sign out of the app"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:32
+#: ../../../param/menu.xml:36
 #: ../../../display/templates/ident/loginChangePassword.tpl:33
 #: ../../../display/templates/entete.tpl:32
 #: ../../../display/templates/entete.tpl:33
@@ -211,71 +242,61 @@ msgid "Modifier le mot de passe"
 msgstr "Change your password"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:32
+#: ../../../param/menu.xml:36
 msgid "Modifiez votre mot de passe (identification locale uniquement)"
 msgstr "Change your password (local identification only)"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:34
+#: ../../../param/menu.xml:38
 msgid "?"
 msgstr "?"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:34
+#: ../../../param/menu.xml:38
 msgid "Aide"
 msgstr "Help"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:35
+#: ../../../param/menu.xml:39
 msgid "A propos"
 msgstr "About"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:35
+#: ../../../param/menu.xml:39
 msgid "A propos d'Otolithe"
 msgstr "About Otolith"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:36
+#: ../../../param/menu.xml:40
 msgid "Nouveautés"
 msgstr "What's new?"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:36
+#: ../../../param/menu.xml:40
 msgid "Quoi de neuf dans l'application ?"
 msgstr "What's new in the app?"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:37
-msgid "Lexique"
-msgstr "Glossary"
-
-#. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:37
-msgid "Lexique des termes utilisés dans le logiciel"
-msgstr "Glossary of terms used in the software"
-
-#. (itstool) path: item/item@label
-#: ../../../param/menu.xml:38
+#: ../../../param/menu.xml:41
 msgid "Français"
 msgstr "French"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:38
+#: ../../../param/menu.xml:41
 msgid "Libellés en français"
 msgstr "Labels in French"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:39
+#: ../../../param/menu.xml:42
 msgid "English"
 msgstr "English"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:39
+#: ../../../param/menu.xml:42
 msgid "Labels in English"
 msgstr "Labels in English"
 
-#: ../../../framework/controller.php:17
+#: ../../../framework/controller.php:16
 msgid ""
 "Problème dans les données fournies : l'encodage des caractères n'est pas "
 "celui attendu"
@@ -283,7 +304,7 @@ msgstr ""
 "Problem in the provided data: the character encoding is not the one expected"
 
 #. traduction: bien conserver inchangées les chaînes %1$s, %2$s
-#: ../../../framework/controller.php:36
+#: ../../../framework/controller.php:35
 #, php-format
 msgid ""
 "La base de données n'est pas dans la version attendue (%1$s). Version "
@@ -291,26 +312,32 @@ msgid ""
 msgstr ""
 "The database is not in the expected version (%1$s). Current version: %2$s"
 
+#: ../../../framework/controller.php:42
+msgid ""
+"Problème rencontré lors de la vérification de la version de la base de "
+"données"
+msgstr "An error occurred when verifying the version of database"
+
 #. traduction: conserver inchangée la chaîne %s
-#: ../../../framework/controller.php:161
+#: ../../../framework/controller.php:159
 #, php-format
 msgid "Le module demandé n'existe pas (%s)"
 msgstr "The requested module does not exist (%s)"
 
-#: ../../../framework/controller.php:248
+#: ../../../framework/controller.php:250
 msgid "Veuillez utiliser votre login du domaine pour vous identifier"
 msgstr "Please use your domain login to login"
 
-#: ../../../framework/controller.php:268
+#: ../../../framework/controller.php:270
 msgid "L'identification par jeton n'a pas abouti"
 msgstr "Token identification was unsuccessful"
 
-#: ../../../framework/controller.php:290
+#: ../../../framework/controller.php:292
 msgid "Identification réussie !"
 msgstr "Authentication successful!"
 
 #. traduction: bien conserver inchangées les chaînes %1$s, %2$s...
-#: ../../../framework/controller.php:302
+#: ../../../framework/controller.php:304
 #, php-format
 msgid ""
 "Dernière connexion le %1$s depuis l'adresse IP %2$s. Si ce n'était pas vous, "
@@ -319,17 +346,17 @@ msgstr ""
 "Last connection on %1$s from the IP address %2$s. If it was not you, change "
 "your password or contact the administrator of the application."
 
-#: ../../../framework/controller.php:356
+#: ../../../framework/controller.php:358
 msgid "Identification refusée"
 msgstr "Authentication failed"
 
 #. traduction: conserver inchangée la chaîne %s
-#: ../../../framework/controller.php:408
+#: ../../../framework/controller.php:409
 #, php-format
 msgid "Module précédent enregistré : %s"
 msgstr "Previous module: %s"
 
-#: ../../../framework/controller.php:442
+#: ../../../framework/controller.php:443
 msgid ""
 "L'accès au module demandé nécessite une ré-identification. Veuillez saisir "
 "votre login et votre mot de passe"
@@ -337,12 +364,12 @@ msgstr ""
 "Access to the requested module requires re-identification. Please enter your "
 "login and password"
 
-#: ../../../framework/controller.php:469
+#: ../../../framework/controller.php:470
 msgid "Erreur d'écriture dans le fichier de traces"
 msgstr "Error writing to the log file"
 
 #. traduction: bien conserver inchangées les chaînes %1$s, %2$s
-#: ../../../framework/controller.php:565
+#: ../../../framework/controller.php:576
 #, php-format
 msgid "Mode développement - base de données : %1$s - schema : %2$s"
 msgstr "Development mode - database: %1$s - schema: %2$s"
@@ -351,12 +378,12 @@ msgstr "Development mode - database: %1$s - schema: %2$s"
 msgid "Vous n'êtes pas identifié."
 msgstr "You are not signed in."
 
-#: ../../../framework/dbparam/dbparam.php:18
-#: ../../../framework/fonctions.php:64
+#: ../../../framework/dbparam/dbparam.php:19
+#: ../../../framework/fonctions.php:76
 msgid "Enregistrement effectué"
 msgstr "Saved"
 
-#: ../../../framework/dbparam/dbparam.php:27
+#: ../../../framework/dbparam/dbparam.php:32
 msgid "Problème lors de la mise en fichier..."
 msgstr "Writing problem..."
 
@@ -368,49 +395,53 @@ msgstr ""
 "You do not have access to this function. Please identify yourself, if "
 "applicable"
 
-#: ../../../framework/common.inc.php:232
+#: ../../../framework/common.inc.php:251
 msgid "Echec de connexion à la base de données de gestion des droits (GACL)"
 msgstr "Failed to connect to rights management database (GACL)"
 
-#: ../../../framework/common.inc.php:235
+#: ../../../framework/common.inc.php:254
 msgid "Echec de connexion à la base de données principale"
 msgstr "Failed to connect to the main database"
 
-#: ../../../framework/common.inc.php:249
+#: ../../../framework/common.inc.php:268
 msgid ""
 "Vous avez été déconnecté, votre session était ouverte depuis trop longtemps"
 msgstr "You have been disconnected, your session has been open for too long"
 
-#: ../../../framework/common.inc.php:264
-#: ../../../framework/identification/disconnect.php:9
+#: ../../../framework/common.inc.php:286
+#: ../../../framework/identification/disconnect.php:10
 msgid "Vous êtes maintenant déconnecté"
 msgstr "You are now signed off"
 
-#: ../../../framework/dbversion/dbversion.class.php:53
-msgid ""
-"Impossible de vérifier la version de la base de données, échec de lecture de "
-"la table"
-msgstr "Unable to check the database version, read table failed"
+#: ../../../framework/common.inc.php:320
+msgid "Problème rencontré lors de la lecture de la table des paramètres"
+msgstr "An error occurred when reading the table of parameters"
 
-#: ../../../framework/fonctions.php:31
+#: ../../../framework/fonctions.php:43
 msgid "Erreur de lecture des informations dans la base de données"
 msgstr "Error reading information in the database"
 
 #. traduction: conserver inchangée la chaîne %s
-#: ../../../framework/fonctions.php:45
+#: ../../../framework/fonctions.php:57
 #, php-format
 msgid "Erreur: type d'affichage non défini pour le module demandé : %s"
 msgstr "Error: display type not defined for the requested module: %s"
 
-#: ../../../framework/fonctions.php:74
+#: ../../../framework/fonctions.php:86
 msgid "Problème lors de l'enregistrement..."
 msgstr "Problem when saving ..."
 
-#: ../../../framework/fonctions.php:110
+#: ../../../framework/fonctions.php:122
 msgid "Suppression effectuée"
 msgstr "Deletion done"
 
-#: ../../../framework/fonctions.php:120
+#: ../../../framework/fonctions.php:138
+msgid ""
+"La suppression n'est pas possible : des informations sont référencées par "
+"cet enregistrement"
+msgstr "Delete is not possible: some data as referenced by this item"
+
+#: ../../../framework/fonctions.php:140
 msgid "Problème lors de la suppression"
 msgstr "Problem when deleting"
 
@@ -466,8 +497,8 @@ msgstr "Could not send email"
 
 #: ../../../framework/identification/passwordLost.php:86
 #: ../../../framework/identification/passwordLost.php:113
-#: ../../../framework/identification/identification.class.php:606
-#: ../../../framework/identification/identification.class.php:679
+#: ../../../framework/identification/identification.class.php:638
+#: ../../../framework/identification/identification.class.php:711
 #: ../../../framework/identification/login.php:57
 msgid ""
 "Le mode d'identification utilisé pour votre compte n'autorise pas la "
@@ -480,19 +511,19 @@ msgstr ""
 msgid "Le jeton fourni n'est pas valide"
 msgstr "Token provided is not valid"
 
-#: ../../../framework/identification/identification.class.php:600
+#: ../../../framework/identification/identification.class.php:632
 msgid "La modification du mot de passe a échoué"
 msgstr "Password change failed"
 
-#: ../../../framework/identification/identification.class.php:603
+#: ../../../framework/identification/identification.class.php:635
 msgid "L'ancien mot de passe est incorrect"
 msgstr "The old password is incorrect"
 
-#: ../../../framework/identification/identification.class.php:674
+#: ../../../framework/identification/identification.class.php:706
 msgid "Le mot de passe a été modifié"
 msgstr "The password has been changed"
 
-#: ../../../framework/identification/identification.class.php:676
+#: ../../../framework/identification/identification.class.php:708
 msgid ""
 "Echec de modification du mot de passe pour une raison inconnue. Si le "
 "problème persiste, contactez l'assistance"
@@ -500,21 +531,21 @@ msgstr ""
 "Failed to change the password for an unknown reason. If the problem "
 "persists, contact support"
 
-#: ../../../framework/identification/identification.class.php:721
+#: ../../../framework/identification/identification.class.php:753
 msgid "Le mot de passe a déjà été utilisé"
 msgstr "The password has already been used"
 
-#: ../../../framework/identification/identification.class.php:724
+#: ../../../framework/identification/identification.class.php:756
 msgid "Le mot de passe n'est pas assez complexe"
 msgstr ""
 "The password is not complex enough (mix 3 character sets among lowercase, "
 "uppercase, numbers, and punctuation)"
 
-#: ../../../framework/identification/identification.class.php:727
+#: ../../../framework/identification/identification.class.php:759
 msgid "Le mot de passe est trop court"
 msgstr "The password is too short (minimum: 10 characters)"
 
-#: ../../../framework/identification/identification.class.php:730
+#: ../../../framework/identification/identification.class.php:762
 msgid "Le mot de passe n'est pas identique dans les deux zones"
 msgstr "Passwords don't match in both fields"
 
@@ -554,25 +585,29 @@ msgstr "Administration"
 msgid "Vous ne disposez pas des droits nécessaires pour réaliser une lecture"
 msgstr "You are not granted to read"
 
-#: ../../../modules/classes/photo.class.php:137
+#: ../../../modules/photolecture/photolecture.php:348
+msgid "Vous ne disposez pas des droits suffisants pour supprimer la lecture"
+msgstr "You are not granted to delete this reading"
+
+#: ../../../modules/classes/photo.class.php:136
 msgid "Imagick - impossible de charger la photo "
 msgstr "Imagick - impossible to load the photo"
 
-#: ../../../modules/classes/photo.class.php:152
+#: ../../../modules/classes/photo.class.php:151
 msgid "Imagick - impossible de redimensionner la photo"
 msgstr "Imagick - impossible to resize the photo"
 
-#: ../../../modules/classes/photo.class.php:159
+#: ../../../modules/classes/photo.class.php:158
 msgid "Imagick - impossible de définir le format de la photo"
 msgstr "Imagick - impossible to define the format of the photo"
 
-#: ../../../modules/classes/photo.class.php:191
+#: ../../../modules/classes/photo.class.php:190
 msgid ""
 "Problème rencontré lors du parcours des photos existantes ou de leur "
 "suppression"
 msgstr "An error occurred when browsing existing photos or deleting them"
 
-#: ../../../modules/classes/photo.class.php:385
+#: ../../../modules/classes/photo.class.php:384
 msgid "Problème d'écriture de la photo dans le dossier temporaire"
 msgstr "Problem of writing the photo in the temporary folder"
 
@@ -580,36 +615,36 @@ msgstr "Problem of writing the photo in the temporary folder"
 msgid "Des photos sont rattachées au poisson, sa suppression est impossible"
 msgstr "Photos are attached to the fish, its removable is impossible"
 
-#: ../../../modules/classes/import.class.php:319
+#: ../../../modules/classes/import.class.php:323
 msgid "Aucun code (codeindividu ou tag) n'a été indiqué."
 msgstr "No code (individual code or tag) has been specified."
 
-#: ../../../modules/classes/import.class.php:333
+#: ../../../modules/classes/import.class.php:337
 msgid "Le numéro de l'expérimentation est manquant, inconnu ou non autorisé."
 msgstr "Experiment number is missing, unknown or unautorized."
 
-#: ../../../modules/classes/import.class.php:347
+#: ../../../modules/classes/import.class.php:351
 msgid "Le numéro d'espèce est manquant ou non connu."
 msgstr "Specie number is missing or unknown"
 
-#: ../../../modules/classes/import.class.php:363
+#: ../../../modules/classes/import.class.php:367
 msgid "Le sexe indiqué n'existe pas dans la base de données."
 msgstr "The specified sex don't exist in the database."
 
-#: ../../../modules/classes/import.class.php:373
+#: ../../../modules/classes/import.class.php:377
 msgid "La pièce dispose d'un code, mais son type n'a pas été indiqué."
 msgstr "The piece has a code, but its type has not been specified"
 
-#: ../../../modules/classes/import.class.php:388
+#: ../../../modules/classes/import.class.php:392
 msgid "Le type de pièce indiqué n'est pas connu."
 msgstr "The type of piece is unknown"
 
-#: ../../../modules/classes/import.class.php:399
+#: ../../../modules/classes/import.class.php:403
 #, php-format
 msgid "Le champ %s n'est pas numérique."
 msgstr "The field %1$s is not numeric."
 
-#: ../../../modules/classes/import.class.php:409
+#: ../../../modules/classes/import.class.php:413
 msgid "La date de pêche est mal formatée"
 msgstr "The date of fishing is poorly formatted"
 
@@ -625,9 +660,9 @@ msgstr ""
 "An error occurred while loading the photo. If the problem persists, contact "
 "your technical support"
 
-#: ../../../param/param.default.inc.php:11
-msgid "17/8/2018"
-msgstr "08-17-2018"
+#: ../../../param/param.default.inc.php:12
+msgid "13/12/2018"
+msgstr "12-13-2018"
 
 #: ../../../display/templates/main.tpl:1
 msgid ""
@@ -701,8 +736,8 @@ msgstr "Account used for web service"
 #: ../../../display/templates/ident/loginliste.tpl:22
 #: ../../../display/templates/ident/loginsaisie.tpl:104
 #: ../../../display/templates/ident/loginsaisie.tpl:167
-#: ../../../display/templates/photolecture/photolectureChange.tpl:299
-#: ../../../display/templates/photolecture/photolectureChange.tpl:336
+#: ../../../display/templates/photolecture/photolectureChange.tpl:325
+#: ../../../display/templates/photolecture/photolectureChange.tpl:362
 msgid "oui"
 msgstr "yes"
 
@@ -721,8 +756,8 @@ msgstr "Password:"
 #: ../../../display/templates/ident/loginAdmin.tpl:24
 #: ../../../display/templates/ident/loginChangePassword.tpl:67
 #: ../../../display/templates/ident/loginsaisie.tpl:175
-#: ../../../display/templates/photolecture/photolectureChange.tpl:231
-#: ../../../display/templates/photolecture/photolectureChange.tpl:357
+#: ../../../display/templates/photolecture/photolectureChange.tpl:257
+#: ../../../display/templates/photolecture/photolectureChange.tpl:389
 #: ../../../display/templates/droits/appliChange.tpl:25
 #: ../../../display/templates/droits/acoChange.tpl:16
 #: ../../../display/templates/droits/groupChange.tpl:13
@@ -840,8 +875,8 @@ msgstr "Account used for web service:"
 
 #: ../../../display/templates/ident/loginsaisie.tpl:108
 #: ../../../display/templates/ident/loginsaisie.tpl:170
-#: ../../../display/templates/photolecture/photolectureChange.tpl:302
-#: ../../../display/templates/photolecture/photolectureChange.tpl:339
+#: ../../../display/templates/photolecture/photolectureChange.tpl:328
+#: ../../../display/templates/photolecture/photolectureChange.tpl:365
 msgid "non"
 msgstr "no"
 
@@ -905,7 +940,7 @@ msgstr "punctuation or special characters"
 #: ../../../display/templates/droits/loginChange.tpl:25
 #: ../../../display/templates/gestion/piecetypeChange.tpl:23
 #: ../../../display/templates/gestion/experimentationChange.tpl:54
-#: ../../../display/templates/gestion/photoDisplay.tpl:188
+#: ../../../display/templates/gestion/photoDisplay.tpl:190
 #: ../../../display/templates/gestion/photoChange.tpl:134
 #: ../../../display/templates/gestion/lecteurChange.tpl:50
 #: ../../../display/templates/gestion/pieceChange.tpl:68
@@ -922,6 +957,30 @@ msgstr "Delete..."
 msgid "Donnée obligatoire"
 msgstr "Mandatory data"
 
+#: ../../../display/templates/framework/dbparamListChange.tpl:2
+#: ../../../display/templates/dbparam/dbparamListChange.tpl:1
+msgid "Paramètres pérennes de l'application"
+msgstr "List of long-term parameters of the application"
+
+#: ../../../display/templates/framework/dbparamListChange.tpl:10
+#: ../../../display/templates/dbparam/dbparamListChange.tpl:9
+msgid "Paramètre"
+msgstr "Setting"
+
+#: ../../../display/templates/framework/dbparamListChange.tpl:11
+#: ../../../display/templates/dbparam/dbparamListChange.tpl:10
+msgid "Valeur"
+msgstr "Value"
+
+#: ../../../display/templates/framework/dbparamListChange.tpl:24
+#: ../../../display/templates/dbparam/dbparamListChange.tpl:23
+msgid "Enregistrer"
+msgstr "Save"
+
+#: ../../../display/templates/framework/dbstructure.tpl:1
+msgid "Structure de la base de données"
+msgstr "Database structure"
+
 #: ../../../display/templates/enpied.tpl:3
 msgid ""
 "Copyright (c) 2016-2018 - Tous droits réservés. Auteur : Éric Quinton, pour "
@@ -934,36 +993,24 @@ msgstr ""
 msgid "Pour tout problème :"
 msgstr "For any problem:"
 
-#: ../../../display/templates/dbparam/dbparamListChange.tpl:1
-msgid "Paramètres pérennes de l'application"
-msgstr "List of long-term parameters of the application"
+#: ../../../display/templates/photolecture/photolectureChange.tpl:148
+msgid "Supprimer le point courant"
+msgstr "Delete the current point"
 
-#: ../../../display/templates/dbparam/dbparamListChange.tpl:9
-msgid "Paramètre"
-msgstr "Setting"
-
-#: ../../../display/templates/dbparam/dbparamListChange.tpl:10
-msgid "Valeur"
-msgstr "Value"
-
-#: ../../../display/templates/dbparam/dbparamListChange.tpl:23
-msgid "Enregistrer"
-msgstr "Save"
-
-#: ../../../display/templates/photolecture/photolectureChange.tpl:205
+#: ../../../display/templates/photolecture/photolectureChange.tpl:231
 msgid "Mesure d'un otolithe ou d'une pièce calcifiée"
 msgstr "Measurement of an otolith or calcified piece"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:206
-#: ../../../display/templates/photolecture/photolectureChange.tpl:207
-#: ../../../display/templates/photolecture/photolectureChange.tpl:208
-#: ../../../display/templates/photolecture/photolectureChange.tpl:209
+#: ../../../display/templates/photolecture/photolectureChange.tpl:232
+#: ../../../display/templates/photolecture/photolectureChange.tpl:233
+#: ../../../display/templates/photolecture/photolectureChange.tpl:234
+#: ../../../display/templates/photolecture/photolectureChange.tpl:235
 msgid ""
 "Les modifications apportées dans cette page vont être perdues. Confirmez-"
 "vous cette opération ?"
 msgstr "Changes made on this page will be lost. Do you confirm this operation?"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:206
+#: ../../../display/templates/photolecture/photolectureChange.tpl:232
 #: ../../../display/templates/photolecture/photolectureDisplay.tpl:8
 #: ../../../display/templates/gestion/piecetypeChange.tpl:3
 #: ../../../display/templates/gestion/pieceDisplay.tpl:4
@@ -976,14 +1023,14 @@ msgstr "Changes made on this page will be lost. Do you confirm this operation?"
 msgid "Retour à la liste"
 msgstr "Back to the list"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:207
+#: ../../../display/templates/photolecture/photolectureChange.tpl:233
 #: ../../../display/templates/photolecture/photolectureDisplay.tpl:9
 #: ../../../display/templates/gestion/photoDisplay.tpl:29
 #: ../../../display/templates/gestion/pieceChange.tpl:8
 msgid "Retour au détail du poisson"
 msgstr "Back to the detail of the fish"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:208
+#: ../../../display/templates/photolecture/photolectureChange.tpl:234
 #: ../../../display/templates/photolecture/photolectureDisplay.tpl:10
 #: ../../../display/templates/gestion/photoDisplay.tpl:30
 #: ../../../display/templates/gestion/photoChange.tpl:15
@@ -991,114 +1038,123 @@ msgstr "Back to the detail of the fish"
 msgid "Retour au détail de la pièce"
 msgstr "Back to the detail of the piece"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:209
+#: ../../../display/templates/photolecture/photolectureChange.tpl:235
 #: ../../../display/templates/photolecture/photolectureDisplay.tpl:11
 msgid "Retour à la photo"
 msgstr "Back to the photo"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:228
-#: ../../../display/templates/photolecture/photolectureChange.tpl:355
+#: ../../../display/templates/photolecture/photolectureChange.tpl:254
+#: ../../../display/templates/photolecture/photolectureChange.tpl:387
 msgid "Enregistrez les points positionnés :"
 msgstr "Record positionned points:"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:236
+#: ../../../display/templates/photolecture/photolectureChange.tpl:262
 msgid "Si tous les points ont été supprimés, vous pouvez :"
 msgstr "If all points have been deleted, you can:"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:238
+#: ../../../display/templates/photolecture/photolectureChange.tpl:264
 msgid "Uniquement si tous les points ont été supprimés"
 msgstr "Only if all points have been deleted"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:239
+#: ../../../display/templates/photolecture/photolectureChange.tpl:265
 msgid "Réinitialiser le compteur"
 msgstr "Reset counter"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:256
+#: ../../../display/templates/photolecture/photolectureChange.tpl:282
 msgid "Type de lecture pour le prochain point :"
 msgstr "type of reading for the next point:"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:259
+#: ../../../display/templates/photolecture/photolectureChange.tpl:285
 msgid "Point initial avec cercle élargi"
 msgstr "Initial point with enlarged circle"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:260
+#: ../../../display/templates/photolecture/photolectureChange.tpl:286
 msgid "Lecture des points"
 msgstr "Reading of points"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:261
+#: ../../../display/templates/photolecture/photolectureChange.tpl:287
 msgid "Mesure de la longueur de référence"
 msgstr "Reference length measurement"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:262
+#: ../../../display/templates/photolecture/photolectureChange.tpl:288
 msgid "Tracé d'une ligne sur la photo (aide à la mesure)"
 msgstr "Plot of a line on the picture (help at the measure)"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:266
+#: ../../../display/templates/photolecture/photolectureChange.tpl:292
 msgid "Taille originale de la photo :"
 msgstr "Original size of the photo:"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:274
+#: ../../../display/templates/photolecture/photolectureChange.tpl:300
 msgid "Taille de lecture de la photo :"
 msgstr "Reading size of the photo:"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:282
+#: ../../../display/templates/photolecture/photolectureChange.tpl:308
 msgid "Coefficient de correction de la taille :"
 msgstr "Coefficient of correction of the size:"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:288
+#: ../../../display/templates/photolecture/photolectureChange.tpl:314
 msgid "Rayon (en pixels) du cercle élargi :"
 msgstr "Radius (in pixels) of the enlarged circle:"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:295
+#: ../../../display/templates/photolecture/photolectureChange.tpl:321
 msgid "Recalcul automatique de l'ordre des points ?"
 msgstr "Automatic recalculation of the order of points?"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:307
+#: ../../../display/templates/photolecture/photolectureChange.tpl:333
 #: ../../../display/templates/photolecture/photolectureDisplay.tpl:52
 msgid "Nature de la strie finale :"
 msgstr "Nature of final streak:"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:321
+#: ../../../display/templates/photolecture/photolectureChange.tpl:347
 #: ../../../display/templates/photolecture/photolectureDisplay.tpl:53
 msgid "Fiabilité de la lecture :"
 msgstr "Reading fiability:"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:332
+#: ../../../display/templates/photolecture/photolectureChange.tpl:358
 msgid "Lecture consensuelle :"
 msgstr "Consensual reading:"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:342
+#: ../../../display/templates/photolecture/photolectureChange.tpl:368
 #: ../../../display/templates/photolecture/photolectureDisplay.tpl:55
 msgid "Année de naissance estimée :"
 msgstr "Estimated birth year:"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:350
+#: ../../../display/templates/photolecture/photolectureChange.tpl:373
+#: ../../../display/templates/gestion/photoDisplay.tpl:188
+msgid "Commentaires"
+msgstr "Comment"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:382
 msgid "Points sélectionnés"
 msgstr "Selected points"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:361
+#: ../../../display/templates/photolecture/photolectureChange.tpl:393
 msgid "N°"
 msgstr "#"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:364
+#: ../../../display/templates/photolecture/photolectureChange.tpl:396
 msgid "Ordre de lecture"
 msgstr "Reading order"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:365
+#: ../../../display/templates/photolecture/photolectureChange.tpl:397
+msgid "Point remarquable"
+msgstr "Remarkable point"
+
+#: ../../../display/templates/photolecture/photolectureChange.tpl:398
 msgid "Point de mesure de la longueur de référence"
 msgstr "Point of measure of reference length"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:373
+#: ../../../display/templates/photolecture/photolectureChange.tpl:406
 msgid "Pour supprimer un point, réalisez un double-clic sur celui-ci."
 msgstr "To delete a point, double-click on it."
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:376
+#: ../../../display/templates/photolecture/photolectureChange.tpl:409
 msgid ""
 "Vous pouvez modifier manuellement l'ordre de lecture d'un point, si "
 "nécessaire."
 msgstr "You can manualy change the reading order of a point, if necessary."
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:379
+#: ../../../display/templates/photolecture/photolectureChange.tpl:412
 msgid ""
 "Pour tracer une ligne, positionnez le premier point, puis le second. Pour "
 "supprimer la ligne, supprimez d'abord le second point, avant de toucher au "
@@ -1107,7 +1163,7 @@ msgstr ""
 "To draw a line, position the first point, then the second point. To delete "
 "the line, first delete the second point before the first point."
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:382
+#: ../../../display/templates/photolecture/photolectureChange.tpl:415
 msgid ""
 "Le recalcul automatique de l'ordre des points ne fonctionne que si le "
 "premier point (origine) est saisi en premier (valeur \"ordre de lecture\" la "
@@ -1117,134 +1173,135 @@ msgstr ""
 "point (origin) is entered first (value \"reading order\" the lowest of the "
 "series)."
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:387
+#: ../../../display/templates/photolecture/photolectureChange.tpl:420
 #: ../../../display/templates/photolecture/photolectureDisplay.tpl:44
 msgid "Légende"
 msgstr "Legend"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:393
+#: ../../../display/templates/photolecture/photolectureChange.tpl:426
 #: ../../../display/templates/photolecture/photolectureDisplay.tpl:50
 msgid "lecture du"
 msgstr "Reading of"
 
-#: ../../../display/templates/photolecture/photolectureChange.tpl:394
+#: ../../../display/templates/photolecture/photolectureChange.tpl:427
 #: ../../../display/templates/photolecture/photolectureDisplay.tpl:51
 #: ../../../display/templates/gestion/photoDisplay.tpl:176
 msgid "Résolution"
 msgstr "Resolution"
 
-#: ../../../display/templates/photolecture/lectureSearch.tpl:15
+#: ../../../display/templates/photolecture/photolectureChange.tpl:428
+#: ../../../display/templates/photolecture/photolectureDisplay.tpl:56
+msgid "Points remarquables :"
+msgstr "Remarkable points:"
+
+#: ../../../display/templates/photolecture/lectureSearch.tpl:25
 #: ../../../display/templates/gestion/individuSearch.tpl:15
 msgid "Code ou TAG de l'individu :"
 msgstr "Code or tag of fish:"
 
-#: ../../../display/templates/photolecture/lectureSearch.tpl:22
+#: ../../../display/templates/photolecture/lectureSearch.tpl:32
 #: ../../../display/templates/gestion/individuSearch.tpl:36
 msgid "Expérimentation :"
 msgstr "Experimentation:"
 
-#: ../../../display/templates/photolecture/lectureSearch.tpl:38
+#: ../../../display/templates/photolecture/lectureSearch.tpl:48
 #: ../../../display/templates/gestion/individuSearch.tpl:50
 msgid "Site de pêche :"
 msgstr "Fishing site:"
 
-#: ../../../display/templates/photolecture/lectureSearch.tpl:42
+#: ../../../display/templates/photolecture/lectureSearch.tpl:52
 #: ../../../display/templates/gestion/individuSearch.tpl:54
 msgid "Sélectionnez le site global de pêche"
 msgstr "Select the global fishing site"
 
-#: ../../../display/templates/photolecture/lectureSearch.tpl:52
+#: ../../../display/templates/photolecture/lectureSearch.tpl:62
 #: ../../../display/templates/gestion/individuSearch.tpl:63
 msgid "Zone précise de pêche :"
 msgstr "Precise fishing area:"
 
-#: ../../../display/templates/photolecture/lectureSearch.tpl:56
+#: ../../../display/templates/photolecture/lectureSearch.tpl:66
 #: ../../../display/templates/gestion/individuSearch.tpl:67
 msgid "Sélectionnez le site précis de pêche"
 msgstr "Select the precise fishing site"
 
-#: ../../../display/templates/photolecture/lectureSearch.tpl:68
+#: ../../../display/templates/photolecture/lectureSearch.tpl:78
 msgid "Lecteur :"
 msgstr "Reader:"
 
-#: ../../../display/templates/photolecture/lectureSearch.tpl:72
+#: ../../../display/templates/photolecture/lectureSearch.tpl:82
 msgid "Sélectionnez le lecteur"
 msgstr "Select the reader"
 
-#: ../../../display/templates/photolecture/lectureSearch.tpl:81
+#: ../../../display/templates/photolecture/lectureSearch.tpl:91
 #: ../../../display/templates/gestion/individuSearch.tpl:76
 msgid "Rechercher..."
 msgstr "Search..."
+
+#: ../../../display/templates/photolecture/lectureSearch.tpl:95
+msgid "Exporter la liste"
+msgstr "Export the list at CSV format"
 
 #: ../../../display/templates/photolecture/photolectureList.tpl:1
 msgid "Consultation de la lecture de pièces"
 msgstr "Viewing pieces reading"
 
-#: ../../../display/templates/photolecture/photolectureList.tpl:5
-msgid "Séparateur : tabulation, UTF-8, chiffres décimaux avec points"
-msgstr "Separator: tabulation, UTF-8, decimal digits with points"
-
-#: ../../../display/templates/photolecture/photolectureList.tpl:5
-msgid "Exporter la liste au format CSV"
-msgstr "Export the list at CSV format"
-
-#: ../../../display/templates/photolecture/photolectureList.tpl:12
+#: ../../../display/templates/photolecture/photolectureList.tpl:9
 #: ../../../display/templates/gestion/individuChange.tpl:45
 msgid "Individu"
 msgstr "Fish"
 
-#: ../../../display/templates/photolecture/photolectureList.tpl:13
+#: ../../../display/templates/photolecture/photolectureList.tpl:10
 msgid "Pièce"
 msgstr "Piece"
 
-#: ../../../display/templates/photolecture/photolectureList.tpl:13
+#: ../../../display/templates/photolecture/photolectureList.tpl:10
 msgid "traitement"
 msgstr "traitment"
 
-#: ../../../display/templates/photolecture/photolectureList.tpl:14
+#: ../../../display/templates/photolecture/photolectureList.tpl:11
 msgid "Photo"
 msgstr "Photo"
 
-#: ../../../display/templates/photolecture/photolectureList.tpl:14
+#: ../../../display/templates/photolecture/photolectureList.tpl:11
 msgid "Couleur/NB"
 msgstr "Color/BW"
 
-#: ../../../display/templates/photolecture/photolectureList.tpl:15
+#: ../../../display/templates/photolecture/photolectureList.tpl:12
 msgid "Résolution de prise de vue"
 msgstr "Shooting resolution"
 
-#: ../../../display/templates/photolecture/photolectureList.tpl:16
+#: ../../../display/templates/photolecture/photolectureList.tpl:13
 msgid "Date de prise de vue"
 msgstr "Shooting date"
 
-#: ../../../display/templates/photolecture/photolectureList.tpl:17
+#: ../../../display/templates/photolecture/photolectureList.tpl:14
 msgid "Longueur de référence"
 msgstr "Reference length"
 
-#: ../../../display/templates/photolecture/photolectureList.tpl:18
+#: ../../../display/templates/photolecture/photolectureList.tpl:15
 #: ../../../display/templates/gestion/photoDisplay.tpl:174
 msgid "Lecteur"
 msgstr "Reader"
 
-#: ../../../display/templates/photolecture/photolectureList.tpl:19
+#: ../../../display/templates/photolecture/photolectureList.tpl:16
 #: ../../../display/templates/gestion/photoDisplay.tpl:175
 msgid "Date de lecture"
 msgstr "Reading date"
 
-#: ../../../display/templates/photolecture/photolectureList.tpl:20
+#: ../../../display/templates/photolecture/photolectureList.tpl:17
 msgid "Résolution de lecture"
 msgstr "Reading resolution"
 
-#: ../../../display/templates/photolecture/photolectureList.tpl:21
-#: ../../../display/templates/gestion/photoDisplay.tpl:183
+#: ../../../display/templates/photolecture/photolectureList.tpl:18
+#: ../../../display/templates/gestion/photoDisplay.tpl:184
 msgid "Longueur de référence mesurée"
 msgstr "Mesured reference length"
 
-#: ../../../display/templates/photolecture/photolectureList.tpl:22
+#: ../../../display/templates/photolecture/photolectureList.tpl:19
 msgid "Longueur réelle totale de la mesure"
 msgstr "Total actual length of measurement"
 
-#: ../../../display/templates/photolecture/photolectureList.tpl:23
+#: ../../../display/templates/photolecture/photolectureList.tpl:20
 #: ../../../display/templates/gestion/individuListe.tpl:18
 msgid "Age"
 msgstr "Age"
@@ -1258,7 +1315,7 @@ msgid "Résolution d'affichage :"
 msgstr "Display resolution:"
 
 #: ../../../display/templates/photolecture/photolectureDisplay.tpl:54
-#: ../../../display/templates/gestion/photoDisplay.tpl:186
+#: ../../../display/templates/gestion/photoDisplay.tpl:187
 msgid "Lecture consensuelle"
 msgstr "Consensual reading"
 
@@ -1864,7 +1921,7 @@ msgid "Résolution (approximative) de lecture :"
 msgstr "(Approximate) reading resolution:"
 
 #: ../../../display/templates/gestion/photoDisplay.tpl:135
-#: ../../../display/templates/gestion/photoDisplay.tpl:282
+#: ../../../display/templates/gestion/photoDisplay.tpl:303
 msgid "format initial"
 msgstr "initial format"
 
@@ -1910,59 +1967,63 @@ msgstr "Birthdate estimated"
 msgid "Fiabilité de la lecture"
 msgstr "Reading fiability"
 
-#: ../../../display/templates/gestion/photoDisplay.tpl:184
+#: ../../../display/templates/gestion/photoDisplay.tpl:182
+msgid "Points remarquables"
+msgstr "Remarkable points:"
+
+#: ../../../display/templates/gestion/photoDisplay.tpl:185
 msgid "Longueur totale lue"
 msgstr "Total length read"
 
-#: ../../../display/templates/gestion/photoDisplay.tpl:185
+#: ../../../display/templates/gestion/photoDisplay.tpl:186
 msgid "Longueur réelle calculée"
 msgstr "Real length calculated"
 
-#: ../../../display/templates/gestion/photoDisplay.tpl:190
+#: ../../../display/templates/gestion/photoDisplay.tpl:192
 msgid "Consulter..."
 msgstr "Show..."
 
-#: ../../../display/templates/gestion/photoDisplay.tpl:191
+#: ../../../display/templates/gestion/photoDisplay.tpl:193
 msgid "Si coché, la lecture sélectionnée pourra être modifiée"
 msgstr "If checked, the selected reading can be edited"
 
-#: ../../../display/templates/gestion/photoDisplay.tpl:191
+#: ../../../display/templates/gestion/photoDisplay.tpl:193
 msgid "Lecture à modifier"
 msgstr "Reading to edit"
 
-#: ../../../display/templates/gestion/photoDisplay.tpl:275
+#: ../../../display/templates/gestion/photoDisplay.tpl:296
 msgid "Résolution (approximative) d'affichage :"
 msgstr "(Approximate) display resolution:"
 
-#: ../../../display/templates/gestion/photoDisplay.tpl:285
+#: ../../../display/templates/gestion/photoDisplay.tpl:306
 msgid "Facteur de transparence des cercles affichés :"
 msgstr "Transparency factor of the displayed circles:"
 
-#: ../../../display/templates/gestion/photoDisplay.tpl:288
+#: ../../../display/templates/gestion/photoDisplay.tpl:309
 msgid "Transparent"
 msgstr "Transparent"
 
-#: ../../../display/templates/gestion/photoDisplay.tpl:289
+#: ../../../display/templates/gestion/photoDisplay.tpl:310
 msgid "Légèrement ombré"
 msgstr "Slighty shaded"
 
-#: ../../../display/templates/gestion/photoDisplay.tpl:290
+#: ../../../display/templates/gestion/photoDisplay.tpl:311
 msgid "Ombré"
 msgstr "Shaded"
 
-#: ../../../display/templates/gestion/photoDisplay.tpl:291
+#: ../../../display/templates/gestion/photoDisplay.tpl:312
 msgid "Semi-opaque"
 msgstr "Semi-opaque"
 
-#: ../../../display/templates/gestion/photoDisplay.tpl:292
+#: ../../../display/templates/gestion/photoDisplay.tpl:313
 msgid "Opaque"
 msgstr "Opaque"
 
-#: ../../../display/templates/gestion/photoDisplay.tpl:300
+#: ../../../display/templates/gestion/photoDisplay.tpl:321
 msgid "Avec création d'une nouvelle lecture :"
 msgstr "With creation of a new reading:"
 
-#: ../../../display/templates/gestion/photoDisplay.tpl:306
+#: ../../../display/templates/gestion/photoDisplay.tpl:327
 msgid ""
 "Déclencher l'affichage des lectures sélectionnées, avec ou sans création/"
 "modification d'une lecture"
@@ -2238,6 +2299,20 @@ msgstr "List of related experiments"
 #: ../../../display/templates/entete.tpl:34
 msgid "Mot de passe"
 msgstr "Password"
+
+#~ msgid "Lexique"
+#~ msgstr "Glossary"
+
+#~ msgid "Lexique des termes utilisés dans le logiciel"
+#~ msgstr "Glossary of terms used in the software"
+
+#~ msgid ""
+#~ "Impossible de vérifier la version de la base de données, échec de lecture "
+#~ "de la table"
+#~ msgstr "Unable to check the database version, read table failed"
+
+#~ msgid "Séparateur : tabulation, UTF-8, chiffres décimaux avec points"
+#~ msgstr "Separator: tabulation, UTF-8, decimal digits with points"
 
 #~ msgid "Gestion"
 #~ msgstr "Modules"
