@@ -34,6 +34,8 @@ cp otolithe/param/id_otolithe* $VERSION/param/
 chown www-data $VERSION/param/id_otolithe
 fi
 
+
+
 #replacement of symbolic link
 rm -f otolithe
 ln -s $VERSION otolithe
@@ -48,6 +50,8 @@ chmod 750 /var/www/html/otolithe
 
 # assign rights to new folder
 mkdir $VERSION/display/templates_c
+# create img folder
+mkdir $VERSION/img
 chmod -R 750 $VERSION
 chgrp -R www-data $VERSION
 
