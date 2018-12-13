@@ -23,8 +23,6 @@ unzip master.zip
 mv otolithe-master/ $VERSION
 
 
-
-
 # copy of last param into the new code
 cp otolithe/param/param.inc.php $VERSION/param/
 chgrp www-data $VERSION/param/param.inc.php

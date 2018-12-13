@@ -9,3 +9,7 @@ add column remarkable_points json;
 comment on column photolecture.commentaire is 'Commentaires de lecture';
 COMMENT ON COLUMN otolithe.photolecture.remarkable_points IS 'Liste des points remarquables identifiés sur la photo';
 
+insert into dbversion ("dbversion_number", "dbversion_date")
+values 
+('2.1','2018-12-13');
+

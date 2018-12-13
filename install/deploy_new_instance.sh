@@ -84,7 +84,7 @@ post_max_size="=50M"
 max_execution_time="=120"
 max_input_time="=240"
 memory_limit="=1024M"
-for key in upload_max_filesize post_max_size max_execution_time max_input_time
+for key in upload_max_filesize post_max_size max_execution_time max_input_time memory_limit
 do
  sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" $phpinifile
 done
