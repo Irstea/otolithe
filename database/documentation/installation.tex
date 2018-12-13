@@ -231,6 +231,8 @@ CAS\_address & Adresse du serveur CAS\\
 \hline
 CAS\_port & Systématiquement 443 (connexion chiffrée)\\
 \hline
+CAS\_CApath & chemin d'accès au certificat du serveur CAS \\
+\hline
 LDAP & tableau contenant tous les paramètres nécessaires pour une identification LDAP \\
 \hline
 ident\_header\_login\_var & par défaut, AUTH\_USER. Nom de la variable qui contiendra le login dans le cas d'une identification en mode HEADER (le radical HTTP\_  ne doit pas être indiqué) \\
@@ -466,6 +468,7 @@ Vous pouvez également tester si la configuration du serveur est correcte en rec
 
 \section{Installer une nouvelle version}
 \label{newVersion}
+
 \subsection{Faites une sauvegarde de la base de données}
 Il arrive fréquemment que la structure de la base de données évolue. Avant toute opération, assurez-vous de disposer d'une sauvegarde, dans un autre support.
 
@@ -477,6 +480,24 @@ su postgres -c "install/pgsql/backup.sh"
 La sauvegarde sera stockée dans \textbf{/var/lib/postgresql/backup}.
 
 Si vous avez utilisé le script d'installation automatique, le programme est également présent dans \textit{/var/lib/postgresql}.
+
+\subsection{Procédure automatique de mise à jour}
+
+Si l'application est installée dans un serveur dédié à cet usage (installation réalisée avec le script \href{https://github.com/Irstea/otolithe/blob/master/install/deploy_new_instance.sh}{https://github.com/Irstea/otolithe/blob/master/install/deploy\_new\_instance.sh}), un script de mise à jour automatique peut être téléchargé. Il est disponible dans le dossier\\ \href{https://github.com/Irstea/otolithe/tree/master/install}{https://github.com/Irstea/otolithe/tree/master/install}, et est sous la forme :
+\begin{lstlisting}
+upgrade-2.0-2.1.sh
+\end{lstlisting}
+où \textbf{2.0} correspond à la version courante de votre installation, et \textbf{2.1} à la version cible.
+
+Pour utiliser ce script :
+\begin{lstlisting}
+sudo -s
+wget https://github.com/Irstea/otolithe/raw/master/install/upgrade-2.0-2.1.sh
+chmod +x upgrade-2.0-2.1.sh
+./upgrade-2.0-2.1.sh
+\end{lstlisting}
+
+Le script va télécharger le code de la nouvelle version et mettra à jour la base de données, si c'est nécessaire.
 
 \subsection{Sauvegarder le fichier contenant les paramètres de l'application}
 
