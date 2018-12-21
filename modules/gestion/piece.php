@@ -28,6 +28,15 @@ switch ($t_module["param"]) {
         $dataIndiv = $_SESSION["it_peche"]->translateRow($dataIndiv);
         $vue->set($dataIndiv, "individu");
         $listePhoto = $photo->getListePhotoFromPiece($id);
+
+        include_once 'modules/classes/piecemetadata.class.php';
+        $pm = new Piecemetadata($bdd, $ObjetBDDParam);
+        try {
+            $metadatas = $pm->getListFromPiece($id);
+        } catch (Exception $e) {
+            $message->set(_("Problème lors de la lecture des métadonnées rattachées à la pièce"), true);
+            $message->setSyslog($e->getMessage());
+        }
         /*
          * Rajout du lien vers l'image
          */

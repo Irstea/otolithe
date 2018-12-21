@@ -94,3 +94,44 @@
 </table>
 </fieldset>
 </div>
+<div class="col-md-6">
+<fieldset>
+<legend>{t}Liste des métadonnées rattachées{/t}</legend>
+{if $droits.gestion == 1}
+<a href="index.php?module=piecemetadataChange&piece_id={$data.piece_id}&piecemetadata_id=0">
+<img src="display/images/metadata.png" height="25">
+{t}Nouveau...{/t}
+</a>
+{/if}
+<table class="table datatable table-bordered table-hover" data-order='[[1,"desc"]]''>
+<thead>
+<tr>
+<th>
+{t}Type{/t}
+</th>
+<th>
+{t}Date{/t}
+</th>
+<th>{t}Commentaire{/t}</th>
+</thead>
+<tbody>
+{foreach $metadatas as $metadata}
+    <tr>
+    <td>
+    {if $droits.gestion == 1}
+        <a href="index.php?module=piecemetadataChange&piece_id={$data.piece_id}&piecemetadata_id={$metadata.piecemetadata_id}">
+        {$metadata.metadatatype_name}
+        </a>
+    {else}
+        {$metadata.metadatatype_name}
+    {/if}
+   </td>
+    <td>{$metadata.piecemetadata_date}</td>
+    <td>{$metadata.piecemetadata_comment}</td>
+    </tr>
+{/foreach}
+</tbody>
+</table>
+</fieldset>
+</div>
+</div>
