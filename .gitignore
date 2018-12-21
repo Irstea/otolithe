@@ -10,6 +10,8 @@ img/*
 display/templates_c/*
 clear_templates_c.sh
 test/*
+param/id_otolithe
+param/id_otolithe.pub
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
