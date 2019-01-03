@@ -20,6 +20,25 @@ class Metadatatype extends ObjetBDD
         );
         parent::__construct($bdd, $param);
     }
+    /**
+     * Retourne la liste des types de metadonnees a partir de la liste fournie
+     *
+     * @param array $ids
+     * @return array
+     */
+    function getListFromIds(array $ids) {
+        $comma = "";
+        $sql = "select metadatatype_id, metadatatype_name, is_array, metadatatype_schema from metadatatype";
+        $where = " where metadatatype_id in (";
+        foreach ($ids as $id) {
+            if (is_numeric($id) && $id > 0) {
+                $where .= $comma . $id;
+                $comma = ",";
+            }
+        }
+        $where .= ")";
+        return $this->getListeParam($sql . $where);
+    }
 }
 
 ?>

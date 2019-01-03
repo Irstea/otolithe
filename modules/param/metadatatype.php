@@ -61,28 +61,33 @@ switch ($t_module["param"]) {
         $vue->setJson($data["metadatatype_schema"]);
         break;
     case "export":
-
         $vue->set($dataClass->getListFromIds($_POST["metadatatype_id"]));
         break;
     case "import":
         if (file_exists($_FILES['upfile']['tmp_name'])) {
-            require_once 'modules/classes/import.class.php';
+            require_once 'framework/import/import.class.php';
             try {
                 $import = new Import($_FILES['upfile']['tmp_name'], ";", false, array(
-                    "metadata_name",
-                    "metadata_schema",
-                    "metadata_id"
+                    "metadatatype_name",
+                    "metadatatype_schema",
+                    "metadatatype_id",
+                    "metadatatype_comment",
+                    "is_array"
                 ));
                 $rows = $import->getContentAsArray();
+                $i = 0;
                 foreach ($rows as $row) {
                     $data = array(
-                        "metadata_name" => $row["metadata_name"],
-                        "metadata_schema" => $row["metadata_schema"],
-                        "metadata_id" => 0
+                        "metadatatype_name" => $row["metadatatype_name"],
+                        "metadatatype_schema" => $row["metadatatype_schema"],
+                        "metadatatype_id" => 0,
+                        "is_array" => $row["is_array"],
+                        "metadatatype_comment" => $row["metadatatype_comment"]
                     );
                     $dataClass->ecrire($data);
+                    $i++;
                 }
-                $message->set(_("Métadonnée(s) importée(s)"));
+                $message->set(sprintf(_("%s description(s) de métadonnée(s) importée(s)"), $i));
                 $module_coderetour = 1;
             } catch (Exception $e) {
                 $message->set(_("Impossible d'importer les métadonnées"));
