@@ -126,7 +126,14 @@
 	<importControl action="modules/gestion/import.php" param="control" droits="gestionCompte" modulebefore="importChange,importControl,importImport" retourok="importChange" type="smarty" />
 	<importImport action="modules/gestion/import.php" param="import" droits="gestionCompte" modulebefore="importControl,importChange" retourok="importChange" retourko="importChange"  />
 
-	
+	<metadatatypeList action="modules/param/metadatatype.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
+	<metadatatypeChange action="modules/param/metadatatype.php" param="change" droits="gestionCompte"  retourlogin="1" type="smarty" />
+	<metadatatypeWrite action="modules/param/metadatatype.php" param="write" droits="gestionCompte" retourok="metadatatypeList" retourko="metadatatypeChange" modulebefore="metadatatypeChange,metadatatypeCopy" />
+	<metadatatypeDelete action="modules/param/metadatatype.php" param="delete" droits="gestionCompte" retourok="metadatatypeList" retourko="metadatatypeChange"  modulebefore="metadatatypeChange"/>
+	<metadatatypeCopy action="modules/param/metadatatype.php" param="copy" droits="gestionCompte" type="smarty" />
+	<metadatatypeGetschema action="modules/param/metadatatype.php" param="getSchema" droits="gestionCompte" type="ajax" />
+	<metadatatypeExport action="modules/param/metadatatype.php" param="export" droits="consult" type="csv" />
+	<metadatatypeImport action="modules/param/metadatatype.php" param="import" droits="gestionCompte" retourok="metadatatypeList" retourko="metadatatypeList" />
 
 </navigation>
 	

@@ -81,6 +81,31 @@ class Piece extends ObjetBdd
 			return null;
 		}
 	}
+	/**
+	 * Surcharge de la fonction suppression pour
+	 * effacer les donnees liees
+	 *
+	 * @param int $id
+	 * @return void
+	 */
+	function supprimer ($id) {
+		if (is_numeric($id) && $id > 0) {
+			/** Suppression des tables liees */
+			/** Suppression des photos */
+			include_once 'modules/classes/photo.class.php';
+			$photo = new Photo($this->connection, $this->paramori);
+			$lp = $photo->getListePhotoFromPiece($id);
+			foreach($lp as $row) {
+				$photo->supprimer($row["photo_id"]);
+			}
+			/** Suppression des metadonnees */
+			include_once 'modules/classes/piecemetadata.class.php';
+			$pm = new Piecemetadata($this->connection, $this->paramori);
+			$pm->supprimerChamp($id, "piece_id");
+		} else {
+			throw new ObjetBDDException(_("La suppression d'une clé nulle ou non numérique n'est pas possible"));
+		}
+	}
 }
 /**
  * ORM de gestion de la table piecetype

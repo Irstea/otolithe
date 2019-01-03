@@ -23,7 +23,7 @@ CREATE TABLE otolithe.metadatatype (
 	metadatatype_comment varchar,
 	metadatatype_description bytea,
 	is_array boolean DEFAULT 'f',
-	metatadatatype_json json,
+	metadatatype_schema json,
 	CONSTRAINT metadatatype_pk PRIMARY KEY (metadatatype_id)
 
 );
@@ -36,7 +36,7 @@ COMMENT ON COLUMN otolithe.metadatatype.metadatatype_description IS 'Description
 -- ddl-end --
 COMMENT ON COLUMN otolithe.metadatatype.is_array IS 'Définit si les données sont sous forme de tableau ou uniques';
 -- ddl-end --
-COMMENT ON COLUMN otolithe.metadatatype.metatadatatype_json IS 'Description JSON au format AlpacaJS du type de métadonnées';
+COMMENT ON COLUMN otolithe.metadatatype.metadatatype_schema IS 'Description JSON au format AlpacaJS du type de métadonnées';
 -- ddl-end --
 ALTER TABLE otolithe.metadatatype OWNER TO postgres;
 -- ddl-end --

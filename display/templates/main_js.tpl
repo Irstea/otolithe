@@ -6,11 +6,6 @@
 <link rel="stylesheet"	href="/display/javascript/bootstrap/css/bootstrap-theme.min.css">
 <script	src="/display/javascript/bootstrap/js/bootstrap.min.js"></script>
 
-<!--alpaca -->
-<script type="text/javascript" src="/display/javascript/alpaca/js/handlebars.runtime-v4.0.10.js"></script>
-<script type="text/javascript" src="/display/javascript/alpaca/js/alpaca-1.5.23.min.js"></script>
-<link type="text/css" href="/display/javascript/alpaca/css/alpaca-1.5.23.min.css" rel="stylesheet">
-
 
 <!-- extension pour le menu -->
 <script src="/display/javascript/smartmenus-1.1.0/jquery.smartmenus.min.js" type="text/javascript"></script>

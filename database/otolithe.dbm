@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2-alpha1" last-position="0,148" last-zoom="0.8" max-obj-count="22"
+<dbmodel pgmodeler-ver="0.9.2-alpha1" last-position="0,146" last-zoom="0.8" max-obj-count="22"
 	 default-schema="public" default-owner="postgres">
 <role name="talend"
       inherit="true"
@@ -625,7 +625,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="boolean" length="0"/>
 		<comment><![CDATA[Définit si les données sont sous forme de tableau ou uniques]]></comment>
 	</column>
-	<column name="metatadatatype_json">
+	<column name="metatadatatype_schema">
 		<type name="json" length="0"/>
 		<comment><![CDATA[Description JSON au format AlpacaJS du type de métadonnées]]></comment>
 	</column>

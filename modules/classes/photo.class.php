@@ -207,6 +207,22 @@ class Photo extends ObjetBDD
         }
         return $id;
     }
+    /**
+     * Suppression d'une photo et des lectures attachees
+     *
+     * @param int $id
+     * @return void
+     */
+    function supprimer($id)
+    {
+        if (is_numeric($id) && $id > 0) {
+            $photoLecture = new Photolecture($this->connection, $this->paramori);
+            $photoLecture->supprimerChamp($id, "photo_id");
+            parent::supprimer($id);
+        } else {
+            throw new ObjetBDDException(_("La suppression d'une clé nulle ou non numérique n'est pas possible"));
+        }
+    }
 
     /**
      * Retourne la liste des photos attachees a une piece
@@ -734,7 +750,7 @@ class Photolecture extends ObjetBdd
                 /*$points[$i]["x"] = $pointTemp[$ref]["x"];
                 $points[$i]["y"] = $pointTemp[$ref]["y"];
                 $points[$i]["remarkablePoint"] = $pointTemp[$ref]["remarkablePoint"];
-                */
+                 */
                 $points[$i] = $pointTemp[$ref];
                 /*
                  * Suppression du point traite
@@ -783,7 +799,7 @@ class Photolecture extends ObjetBdd
             $data["long_totale_lue"] = $longueur_totale * $coef;
         }
         /* 
-        * Encodage de la liste des points remarquables
+         * Encodage de la liste des points remarquables
          */
         count($rp) > 0 ? $data["remarkable_points"] = json_encode($rp) : $data["remarkable_points"] = "";
 
@@ -871,7 +887,7 @@ class Photolecture extends ObjetBdd
                             left outer join lecteur using(lecteur_id)
                             left outer join final_stripe using(final_stripe_id)
                             where photo_id = :photo_id order by photolecture_date desc";
-            return $this->getListeParamAsPrepared($sql, array("photo_id"=>$photo_id));
+            return $this->getListeParamAsPrepared($sql, array("photo_id" => $photo_id));
         } else {
             return null;
         }
@@ -997,8 +1013,8 @@ class Photolecture extends ObjetBdd
         $i = 0;
         $data = array();
         /* 
-        * Decodage du champ json
-        */
+         * Decodage du champ json
+         */
         $rp = json_decode($remarkable_points);
         foreach ($alpt as $value1) {
             /*
@@ -1011,7 +1027,7 @@ class Photolecture extends ObjetBdd
             $data[$i]["x"] = floor($xy[0] / $coef);
             $data[$i]["y"] = floor($xy[1] / $coef);
             /* 
-            * Ajout du point remarquable
+             * Ajout du point remarquable
              */
             if (in_array($i, $rp)) {
                 $data[$i]["remarkablePoint"] = 1;
@@ -1037,12 +1053,12 @@ class Photolecture extends ObjetBdd
                             st_astext(points_ref_lecture) as points_ref_lecture,
                             remarkable_points
                             from " . $this->table . " where photolecture_id = :id";
-            $data = $this->lireParamAsPrepared($sql, array("id"=>$id));
+            $data = $this->lireParamAsPrepared($sql, array("id" => $id));
             /* 
-            * recuperation des points remarquables
+             * recuperation des points remarquables
              */
-             
-        } 
+
+        }
         return $data;
     }
 
