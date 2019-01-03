@@ -15,7 +15,7 @@ class Piecemetadata extends ObjetBDD
     {
         $this->table = "piecemetadata";
         $this->colonnes = array(
-            "metadatapiece_id" => array("type" => 1, "key" => 1, "requis" => 1, "defaultValue" => 0),
+            "piecemetadata_id" => array("type" => 1, "key" => 1, "requis" => 1, "defaultValue" => 0),
             "piece_id" => array("type" => 1, "parentAttrib" => 1, "requis" => 1),
             "metadatatype_id" => array("type" => 1, "requis" => 1),
             "metadata" => array("type" => 0),
