@@ -121,7 +121,6 @@
 </thead>
 <tbody>
 {foreach $metadatas as $metadata}
-
     <tr>
     {if $droits.gestion == 1}
         <td class="center">
@@ -131,7 +130,13 @@
         </td>
     {/if}
     <td>
-         {$metadata.metadatatype_name}
+        {if $droits.gestion == 1}
+            <a href="index.php?module=piecemetadataDisplay&piece_id={$data.piece_id}&piecemetadata_id={$metadata.piecemetadata_id}">
+                {$metadata.metadatatype_name}
+            </a>
+        {else}
+            {$metadata.metadatatype_name}
+        {/if}    
     </td>
     <td>{$metadata.piecemetadata_date}</td>
     <td class="textareaDisplay">{$metadata.piecemetadata_comment}</td>
