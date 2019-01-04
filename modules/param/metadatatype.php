@@ -60,6 +60,10 @@ switch ($t_module["param"]) {
         $data = $dataClass->lire($id);
         $vue->setJson($data["metadatatype_schema"]);
         break;
+    case "isArray":
+        $data = $dataClass->lire($id);
+        $vue->setJson($data["is_array"]);
+        break;
     case "export":
         $vue->set($dataClass->getListFromIds($_POST["metadatatype_id"]));
         break;

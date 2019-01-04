@@ -132,6 +132,7 @@
 	<metadatatypeDelete action="modules/param/metadatatype.php" param="delete" droits="gestionCompte" retourok="metadatatypeList" retourko="metadatatypeChange"  modulebefore="metadatatypeChange"/>
 	<metadatatypeCopy action="modules/param/metadatatype.php" param="copy" droits="gestionCompte" type="smarty" />
 	<metadatatypeGetschema action="modules/param/metadatatype.php" param="getSchema" droits="gestionCompte" type="ajax" />
+	<metadatatypeIsarray action="modules/param/metadatatype.php" param="isArray" droits="gestionCompte" type="ajax" />
 	<metadatatypeExport action="modules/param/metadatatype.php" param="export" droits="consult" type="csv" />
 	<metadatatypeImport action="modules/param/metadatatype.php" param="import" droits="gestionCompte" retourok="metadatatypeList" retourko="metadatatypeList" />
 

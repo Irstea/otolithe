@@ -105,3 +105,6 @@ _minted*
 # WinEdt
 *.bak
 *.sav
+/.scannerwork/.sonar_lock
+/.scannerwork/report-task.txt
+/database/otolithe_fixed.dbm

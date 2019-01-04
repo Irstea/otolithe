@@ -10,16 +10,28 @@
  * @returns
  */
 
- function getSchema(formdef){
+ function getSchema(formdef, isArray=0){
     // récupération du schéma du form
-    var schema = {
+    if (isArray == 1) {
+        var schema = {
+            "type":"array",
+            "properties": {},
+            "items":{
+                "type":"object",
+                "properties":{}    
+            }
+        };
+    } else {
+        var schema = {
             "type":"object",
             "properties": {}
-    };
+        };
+    }
     
     var baseProps = function (index, value) {
         var prop = {
-            "type": value.type
+            "type": value.type,
+            "title":value.name
         };
 
         if (value.type=="select" || value.type=="radio"){
@@ -44,15 +56,20 @@
     
     $.each(formdef,function(index, value){
         var prop = baseProps(index, value);
-        
-        schema.properties[value.name] = prop;
+        //console.log(value.name);
+        if (isArray == 1) {
+        schema.items.properties[value.name] = prop;
+        } else {
+            schema.properties[value.name] = prop;
+        }
+       // console.log(schema.items.properties[value.name]);
     });
     return schema;
 }
 
 // ===========================================================//
 // récupération des options du form
- var baseFields = function (index, value) {
+ var baseFields = function (index, value, isArray=0) {
      var field = {
         "type": value.type
     };
@@ -60,7 +77,11 @@
     /*if(value.type != "checkbox" && value.type != "radio"){
         field.label = value.name;
     }*/
+    if (isArray = 0) {
      field.label = value.name;
+    } else {
+        field.label = "";
+    }
 
     if(value.type=="string"){
         field.type="text";
@@ -76,8 +97,8 @@
             return v.text;
         });
         field.sort = function(a, b) { 
-                                return 0; 
-                        }
+            return 0; 
+        }
         field.removeDefaultNone = false;
         
     }
@@ -98,10 +119,23 @@
     return field;
 };
 
-function getOptions(formdef){
-    var options = {
-            "fields": {}
-    };
+function getOptions(formdef, isArray=0){
+    if (isArray == 1) {
+        var options = {
+            "type":"table",
+            "fields":{},
+            "datatables": {
+                "ordering":false,
+                "info":false,
+                "paging":false,
+                "searching":false
+            }
+        };
+    } else {
+        var options = {
+                "fields": {}
+        };
+    }
     $.each(formdef,function(index, value){
         var field = baseFields(index, value);
         options.fields[value.name] = field;
@@ -111,21 +145,29 @@ function getOptions(formdef){
 
 // ===========================================================//
 // construction du formulaire
-function showForm(value, data=""){
+function showForm(value, data="", isArray=0){
 
-    var schema = getSchema(value);
-    var options = getOptions(value);
+    var schema = getSchema(value, isArray);
+    var options = getOptions(value, isArray);
+    /*console.log("schema");
     console.log(schema);
-    console.log(options);
+    console.log("options");
+    console.log(options);*/
     var config = {
         "data" : data,
         "schema" : schema,
         "options" : options,
-        "view": "bootstrap-edit-horizontal"
+        //"view": "bootstrap-edit-horizontal"
+    }
+    if (isArray == 1) {
+        config["view"] = "bootstrap-edit";
+    } else {
+        config["view"] = "bootstrap-edit-horizontal";
     }
     var exists = $("#metadata").alpaca("exists");
     if (exists){
          $("#metadata").alpaca("destroy");
     }
     $("#metadata").alpaca(config);
+    console.log(config);
 }
