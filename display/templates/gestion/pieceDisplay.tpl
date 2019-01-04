@@ -103,9 +103,14 @@
 {t}Nouveau...{/t}
 </a>
 {/if}
-<table class="table datatable table-bordered table-hover" data-order='[[1,"desc"]]''>
+<table class="table datatable table-bordered table-hover" data-order='[[2,"desc"], [1, "asc"]]''>
 <thead>
 <tr>
+{if $droits.gestion == 1}
+    <th class="center">
+     <img src="display/images/edit.png" height="25">
+    </th>
+{/if}
 <th>
 {t}Type{/t}
 </th>
@@ -118,15 +123,16 @@
 {foreach $metadatas as $metadata}
 
     <tr>
-    <td>
     {if $droits.gestion == 1}
-        <a href="index.php?module=piecemetadataChange&piece_id={$data.piece_id}&piecemetadata_id={$metadata.piecemetadata_id}">
-        {$metadata.metadatatype_name}
-        </a>
-    {else}
-        {$metadata.metadatatype_name}
+        <td class="center">
+            <a href="index.php?module=piecemetadataChange&piece_id={$data.piece_id}&piecemetadata_id={$metadata.piecemetadata_id}">
+                <img src="display/images/edit.png" height="25">
+            </a>
+        </td>
     {/if}
-   </td>
+    <td>
+         {$metadata.metadatatype_name}
+    </td>
     <td>{$metadata.piecemetadata_date}</td>
     <td class="textareaDisplay">{$metadata.piecemetadata_comment}</td>
     </tr>
