@@ -139,6 +139,7 @@
 	<piecemetadataChange action="modules/gestion/piecemetadata.php" param="change" droits="gestion"  retourlogin="1" type="smarty" />
 	<piecemetadataWrite action="modules/gestion/piecemetadata.php" param="write" droits="gestion" retourok="pieceDisplay" retourko="piecemetadataChange" modulebefore="piecemetadataChange" />
 	<piecemetadataDelete action="modules/gestion/piecemetadata.php" param="delete" droits="gestion" retourok="pieceDisplay" retourko="piecemetadataChange"  modulebefore="piecemetadataChange"/>
+	<piecemetadataImport action="modules/gestion/piecemetadata.php" param="import" droits="gestion" retourok="pieceDisplay" retourko="pieceDisplay"  modulebefore="pieceDisplay,piecemetadataWrite,pieceWrite"/>
 
 </navigation>
 	

@@ -29,6 +29,7 @@ switch ($t_module["param"]) {
         $vue->set($dataIndiv, "individu");
         $listePhoto = $photo->getListePhotoFromPiece($id);
 
+        /** Lecture des metadonnees */
         include_once 'modules/classes/piecemetadata.class.php';
         $pm = new Piecemetadata($bdd, $ObjetBDDParam);
         try {
@@ -40,6 +41,9 @@ switch ($t_module["param"]) {
             $message->set(_("Problème lors de la lecture des métadonnées rattachées à la pièce"), true);
             $message->setSyslog($e->getMessage());
         }
+        include_once 'modules/classes/metadatatype.class.php';
+        $mdt = new Metadatatype($bdd, $ObjetBDDParam);
+        $vue->set($mdt->getListe(),"metadatatypes");
         /*
          * Rajout du lien vers l'image
          */

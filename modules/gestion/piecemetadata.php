@@ -41,5 +41,37 @@ switch ($t_module["param"]) {
          */
         dataDelete($dataClass, $id);
         break;
+    case "import":
+        /** Recuperation de la liste des champs disponibles */
+        include_once 'modules/classes/metadatatype.class.php';
+        $mdt = new Metadatatype($bdd, $ObjetBDDParam);
+        $metadata = $mdt->lire($_REQUEST["metadatatype_id"]);
+        $cm = json_decode($metadata["metadatatype_schema"], true);
+        $colonnes = array();
+        foreach ($cm as $row) {
+            $colonnes[] = $row["name"];
+        }
+        if (file_exists($_FILES['upfile']['tmp_name'])) {
+            require_once 'framework/import/import.class.php';
+            try {
+                $import = new Import($_FILES['upfile']['tmp_name'], $_REQUEST["separateur"], false, $colonnes);
+                /** Preparation de l'enregistrement */
+                $data = array();
+                $data["piecemetadata_id"] = 0;
+                $data["piece_id"] = $piece_id;
+                $data["metadatatype_id"] = $_REQUEST["metadatatype_id"];
+                $data["piecemetadata_date"] = $_REQUEST["piecemetadata_date"];
+                $data["piecemetadata_comment"] = $_REQUEST["piecemetadata_comment"];
+                $data["metadata"] = json_encode($import->getContentAsArray());
+                $dataClass->ecrire($data);
+                $message->set(_("Importation du jeu de métadonnées effectué"));
+            } catch (Exception $e) {
+                $message->set($e->getMessage(), true);
+            }
+        } else {
+            $message->set(_("Impossible de charger le fichier à importer"));
+        }
+        $module_coderetour = 1;
+        break;
 }
 ?>

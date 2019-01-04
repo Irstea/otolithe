@@ -74,7 +74,7 @@ class Import
                 }
             }
         } else {
-            throw new ImportException(sprintf(_("%s non trouvé ou non lisible"),$filename));
+            throw new ImportException(sprintf(_("Fichier %s non trouvé ou non lisible"),$filename));
         }
     }
 
