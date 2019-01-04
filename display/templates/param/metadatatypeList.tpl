@@ -81,7 +81,7 @@
 {if $droits["gestionCompte"] == 1}
 	<div class="row col-md-6">
 		<fieldset>
-			<legend>{t}Importer des métadonnées provenant d'une autre base de données Collec-Science{/t}</legend>
+			<legend>{t}Importer des modèles de métadonnées provenant d'une autre base de données Otolithe{/t}</legend>
 			<form class="form-horizontal protoform" id="metadatatypeImport" method="post" action="index.php" enctype="multipart/form-data">
 				<input type="hidden" name="module" value="metadatatypeImport">
 				<div class="form-group">

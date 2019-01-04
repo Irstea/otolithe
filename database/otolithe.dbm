@@ -639,7 +639,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="otolithe"/>
 	<comment><![CDATA[Métadonnées rattachées à une pièce calcifiée]]></comment>
 	<position x="1300" y="440"/>
-	<column name="metadatapiece_id" not-null="true"
+	<column name="piecemetadata_id" not-null="true"
 	 identity-type="BY DEFAULT">
 		<type name="integer" length="0"/>
 	</column>
@@ -662,7 +662,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<comment><![CDATA[Commentaires libres]]></comment>
 	</column>
 	<constraint name="piecemetadata_pk" type="pk-constr" table="otolithe.piecemetadata">
-		<columns names="metadatapiece_id" ref-type="src-columns"/>
+		<columns names="piecemetadata_id" ref-type="src-columns"/>
 	</constraint>
 </table>
 

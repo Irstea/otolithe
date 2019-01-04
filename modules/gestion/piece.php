@@ -33,6 +33,9 @@ switch ($t_module["param"]) {
         $pm = new Piecemetadata($bdd, $ObjetBDDParam);
         try {
             $metadatas = $pm->getListFromPiece($id);
+            $metadatas = $_SESSION["it_piece"]->translateList($metadatas);
+            $vue->set($_SESSION["it_piecemetadata"]->translateList($metadatas), "metadatas");
+            
         } catch (Exception $e) {
             $message->set(_("Problème lors de la lecture des métadonnées rattachées à la pièce"), true);
             $message->setSyslog($e->getMessage());

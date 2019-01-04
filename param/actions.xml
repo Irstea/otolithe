@@ -135,5 +135,9 @@
 	<metadatatypeExport action="modules/param/metadatatype.php" param="export" droits="consult" type="csv" />
 	<metadatatypeImport action="modules/param/metadatatype.php" param="import" droits="gestionCompte" retourok="metadatatypeList" retourko="metadatatypeList" />
 
+	<piecemetadataChange action="modules/gestion/piecemetadata.php" param="change" droits="gestion"  retourlogin="1" type="smarty" />
+	<piecemetadataWrite action="modules/gestion/piecemetadata.php" param="write" droits="gestion" retourok="pieceDisplay" retourko="piecemetadataChange" modulebefore="piecemetadataChange" />
+	<piecemetadataDelete action="modules/gestion/piecemetadata.php" param="delete" droits="gestion" retourok="pieceDisplay" retourko="piecemetadataChange"  modulebefore="piecemetadataChange"/>
+
 </navigation>
 	

@@ -7,6 +7,7 @@
 <script type="text/javascript" src="display/javascript/alpaca/handlebars.runtime.min.js"></script>
 <script type="text/javascript" src="display/javascript/alpaca/alpaca.min.js"></script>
 <link type="text/css" href="display/javascript/alpaca/css/alpaca.min.css" rel="stylesheet">
+<script type="text/javascript" src="display/javascript/alpaca/formbuilder.js"></script>
 
 <script type="text/javascript">
 /*
@@ -179,4 +180,5 @@ function renderForm(data){
             }           
         });
 }
+
 </script>

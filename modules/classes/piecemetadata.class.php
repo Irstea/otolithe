@@ -32,7 +32,7 @@ class Piecemetadata extends ObjetBDD
      */
     function getListFromPiece($id)
     {
-        $sql = "select metadatapiece_id, piece_id, metadatatype_id, piecemetadata_date, piecemetadata_comment,
+        $sql = "select piecemetadata_id, piece_id, metadatatype_id, piecemetadata_date, piecemetadata_comment,
         metadatatype_name
         from piecemetadata
         join metadatatype using (metadatatype_id)

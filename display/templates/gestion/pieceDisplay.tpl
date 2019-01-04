@@ -116,6 +116,7 @@
 </thead>
 <tbody>
 {foreach $metadatas as $metadata}
+
     <tr>
     <td>
     {if $droits.gestion == 1}
@@ -127,7 +128,7 @@
     {/if}
    </td>
     <td>{$metadata.piecemetadata_date}</td>
-    <td>{$metadata.piecemetadata_comment}</td>
+    <td class="textareaDisplay">{$metadata.piecemetadata_comment}</td>
     </tr>
 {/foreach}
 </tbody>
