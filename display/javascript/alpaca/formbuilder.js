@@ -77,7 +77,7 @@ var baseFields = function (index, value, isArray = 0) {
     /*if(value.type != "checkbox" && value.type != "radio"){
         field.label = value.name;
     }*/
-    if (isArray = 0) {
+    if (isArray == 0) {
         field.label = value.name;
     } else {
         field.label = "";

@@ -5,6 +5,7 @@
 <script>
     $(document).ready(function() {
 
+        /** Fonction non utilisee, conservee pour l'exemple d'integration de deux requetes ajax successives */
         function getMetadata(reponse) { 
             var schema = reponse.replace(/&quot;/g,'"');
             //console.log (schema);
@@ -32,6 +33,7 @@
               });
             
         }
+        /** Fonction non utilisee, conservee pour l'exemple d'integration de deux requetes ajax successives */
         function appelAjaxMetadata(fonctionRappel) {
             var id = {$data.metadatatype_id};
             $.ajax( { 
@@ -41,7 +43,27 @@
                 });
         }
         /* Initialisation des metadonnees a l'ouverture */
-        appelAjaxMetadata(getMetadata);
+        //appelAjaxMetadata(getMetadata);
+
+        function initAlpaca() {
+            var dataParse = "{$data.metadata}";
+        	 dataParse = dataParse.replace(/&quot;/g,'"');
+        	 dataParse = dataParse.replace(/\n/g,"\\n");
+             console.log(dataParse);
+        	 if (dataParse.length > 2) {
+        		 dataParse = JSON.parse(dataParse);
+        	 }
+             var schema = "{$metadatatype.metadatatype_schema}";
+             schema = schema.replace(/&quot;/g,'"');
+             schema = schema.replace(/\n/g,"\\n");
+             console.log(schema);
+             console.log(dataParse);
+             var isArray = "{$metadatatype.is_array}";
+             showForm(JSON.parse(schema), dataParse, isArray, 1);
+        }
+
+        initAlpaca();
+
         //getMetadata();
     });
 </script>
@@ -59,6 +81,7 @@
         {include file="gestion/pieceCartouche.tpl"}
     </div>
 </div>
+<div class="col-sm-12">
 <div class="row">
     <div class="col-sm-12">
         {if $droits.gestion == 1}
@@ -91,4 +114,5 @@
     <div class="col-md-12">          
         <div id="metadata"></div>
     </div>
+</div>
 </div>

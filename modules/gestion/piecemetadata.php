@@ -15,6 +15,10 @@ switch ($t_module["param"]) {
         $piece = new Piece($bdd, $ObjetBDDParam);
         $dpiece = $piece->getDetail($piece_id);
         $vue->set($_SESSION["it_piece"]->translateRow($dpiece), "piece");
+        /** Recuperation du modele de metadonnees */
+        include_once 'modules/classes/metadatatype.class.php';
+        $mt = new Metadatatype($bdd, $ObjetBDDParam);
+        $vue->set($mt->lire($data["metadatatype_id"]),"metadatatype");
         include_once 'modules/classes/individu.class.php';
         $individu = new Individu($bdd, $ObjetBDDParam);
         $vue->set($_SESSION["it_individu"]->translateRow($individu->getDetail($dpiece["individu_id"])), "individu");
