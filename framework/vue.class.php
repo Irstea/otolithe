@@ -347,6 +347,29 @@ class VueCsv extends Vue
 
     private $header = array();
 
+    /**
+     * Reecriture pour traiter le cas où l'info est mono-enregistrement
+     *
+     * @param array $value
+     * @param string $variable
+     * @return void
+     */
+    function set($value, $variable = "")
+    {
+        if (is_array($value[0])) {
+            $this->data = $value;
+        } else {
+            $this->data[] = $value;
+        }
+    }
+
+    /**
+     * Declenche la creation du fichier csv
+     *
+     * @param string $filename
+     * @param string $delimiter
+     * @return void
+     */
     function send($filename = "", $delimiter = "")
     {
         if (count($this->data) > 0) {
@@ -435,6 +458,12 @@ class VueCsv extends Vue
     }
 }
 
+/**
+ * Envoi d'un fichier au format PDF vers le navigateur
+ * 
+ * Le fichier doit être fourni soit sous forme de référence 
+ * soit en indiquant son chemin dans l'arborescence du serveur.
+ */
 class VuePdf extends Vue
 {
 

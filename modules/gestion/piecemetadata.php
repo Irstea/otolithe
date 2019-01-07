@@ -88,13 +88,7 @@ switch ($t_module["param"]) {
         break;
     case "export":
         $data = $dataClass->lire($id);
-        $metadata = $data["metadata"];
-        if (substr($metadata, 0, 1) != "[") {
-            $am[] = json_decode($metadata, true);
-        } else {
-            $am = json_decode($metadata, true);
-        }
-        $vue->set($am);
+        $vue->set(json_decode($data["metadata"], true));
         break;
 }
 ?>
