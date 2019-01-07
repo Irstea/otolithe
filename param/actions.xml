@@ -89,7 +89,7 @@
 	<photoGetPhoto action="modules/gestion/photo.php" param="getPhoto" droits="lecture" type="binaire" />
 	<photoGetThumbnail action="modules/gestion/photo.php" param="getThumbnail" droits="lecture" type="binaire" />
 	
-	<lecteurList action="modules/gestion/lecteur.php" param="list" droits="gestionCompte" type="smarty"  />
+	<lecteurList action="modules/gestion/lecteur.php" param="list" droits="gestionCompte" type="smarty"  retourlogin="1"/>
 	<lecteurDisplay action="modules/gestion/lecteur.php" param="display" droits="gestionCompte" type="smarty" />
 	<lecteurChange action="modules/gestion/lecteur.php" param="change" droits="gestionCompte" type="smarty" />
 	<lecteurWrite action="modules/gestion/lecteur.php" param="write" droits="gestionCompte" retourok="lecteurList" retourko="lecteurChange" modulebefore="lecteurChange" />
@@ -97,12 +97,12 @@
 	
 	<parametres action="modules/param/index.php" droits="gestionCompte" type="smarty"/>
 
-	<experimentationList action="modules/gestion/experimentation.php" param="list" droits="consult" type="smarty"  />
+	<experimentationList action="modules/gestion/experimentation.php" param="list" droits="consult" type="smarty" retourlogin="1"  />
 	<experimentationChange action="modules/gestion/experimentation.php" param="change" droits="gestionCompte" type="smarty"/>
 	<experimentationWrite action="modules/gestion/experimentation.php" param="write" droits="gestionCompte" retourok="experimentationList" retourko="experimentationChange" modulebefore="experimentationChange" />
 	<experimentationDelete action="modules/gestion/experimentation.php" param="delete" droits="gestionCompte" retourok="experimentationList" retourko="experimentationChange" />
 
-	<piecetypeList action="modules/gestion/piecetype.php" param="list" droits="consult" type="smarty"  />
+	<piecetypeList action="modules/gestion/piecetype.php" param="list" droits="consult" type="smarty"  retourlogin="1"/>
 	<piecetypeChange action="modules/gestion/piecetype.php" param="change" droits="gestionCompte"  type="smarty" />
 	<piecetypeWrite action="modules/gestion/piecetype.php" param="write" droits="gestionCompte" retourok="piecetypeList" retourko="piecetypeChange" modulebefore="piecetypeChange" />
 	<piecetypeDelete action="modules/gestion/piecetype.php" param="delete" droits="gestionCompte" retoursuppr="piecetypeList" retourko="piecetypeChange" />
@@ -126,7 +126,22 @@
 	<importControl action="modules/gestion/import.php" param="control" droits="gestionCompte" modulebefore="importChange,importControl,importImport" retourok="importChange" type="smarty" />
 	<importImport action="modules/gestion/import.php" param="import" droits="gestionCompte" modulebefore="importControl,importChange" retourok="importChange" retourko="importChange"  />
 
-	
+	<metadatatypeList action="modules/param/metadatatype.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
+	<metadatatypeChange action="modules/param/metadatatype.php" param="change" droits="gestionCompte"  retourlogin="1" type="smarty" />
+	<metadatatypeWrite action="modules/param/metadatatype.php" param="write" droits="gestionCompte" retourok="metadatatypeList" retourko="metadatatypeChange" modulebefore="metadatatypeChange,metadatatypeCopy" />
+	<metadatatypeDelete action="modules/param/metadatatype.php" param="delete" droits="gestionCompte" retourok="metadatatypeList" retourko="metadatatypeChange"  modulebefore="metadatatypeChange"/>
+	<metadatatypeCopy action="modules/param/metadatatype.php" param="copy" droits="gestionCompte" type="smarty" />
+	<metadatatypeGetschema action="modules/param/metadatatype.php" param="getSchema" droits="gestionCompte" type="ajax" />
+	<metadatatypeIsarray action="modules/param/metadatatype.php" param="isArray" droits="gestionCompte" type="ajax" />
+	<metadatatypeExport action="modules/param/metadatatype.php" param="export" droits="consult" type="csv" />
+	<metadatatypeImport action="modules/param/metadatatype.php" param="import" droits="gestionCompte" retourok="metadatatypeList" retourko="metadatatypeList" />
+
+	<piecemetadataChange action="modules/gestion/piecemetadata.php" param="change" droits="gestion"  type="smarty" />
+	<piecemetadataWrite action="modules/gestion/piecemetadata.php" param="write" droits="gestion" retourok="pieceDisplay" retourko="piecemetadataChange" modulebefore="piecemetadataChange" />
+	<piecemetadataDelete action="modules/gestion/piecemetadata.php" param="delete" droits="gestion" retourok="pieceDisplay" retourko="piecemetadataChange"  modulebefore="piecemetadataChange"/>
+	<piecemetadataImport action="modules/gestion/piecemetadata.php" param="import" droits="gestion" retourok="pieceDisplay" retourko="pieceDisplay"  modulebefore="pieceDisplay,piecemetadataWrite,pieceWrite"/>
+	<piecemetadataDisplay action="modules/gestion/piecemetadata.php" param="display" droits="gestion" type="smarty"/>
+	<piecemetadataExport action="modules/gestion/piecemetadata.php" param="export" droits="gestion" type="csv"/>
 
 </navigation>
 	
