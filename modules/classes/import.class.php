@@ -57,6 +57,10 @@ class Import
         "peche_engin",
         "personne",
         "operateur",
+        "metadatatype_id",
+        "metadata",
+        "piecemetadata_date",
+        "piecemetadata_comment"
     );
 
     private $colnum = array(
@@ -77,7 +81,9 @@ class Import
 
     private $espece = array();
 
-    private $individu, $piece, $ie, $peche;
+    private $metadatatype = array();
+
+    private $individu, $piece, $ie, $peche, $pm;
 
     public $minuid, $maxuid;
 
@@ -108,14 +114,14 @@ class Import
             $range = 0;
             for ($range = 0; $range < count($data); $range++) {
                 $value = $data[$range];
-                if (in_array($value, $this->colonnes)) {
+                if (in_array($value, $this->colonnes) || substr($data[$range], 0, 3) == "md_") {
                     $this->fileColumn[$range] = $value;
                 } else {
-                    throw new HeaderException("Header column $range is not recognized ($value)");
+                    throw new HeaderException(sprintf(_("L'entête de colonne %1\$s n'est pas reconnue (%2\$s)"), $range, $value));
                 }
             }
         } else {
-            throw new FichierException("$filename not found or not readable");
+            throw new FichierException(sprintf(_("%s non trouvé ou non lisible"), $filename));
         }
     }
 
@@ -125,12 +131,13 @@ class Import
      * @param Individu $individu
      * @param Piece $piece
      */
-    public function initClasses(Individu $individu, Piece $piece, Individu_experimentation $ie, Peche $peche)
+    public function initClasses(Individu $individu, Piece $piece, Individu_experimentation $ie, Peche $peche, Piecemetadata $pm)
     {
         $this->individu = $individu;
         $this->piece = $piece;
         $this->ie = $ie;
         $this->peche = $peche;
+        $this->pm = $pm;
     }
 
     /**
@@ -179,6 +186,7 @@ class Import
          * Suppression du reformatage de la date
          */
         $this->peche->auto_date = 0;
+        $this->pm->auto_date = 0;
         while ($data = $this->readLine()) {
             if (count($data) > 0) {
                 /*
@@ -193,6 +201,8 @@ class Import
                 $di = $values;
                 $di["individu_id"] = 0;
                 $peche_id = 0;
+                $pieceId = 0;
+                $dm = array();
                 try {
                     /*
                      * Traitement de la peche
@@ -224,7 +234,32 @@ class Import
                     if ($values["piecetype_id"] > 0) {
                         $dp = $values;
                         $dp["individu_id"] = $individu_id;
-                        $this->piece->ecrire($dp);
+                        $pieceId = $this->piece->ecrire($dp);
+                    }
+
+                    if ($pieceId > 0 && $values["metadatatype_id"] > 0) {
+                        /**
+                         * Recherche des metadonnees attachees
+                         */
+                        $metadata = array();
+                        if (strlen($values["metadata"]) > 0) {
+                            $metadata = json_decode($values["metadata"], true);
+                        }
+                        foreach ($this->fileColumn as $colonne) {
+                            if (substr($colonne, 0, 3) == "md_" && strlen($values[$colonne]) > 0) {
+                                $metadata[substr($colonne, 3)] = $values[$colonne];
+                            }
+                        }
+                        if (count($metadata) > 0) {
+                            $dm["piece_id"] = $pieceId;
+                            $dm["metadatatype_id"] = $values["metadatatype_id"];
+                            $dm["metadata"] = json_encode($metadata);
+                            $dm["piecemetadata_comment"] = $values["piecemetadata_comment"];
+                            if (strlen($values["piecemetadata_date"]) > 0) {
+                                $dm["piecemetadata_date"] = $this->formatDate($values["piecemetadata_date"]);
+                            }
+                            $this->pm->ecrire($dm);
+                        }
                     }
                 } catch (PDOException $pe) {
                     throw new ImportException("PDOException - Line $num: error when import data. " . $pe->getMessage());
@@ -271,12 +306,13 @@ class Import
      * @param array $piecetype
      * @param array $espece
      */
-    public function initControl($experimentation, $piecetype, $espece, $sexe)
+    public function initControl($experimentation, $piecetype, $espece, $sexe, $metadatatype)
     {
         $this->experimentation = $experimentation;
         $this->piecetype = $piecetype;
         $this->espece = $espece;
         $this->sexe = $sexe;
+        $this->metadatatype = $metadatatype;
     }
 
     /**
@@ -391,6 +427,39 @@ class Import
                 $retour["code"] = false;
                 $retour["message"] .= " " . _("Le type de pièce indiqué n'est pas connu.");
             }
+
+            /**
+             * Recherche si des métadonnées sont indiquées
+             */
+            $isMetadata = false;
+            if (strlen($data["metadata"]) > 0) {
+                $isMetadata = true;
+            } else {
+                /**
+                 * Recherche dans les colonnes individuelles
+                 */
+                foreach ($data as $key => $value) {
+                    if (substr($key, 0, 3) == "md_" && strlen($value) > 0) {
+                        $isMetadata = true;
+                        break;
+                    }
+                }
+            }
+            if ($isMetadata) {
+                $ok = false;
+                if ($data["metadatatype_id"] > 0) {
+                    foreach ($this->metadatatype as $value) {
+                        if ($data["metadatatype_id"] == $value["metadatatype_id"]) {
+                            $ok = true;
+                            break;
+                        }
+                    }
+                }
+                if (!$ok) {
+                    $retour["code"] = false;
+                    $retour["message"] .= " " . _("Le type de métadonnées (metadatatype_id) n'est pas renseigné ou inconnu.");
+                }
+            }
         }
 
         /*
@@ -413,6 +482,15 @@ class Import
                 $retour["message"] .= " " . _("La date de pêche est mal formatée");
             }
         }
+        /**
+         * Verification de la date de meta-donnees
+         */
+        if (strlen($data["piecemetadata_date"]) > 0) {
+            if (strlen($this->formatDate($data["piecemetadata_date"])) == 0) {
+                $retour["code"] = false;
+                $retour["message"] .= " " . _("La date associée aux méta-données est mal formatée");
+            }
+        }
         return $retour;
     }
 
@@ -429,17 +507,12 @@ class Import
          * Verification du format de date
          */
         $result = date_parse_from_format($_SESSION["MASKDATE"], $date);
-        if ($result["warning_count"] > 0) {
-            /*
-             * Test du format general
-             */
-            $result = date_parse($date);
-        }
 
         if ($result["warning_count"] == 0) {
             if (strlen($result["year"]) == 2) {
                 $result["year"] = "20" . $result["year"];
             }
+
             $val = $result["year"] . "-" . str_pad($result["month"], 2, "0", STR_PAD_LEFT) . "-" . str_pad($result["day"], 2, "0", STR_PAD_LEFT);
             if (strlen($result["hour"]) > 0 && strlen($result["minute"]) > 0) {
                 $val .= " " . str_pad($result["hour"], 2, "0", STR_PAD_LEFT) . ":" . str_pad($result["minute"], 2, "0", STR_PAD_LEFT);
