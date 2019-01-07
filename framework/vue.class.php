@@ -64,6 +64,15 @@ class Message
     }
 
     /**
+     * Retourne le nombre de messages enregistres
+     *
+     * @return int
+     */
+    function getMessageNumber() {
+        return (count($this->_message));
+    }
+
+    /**
      * Retourne le tableau formate avec saut de ligne entre
      * chaque message
      *

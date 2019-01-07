@@ -513,11 +513,11 @@ class Import
              * La date est attendue avec le format yyyy-mm-dd
              */
             $date1 = explode(" ", $date);
-            $date2 = explode("-",$date1[0]);
+            $date2 = explode("-", $date1[0]);
             $result = date_parse($date);
             if ($result["year"] != $date2[0] || str_pad($result["month"], 2, "0", STR_PAD_LEFT) != $date2[1] || str_pad($result["day"], 2, "0", STR_PAD_LEFT) != $date2[2]) {
                 $result["warning_count"] = 1;
-             }
+            }
         }
 
         if ($result["warning_count"] == 0) {

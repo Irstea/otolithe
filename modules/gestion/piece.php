@@ -36,14 +36,14 @@ switch ($t_module["param"]) {
             $metadatas = $pm->getListFromPiece($id);
             $metadatas = $_SESSION["it_piece"]->translateList($metadatas);
             $vue->set($_SESSION["it_piecemetadata"]->translateList($metadatas), "metadatas");
-            
+
         } catch (Exception $e) {
             $message->set(_("Problème lors de la lecture des métadonnées rattachées à la pièce"), true);
             $message->setSyslog($e->getMessage());
         }
         include_once 'modules/classes/metadatatype.class.php';
         $mdt = new Metadatatype($bdd, $ObjetBDDParam);
-        $vue->set($mdt->getListe(),"metadatatypes");
+        $vue->set($mdt->getListe(), "metadatatypes");
         /*
          * Rajout du lien vers l'image
          */
@@ -98,7 +98,10 @@ switch ($t_module["param"]) {
 		/*
          * delete record
          */
-        dataDelete($dataClass, $id);
+        
+            dataDelete($dataClass, $id);
+            /** Reaffectation de l'identifiant en cas d'échec de la suppression */
+            $_REQUEST["piece_id"] = $_SESSION["it_piece"]->setValue($id);
         break;
 }
 ?>

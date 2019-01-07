@@ -88,22 +88,42 @@ class Piece extends ObjetBdd
 	 * @param int $id
 	 * @return void
 	 */
-	function supprimer ($id) {
+	function supprimer($id)
+	{
 		if (is_numeric($id) && $id > 0) {
 			/** Suppression des tables liees */
 			/** Suppression des photos */
 			include_once 'modules/classes/photo.class.php';
 			$photo = new Photo($this->connection, $this->paramori);
 			$lp = $photo->getListePhotoFromPiece($id);
-			foreach($lp as $row) {
+			foreach ($lp as $row) {
 				$photo->supprimer($row["photo_id"]);
 			}
 			/** Suppression des metadonnees */
 			include_once 'modules/classes/piecemetadata.class.php';
 			$pm = new Piecemetadata($this->connection, $this->paramori);
 			$pm->supprimerChamp($id, "piece_id");
+			parent::supprimer($id);
 		} else {
 			throw new ObjetBDDException(_("La suppression d'une clé nulle ou non numérique n'est pas possible"));
+		}
+	}
+	/**
+	 * Suppression de toutes les pièces rattachées
+	 * à un individu
+	 *
+	 * @param int $id
+	 * @return void
+	 */
+	function supprimerFromIndividu($id)
+	{
+		if ($id > 0) {
+			$sql = "select piece_id from piece where individu_id = :id";
+			$liste = $this->getListeParamAsPrepared($sql, array("id" => $id));
+			foreach ($liste as $item) {
+
+				$this->supprimer($item["piece_id"]);
+			}
 		}
 	}
 }

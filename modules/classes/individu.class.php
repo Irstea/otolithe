@@ -226,14 +226,16 @@ class Individu extends ObjetBdd
             );
             $res = $this->lireParamAsPrepared($sql, $aid);
             if ($res["nb"] > 0) {
+                $this->addMessage(_("Des photos sont rattachées au poisson, sa suppression est impossible"));
                 throw new ObjetBDDException(_("Des photos sont rattachées au poisson, sa suppression est impossible"));
             }
         }
         /*
          * Suppression des pieces rattachees
          */
-        $sql = "delete from piece where individu_id = :individu_id";
-        $this->executeAsPrepared($sql, $aid, true);
+        include_once 'modules/classes/piece.class.php';
+        $piece = new Piece($this->connection, $this->paramori);       
+        $piece->supprimerFromIndividu($id);
         /*
          * Suppression dans la table des experimentations
          */
