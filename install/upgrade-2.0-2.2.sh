@@ -42,7 +42,8 @@ ln -s $VERSION otolithe
 echo "update database"
 chmod 755 /var/www/html/otolithe
 cd otolithe/install
-su postgres -c "psql -f upgrade-2.0-2.1.sql"
+su postgres -c "psql -f upgradedb-2.0-2.1.sql"
+su postgres -c "psql -f upgradedb-2.1-2.2.sql"
 cd ../..
 chmod 750 /var/www/html/otolithe
 
