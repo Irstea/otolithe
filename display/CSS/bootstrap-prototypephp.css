@@ -177,4 +177,12 @@ legend {
 	border:1px solid;
 }
 
-
+table a:hover {
+	text-decoration: underline;
+	color: #003A80;
+}
+table a:visited {
+	text-decoration: none;
+	color: #009EE0;
+	
+}
