@@ -11,7 +11,7 @@
 -- Changed objects: 2
 -- Truncated tables: 0
 
-SET search_path=public,pg_catalog,otolithe;
+SET search_path=otolithe,public;
 -- ddl-end --
 
 
