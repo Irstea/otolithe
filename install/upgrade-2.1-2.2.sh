@@ -48,6 +48,7 @@ chmod 750 /var/www/html/otolithe
 
 # assign rights to new folder
 mkdir $VERSION/display/templates_c
+mkdir $VERSION/img
 chmod -R 750 $VERSION
 chgrp -R www-data $VERSION
 

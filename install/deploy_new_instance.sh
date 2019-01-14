@@ -67,9 +67,9 @@ echo "$line" | crontab -u postgres -
 # update rights to specific software folders
 chmod -R 750 .
 mkdir otolithe/display/templates_c
+mkdir otolithe/img
 chgrp -R www-data .
 chmod -R 770 otolithe/display/templates_c
-mkdir otolithe/img
 chmod -R 770 otolithe/img
 
 # generate rsa key for encrypted tokens
