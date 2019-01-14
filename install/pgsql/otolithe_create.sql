@@ -829,7 +829,7 @@ CREATE TABLE piecemetadata (
 	metadata json,
 	piecemetadata_date timestamp,
 	piecemetadata_comment varchar,
-	CONSTRAINT piecemetadata_pk PRIMARY KEY (metadatapiece_id)
+	CONSTRAINT piecemetadata_pk PRIMARY KEY (piecemetadata_id)
 
 );
 
