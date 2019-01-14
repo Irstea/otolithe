@@ -1,5 +1,14 @@
 Nouveautés
 ===========
+Version 2.2 du 10 janvier 2019
+---------------------------
+Corrections de bugs :
+- la suppression d'une pièce n'aboutissait pas
+
+Nouveautés :
+- dans les tableaux, lorsqu'un lien a été cliqué, celui-ci change de couleur (ancien fonctionnement, présent dans les versions 1.x)
+- ajout d'une gestion de méta-données : il est possible d'ajouter des informations techniques à une pièce, soit sous forme unique (valeur unique pour un champ), soit sous la forme d'un tableau (multi-valeurs). Les données sont décrites sous forme de méta-données et stockées dans un champ JSON (export possible en CSV)
+
 Version 2.1 du 13 décembre 2018
 ---------------------------
 Corrections de bugs :

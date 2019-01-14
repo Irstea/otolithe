@@ -92,6 +92,12 @@
 <li><b>peche_engin</b> : {t}engin utilisé{/t}</li>
 <li><b>personne</b> : {t}références du pêcheur{/t}</li>
 <li><b>operateur</b> : {t}références de l'opérateur ayant traité le poisson{/t}</li>
+<li><b>metadatatype_id</b> : {t}code du type de méta-données importées{/t} <a href="index.php?module=metadatatypeList">{t}Consultez la liste des types de méta-données{/t}</a></li>
+<li><b>piecemetadata_date</b> : {t}Date d'obtention des méta-données{/t}</li>
+<li><b>piecemetadata_comment</b> : {t}Commentaires associés aux méta-données{/t}</li>
+<li><b>metadata</b> : {t}Méta-données, au format JSON. Peut prendre la forme d'un tableau ou des valeurs uniques. Les champs doivent être identiques à ceux décrits dans le type de méta-données (cf. metadatatype_id){/t}</li>
+<li><b>md_nom-du-champ</b> : {t}Pour des méta-données uniques (pas en tableau), chaque champ peut être indiqué dans une colonne pré-fixée par md_. Le programme reconstituera les données pour les stocker au format JSON.{/t}</li>
+
 </ul>
 <div class="center">
 <a href="display/images/import_model.csv" type="text/csv" cible="_blank">{t}Téléchargez un modèle de fichier CSV{/t}</a>

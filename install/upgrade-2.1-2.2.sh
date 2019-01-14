@@ -1,7 +1,7 @@
 #!/bin/bash
-# upgrade an instance 2.0 to 2.1
-OLDVERSION=otolithe-2.0
-VERSION=otolithe-2.1
+# upgrade an instance 2.1 to 2.2
+OLDVERSION=otolithe-2.1
+VERSION=otolithe-2.2
 echo "This script will install the release $VERSION"
 echo "have you a backup of your database and a copy of param/param.inc.php?"
 echo "Is your actual version of otolithe is $OLDVERSION ?"
@@ -34,8 +34,6 @@ cp otolithe/param/id_otolithe* $VERSION/param/
 chown www-data $VERSION/param/id_otolithe
 fi
 
-
-
 #replacement of symbolic link
 rm -f otolithe
 ln -s $VERSION otolithe
@@ -44,14 +42,12 @@ ln -s $VERSION otolithe
 echo "update database"
 chmod 755 /var/www/html/otolithe
 cd otolithe/install
-su postgres -c "psql -f upgrade-2.0-2.1.sql"
+su postgres -c "psql -f upgradedb-2.1-2.2.sql"
 cd ../..
 chmod 750 /var/www/html/otolithe
 
 # assign rights to new folder
 mkdir $VERSION/display/templates_c
-# create img folder
-mkdir $VERSION/img
 chmod -R 750 $VERSION
 chgrp -R www-data $VERSION
 

@@ -11,6 +11,8 @@ require_once 'modules/classes/import.class.php';
 require_once 'modules/classes/individu.class.php';
 require_once 'modules/classes/piece.class.php';
 require_once 'modules/classes/peche.class.php';
+require_once 'modules/classes/piecemetadata.class.php';
+require_once 'modules/classes/metadatatype.class.php';
 /*
  * Initialisations
  */
@@ -22,9 +24,11 @@ $piece = new Piece($bdd, $ObjetBDDParam);
 $peche = new Peche($bdd, $ObjetBDDParam);
 $ie = new Individu_experimentation($bdd, $ObjetBDDParam);
 $sexe = new Sexe($bdd, $ObjetBDDParam);
+$pm = new Piecemetadata($bdd, $ObjetBDDParam);
+$mt = new Metadatatype($bdd, $ObjetBDDParam);
 
-$import->initClasses($individu, $piece, $ie, $peche);
-$import->initControl($_SESSION["experimentations"], $piecetype->getList(), $espece->getList(), $sexe->getListe());
+$import->initClasses($individu, $piece, $ie, $peche, $pm);
+$import->initControl($_SESSION["experimentations"], $piecetype->getList(), $espece->getList(), $sexe->getListe(), $mt->getListe());
 /*
  * Traitement
  */
