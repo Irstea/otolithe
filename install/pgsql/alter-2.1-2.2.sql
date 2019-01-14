@@ -69,8 +69,6 @@ COMMENT ON COLUMN piecemetadata.piecemetadata_date IS 'Date d''acquisition des i
 -- ddl-end --
 COMMENT ON COLUMN piecemetadata.piecemetadata_comment IS 'Commentaires libres';
 -- ddl-end --
-ALTER TABLE piecemetadata OWNER TO postgres;
--- ddl-end --
 
 alter table photolecture add column commentaire varchar;
 COMMENT ON COLUMN photolecture.commentaire IS 'Commentaire sur la lecture';
