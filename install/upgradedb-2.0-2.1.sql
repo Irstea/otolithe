@@ -1,3 +1,3 @@
 \c "dbname=otolithe user=otolithe password=otolithePassword host=localhost"
 
-\ir pgsql/col_alter_2.1-2.2.sql
+\ir pgsql/alter_2.0-2.1.sql
