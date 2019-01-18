@@ -64,7 +64,7 @@
 <div class="form-group">
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
-      {if $data.piece_id>0&&$droits["admin"] == 1}
+      {if $data.piece_id>0&&$droits["gestion"] == 1}
       <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}
  </div>
