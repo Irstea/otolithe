@@ -253,7 +253,7 @@ class Identification
             }
            
         }
-        if ($this->ident_type = "HEADER") {
+        if ($this->ident_type == "HEADER") {
             /*
              * Envoi vers la deconnexion du serveur fournissant le HEADER d'identification
              * En principe, l'url de deconnexion du CAS
