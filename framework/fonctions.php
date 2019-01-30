@@ -72,11 +72,17 @@ function dataWrite($dataClass, $data, $isPartOfTransaction = false)
     global $message, $module_coderetour, $log, $OBJETBDD_debugmode;
     try {
         $id = $dataClass->ecrire($data);
+        if ($id > 0) {
         if (!$isPartOfTransaction) {
             $message->set(_("Enregistrement effectué"));
             $module_coderetour = 1;
             $log->setLog($_SESSION["login"], get_class($dataClass) . "-write", $id);
         }
+    } else {
+        $message->set(_("Un problème est survenu lors de l'enregistrement. Si le problème persiste, contactez votre support"), true);
+        $message->setSyslog(_("La clé n'a pas été retournée lors de l'enregistrement dans ").get_class($dataClass));
+        $module_coderetour = -1;
+    }
     } catch (Exception $e) {
         if ($OBJETBDD_debugmode > 0) {
             foreach ($dataClass->getErrorData(1) as $messageError) {
