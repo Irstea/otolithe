@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-22 16:40+0100\n"
+"POT-Creation-Date: 2019-02-22 16:55+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -604,8 +604,8 @@ msgid "Fichier %s non trouvé ou non lisible"
 msgstr "File %s not found or not readable"
 
 #: ../../../param/param.default.inc.php:12
-msgid "13/12/2018"
-msgstr "12-13-2018"
+msgid "22/02/2019"
+msgstr "2019-02-22"
 
 #: ../../../modules/gestion/piecemetadata.php:84
 msgid "Importation du jeu de métadonnées effectué"
