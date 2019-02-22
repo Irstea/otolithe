@@ -108,3 +108,5 @@ _minted*
 /.scannerwork/.sonar_lock
 /.scannerwork/report-task.txt
 /database/otolithe_fixed.dbm
+/locales/C/LC_MESSAGES/_old.po
+/param/param.default.inc.php.orig

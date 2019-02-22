@@ -75,6 +75,7 @@
 	<individuChange action="modules/gestion/individu.php"  param="change" droits="gestion"  type="smarty"/>
 	<individuWrite action="modules/gestion/individu.php"  param="write" droits="gestion" retourok="individuDisplay" retourko="individuChange" />
 	<individuDelete action="modules/gestion/individu.php"  param="delete" droits="gestion" retourok="individuList" retourko="individuChange" />
+	<individuGetListEspece action="modules/gestion/individu.php" param="listEspece" droits="lecture" type="ajax"/>>
 	
 	
 	<pieceDisplay action="modules/gestion/piece.php" param="display" droits="lecture" type="smarty"/>
@@ -94,6 +95,7 @@
 	<lecteurChange action="modules/gestion/lecteur.php" param="change" droits="gestionCompte" type="smarty" />
 	<lecteurWrite action="modules/gestion/lecteur.php" param="write" droits="gestionCompte" retourok="lecteurList" retourko="lecteurChange" modulebefore="lecteurChange" />
 	<lecteurDelete action="modules/gestion/lecteur.php" param="delete" droits="gestionCompte" retourok="lecteurList" retourko="lecteurChange" />
+	<lecteurListFromExp action="modules/gestion/lecteur.php" param="listFromExp" droits="lecture" type="ajax" />
 	
 	<parametres action="modules/param/index.php" droits="gestionCompte" type="smarty"/>
 

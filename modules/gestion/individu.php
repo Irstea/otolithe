@@ -11,18 +11,18 @@ $id = $_REQUEST["individu_id"];
 
 switch ($t_module["param"]) {
     case "list":
-    /*
+        /*
          * Display the list of all records of the table
          */
-    /*
+        /*
          * Mise a jour du module d'affichage de la liste
          */
         $_SESSION["moduleListe"] = "individuList";
-    /*
+        /*
          * Gestion des criteres de recherche
          */
         if (isset($_REQUEST["exp_id"]))
-            $_REQUEST["exp_id"] = $_SESSION["it_experimentation"]->getValue($_REQUEST["exp_id"]);
+        $_REQUEST["exp_id"] = $_SESSION["it_experimentation"]->getValue($_REQUEST["exp_id"]);
         $searchIndividu->setParam($_REQUEST);
         $dataRecherche = $searchIndividu->getParam();
         if ($searchIndividu->isSearch() == 1) {
@@ -33,13 +33,15 @@ switch ($t_module["param"]) {
         }
         $sexe = new Sexe($bdd, $ObjetBDDParam);
         $vue->set($sexe->getListe(), "sexe");
-    
-    /*
+
+
+
+        /*
          * Integration des experimentations
          */
         $vue->set($_SESSION["it_experimentation"]->translateList($_SESSION["experimentations"]), "experimentation");
-    
-    /*
+
+        /*
          * Recherche des zones de peche
          */
         include_once "modules/classes/peche.class.php";
@@ -48,8 +50,8 @@ switch ($t_module["param"]) {
         $vue->set($peche->getListeZone(), "zone");
         $dataRecherche["exp_id"] = $_SESSION["it_experimentation"]->setValue($dataRecherche["exp_id"]);
         $vue->set($dataRecherche, "individuSearch");
-    
-    /*
+
+        /*
          * Affectation du nom du module pour le cartouche de recherche
          */
         $vue->set("individuList", "modulePostSearch");
@@ -58,15 +60,15 @@ switch ($t_module["param"]) {
 
         break;
     case "display":
-    /*
+        /*
          * Display the detail of the record
          */
         $data = $dataClass->getDetail($id);
         $dataT = $_SESSION["it_individu"]->translateRow($data);
         $dataT = $_SESSION["it_peche"]->translateRow($dataT);
         $vue->set($dataT, "data");
-    
-    /*
+
+        /*
          * Lecture des experimentations
          */
         $individu_experimentation = new Individu_experimentation($bdd, $ObjetBDDParam);
@@ -74,8 +76,8 @@ switch ($t_module["param"]) {
         $dataIE = $_SESSION["it_experimentation"]->translateList($dataIE);
         $dataIE = $_SESSION["it_individu"]->translateList($dataIE);
         $vue->set($dataIE, "experimentation");
-    
-    /*
+
+        /*
          * Lecture des pieces
          */
         include_once 'modules/classes/piece.class.php';
@@ -84,7 +86,7 @@ switch ($t_module["param"]) {
         $dataPiece = $_SESSION["it_piece"]->translateList($dataPiece);
         $dataPiece = $_SESSION["it_individu"]->translateList($dataPiece);
         $vue->set($dataPiece, "piece");
-    /*
+        /*
          * Lecture des donnees sur la peche
          */
         include_once 'modules/classes/peche.class.php';
@@ -98,7 +100,7 @@ switch ($t_module["param"]) {
 
         break;
     case "change":
-    /*
+        /*
          * open the form to modify the record
          * If is a new record, generate a new record with default value :
          * $_REQUEST["idParent"] contains the identifiant of the parent record
@@ -108,7 +110,7 @@ switch ($t_module["param"]) {
         $dataT = $_SESSION["it_peche"]->translateRow($dataT);
         $vue->set($dataT, "data");
         include_once 'modules/classes/peche.class.php';
-    /*
+        /*
          * Lecture des donnees de peche
          */
         $peche = new Peche($bdd, $ObjetBDDParam);
@@ -117,13 +119,13 @@ switch ($t_module["param"]) {
             $dataPeche = $_SESSION["it_peche"]->translateRow($dataPeche);
             $vue->set($dataPeche, "peche");
         }
-    /*
+        /*
          * Lecture des sexes
          */
         $sexe = new Sexe($bdd, $ObjetBDDParam);
         $vue->set($sexe->getListe(), "sexes");
-    
-    /*
+
+        /*
          * Liste des experimentations
          */
         $experimentation = new Experimentation($bdd, $ObjetBDDParam);
@@ -131,10 +133,10 @@ switch ($t_module["param"]) {
 
         break;
     case "write":
-    /*
+        /*
          * write record in database
          */
-    /*
+        /*
          * Recuperation des cles reelles
          */
         if (is_array($_REQUEST["exp_id"])) {
@@ -150,7 +152,7 @@ switch ($t_module["param"]) {
 
         $isPeche = false;
         if ($_REQUEST["peche_id"] == 0) {
-        /*
+            /*
              * Recherche si un enregistrement peche doit etre cree ou non
              */
 
@@ -163,8 +165,6 @@ switch ($t_module["param"]) {
             if (!$isPeche) {
                 unset($_REQUEST["peche_id"]);
             }
-
-
         } else {
             $isPeche = true;
         }
@@ -177,7 +177,7 @@ switch ($t_module["param"]) {
         $_REQUEST["individu_id"] = $_SESSION["it_individu"]->setValue($id);
         break;
     case "delete":
-    /*
+        /*
          * delete record
          */
 
@@ -186,5 +186,9 @@ switch ($t_module["param"]) {
         $_REQUEST["individu_id"] = $_SESSION["it_individu"]->setValue($id);
 
         break;
+    case "listEspece":
+        $exp_id = $_SESSION["it_experimentation"]->getValue($_REQUEST["exp_id"]);
+        $vue->set($dataClass->getListEspeceFromExp($exp_id));
+        break;
 }
-?>
+ 

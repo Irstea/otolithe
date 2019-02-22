@@ -60,75 +60,63 @@ class Individu extends ObjetBdd
     function getListSearch($data)
     {
         $data = $this->encodeData($data);
-        $sql = "select individu_id, codeindividu, tag, nom_id, count (piece_id) as nbrepiece,
-				sexe_libellecourt, peche_date, site, zonesite, exp_nom, individu_id, nom_id,
-                age
-				from " . $this->table . "
-					left outer join espece using (espece_id)
-					left outer join piece using (individu_id)
-					left outer join individu_experimentation using (individu_id)
-					left outer join experimentation using (exp_id)
-					left outer join peche using (peche_id)
-					left outer join sexe using (sexe_id) 	
+        $sql = "select i.individu_id, i.codeindividu, i.tag, e.nom_id, count (pc.piece_id) as nbrepiece,
+				s.sexe_libellecourt, p.peche_date, p.site, p.zonesite, ex.exp_nom, i.age
+				from individu i
+					left outer join espece e on (e.espece_id = i.espece_id)
+					left outer join piece pc on (pc.individu_id = i.individu_id)
+					left outer join individu_experimentation ie on (ie.individu_id = i.individu_id)
+					left outer join experimentation ex on (ex.exp_id = ie.exp_id)
+					left outer join peche p on (p.peche_id = i.peche_id)
+					left outer join sexe s on (s.sexe_id = i.sexe_id) 	
 						";
         /*
          * Preparation de la clause where
          */
         $where = "";
-        $is_where = 0;
-        if (!$data["exp_id"] > 0) {
+        $and = " and ";
+        if (strlen($data["exp_id"]) == 0) {
             $data["exp_id"] = 0;
         }
-        if ($is_where == 0) {
-            $where = " where ";
-            $is_where = 1;
-        } else {
-            $where .= " and ";
-        }
-        $where .= "exp_id = " . $data["exp_id"];
+        $where =" where ie.exp_id = " . $data["exp_id"];
 
         if (strlen($data["codeindividu"]) > 0) {
-            if ($is_where == 0) {
-                $where = " where ";
-                $is_where = 1;
-            } else {
-                $where .= " and ";
-            }
-            $where .= "(upper(codeindividu) like upper('%" . $data["codeindividu"] . "%')
-					or upper(tag) like upper('%" . $data["codeindividu"] . "%')
+            $where .= $and ."(upper(i.codeindividu) like upper('%" . $data["codeindividu"] . "%')
+					or upper(i.tag) like upper('%" . $data["codeindividu"] . "%')
 							)";
         }
         if ($data["sexe"] > 0) {
-            if ($is_where == 0) {
-                $where = " where ";
-                $is_where = 1;
-            } else {
-                $where .= " and ";
-            }
-            $where .= "sexe_id = " . $data["sexe"];
+            $where .= $and . "i.sexe_id = " . $data["sexe"];
         }
         if (strlen($data["site"]) > 0) {
-            if ($is_where == 0) {
-                $where = " where ";
-                $is_where = 1;
-            } else {
-                $where .= " and ";
-            }
-            $where .= "site = '" . $data["site"] . "'";
+            $where .= $and . "p.site = '" . $data["site"] . "'";
         }
         if (strlen($data["zone"]) > 0) {
-            if ($is_where == 0) {
-                $where = " where ";
-                $is_where = 1;
-            } else {
-                $where .= " and ";
-            }
-            $where .= "zonesite = '" . $data["zone"] . "'";
+            $where .= $and . "p.zonesite = '" . $data["zone"] . "'";
+        }
+        if ($data["espece_id"] > 0) {
+            $where .= $and . "e.espece_id = ". $data["espece_id"];
+        }
+        /**
+         * Recherche des lectures non réalisées
+         */
+        if ($data["isNotRead"]==1 && $data["lecteur_id"]>0) {
+            $where .= $and . " i.individu_id not in (
+                select i2.individu_id
+                from individu  i2
+                join individu_experimentation ie2 on (i2.individu_id = ie2.individu_id)
+                join piece pc2 on (i2.individu_id = pc2.individu_id)
+                join photo ph on (ph.piece_id = pc2.piece_id)
+                join photolecture phl on (phl.photo_id = ph.photo_id)
+                where ie2.exp_id = ".$data["exp_id"] ."
+                    and phl.lecteur_id = ".$data["lecteur_id"] ."
+                )
+            ";
         }
         /*
          * Preparation du group by
          */
-        $group = " group by individu_id, codeindividu, nom_id, sexe_libellecourt, peche_date, site, zonesite, exp_nom, tag";
+        $group = " group by i.individu_id, i.codeindividu, e.nom_id, s.sexe_libellecourt, p.peche_date, p.site, p.zonesite, ex.exp_nom, i.tag";
         /*
          * Preparation de la clause de tri
          */
@@ -141,6 +129,22 @@ class Individu extends ObjetBdd
             $listData[$key]["peche_date"] = $this->formatDateDBversLocal($value["peche_date"]);
         }
         return $listData;
+    }
+
+    /**
+     * Retourne la liste des espèces utilisées pour une expérimentation
+     *
+     * @param [int] $exp_id
+     * @return array
+     */
+    function getListEspeceFromExp($exp_id) {
+        $sql = "select distinct espece_id, nom_id 
+                from individu
+                join espece using (espece_id)
+                join individu_experimentation using (individu_id)
+                where exp_id = :exp_id
+        ";
+        return $this->getListeParamAsPrepared($sql, array("exp_id"=>$exp_id));
     }
 
     /**

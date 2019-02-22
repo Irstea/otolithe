@@ -533,6 +533,22 @@ class Lecteur extends ObjetBdd
     }
 
     /**
+     * Retourne la liste des lecteurs rattaches a une experimentation
+     *
+     * @param [int] $exp_id
+     * @return array
+     */
+    public function getListFromExp($exp_id) {
+        $sql = "select l.* 
+                from lecteur l
+                join lecteur_experimentation using (lecteur_id)
+                where exp_id = :exp_id
+                order by lecteur_nom, lecteur_prenom
+        ";
+        return $this->getListeParamAsPrepared($sql, array("exp_id"=>$exp_id));
+    }
+
+    /**
      * Surcharge de la fonction ecrire pour enregistrer les experimentations autorisees
      * (non-PHPdoc)
      *
@@ -1096,34 +1112,29 @@ class Photolecture extends ObjetBdd
                         left outer join peche using (peche_id)
                         left outer join final_stripe using (final_stripe_id)
                         ";
-        $where = " where ";
-        $and = "";
+        $where = " where exp_id = " . $param["exp_id"];
+        $and = " and ";
+
         if (strlen($param["codeindividu"]) > 0) {
             $where .= $and . "(upper(codeindividu) like upper('%" . $param["codeindividu"] . "%')
                             or upper(tag) like upper('%" . $param["codeindividu"] . "%'))";
-            $and = " and ";
         }
-        if ($param["exp_id"] > 0) {
-            $where .= $and . " exp_id = " . $param["exp_id"];
-            $and = " and ";
-        }
+
+        
         if (strlen($param["site"]) > 0) {
-            $where .= $and . " site = '" . pg_escape_string($param["site"]) . "'";
-            $and = " and ";
+            $where .= $and . " site = '" . $param["site"] . "'";
         }
         if (strlen($param["zonesite"]) > 0) {
-            $where .= $and . "zonesite = '" . pg_escape_string($param["zonesite"]) . "'";
-            $and = " and ";
+            $where .= $and . "zonesite = '" . $param["zonesite"] . "'";
         }
         if ($param["lecteur_id"] > 0) {
             $where .= $and . "lecteur_id = " . $param["lecteur_id"];
-            $and = " and ";
         }
-        /*
-         * On verifie qu'on ait bien une clause where...
-         */
-        if ($where == " where ") {
-            $where = "";
+        if ($param["espece_id"] > 0) {
+            $where .= $and . "espece_id = ". $param["espece_id"];
+        }
+        if ($param["consensual"] == 1) {
+            $where .= $and . "consensual_reading = 1";
         }
         $order = " order by codeindividu, tag, piece_id, photo_id, photolecture_date";
         $data = $this->getListeParam($sql . $where . $order);

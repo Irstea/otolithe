@@ -82,7 +82,7 @@ class SearchIndividu extends SearchParam
 {
 	function __construct()
 	{
-		$this->param = array("codeindividu" => "", "exp_id" => "", "sexe" => "", "site" => "", "zone" => "");
+		$this->param = array("codeindividu" => "", "exp_id" => "", "sexe" => "", "site" => "", "zone" => "", "isNotRead" => 0, "lecteur_id"=>0, "espece_id"=>0);
 		parent::__construct();
 	}
 }
@@ -95,7 +95,7 @@ class SearchLecture extends SearchParam
 {
 	function __construct()
 	{
-		$this->param = array("codeindividu" => "", "exp_id" => "", "site" => "", "zonesite" => "", "lecteur_id" => "");
+		$this->param = array("codeindividu" => "", "exp_id" => "", "site" => "", "zonesite" => "", "lecteur_id" => 0, "consensual"=>0, "espece_id"=>0);
 		parent::__construct();
 	}
 }
