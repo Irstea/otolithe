@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-10 17:19+0100\n"
+"POT-Creation-Date: 2019-02-22 16:55+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -105,7 +105,7 @@ msgstr "Metadata"
 #: ../../../param/menu.xml:18
 #: ../../../display/templates/param/metadatatypeList.tpl:15
 msgid "Modèles de métadonnées"
-msgstr "Metadata models"
+msgstr "Metadata templates"
 
 #. (itstool) path: menu/item@label
 #: ../../../param/menu.xml:22
@@ -433,7 +433,7 @@ msgstr "Problem when deleting"
 #: ../../../framework/fonctions.php:151
 msgid ""
 "Suppression impossible : la clé n'est pas numérique ou n'a pas été fournie"
-msgstr "Delete not available: the key is not numeric or was not provided"
+msgstr "Can't to delete: the key is not numeric or was not provided"
 
 #: ../../../framework/common.inc.php:251
 msgid "Echec de connexion à la base de données de gestion des droits (GACL)"
@@ -604,8 +604,8 @@ msgid "Fichier %s non trouvé ou non lisible"
 msgstr "File %s not found or not readable"
 
 #: ../../../param/param.default.inc.php:12
-msgid "10/01/2019"
-msgstr "01-10-2019"
+msgid "22/02/2019"
+msgstr "2019-02-22"
 
 #: ../../../modules/gestion/piecemetadata.php:84
 msgid "Importation du jeu de métadonnées effectué"
@@ -614,7 +614,7 @@ msgstr "Metadata set import done"
 #: ../../../modules/gestion/piecemetadata.php:89
 #: ../../../modules/param/metadatatype.php:102
 msgid "Impossible de charger le fichier à importer"
-msgstr "impossible to load the file to import"
+msgstr "Unable to load the file to import"
 
 #: ../../../modules/gestion/piece.php:41
 msgid "Problème lors de la lecture des métadonnées rattachées à la pièce"
@@ -635,11 +635,11 @@ msgstr ""
 #: ../../../modules/param/metadatatype.php:94
 #, php-format
 msgid "%s description(s) de métadonnée(s) importée(s)"
-msgstr "%s metadata set imported"
+msgstr "%s imported metadata description"
 
 #: ../../../modules/param/metadatatype.php:97
 msgid "Impossible d'importer les métadonnées"
-msgstr "Impossible to import the metadata"
+msgstr "Can not import metadata"
 
 #: ../../../modules/administration/index.php:2
 msgid "Module administration"
@@ -661,7 +661,7 @@ msgstr "Deleting a null or non-numeric key is not possible"
 #: ../../../modules/classes/import.class.php:120
 #, php-format
 msgid "L'entête de colonne %1$s n'est pas reconnue (%2$s)"
-msgstr "The column header %1$s is not recognized (%2$s)"
+msgstr "Column header %1$s is not recognized (%2$s)"
 
 #: ../../../modules/classes/import.class.php:124
 #, php-format
@@ -732,8 +732,8 @@ msgstr "An error occurred when browsing existing photos or deleting them"
 msgid "Problème d'écriture de la photo dans le dossier temporaire"
 msgstr "Problem of writing the photo in the temporary folder"
 
-#: ../../../modules/classes/individu.class.php:229
-#: ../../../modules/classes/individu.class.php:230
+#: ../../../modules/classes/individu.class.php:233
+#: ../../../modules/classes/individu.class.php:234
 msgid "Des photos sont rattachées au poisson, sa suppression est impossible"
 msgstr "Photos are attached to the fish, its removable is impossible"
 
@@ -1377,7 +1377,7 @@ msgstr "semicolon"
 #: ../../../display/templates/gestion/pieceDisplay.tpl:171
 #: ../../../display/templates/gestion/piecemetadataChange.tpl:112
 msgid "Date d'acquisition des données :"
-msgstr "Date of obtaining metadata:"
+msgstr "date of obtaining data:"
 
 #: ../../../display/templates/gestion/pieceDisplay.tpl:177
 #: ../../../display/templates/gestion/piecemetadataChange.tpl:118
@@ -1451,7 +1451,9 @@ msgid "Code de l'individu :"
 msgstr "Fish code:"
 
 #: ../../../display/templates/gestion/individuDisplay.tpl:24
+#: ../../../display/templates/gestion/individuSearch.tpl:149
 #: ../../../display/templates/gestion/individuChange.tpl:48
+#: ../../../display/templates/photolecture/lectureSearch.tpl:144
 msgid "Espèce :"
 msgstr "Species:"
 
@@ -1542,46 +1544,85 @@ msgstr "Fishman:"
 msgid "Opérateur :"
 msgstr "Operator:"
 
-#: ../../../display/templates/gestion/individuSearch.tpl:15
-#: ../../../display/templates/photolecture/lectureSearch.tpl:25
+#: ../../../display/templates/gestion/individuSearch.tpl:42
+#: ../../../display/templates/gestion/individuChange.tpl:63
+#: ../../../display/templates/photolecture/lectureSearch.tpl:30
+#: ../../../display/templates/photolecture/lectureSearch.tpl:55
+msgid "Sélectionnez..."
+msgstr "Choose..."
+
+#: ../../../display/templates/gestion/individuSearch.tpl:72
+#: ../../../display/templates/photolecture/lectureSearch.tpl:84
 msgid "Code ou TAG de l'individu :"
 msgstr "Code or tag of fish:"
 
-#: ../../../display/templates/gestion/individuSearch.tpl:23
+#: ../../../display/templates/gestion/individuSearch.tpl:80
 msgid "Sexe de l'animal :"
 msgstr "Fish sex:"
 
-#: ../../../display/templates/gestion/individuSearch.tpl:27
+#: ../../../display/templates/gestion/individuSearch.tpl:84
 msgid "Sélectionnez le sexe recherché"
 msgstr "Select the sex"
 
-#: ../../../display/templates/gestion/individuSearch.tpl:36
-#: ../../../display/templates/photolecture/lectureSearch.tpl:32
+#: ../../../display/templates/gestion/individuSearch.tpl:93
+#: ../../../display/templates/photolecture/lectureSearch.tpl:91
 msgid "Expérimentation :"
 msgstr "Experimentation:"
 
-#: ../../../display/templates/gestion/individuSearch.tpl:50
-#: ../../../display/templates/photolecture/lectureSearch.tpl:48
+#: ../../../display/templates/gestion/individuSearch.tpl:107
+#: ../../../display/templates/photolecture/lectureSearch.tpl:107
 msgid "Site de pêche :"
 msgstr "Fishing site:"
 
-#: ../../../display/templates/gestion/individuSearch.tpl:54
-#: ../../../display/templates/photolecture/lectureSearch.tpl:52
+#: ../../../display/templates/gestion/individuSearch.tpl:111
+#: ../../../display/templates/photolecture/lectureSearch.tpl:111
 msgid "Sélectionnez le site global de pêche"
 msgstr "Select the global fishing site"
 
-#: ../../../display/templates/gestion/individuSearch.tpl:63
-#: ../../../display/templates/photolecture/lectureSearch.tpl:62
+#: ../../../display/templates/gestion/individuSearch.tpl:120
+#: ../../../display/templates/photolecture/lectureSearch.tpl:121
 msgid "Zone précise de pêche :"
 msgstr "Precise fishing area:"
 
-#: ../../../display/templates/gestion/individuSearch.tpl:67
-#: ../../../display/templates/photolecture/lectureSearch.tpl:66
+#: ../../../display/templates/gestion/individuSearch.tpl:124
+#: ../../../display/templates/photolecture/lectureSearch.tpl:125
 msgid "Sélectionnez le site précis de pêche"
 msgstr "Select the precise fishing site"
 
-#: ../../../display/templates/gestion/individuSearch.tpl:76
-#: ../../../display/templates/photolecture/lectureSearch.tpl:91
+#: ../../../display/templates/gestion/individuSearch.tpl:135
+msgid "Lectures non réalisées :"
+msgstr "Not performed readings:"
+
+#: ../../../display/templates/gestion/individuSearch.tpl:138
+#: ../../../display/templates/param/metadatatypeChange.tpl:65
+#: ../../../display/templates/param/metadatatypeList.tpl:56
+#: ../../../display/templates/ident/loginsaisie.tpl:108
+#: ../../../display/templates/ident/loginsaisie.tpl:170
+#: ../../../display/templates/photolecture/lectureSearch.tpl:152
+#: ../../../display/templates/photolecture/photolectureChange.tpl:328
+#: ../../../display/templates/photolecture/photolectureChange.tpl:365
+msgid "non"
+msgstr "no"
+
+#: ../../../display/templates/gestion/individuSearch.tpl:139
+#: ../../../display/templates/param/metadatatypeChange.tpl:62
+#: ../../../display/templates/param/metadatatypeList.tpl:56
+#: ../../../display/templates/ident/loginliste.tpl:21
+#: ../../../display/templates/ident/loginliste.tpl:22
+#: ../../../display/templates/ident/loginsaisie.tpl:104
+#: ../../../display/templates/ident/loginsaisie.tpl:167
+#: ../../../display/templates/photolecture/lectureSearch.tpl:153
+#: ../../../display/templates/photolecture/photolectureChange.tpl:325
+#: ../../../display/templates/photolecture/photolectureChange.tpl:362
+msgid "oui"
+msgstr "yes"
+
+#: ../../../display/templates/gestion/individuSearch.tpl:142
+msgid "pour :"
+msgstr "For:"
+
+#: ../../../display/templates/gestion/individuSearch.tpl:155
+#: ../../../display/templates/photolecture/lectureSearch.tpl:157
 msgid "Rechercher..."
 msgstr "Search..."
 
@@ -1638,10 +1679,6 @@ msgstr "Species to search"
 #: ../../../display/templates/gestion/individuChange.tpl:51
 msgid "Tapez au moins 3 caractères..."
 msgstr "Type at least 3 characters..."
-
-#: ../../../display/templates/gestion/individuChange.tpl:63
-msgid "Sélectionnez..."
-msgstr "Choose..."
 
 #: ../../../display/templates/gestion/individuChange.tpl:90
 msgid "Longueur (mm) :"
@@ -1870,43 +1907,23 @@ msgstr "For others, send a request at "
 
 #: ../../../display/templates/param/metadatatypeChange.tpl:24
 msgid "La définition des métadonnées n'est pas valide."
-msgstr "Metadata structure is not valid."
+msgstr "The metadata definition is not valid."
 
 #: ../../../display/templates/param/metadatatypeChange.tpl:32
 msgid "Création - Modification d'un modèle de métadonnées"
-msgstr "Create or change a metadata template"
+msgstr "Create / Edit a metadata template"
 
 #: ../../../display/templates/param/metadatatypeChange.tpl:46
 msgid "Nom du modèle :"
-msgstr "Template name:"
+msgstr "Model name:"
 
 #: ../../../display/templates/param/metadatatypeChange.tpl:59
 msgid "Les données sont-elles en tableau (multivaleurs) ?"
 msgstr "Is the data tabulated (multi-values) ?"
 
-#: ../../../display/templates/param/metadatatypeChange.tpl:62
-#: ../../../display/templates/param/metadatatypeList.tpl:56
-#: ../../../display/templates/ident/loginliste.tpl:21
-#: ../../../display/templates/ident/loginliste.tpl:22
-#: ../../../display/templates/ident/loginsaisie.tpl:104
-#: ../../../display/templates/ident/loginsaisie.tpl:167
-#: ../../../display/templates/photolecture/photolectureChange.tpl:325
-#: ../../../display/templates/photolecture/photolectureChange.tpl:362
-msgid "oui"
-msgstr "yes"
-
-#: ../../../display/templates/param/metadatatypeChange.tpl:65
-#: ../../../display/templates/param/metadatatypeList.tpl:56
-#: ../../../display/templates/ident/loginsaisie.tpl:108
-#: ../../../display/templates/ident/loginsaisie.tpl:170
-#: ../../../display/templates/photolecture/photolectureChange.tpl:328
-#: ../../../display/templates/photolecture/photolectureChange.tpl:365
-msgid "non"
-msgstr "no"
-
 #: ../../../display/templates/param/metadatatypeChange.tpl:77
 msgid "Jeu de métadonnées"
-msgstr "Metadata template"
+msgstr "Metadata set"
 
 #: ../../../display/templates/param/metadatatypeChange.tpl:96
 #: ../../../display/templates/ident/loginsaisie.tpl:188
@@ -1928,15 +1945,15 @@ msgstr "Uncheck all"
 
 #: ../../../display/templates/param/metadatatypeList.tpl:29
 msgid "Exporter les métadonnées :"
-msgstr "Export the metadata:"
+msgstr "Export metadata:"
 
 #: ../../../display/templates/param/metadatatypeList.tpl:31
 msgid "Déclencher l'export"
-msgstr "Start import"
+msgstr "Start export"
 
 #: ../../../display/templates/param/metadatatypeList.tpl:38
 msgid "Nom du modèle"
-msgstr "Template name"
+msgstr "Model name"
 
 #: ../../../display/templates/param/metadatatypeList.tpl:39
 msgid "Résumé"
@@ -2003,11 +2020,12 @@ msgstr ""
 #: ../../../display/templates/param/metadataFormJS.tpl:25
 msgid ""
 "Ce fichier contient plus de 50 entrées. Etes-vous sûr de vouloir l'importer ?"
-msgstr "This file contains more than 50 entries. Are you sure to import it?"
+msgstr ""
+"This file contains more than 50 entries. Are you sure you want to import it?"
 
 #: ../../../display/templates/param/metadataFormJS.tpl:53
 msgid "Nom du champ (sans espace, sans accent, en minuscule)"
-msgstr "Field name (without space, accent, lowercase)"
+msgstr "Field name (no space, no accent, lowercase)"
 
 #: ../../../display/templates/param/metadataFormJS.tpl:58
 msgid "Type du champ"
@@ -2027,7 +2045,7 @@ msgstr "Default value"
 
 #: ../../../display/templates/param/metadataFormJS.tpl:82
 msgid "Affichage d'un message d'aide ?"
-msgstr "Display an help message?"
+msgstr "Display a help message?"
 
 #: ../../../display/templates/param/metadataFormJS.tpl:86
 #: ../../../display/templates/param/metadataFormJS.tpl:149
@@ -2040,7 +2058,7 @@ msgstr "Field description"
 
 #: ../../../display/templates/param/metadataFormJS.tpl:93
 msgid "Unité de mesure (ou modalités) - N/A si non applicable"
-msgstr "Measure unit (or modality) - N/A if not applicable"
+msgstr "Unit of measure (or modalities) - N/A if not applicable"
 
 #: ../../../display/templates/param/metadataFormJS.tpl:109
 msgid "Nombre"
@@ -2056,7 +2074,7 @@ msgstr "Text (multi-line)"
 
 #: ../../../display/templates/param/metadataFormJS.tpl:109
 msgid "Case à cocher"
-msgstr "Check box"
+msgstr "Checkbox"
 
 #: ../../../display/templates/param/metadataFormJS.tpl:109
 msgid "Liste à choix multiple"
@@ -2064,11 +2082,11 @@ msgstr "Multiple choice list"
 
 #: ../../../display/templates/param/metadataFormJS.tpl:109
 msgid "Boutons Radio"
-msgstr "Radio button"
+msgstr "Radio Buttons"
 
 #: ../../../display/templates/param/metadataFormJS.tpl:109
 msgid "Lien vers un site externe (URL)"
-msgstr "External site reference (URL)"
+msgstr "Link to an external site (URL)"
 
 #: ../../../display/templates/param/metadataFormJS.tpl:123
 msgid "Importer un fichier CSV"
@@ -2080,7 +2098,7 @@ msgstr "Mandatory"
 
 #: ../../../display/templates/param/metadataFormJS.tpl:152
 msgid "Vous pouvez copier ici la description et l'unité de mesure"
-msgstr "You can copy here the description of the measure unit"
+msgstr "You can copy here the description and the unit of measure"
 
 #: ../../../display/templates/ident/login.tpl:5
 #: ../../../display/templates/ident/loginsaisie.tpl:70
@@ -2355,15 +2373,15 @@ msgstr "Estimated birth year:"
 msgid "Points remarquables :"
 msgstr "Remarkable points:"
 
-#: ../../../display/templates/photolecture/lectureSearch.tpl:78
+#: ../../../display/templates/photolecture/lectureSearch.tpl:137
 msgid "Lecteur :"
 msgstr "Reader:"
 
-#: ../../../display/templates/photolecture/lectureSearch.tpl:82
-msgid "Sélectionnez le lecteur"
-msgstr "Select the reader"
+#: ../../../display/templates/photolecture/lectureSearch.tpl:150
+msgid "Lecture consensuelle ?"
+msgstr "Consensual reading:"
 
-#: ../../../display/templates/photolecture/lectureSearch.tpl:95
+#: ../../../display/templates/photolecture/lectureSearch.tpl:161
 msgid "Exporter la liste"
 msgstr "Export the list at CSV format"
 
@@ -2692,13 +2710,16 @@ msgstr ": activate to sort column ascending"
 msgid ": activer pour trier la colonne par ordre décroissant"
 msgstr ": activate to sort column descending"
 
-#: ../../../display/templates/main_js.tpl:143
+#: ../../../display/templates/main_js.tpl:150
 msgid "Valeur numérique..."
 msgstr "Numerical value..."
 
-#: ../../../display/templates/main_js.tpl:163
+#: ../../../display/templates/main_js.tpl:170
 msgid "Confirmez-vous la suppression ?"
 msgstr "Do you confirm the deletion?"
+
+#~ msgid "Sélectionnez le lecteur"
+#~ msgstr "Select the reader"
 
 #~ msgid "Lexique"
 #~ msgstr "Glossary"
