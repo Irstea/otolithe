@@ -1,5 +1,11 @@
 Nouveautés
 ===========
+Version 2.2.1 du 22 février 2019
+---------------------------
+Nouveautés :
+- dans les tableaux, le nombre de lignes sélectionné est maintenant conservé
+- de nouveaux critères de tri ont été introduits : espèce, lecture consensuelle, lecture non réalisée
+
 Version 2.2 du 10 janvier 2019
 ---------------------------
 Corrections de bugs :
