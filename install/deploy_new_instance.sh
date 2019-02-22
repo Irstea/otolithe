@@ -4,7 +4,7 @@
 # creation : Eric Quinton - 2018-08-17
 # tested with debian 9.5
 # php7.0 : if new version, change in the first lines of the script
-
+VERSION=otolithe-2.2.1
 downloadPath="https://github.com/Irstea/otolithe/archive/master.zip"
 phpinifile="/etc/php/7.0/apache2/php.ini"
 
@@ -31,8 +31,8 @@ cd otolithe
 echo "download software"
 wget $downloadPath
 unzip otolithe-master.zip
-mv otolithe-master otolithe-2.0
-ln -s otolithe-2.0 otolithe
+mv otolithe-master $VERSION
+ln -s $VERSION otolithe
 
 # update rights on files
 chmod -R 755 .
