@@ -94,6 +94,9 @@ class Individu extends ObjetBdd
         if (strlen($data["zone"]) > 0) {
             $where .= $and . "p.zonesite = '" . $data["zone"] . "'";
         }
+        if ($data["espece_id"] > 0) {
+            $where .= $and . "e.espece_id = ". $data["espece_id"];
+        }
         /**
          * Recherche des lectures non réalisées
          */
@@ -126,6 +129,22 @@ class Individu extends ObjetBdd
             $listData[$key]["peche_date"] = $this->formatDateDBversLocal($value["peche_date"]);
         }
         return $listData;
+    }
+
+    /**
+     * Retourne la liste des espèces utilisées pour une expérimentation
+     *
+     * @param [int] $exp_id
+     * @return array
+     */
+    function getListEspeceFromExp($exp_id) {
+        $sql = "select distinct espece_id, nom_id 
+                from individu
+                join espece using (espece_id)
+                join individu_experimentation using (individu_id)
+                where exp_id = :exp_id
+        ";
+        return $this->getListeParamAsPrepared($sql, array("exp_id"=>$exp_id));
     }
 
     /**

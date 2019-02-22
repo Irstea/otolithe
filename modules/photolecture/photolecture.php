@@ -363,8 +363,8 @@ switch ($t_module["param"]) {
         $_REQUEST["exp_id"] = $_SESSION["it_experimentation"]->getValue($_REQUEST["exp_id"]);
     }
     $searchLecture->setParam($_REQUEST);
+    $dataRecherche = $searchLecture->getParam();
     if ($searchLecture->isSearch() == 1) {
-        $dataRecherche = $searchLecture->getParam();
         $data = $dataClass->getListSearch($dataRecherche);
         $data = $_SESSION["it_photolecture"]->translateList($data);
         $data = $_SESSION["it_photo"]->translateList($data);
