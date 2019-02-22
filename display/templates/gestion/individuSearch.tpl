@@ -1,9 +1,35 @@
 <script>
 $(document).ready(function() {
+	var lecteur_id = {$individuSearch.lecteur_id};
 $(".auto").change( function () {
 	$("#searchBox").submit() ;
 });
 /* Recherche des lecteurs correspondant a l'experimentation */
+function getLecteur() {
+	var exp_id = $("#exp_id").val();
+	$("#lecteur_id").empty();
+	$.ajax ( {
+		url: "index.php",
+		data: { "module":"lecteurListFromExp", "exp_id": exp_id}
+	}).done (function (value) { 
+		var selected = "";
+		var option = "";
+		$.each(JSON.parse(value), function (i, obj) { 
+			if (obj.lecteur_id == lecteur_id) {
+				selected = "selected";
+			} else {
+				selected = "";
+			}
+			option += '<option value="'+obj.lecteur_id+'" ' + selected + '>' + obj.lecteur_prenom + " " + obj.lecteur_nom + "</option>";
+		});
+		$("#lecteur_id").append(option);
+	}); 
+}
+$("#exp_id").change(function () { 
+	getLecteur();
+});
+/* Initialisation a l'ouverture de la page */
+getLecteur();
 
 
 });

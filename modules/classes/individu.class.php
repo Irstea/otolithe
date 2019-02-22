@@ -75,7 +75,9 @@ class Individu extends ObjetBdd
          */
         $where = "";
         $and = " and ";
-
+        if (strlen($data["exp_id"]) == 0) {
+            $data["exp_id"] = 0;
+        }
         $where =" where ie.exp_id = " . $data["exp_id"];
 
         if (strlen($data["codeindividu"]) > 0) {
