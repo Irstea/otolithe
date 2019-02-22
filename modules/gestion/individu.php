@@ -33,6 +33,8 @@ switch ($t_module["param"]) {
         }
         $sexe = new Sexe($bdd, $ObjetBDDParam);
         $vue->set($sexe->getListe(), "sexe");
+
+
     
     /*
          * Integration des experimentations

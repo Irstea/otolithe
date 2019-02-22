@@ -19,6 +19,9 @@ $lecteur_id = $lecteur->getIdFromLogin($_SESSION['login']);
 if ($lecteur_id > 0) {
     $_SESSION["droits"]["lecture"] = 1;
     $_SESSION["droits"]["consult"] = 1;
+    $_SESSION["lecteur_id"] = $lecteur_id;
+    $_SESSION["searchIndividu"]->setParam(array("lecteur_id"=>$lecteur_id));
+    $_SESSION["searchLecture"]->setParam(array("lecteur_id"=>$lecteur_id));
     $vue->set($_SESSION["droits"], "droits");
 
     /*

@@ -533,6 +533,22 @@ class Lecteur extends ObjetBdd
     }
 
     /**
+     * Retourne la liste des lecteurs rattaches a une experimentation
+     *
+     * @param [int] $exp_id
+     * @return array
+     */
+    public function getListFromExp($exp_id) {
+        $sql = "select l.* 
+                from lecteur l
+                join lecteur_experimentation using (lecteur_id)
+                where exp_id = :exp_id
+                order by lecteur_nom, lecteur_prenom
+        ";
+        return $this->getListeParamAsPrepared($sql, array("exp_id"=>$exp_id));
+    }
+
+    /**
      * Surcharge de la fonction ecrire pour enregistrer les experimentations autorisees
      * (non-PHPdoc)
      *

@@ -82,7 +82,7 @@ class SearchIndividu extends SearchParam
 {
 	function __construct()
 	{
-		$this->param = array("codeindividu" => "", "exp_id" => "", "sexe" => "", "site" => "", "zone" => "");
+		$this->param = array("codeindividu" => "", "exp_id" => "", "sexe" => "", "site" => "", "zone" => "", "isNotRead" => 0, "lecteur_id"=>"");
 		parent::__construct();
 	}
 }
