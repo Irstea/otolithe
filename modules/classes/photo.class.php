@@ -1089,6 +1089,7 @@ class Photolecture extends ObjetBdd
         $param = $this->encodeData($param);
         $sql = "select photolecture_id, photo_id, lecteur_id, piece_id, individu_id,
                         codeindividu, tag,
+                        site, zonesite, peche_date, campagne,
                         lecteur_nom, lecteur_prenom,
                         photolecture_date,
                         read_fiability, consensual_reading, annee_naissance,
