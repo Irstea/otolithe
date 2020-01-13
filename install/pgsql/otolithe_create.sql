@@ -19,7 +19,7 @@ ALTER SEQUENCE "espece_espece_id_seq" OWNED BY "espece"."espece_id";
 CREATE SEQUENCE "experimentation_exp_id_seq";
 
 CREATE TABLE "experimentation" (
-                "exp_id" INTEGER DEFAULT nextval('experimentation_exp_id_seq'::regclass) NOT NULL ,
+                "exp_id" INTEGER  NOT NULL DEFAULT nextval('experimentation_exp_id_seq'::regclass)  ,
                 "exp_nom" VARCHAR NOT NULL,
                 "exp_description" VARCHAR,
                 "exp_debut" DATE,
@@ -152,7 +152,7 @@ ALTER SEQUENCE "photo_photo_id_seq" OWNED BY "photo"."photo_id";
 CREATE SEQUENCE "photolecture_photolecture_id_seq";
 
 CREATE TABLE "photolecture" (
-                "photolecture_id" INTEGER DEFAULT nextval('photolecture_photolecture_id_seq'::regclass) NOT NULL ,
+                "photolecture_id" INTEGER NOT NULL DEFAULT nextval('photolecture_photolecture_id_seq'::regclass) ,
                 "photo_id" INTEGER NOT NULL,
                 "lecteur_id" INTEGER NOT NULL,
                 "final_stripe_id" INTEGER,
@@ -171,7 +171,7 @@ CREATE TABLE "photolecture" (
                 "consensual_reading" SMALLINT,
                 "annee_naissance" INTEGER,
                 "commentaire" varchar, 
-                "remarkable_points" json
+                "remarkable_points" json,
                 CONSTRAINT "pk_photolecture" PRIMARY KEY ("photolecture_id"),
                 CONSTRAINT enforce_dims_points CHECK (public.st_ndims(points) = 2),
                 CONSTRAINT enforce_dims_points_ref_lecture CHECK (public.st_ndims(points_ref_lecture) = 2),
