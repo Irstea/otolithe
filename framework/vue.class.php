@@ -14,8 +14,7 @@
  *        
  */
 class VueException extends Exception
-{
-}
+{ }
 
 class Message
 {
@@ -68,7 +67,8 @@ class Message
      *
      * @return int
      */
-    function getMessageNumber() {
+    function getMessageNumber()
+    {
         return (count($this->_message));
     }
 
@@ -111,7 +111,6 @@ class Message
             $error = "err";
             $code_error = 4;
             $level = "warn";
-
         } else {
             $error = "info";
             $code_error = 6;
@@ -161,7 +160,21 @@ class Vue
      * @param string $param
      */
     function send($param = "")
+    { }
+
+    /**
+     * Return the content of a variable
+     *
+     * @param string $variable
+     * @return string|array
+     */
+    function get($variable = "")
     {
+        if (strlen($variable) > 0) {
+            return $this->data[$variable];
+        } else {
+            return $this->data;
+        }
     }
 
     /**
@@ -281,7 +294,24 @@ class VueSmarty extends Vue
         /*
          * Declenchement de l'affichage
          */
+        try {
         $this->smarty->display($this->templateMain);
+        }catch (Exception $e) {
+            printr(_("Une erreur a été détectée lors de la création de l'écran. Si le problème persiste, contactez l'administrateur de l'application."));
+            global $message;
+            $message->setSyslog($e->getMessage());
+        }
+    }
+
+    /**
+     * Return the content of a variable
+     *
+     * @param string $variable
+     * @return string|array
+     */
+    function get($variable = "")
+    {
+        return $this->smarty->getTemplateVars($variable);
     }
 }
 
@@ -513,12 +543,12 @@ class VuePdf extends Vue
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
             header('Content-Type: ' . finfo_file($finfo, $this->filename));
             finfo_close($finfo);
-            
+
             /*
              * Mise a disposition
              */
             header('Content-Disposition: ' . $this->disposition . '; filename="' . basename($this->filename) . '"');
-            
+
             /*
              * Desactivation du cache
              */
@@ -591,6 +621,8 @@ class VueBinaire extends Vue
      */
     function send()
     {
+        //printr($this->param);
+
         if (strlen($this->param["tmp_name"]) > 0) {
             /*
              * Recuperation du content-type s'il n'a pas ete fourni
@@ -602,7 +634,7 @@ class VueBinaire extends Vue
             }
             header('Content-Type: ' . $this->param["content_type"]);
             header('Content-Transfer-Encoding: binary');
-            if ($this->param["disposition"] == "attachment" && strlen($this->param["filename"] > 0)) {
+            if ($this->param["disposition"] == "attachment" && strlen($this->param["filename"]) > 0) {
                 header('Content-Disposition: attachment; filename="' . basename($this->param["filename"]) . '"');
             } else {
                 header('Content-Disposition: inline');
@@ -614,7 +646,6 @@ class VueBinaire extends Vue
             header('Expires: 0');
             header('Cache-Control: must-revalidate');
             header('Pragma: no-cache');
-            
             /*
              * Envoi au navigateur
              */
@@ -638,5 +669,66 @@ class VueBinaire extends Vue
         }
     }
 }
+/**
+ * Generate a file with an undetermined contain
+ */
+class VueFile extends Vue
+{
+    private $param = array(
+        "filename" => "export.txt", /* nom du fichier tel qu'il apparaitra dans le navigateur */
+        "disposition" => "attachment", /* attachment : le fichier est telecharge, inline : le fichier est affiche */
+        "content_type" => "text/plain" /* type mime */
+    );
 
-?>
+    /**
+     * Met a jour les parametres necessaires pour l'export
+     *
+     * @param array $param
+     */
+    function setParam(array $param)
+    {
+        if (is_array($param)) {
+            foreach ($param as $key => $value) {
+                $this->param[$key] = $value;
+            }
+        }
+    }
+    /**
+     * rewrite send for generate the file
+     *
+     * @param array $param: list of parameters of file
+     * @return void
+     */
+    function send($param = array())
+    {
+        if (count($param) > 0) {
+            $this->setParam($param);
+        }
+        if (strlen($this->param["content_type"]) == 0) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $this->param["content_type"] = finfo_file($finfo, $this->param["tmp_name"]);
+            finfo_close($finfo);
+        }
+        ob_clean();
+        header('Content-Type: ' . $this->param["content_type"]);
+        header('Content-Transfer-Encoding: binary');
+        if ($this->param["disposition"] == "attachment" && strlen($this->param["filename"]) > 0) {
+            header('Content-Disposition: attachment; filename="' . basename($this->param["filename"]) . '"');
+        } else {
+            header('Content-Disposition: inline');
+        }
+        /*
+         * Ajout des entetes de cache
+         */
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: no-cache');
+        /*
+         * Envoi au navigateur
+         */
+        $fp = fopen('php://output', 'w');
+        fwrite($fp, $this->data);
+        fclose($fp);
+        ob_flush();
+    }
+}

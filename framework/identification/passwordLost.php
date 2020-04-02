@@ -6,6 +6,7 @@
  * Copyright 2017 - All rights reserved
  */
 require_once 'framework/identification/passwordlost.class.php';
+require_once 'framework/identification/loginGestion.class.php';
 $dataClass = new Passwordlost($bdd_gacl, $ObjetBDDParam);
 $keyName = "passwordlost_id";
 $id = $_REQUEST[$keyName];
@@ -13,7 +14,7 @@ $id = $_REQUEST[$keyName];
 switch ($t_module["param"]) {
     case "isLost":
         if ($APPLI_lostPassword == 1) {
-            $vue->set("ident/identMailInput.tpl", "corps");
+            $vue->set("framework/ident/identMailInput.tpl", "corps");
         }
         break;
     case "sendMail":
@@ -23,7 +24,7 @@ switch ($t_module["param"]) {
                 $data = $dataClass->createTokenFromMail($_REQUEST["mail"]);
                 if ($data["id"] > 0) {
                     require_once 'framework/identification/mail.class.php';
-                    
+
                     $param = array(
                         "replyTo" => $APPLI_mail,
                         "from" => $APPLI_mail,
@@ -38,7 +39,6 @@ switch ($t_module["param"]) {
                     $loginGestion = new LoginGestion($bdd_gacl, $ObjetBDDParam);
                     $dl = $loginGestion->lire($data["id"]);
                     if (strlen($dl["mail"]) > 0) {
-                        require_once 'framework/identification/mail.class.php';
 
                         $mail = new Mail($param);
                         if ($mail->sendMail($dl["mail"], array(
@@ -65,7 +65,7 @@ switch ($t_module["param"]) {
                 $message->setSyslog($e->getMessage());
             }
         }
-        
+
         break;
     case "reinitChange":
         if (isset($_REQUEST["token"]) && $APPLI_lostPassword == 1) {
@@ -78,7 +78,7 @@ switch ($t_module["param"]) {
                  * Verification que la derniere connexion soit une connexion de type db
                  */
                 if ($log->getLastConnexionType($data["login"]) == "db") {
-                    $vue->set("ident/loginChangePassword.tpl", "corps");
+                    $vue->set("framework/ident/loginChangePassword.tpl", "corps");
                     $vue->set("1", "passwordLost");
                     $vue->set($_REQUEST["token"], "token");
                 } else {
@@ -119,7 +119,7 @@ switch ($t_module["param"]) {
         } else {
             $module_coderetour = 1;
         }
-        
+
         break;
 }
 ?>

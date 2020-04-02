@@ -37,7 +37,7 @@ class Individu extends ObjetBdd
                 "type" => 1
             ),
             "remarque" => array(
-                "longueur" => 255
+                "type" => 0
             ),
             "parasite" => array(
                 "longueur" => 255
