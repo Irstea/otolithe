@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="666,0" last-zoom="1" max-obj-count="33"
+<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="664,755" last-zoom="1" max-obj-count="33"
 	 default-schema="public" default-owner="otolithe"
 	 layers="gacl" active-layers="0;1">
 <role name="otolithe"
@@ -853,7 +853,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</customidxs>
 </table>
 
-<table name="logingestion" layer="1" collapse-mode="2" max-obj-count="12">
+<table name="logingestion" layer="1" collapse-mode="2" max-obj-count="13">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<tag name="acl"/>
@@ -887,6 +887,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</column>
 	<column name="tokenws">
 		<type name="character varying" length="0"/>
+	</column>
+	<column name="is_expired" default-value="false">
+		<type name="boolean" length="0"/>
 	</column>
 	<constraint name="logingestion_pk" type="pk-constr" table="gacl.logingestion">
 		<columns names="id" ref-type="src-columns"/>

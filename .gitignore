@@ -12,7 +12,6 @@ clear_templates_c.sh
 test/*
 param/id_otolithe
 param/id_otolithe.pub
-display/node_modules
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

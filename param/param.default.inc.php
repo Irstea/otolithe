@@ -85,10 +85,10 @@ $BDD_schema = "public";
  */
 $display = "display"; // Dossier de base contenant tout l'affichage
 $SMARTY_param = array(
-    "templates" => "$display/templates",
-    "templates_c" => "$display/templates_c",
+    "templates" => "display/templates",
+    "templates_c" => "display/templates_c",
     "cache" => false,
-    "cache_dir" => "$display/smarty_cache",
+    "cache_dir" => "display/smarty_cache",
     "template_main" => "main.htm"
 );
 
@@ -116,7 +116,7 @@ $SMARTY_variables = array(
     "melappli" => $APPLI_mail,
     "ident_type" => $ident_type,
     "appliAssist" => $APPLI_assist_address,
-    "display" => "/$display",
+    "display" => "/display",
     "favicon" => "/favicon.png"
 );
 /*
