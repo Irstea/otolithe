@@ -1,5 +1,5 @@
 <?php
-include_once 'modules/classes/photo.class.php';
+include_once 'modules/classes/lecteur.class.php';
 $dataClass = new Lecteur($bdd, $ObjetBDDParam);
 $id = $_REQUEST["lecteur_id"];
 
@@ -18,7 +18,7 @@ switch ($t_module["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
         dataRead($dataClass, $id, "gestion/lecteurChange.tpl");
-        require_once "modules/classes/individu.class.php";
+        require_once "modules/classes/experimentation.class.php";
         $experimentation = new Experimentation($bdd, $ObjetBDDParam);
         $vue->set($experimentation->getAllListFromLecteur($id), "exps");
         break;
@@ -50,4 +50,3 @@ switch ($t_module["param"]) {
         $vue->set($dataClass->getListFromExp($exp_id));
         break;
 }
- 

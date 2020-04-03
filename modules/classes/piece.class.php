@@ -33,21 +33,22 @@ class Piece extends ObjetBdd
 			),
 			"traitementpiece_id" => array(
 				"type" => 1
-			)
+			),
+			"uuid" => array("type" => 0, "default" => "getUUID"),
 		);
 		$param["fullDescription"] = 1;
 		parent::__construct($bdd, $param);
 	}
 	/**
 	 * Affiche le detail d'une piece
-	 * 
-	 * @param int $id        	
+	 *
+	 * @param int $id
 	 * @return array
 	 */
 	function getDetail($id)
 	{
 		if ($id > 0) {
-			$sql = "select piece_id, individu_id, piecetype_id, piecetype_libelle, piececode, 
+			$sql = "select piece_id, individu_id, piecetype_id, piecetype_libelle, piececode,
 				traitementpiece_id, traitementpiece_libelle
 				from " . $this->table . " left outer join piecetype using (piecetype_id)
 				  left outer join traitementpiece using (traitementpiece_id)
@@ -59,17 +60,17 @@ class Piece extends ObjetBdd
 	}
 	/**
 	 * Retourne la liste des pieces attachees a un individu
-	 * 
-	 * @param int $individu_id        	
+	 *
+	 * @param int $individu_id
 	 * @return array
 	 */
 	function getListFromIndividu($individu_id)
 	{
 		if ($individu_id > 0) {
 			$sql = "select piece_id, individu_id, piececode,
-				piecetype_libelle, traitementpiece_libelle, 
+				piecetype_libelle, traitementpiece_libelle,
 				count(photo_id) as nbphoto
-				from " . $this->table . " 
+				from " . $this->table . "
 						left outer join piecetype using (piecetype_id)
 						left outer join traitementpiece using (traitementpiece_id)
 						left outer join photo using (piece_id)
@@ -127,72 +128,3 @@ class Piece extends ObjetBdd
 		}
 	}
 }
-/**
- * ORM de gestion de la table piecetype
- * 
- * @author quinton
- *        
- */
-class Piecetype extends ObjetBdd
-{
-	function __construct($bdd, $param = array())
-	{
-		$this->param = $param;
-		$this->table = "piecetype";
-		$this->id_auto = "1";
-		$this->colonnes = array(
-			"piecetype_id" => array(
-				"type" => 1,
-				"key" => 1,
-				"requis" => 1,
-				"defaultValue" => 0
-			),
-			"piecetype_libelle" => array(
-				"longueur" => 255
-			)
-		);
-		$param["fullDescription"] = 1;
-		parent::__construct($bdd, $param);
-	}
-}
-/**
- * ORM de gestion de la table traitement
- * 
- * @author quinton
- *        
- */
-class Traitementpiece extends ObjetBdd
-{
-	function __construct($bdd, $param = array())
-	{
-		$this->param = $param;
-		$this->table = "traitementpiece";
-		$this->id_auto = "1";
-		$this->colonnes = array(
-			"traitementpiece_id" => array(
-				"type" => 1,
-				"key" => 1,
-				"requis" => 1,
-				"defaultValue" => 0
-			),
-			"traitementpiece_libelle" => array(
-				"longueur" => 255
-			)
-		);
-		$this->id_auto = "1";
-		$this->colonnes = array(
-			"traitement_id" => array(
-				"type" => 1,
-				"key" => 1,
-				"requis" => 1,
-				"defaultValue" => 0
-			),
-			"traitement_libelle" => array(
-				"longueur" => 255
-			)
-		);
-		$param["fullDescription"] = 1;
-		parent::__construct($bdd, $param);
-	}
-}
-?>

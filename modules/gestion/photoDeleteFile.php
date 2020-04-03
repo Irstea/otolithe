@@ -17,7 +17,7 @@ if (strlen ( $APPLI_photoStockage ) > 0) {
 		$infos = pathinfo ( $path );
 		$extension = $infos ['extension'];
 		if ($extension == "jpg" && ! is_dir($path)) {
-			$age = time () - $atime;			
+			$age = time () - $atime;
 			if ($age > $dureeVie) {
 				unlink ( $path );
 			}
@@ -25,4 +25,3 @@ if (strlen ( $APPLI_photoStockage ) > 0) {
 	}
 	closedir ( $dossier );
 }
-?>

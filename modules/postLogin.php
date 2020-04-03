@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author Eric Quinton
  * @copyright 2014, IRSTEA / Eric Quinton
@@ -13,21 +14,21 @@ require "gestion/photoDeleteFile.php";
 /*
  * Recherche de l'existence du login dans la table des lecteurs
  */
-require_once 'modules/classes/photo.class.php';
+require_once 'modules/classes/lecteur.class.php';
 $lecteur = new Lecteur($bdd, $ObjetBDDParam);
 $lecteur_id = $lecteur->getIdFromLogin($_SESSION['login']);
 if ($lecteur_id > 0) {
     $_SESSION["droits"]["lecture"] = 1;
     $_SESSION["droits"]["consult"] = 1;
     $_SESSION["lecteur_id"] = $lecteur_id;
-    $_SESSION["searchIndividu"]->setParam(array("lecteur_id"=>$lecteur_id));
-    $_SESSION["searchLecture"]->setParam(array("lecteur_id"=>$lecteur_id));
+    $_SESSION["searchIndividu"]->setParam(array("lecteur_id" => $lecteur_id));
+    $_SESSION["searchLecture"]->setParam(array("lecteur_id" => $lecteur_id));
     $vue->set($_SESSION["droits"], "droits");
 
     /*
      * Recuperation des experimentations autorisees
      */
-    include_once 'modules/classes/individu.class.php';
+    include_once 'modules/classes/experimentation.class.php';
     $experimentation = new Experimentation($bdd, $ObjetBDDParam);
     $_SESSION["experimentations"] = $experimentation->getExpAutorisees($lecteur_id);
 }

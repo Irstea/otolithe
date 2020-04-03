@@ -6,7 +6,7 @@
  * Encoding : UTF-8
  * Copyright 2017 - All rights reserved
  */
-require_once 'modules/classes/individu.class.php';
+require_once 'modules/classes/experimentation.class.php';
 $dataClass = new Experimentation($bdd, $ObjetBDDParam);
 $id = $_REQUEST["exp_id"];
 

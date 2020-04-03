@@ -5,7 +5,7 @@
  * Encoding : UTF-8
  * Copyright 2017 - All rights reserved
  */
-require_once 'modules/classes/piece.class.php';
+require_once 'modules/classes/piecetype.class.php';
 $dataClass = new Piecetype($bdd, $ObjetBDDParam);
 $id = $_REQUEST["piecetype_id"];
 
@@ -40,4 +40,3 @@ switch ($t_module["param"]) {
 		dataDelete($dataClass, $id);
         break;
 }
-?>

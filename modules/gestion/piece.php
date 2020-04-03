@@ -63,8 +63,10 @@ switch ($t_module["param"]) {
 		/*
          * Recuperation des tables de parametres
          */
+        require_once "modules/classes/traitementpiece.class.php";
         $traitementpiece = new Traitementpiece($bdd, $ObjetBDDParam);
         $vue->set($traitementpiece->getListe(), "traitementpiece");
+        require_once "modules/classes/piecetype.class.php";
         $piecetype = new Piecetype($bdd, $ObjetBDDParam);
         $vue->set($piecetype->getListe(), "piecetype");
 
@@ -98,10 +100,9 @@ switch ($t_module["param"]) {
 		/*
          * delete record
          */
-        
+
             dataDelete($dataClass, $id);
             /** Reaffectation de l'identifiant en cas d'échec de la suppression */
             $_REQUEST["piece_id"] = $_SESSION["it_piece"]->setValue($id);
         break;
 }
-?>

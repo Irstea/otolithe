@@ -6,7 +6,7 @@
  * @license http://www.cecill.info/licences/Licence_CeCILL-C_V1-fr.html LICENCE DE LOGICIEL LIBRE CeCILL-C
  *  Creation 12 juin 2015
  */
-include_once 'modules/classes/individu.class.php';
+include_once 'modules/classes/espece.class.php';
 $dataClass = new Espece($bdd, $ObjetBDDParam);
 $id = $_REQUEST["espece_id"];
 
@@ -22,14 +22,6 @@ switch ($t_module["param"]) {
 		 */
 		$vue->set($dataClass->getListe(), "data");
 		$vue->set("gestion/especeList.tpl", "corps");
-		break;
-	case "display":
-		/*
-		 * Display the detail of the record
-		 */
-		$vue->set($dataClass->lire($id), "data");
-		$vue->set("example/exampleDisplay.tpl", "corps");
-
 		break;
 	case "change":
 		/*

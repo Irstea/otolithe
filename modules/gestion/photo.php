@@ -34,6 +34,7 @@ switch ($t_module["param"]) {
         /*
          * Recuperation de la liste des lectures effectuees
          */
+        include_once "modules/classes/photolecture.class.php";
         $photolecture = new Photolecture($bdd, $ObjetBDDParam);
         $dataLecture = $photolecture->getListeFromPhoto($id);
         $dataLecture = $_SESSION["it_photolecture"]->translateList($dataLecture);
@@ -82,6 +83,7 @@ switch ($t_module["param"]) {
         /*
          * Lecture des types de lumiere
          */
+        include_once "modules/classes/lumieretype.class.php";
         $lumieretype = new LumiereType($bdd, $ObjetBDDParam);
         $vue->set($lumieretype->getListe(), "lumieretype");
         $data = dataRead($dataClass, $id, "gestion/photoChange.tpl", $piece_id);
@@ -193,4 +195,3 @@ switch ($t_module["param"]) {
         $vue->set("gestion/photoDisplayPhoto.tpl", "corps");
         break;
 }
-?>

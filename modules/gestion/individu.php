@@ -31,6 +31,7 @@ switch ($t_module["param"]) {
             $vue->set($data, "data");
             $vue->set(1, "isSearch");
         }
+        require_once 'modules/classes/sexe.class.php';
         $sexe = new Sexe($bdd, $ObjetBDDParam);
         $vue->set($sexe->getListe(), "sexe");
 
@@ -71,6 +72,7 @@ switch ($t_module["param"]) {
         /*
          * Lecture des experimentations
          */
+        require_once "modules/classes/individu_experimentation.class.php";
         $individu_experimentation = new Individu_experimentation($bdd, $ObjetBDDParam);
         $dataIE = $individu_experimentation->getListeFromIndividu($id);
         $dataIE = $_SESSION["it_experimentation"]->translateList($dataIE);
@@ -122,12 +124,14 @@ switch ($t_module["param"]) {
         /*
          * Lecture des sexes
          */
+        require_once "modules/classes/sexe.class.php";
         $sexe = new Sexe($bdd, $ObjetBDDParam);
         $vue->set($sexe->getListe(), "sexes");
 
         /*
          * Liste des experimentations
          */
+        require_once "modules/classes/experimentation.class.php";
         $experimentation = new Experimentation($bdd, $ObjetBDDParam);
         $vue->set($_SESSION["it_experimentation"]->translateList($experimentation->getAllListFromIndividu($id)), "experimentations");
 
@@ -191,4 +195,3 @@ switch ($t_module["param"]) {
         $vue->set($dataClass->getListEspeceFromExp($exp_id));
         break;
 }
- 
