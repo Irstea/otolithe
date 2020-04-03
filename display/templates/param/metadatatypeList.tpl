@@ -32,9 +32,10 @@
 				</div>
 			</div>
 
-			<table id="metadataList" class="table table-bordered table-hover datatable " >
+			<table id="metadataList" class="table table-bordered table-hover datatable" data-order='[[1,"asc"]]' >
 				<thead>
 					<tr>
+						<th>{t}Identifiant{/t}</th>
 						<th>{t}Nom du modèle{/t}</th>
 						<th>{t}Résumé{/t}</th>
 						<th>{t}Données en tableau ?{/t}</th>
@@ -48,6 +49,7 @@
 				<tbody>
 					{section name=lst loop=$data}
 						<tr>
+							<td class="center">{$data[lst].metadatatype_id}</td>
 							<td>
 								{$data[lst].metadatatype_name}
 							</td>
