@@ -5,12 +5,13 @@ $id = $_SESSION["it_piece"]->getValue($_REQUEST["piece_id"]);
 
 switch ($t_module["param"]) {
   case "list":
-  $_SESSION["moduleListe"] = "pieceList";
+    $_SESSION["moduleListe"] = "pieceList";
     /**
      * Integration des experimentations
      */
     if (isset($_REQUEST["exp_id"])) {
       $exp_id = $_SESSION["it_experimentation"]->getValue($_REQUEST["exp_id"]);
+      $searchIndividu->setParam(array("exp_id" => $exp_id));
     } else {
       $exp_id = $searchIndividu->getParam("exp_id");
     }
@@ -132,5 +133,43 @@ switch ($t_module["param"]) {
     dataDelete($dataClass, $id);
     /*** Reaffectation de l'identifiant en cas d'échec de la suppression */
     $_REQUEST["piece_id"] = $_SESSION["it_piece"]->setValue($id);
+    break;
+
+  case "exportCS":
+    /**
+     * Export the list in a format usable by Collec-Science
+     */
+    /**
+     * Get the name of experimentation
+     */
+    try {
+      $exp_id = $_SESSION["it_experimentation"]->getValue($_REQUEST["exp_id"]);
+      require_once "modules/classes/experimentation.class.php";
+      $experimentation = new Experimentation($bdd, $ObjetBDDParam);
+      $dexp = $experimentation->lire($exp_id);
+      $exp_name = $dexp["exp_nom"];
+      if (strlen($exp_name) == 0) {
+        throw new PieceException(_("Le nom de l'expérimentation n'a pas été fournie"));
+      }
+      if (count($_REQUEST["pieces"]) == 0) {
+        throw new PieceException((_("Pas de pièces à exporter")));
+      }
+      /**
+       * Get the piece_id to treat
+       */
+      $pieces = array();
+      foreach ($_REQUEST["pieces"] as $value) {
+        $pieces[] = $_SESSION["it_piece"]->getValue($value);
+      }
+      $data = $dataClass->getListForCollec($pieces, $exp_name);
+      if (count($data) == 0) {
+        throw new PieceException(_("Aucune pièce n'a été sélectionnée dans la base de données"));
+      }
+      $vue->set($data);
+    } catch (Exception $e) {
+      $message->set(_("L'exportation n'a pas été réalisée"), true);
+      $message->set($e->getMessage());
+      $module_coderetour = -1;
+    }
     break;
 }

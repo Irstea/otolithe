@@ -1,5 +1,6 @@
 <?php
-
+class PieceException extends Exception
+{ }
 /**
  * ORM de gestion de la table piece
  * @author quinton
@@ -150,5 +151,50 @@ class Piece extends ObjetBdd
 							where exp_id = :exp_id
 							order by codeindividu, tag, piececode";
 		return ($this->getListeParamAsPrepared($sql, array("exp_id" => $exp_id)));
+	}
+
+	/**
+	 * Generate a list usable by Collec-Science - function External import
+	 *
+	 * @param array $pieces
+	 * @param string $exp_name
+	 * @return array|null
+	 */
+	function getListForCollec(array $pieces, string $exp_name): ?array
+	{
+		$sql = "select
+					p.uuid as dbuid_origin,
+					case when piececode is not null then piececode else piece_id::varchar end as identifier,
+					p.uuid,
+					piecetype_libelle as sample_type_name,
+					'$exp_name' as collection_name,
+					peche_date as sampling_date,
+					nom_id as md_taxon,
+					tag as md_tag,
+					codeindividu as md_fishcode,
+					poids as md_weight,
+					longueur as md_length,
+					traitementpiece_libelle as md_treatment
+					from piece p
+					join individu i using (individu_id)
+					join piecetype using (piecetype_id)
+					join espece using (espece_id)
+					left outer join traitementpiece using (traitementpiece_id)
+					left outer join sexe using (sexe_id)
+					left outer join peche using (peche_id)
+					where piece_id in (";
+		/**
+		 * where content
+		 */
+		$where = "";
+		$comma = "";
+		foreach ($pieces as $id) {
+			if (is_numeric($id)) {
+				$where .= $comma . $id;
+				$comma = ",";
+			}
+		}
+		$sql .= $where . ")";
+		return $this->getListeParam($sql);
 	}
 }

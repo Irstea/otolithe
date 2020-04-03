@@ -1,7 +1,15 @@
+<script>
+$(document).ready(function() {
+  $("#checkPiece").change( function() {
+		$('.checkPiece').prop('checked', this.checked);
+  });
+});
+</script>
+
 <div class="col-md-6">
   <form id="searchBox" method="GET" action="index.php" class="form-horizontal protoform" >
    <input type="hidden" name="module" value="pieceList">
-    <div class="row"> 
+    <div class="row">
       <label for="exp_id" class="control-label col-sm-3">
           {t}Expérimentation :{/t}
       </label>
@@ -21,9 +29,20 @@
   </form>
 </div>
 {if count ($data) > 0}
-  <table class="table table-bordered table-hover datatable ">
+<form method="POST" id="containerFormListPrint" action="index.php">
+  <input type="hidden" id="module" name="module" value="pieceExportCS">
+  <input type="hidden" name="exp_id" value="{$exp_id}">
+  {if $droits.gestion == 1}
+    <div class="row">
+      <button id="exportCS" class="btn btn-success" title="{t}Création d'un fichier utilisable pour importer les pièces dans le logiciel Collec-Science - import externe{/t}">{t}Export des pièces pour Collec-Science{/t}</button>
+    </div>
+  {/if}
+  <table class="table table-bordered table-hover datatable "data-order='[[1,"asc"],[2,"asc"],[4,"asc"]]'>
     <thead>
       <tr>
+        <th class="center">
+          <input type="checkbox" id="checkPiece" class="checkPiece" checked>
+        </th>
         <th>{t}Poisson{/t}</th>
         <th>{t}Tag{/t}</th>
         <th>{t}Taxon{/t}</th>
@@ -40,6 +59,9 @@
     <tbody>
       {foreach $data as $row}
         <tr>
+          <td class="center">
+              <input type="checkbox" class="checkPiece" name="pieces[]" value="{$row.piece_id}" checked >
+          </td>
           <td>
             <a href="index.php?module=individuDisplay&individu_id={$row.individu_id}">
               {$row.codeindividu}
@@ -72,4 +94,5 @@
     </tbody>
 
   </table>
+</form>
 {/if}
