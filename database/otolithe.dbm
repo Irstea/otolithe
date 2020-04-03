@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="664,755" last-zoom="1" max-obj-count="33"
+<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="663,166" last-zoom="1" max-obj-count="33"
 	 default-schema="public" default-owner="otolithe"
 	 layers="gacl" active-layers="0;1">
 <role name="otolithe"
@@ -489,7 +489,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="otolithe"/>
 </sequence>
 
-<table name="piece" layer="0" collapse-mode="2" max-obj-count="6">
+<table name="piece" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Pieces analysees]]></comment>
@@ -509,6 +509,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</column>
 	<column name="piececode">
 		<type name="character varying" length="255"/>
+	</column>
+	<column name="uuid" default-value="gen_random_uuid()">
+		<type name="uuid" length="0"/>
 	</column>
 	<constraint name="pk_piece" type="pk-constr" table="otolithe.piece">
 		<columns names="piece_id" ref-type="src-columns"/>
@@ -842,7 +845,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<position x="400" y="1040"/>
 
 	<customidxs object-type="column">
-		<object name="aclgroup_id_aclgroup" index="1"/>
+		<object name="aclgroup_id" index="1"/>
 		<object name="acllogin_id" index="0"/>
 	</customidxs>
 

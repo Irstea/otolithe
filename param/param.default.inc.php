@@ -1,9 +1,9 @@
 <?php
 
-/** 
+/**
  * Fichier cree le 4 mai 07 par quinton
  * UTF-8
- * 
+ *
  * Parametres par defaut de l'application
  * Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
  */
@@ -24,11 +24,11 @@ $navigationxml = "param/actions.xml";
 // 4 heures
 $APPLI_session_ttl = 14400;
 // 3 mois
-$APPLI_cookie_ttl = 7776000; 
+$APPLI_cookie_ttl = 7776000;
 // 10 heures
 $APPLI_absolute_session = 36000;
 /*
- * 
+ *
  * Nom du chemin de stockage des sessions
  * @var unknown_type
  */
@@ -39,7 +39,7 @@ $APPLI_path_stockage_session = "prototypephp";
 $LOG_duree = 365;
 /*
  * Type d'identification
- * 
+ *
  * BDD : mot de passe en base de donnees
  * CAS : utilisation d'un serveur CAS
  * LDAP : utilisation d'un serveur LDAP
@@ -134,7 +134,7 @@ $GACL_schema = "gacl";
 $ERROR_level = E_ERROR;
 /*
  * Pour le developpement :
- * $ERROR_level = E_ALL & ~E_NOTICE & E_STRICT 
+ * $ERROR_level = E_ALL & ~E_NOTICE & E_STRICT
  * En production :
  * $ERROR_level = E_ERROR ;
  */
@@ -149,7 +149,7 @@ $APPLI_moduleErrorBefore = "errorbefore";
 $APPLI_moduleNoLogin = "errorlogin";
 $APPLI_notSSL = false;
 /*
- * Cles privee et publique utilisees 
+ * Cles privee et publique utilisees
  * pour la generation des jetons
  */
 $privateKey = "/etc/ssl/private/ssl-cert-snakeoil.key";
@@ -174,12 +174,12 @@ $APPLI_mailToAdminPeriod = 7200;
 $APPLI_admin_ttl = 600; // Duree maxi d'inactivite pour acceder a un module d'administration
 $APPLI_lostPassword = 0; // Autorise la recuperation d'un nouveau mot de passe en cas de perte
 
-/* Taille maximale d'une photo telechargee dans le navigateur. 
+/* Taille maximale d'une photo telechargee dans le navigateur.
  * Doit etre compatible avec les directives du fichier php.ini : post_max_size et upload_max_filesize
  * (directives non modifiables dans l'application)
  */
 
-$APPLI_maxfilesize = 100000000; 
+$APPLI_maxfilesize = 100000000;
 /*
  * Activation de la recherche antivirale des pieces jointes
  */
