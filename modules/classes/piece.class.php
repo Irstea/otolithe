@@ -127,4 +127,28 @@ class Piece extends ObjetBdd
 			}
 		}
 	}
+
+	/**
+	 * Get the list of all pieces attached to an experimentation
+	 *
+	 * @param int $exp_id
+	 * @return array
+	 */
+	function getListFromExperimentation($exp_id)
+	{
+		$sql = "select piece_id, piece_id as piece_uid, piececode, p.uuid, piecetype_id, piecetype_libelle,
+							traitementpiece_id, traitementpiece_libelle,
+							individu_id, codeindividu, tag, poids, age, sexe_libelle, i.uuid as individu_uuid,
+							espece_id, nom_id
+							from piece p
+							join individu i using (individu_id)
+							join piecetype using (piecetype_id)
+							join espece using (espece_id)
+							left outer join traitementpiece using (traitementpiece_id)
+							left outer join sexe using (sexe_id)
+							join individu_experimentation using (individu_id)
+							where exp_id = :exp_id
+							order by codeindividu, tag, piececode";
+		return ($this->getListeParamAsPrepared($sql, array("exp_id" => $exp_id)));
+	}
 }

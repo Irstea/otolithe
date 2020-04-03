@@ -95,6 +95,7 @@
 	<pieceChange action="modules/gestion/piece.php" param="change" droits="gestion" type="smarty"/>
 	<pieceWrite action="modules/gestion/piece.php" param="write" droits="gestion" retourok="pieceDisplay" retourko="pieceChange" modulebefore="pieceChange" />
 	<pieceDelete action="modules/gestion/piece.php" param="delete" droits="gestion" retourok="individuDisplay" retourko="pieceChange" modulebefore="pieceChange"/>
+	<pieceList action="modules/gestion/piece.php" param="list" droits="lecture" type="smarty"/>
 
 	<photoDisplay action="modules/gestion/photo.php" param="display" droits="lecture" type="smarty"/>
 	<photoChange action="modules/gestion/photo.php" param="change" droits="gestion" type="smarty"/>

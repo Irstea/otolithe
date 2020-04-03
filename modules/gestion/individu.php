@@ -21,8 +21,9 @@ switch ($t_module["param"]) {
         /*
          * Gestion des criteres de recherche
          */
-        if (isset($_REQUEST["exp_id"]))
-        $_REQUEST["exp_id"] = $_SESSION["it_experimentation"]->getValue($_REQUEST["exp_id"]);
+        if (isset($_REQUEST["exp_id"])) {
+            $_REQUEST["exp_id"] = $_SESSION["it_experimentation"]->getValue($_REQUEST["exp_id"]);
+        }
         $searchIndividu->setParam($_REQUEST);
         $dataRecherche = $searchIndividu->getParam();
         if ($searchIndividu->isSearch() == 1) {

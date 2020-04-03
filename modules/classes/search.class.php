@@ -56,9 +56,14 @@ class SearchParam
 	/**
 	 * Retourne les parametres existants
 	 */
-	function getParam()
+	function getParam($name = null)
 	{
-		return $this->param;
+		if ($name) {
+			return $this->param[$name];
+		} else {
+			return $this->param;
+		}
+
 	}
 	/**
 	 * Indique si la recherche a ete deja lancee
@@ -99,5 +104,3 @@ class SearchLecture extends SearchParam
 		parent::__construct();
 	}
 }
-
-?>

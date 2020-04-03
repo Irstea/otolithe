@@ -1,7 +1,7 @@
 <script>
 $(document).ready(function() {
-	var lecteur_id = {$individuSearch.lecteur_id};
-	var espece_id = {$individuSearch.espece_id};
+	var lecteur_id = "{$individuSearch.lecteur_id}";
+	var espece_id = "{$individuSearch.espece_id}";
 /*$(".auto").change( function () {
 	$("#searchBox").submit() ;
 });*/
@@ -12,10 +12,10 @@ function getLecteur() {
 	$.ajax ( {
 		url: "index.php",
 		data: { "module":"lecteurListFromExp", "exp_id": exp_id}
-	}).done (function (value) { 
+	}).done (function (value) {
 		var selected = "";
 		var option = "";
-		$.each(JSON.parse(value), function (i, obj) { 
+		$.each(JSON.parse(value), function (i, obj) {
 			if (obj.lecteur_id == lecteur_id) {
 				selected = "selected";
 			} else {
@@ -24,7 +24,7 @@ function getLecteur() {
 			option += '<option value="'+obj.lecteur_id+'" ' + selected + '>' + obj.lecteur_prenom + " " + obj.lecteur_nom + "</option>";
 		});
 		$("#lecteur_id").append(option);
-	}); 
+	});
 }
 
 function getEspece() {
@@ -33,14 +33,14 @@ function getEspece() {
 	$.ajax ( {
 		url: "index.php",
 		data: { "module":"individuGetListEspece", "exp_id": exp_id}
-	}).done (function (value) { 
+	}).done (function (value) {
 		var selected = "";
 		var option = '<option value="0"';
 		if (espece_id == 0) {
 			option += ' selected';
 		}
 		option += '>{t}Sélectionnez...{/t}</option>';
-		$.each(JSON.parse(value), function (i, obj) { 
+		$.each(JSON.parse(value), function (i, obj) {
 			if (obj.espece_id == espece_id) {
 				selected = "selected";
 			} else {
@@ -49,10 +49,10 @@ function getEspece() {
 			option += '<option value="'+obj.espece_id+'" ' + selected + '>' + obj.nom_id + "</option>";
 		});
 		$("#espece_id").append(option);
-	}); 
+	});
 }
 
-$("#exp_id").change(function () { 
+$("#exp_id").change(function () {
 	getLecteur();
 	getEspece();
 });
@@ -145,14 +145,14 @@ getEspece();
 			<select class="form-control" id="lecteur_id" name="lecteur_id">
 			</select>
 		</div>
-		
+
 		<label for="espece_id" class="control-label col-sm-2">{t}Espèce :{/t}</label>
 		<div class="col-sm-2">
 			<select class="form-control" id="espece_id" name="espece_id">
 			</select>
 		</div>
 		<div class="col-sm-2 center">
-			<button class="btn btn-success" type="submit">{t}Rechercher...{/t}</button> 
+			<button class="btn btn-success" type="submit">{t}Rechercher...{/t}</button>
 		</div>
 	</div>
 </form>
