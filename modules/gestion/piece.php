@@ -84,6 +84,7 @@ switch ($t_module["param"]) {
         $data = $_SESSION["it_piece"]->translateRow($data);
         $data = $_SESSION["it_individu"]->translateRow($data);
         $vue->set($data, "data");
+        printr($data);
         break;
     case "write":
 		/*

@@ -34,7 +34,7 @@ class Piece extends ObjetBdd
 			"traitementpiece_id" => array(
 				"type" => 1
 			),
-			"uuid" => array("type" => 0, "default" => "getUUID"),
+			"uuid" => array("type" => 0, "defaultValue" => "getUUID"),
 		);
 		$param["fullDescription"] = 1;
 		parent::__construct($bdd, $param);
@@ -49,7 +49,7 @@ class Piece extends ObjetBdd
 	{
 		if ($id > 0) {
 			$sql = "select piece_id, individu_id, piecetype_id, piecetype_libelle, piececode,
-				traitementpiece_id, traitementpiece_libelle
+				traitementpiece_id, traitementpiece_libelle, uuid
 				from " . $this->table . " left outer join piecetype using (piecetype_id)
 				  left outer join traitementpiece using (traitementpiece_id)
 				 where piece_id = " . $id;

@@ -25,31 +25,34 @@ $("#recherche").keyup(function() {
 
 <h2>{t}Modification d'un poisson{/t}</h2>
 <div class="row">
-<a href="index.php?module={$moduleListe}">
-<img src="display/images/list.png" height="25">
-{t}Retour à la liste{/t}
-</a>
-{if $data.individu_id > 0}
-<a href="index.php?module=individuDisplay&individu_id={$data.individu_id}">
-<img src="display/images/fish.png" height="25">
-{t}Retour au poisson{/t}
-</a>
-{/if}
-			<form class="form-horizontal protoform" id="individuChange" method="post" action="index.php">
-				<input  type="hidden" name="moduleBase" value="individu">
-				<input type="hidden" name="action" value="Write">
-				<input  type="hidden" name="individu_id" value="{$data.individu_id}">
-				<input  type="hidden" name="peche_id" value="{$data.peche_id}">
-<div class="col-md-6 form-horizontal">
-					<fieldset>
-		<legend>{t}Individu{/t}</legend>
+	<a href="index.php?module={$moduleListe}">
+		<img src="display/images/list.png" height="25">
+		{t}Retour à la liste{/t}
+	</a>
+	{if $data.individu_id > 0}
+		<a href="index.php?module=individuDisplay&individu_id={$data.individu_id}">
+			<img src="display/images/fish.png" height="25">
+			{t}Retour au poisson{/t}
+		</a>
+	{/if}
+	<form class="form-horizontal protoform" id="individuChange" method="post" action="index.php">
+		<input  type="hidden" name="moduleBase" value="individu">
+		<input type="hidden" name="action" value="Write">
+		<input  type="hidden" name="individu_id" value="{$data.individu_id}">
+		<input  type="hidden" name="peche_id" value="{$data.peche_id}">
+		<div class="col-md-6 form-horizontal">
+			<div class="form-group center">
+				<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+			</div>
+			<fieldset>
+				<legend>{t}Individu{/t}</legend>
 				<div class="form-group">
 					<label for="recherche" class="control-label col-md-4">
 						{t}Espèce :{/t}<span class="red">*</span>
 					</label>
 					<div class="col-md-8">
 					<input class="form-control" id="recherche" autocomplete="off" autofocus placeholder="{t}espèce à chercher{/t}" title="{t}Tapez au moins 3 caractères...{/t}">
-						<select id="espece_id" name="espece_id" class="form-control">						
+						<select id="espece_id" name="espece_id" class="form-control">
 						<option value="{$data.espece_id}">{$data.nom_id}</option>
 						</select>
 					</div>
@@ -122,11 +125,19 @@ $("#recherche").keyup(function() {
 						{t}Age :{/t}
 					</label>
 					<div class="col-md-8">
-						<input id="" class="form-control" name="age" class="nombre" value="{$data.age}">
+						<input id="age" class="form-control" name="age" class="nombre" value="{$data.age}">
 					</div>
 				</div>
-				</fieldset>
-				<fieldset>
+				<div class="form-group">
+					<label for="" class="control-label col-md-4">
+						{t}UUID :{/t}
+					</label>
+					<div class="col-md-8">
+						<input id="uuid" class="form-control" name="uuid" value="{$data.uuid}">
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
 				<legend>{t}Données concernant la pêche{/t}</legend>
 				<div class="form-group">
 					<label for="site" class="control-label col-md-4">
@@ -184,35 +195,34 @@ $("#recherche").keyup(function() {
 						<input id="operateur" class="form-control" name="operateur" value="{$peche.operateur}">
 					</div>
 				</div>
-				
-				</fieldset>
-	<div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
-      {if $data.individu_id > 0 && $droits["gestionCompte"] == 1 }
-      <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
-      {/if}
- </div>
-</div>
-<div class="col-md-6 form-horizontal">
-<fieldset>
-	<legend>{t}Liste des expérimentations de rattachement{/t}</legend>
-			<table class="table" id="experimentations">
-			{section name=lst loop=$experimentations}
-			<tr>
-			<td>
-			<div class="checkbox">
-			<label>
-			<input type="checkbox" name="exp_id[]" value="{$experimentations[lst].exp_id}" {if $experimentations[lst].individu_id > 0}checked{/if}>
-			{$experimentations[lst].exp_nom}
-			</label>
-			</div>
-			</td>
-			</tr>
-			{/section}
-			</table>
-	</fieldset>
-</div>
-</form>
+			</fieldset>
+			<div class="form-group center">
+				<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+				{if $data.individu_id > 0 && $droits["gestionCompte"] == 1 }
+					<button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+				{/if}
+		</div>
+		</div>
+		<div class="col-md-6 form-horizontal">
+			<fieldset>
+			<legend>{t}Liste des expérimentations de rattachement{/t}</legend>
+				<table class="table" id="experimentations">
+				{section name=lst loop=$experimentations}
+					<tr>
+						<td>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="exp_id[]" value="{$experimentations[lst].exp_id}" {if $experimentations[lst].individu_id > 0}checked{/if}>
+								{$experimentations[lst].exp_nom}
+							</label>
+						</div>
+						</td>
+					</tr>
+				{/section}
+				</table>
+			</fieldset>
+		</div>
+	</form>
 </div>
 
 

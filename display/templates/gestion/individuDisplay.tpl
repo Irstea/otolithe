@@ -48,6 +48,10 @@
 <dt>{t}Age :{/t}</dt>
 <dd>{$data.age}</dd>
 </dl>
+<dl class="dl-horizontal">
+  <dt>{t}UUID :{/t}</dt>
+  <dd>{$data.uuid}</dd>
+</dl>
 </div>
 </fieldset>
 <fieldset class="col-md-6">

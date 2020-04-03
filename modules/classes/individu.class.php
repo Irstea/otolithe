@@ -45,7 +45,7 @@ class Individu extends ObjetBdd
             "age" => array(
                 "type" => 1
             ),
-            "uuid" => array("type" => 0, "default" => "getUUID"),
+            "uuid" => array("type" => 0, "defaultValue" => "getUUID"),
         );
 
         $param["fullDescription"] = 1;
@@ -185,16 +185,16 @@ class Individu extends ObjetBdd
      */
     function lire($id)
     {
-        if ($id >= 0 && is_numeric($id)) {
+        if ($id > 0 ) {
             $sql = "select individu_id, nom_id,
                     peche_id, espece_id, codeindividu, tag, longueur, poids,
 					remarque, parasite, age, sexe_id, uuid
 				from " . $this->table . "
 						left outer join espece using (espece_id)
-						where individu_id = " . $id;
-            return $this->lireParam($sql);
+						where individu_id = :id";
+            return $this->lireParamAsPrepared($sql, array("id"=>$id));
         } else {
-            return null;
+            return $this->getDefaultValue();
         }
     }
 

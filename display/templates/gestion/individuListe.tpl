@@ -21,6 +21,7 @@
 <th>{t}Date de pêche{/t}</th>
 <th>{t}Zone de pêche{/t}</th>
 <th>{t}Expérimentation{/t}</th>
+<th>{t}UUID{/t}</th>
 </tr>
 </thead>
 <tdata>
@@ -42,6 +43,7 @@
 <td>{$data[lst].peche_date}</td>
 <td>{$data[lst].site}<br>{$data[lst].zonesite}</td>
 <td>{$data[lst].exp_nom}</td>
+<td>{$data[lst].uuid}</td>
 </tr>
 {/section}
 </tdata>

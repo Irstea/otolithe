@@ -37,6 +37,10 @@
 <dt>{t}Traitement effectué :{/t}</dt>
 <dd>{$data.traitementpiece_libelle}</dd>
 </dl>
+<dl class="dl-horizontal">
+  <dt>{t}UUID :{/t}</dt>
+  <dd>{$data.uuid}</dd>
+</dl>
 </div>
 </fieldset>
 </div>
