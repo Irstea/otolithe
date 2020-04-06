@@ -48,6 +48,13 @@
 <dt>{t}Age :{/t}</dt>
 <dd>{$data.age}</dd>
 </dl>
+{if strlen($data.wgs84_x) > 0}
+<dl class="dl-horizontal">
+  <dt>{t}Coordonnées du point de capture (long/lat) :{/t}</dt>
+  <dd>{$data.wgs84_x}</dd>
+  <dd>{$data.wgs84_y}</dd>
+  </dl>
+{/if}
 <dl class="dl-horizontal">
   <dt>{t}UUID :{/t}</dt>
   <dd>{$data.uuid}</dd>

@@ -121,7 +121,7 @@ $("#recherche").keyup(function() {
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="" class="control-label col-md-4">
+					<label for="age" class="control-label col-md-4">
 						{t}Age :{/t}
 					</label>
 					<div class="col-md-8">
@@ -129,7 +129,17 @@ $("#recherche").keyup(function() {
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="" class="control-label col-md-4">
+					<label for="wgs84_x" class="control-label col-md-4">
+						{t}Coordonnées du point de capture (long/lat) :{/t}
+					</label>
+					<div class="col-md-8">
+						{t}Longitude :{/t}&nbsp;<input id="wgs84_x" class="form-control" name="wgs84_x" class="nombre" value="{$data.wgs84_x}">
+						<br>
+						{t}Latitude :{/t}&nbsp;<input id="wgs84_y" class="form-control" name="wgs84_y" class="nombre" value="{$data.wgs84_y}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="uuid" class="control-label col-md-4">
 						{t}UUID :{/t}
 					</label>
 					<div class="col-md-8">

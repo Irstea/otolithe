@@ -141,6 +141,7 @@ class Piece extends ObjetBdd
 							traitementpiece_id, traitementpiece_libelle,
 							individu_id, codeindividu, tag, poids, age, sexe_libelle, i.uuid as individu_uuid,
 							espece_id, nom_id
+							,wgs84_x, wgs84_y
 							from piece p
 							join individu i using (individu_id)
 							join piecetype using (piecetype_id)
@@ -175,6 +176,7 @@ class Piece extends ObjetBdd
 					poids as md_weight,
 					longueur as md_length,
 					traitementpiece_libelle as md_treatment
+					,wgs84_x, wgs84_y
 					from piece p
 					join individu i using (individu_id)
 					join piecetype using (piecetype_id)

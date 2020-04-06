@@ -46,6 +46,8 @@ class Individu extends ObjetBdd
                 "type" => 1
             ),
             "uuid" => array("type" => 0, "defaultValue" => "getUUID"),
+            "wgs84_x" => array("type" => 1),
+            "wgs84_y" => array("type" => 1)
         );
 
         $param["fullDescription"] = 1;
@@ -62,7 +64,8 @@ class Individu extends ObjetBdd
     {
         $data = $this->encodeData($data);
         $sql = "select i.individu_id, i.codeindividu, i.tag, e.nom_id, count (pc.piece_id) as nbrepiece,
-				s.sexe_libellecourt, p.peche_date, p.site, p.zonesite, ex.exp_nom, i.age, i.uuid
+                s.sexe_libellecourt, p.peche_date, p.site, p.zonesite, ex.exp_nom, i.age, i.uuid
+                ,wgs84_x, wgs84_y
 				from individu i
 					left outer join espece e on (e.espece_id = i.espece_id)
 					left outer join piece pc on (pc.individu_id = i.individu_id)
@@ -117,7 +120,7 @@ class Individu extends ObjetBdd
         /*
          * Preparation du group by
          */
-        $group = " group by i.individu_id, i.codeindividu, e.nom_id, s.sexe_libellecourt, p.peche_date, p.site, p.zonesite, ex.exp_nom, i.tag, i.uuid";
+        $group = " group by i.individu_id, i.codeindividu, e.nom_id, s.sexe_libellecourt, p.peche_date, p.site, p.zonesite, ex.exp_nom, i.tag, i.uuid, wgs84_x, wgs84_y";
         /*
          * Preparation de la clause de tri
          */
@@ -159,7 +162,8 @@ class Individu extends ObjetBdd
     {
         if ($id > 0 && is_numeric($id)) {
             $sql = "select individu_id, nom_id, peche_id, codeindividu, tag, longueur, poids,
-					remarque, parasite, age, sexe_libelle, peche_date, uuid
+                    remarque, parasite, age, sexe_libelle, peche_date, uuid
+                    ,wgs84_x, wgs84_y
 				from " . $this->table . "
 						left outer join sexe using (sexe_id)
 						left outer join espece using (espece_id)
@@ -185,14 +189,15 @@ class Individu extends ObjetBdd
      */
     function lire($id)
     {
-        if ($id > 0 ) {
+        if ($id > 0) {
             $sql = "select individu_id, nom_id,
                     peche_id, espece_id, codeindividu, tag, longueur, poids,
-					remarque, parasite, age, sexe_id, uuid
+                    remarque, parasite, age, sexe_id, uuid
+                    ,wgs84_x, wgs84_y
 				from " . $this->table . "
 						left outer join espece using (espece_id)
 						where individu_id = :id";
-            return $this->lireParamAsPrepared($sql, array("id"=>$id));
+            return $this->lireParamAsPrepared($sql, array("id" => $id));
         } else {
             return $this->getDefaultValue();
         }

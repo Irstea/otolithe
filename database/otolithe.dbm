@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="663,166" last-zoom="1" max-obj-count="33"
+<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,0" last-zoom="0.5" max-obj-count="33"
 	 default-schema="public" default-owner="otolithe"
 	 layers="gacl" active-layers="0;1">
 <role name="otolithe"
@@ -152,11 +152,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="otolithe"/>
 </sequence>
 
-<table name="individu" layer="0" collapse-mode="2" max-obj-count="14">
+<table name="individu" layer="0" collapse-mode="2" max-obj-count="16">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="individu"/>
-	<position x="1000" y="420"/>
+	<position x="1000" y="400"/>
 	<column name="individu_id" not-null="true" sequence="otolithe.individu_individu_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -193,6 +193,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="uuid" default-value="gen_random_uuid()">
 		<type name="uuid" length="0"/>
 	</column>
+	<column name="wgs84_x">
+		<type name="double precision" length="0"/>
+		<comment><![CDATA[Longitude of the capture, in wgs84]]></comment>
+	</column>
+	<column name="wgs84_y">
+		<type name="double precision" length="0"/>
+		<comment><![CDATA[Latitude of the capture, in wgs84]]></comment>
+	</column>
 	<constraint name="pk_individu" type="pk-constr" table="otolithe.individu">
 		<columns names="individu_id" ref-type="src-columns"/>
 	</constraint>
@@ -202,7 +210,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="experimentation"/>
-	<position x="700" y="620"/>
+	<position x="700" y="600"/>
 	<column name="individu_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -285,7 +293,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="otolithe"/>
 	<comment><![CDATA[Date de peche et lieu de capture]]></comment>
 	<tag name="individu"/>
-	<position x="1320" y="620"/>
+	<position x="1320" y="600"/>
 	<column name="peche_id" not-null="true" sequence="otolithe.peche_peche_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -544,7 +552,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="individu"/>
-	<position x="700" y="420"/>
+	<position x="700" y="400"/>
 	<column name="sexe_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -673,7 +681,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="piece"/>
-	<position x="1320" y="420"/>
+	<position x="1320" y="400"/>
 	<column name="metadatatype_id" not-null="true" sequence="otolithe.metadatatype_metadatatype_id_seq">
 		<type name="integer" length="0"/>
 	</column>
