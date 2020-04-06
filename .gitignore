@@ -6,7 +6,7 @@ gacl.ini.php
 .settings
 .settings/*
 */templates_c/* 
-img/*
+img/*tif
 display/templates_c/*
 clear_templates_c.sh
 test/*

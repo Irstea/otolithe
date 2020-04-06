@@ -36,9 +36,6 @@ ALTER table otolithe.piece add column uuid uuid default gen_random_uuid();
 COMMENT ON COLUMN otolithe.photolecture.commentaire IS E'Commentaire sur la lecture';
 -- ddl-end --
 
-ALTER TABLE otolithe.metadatatype ALTER COLUMN is_array SET DEFAULT f;
--- ddl-end --
-
 
 -- [ Created constraints ] --
 -- object: logingestion_pk | type: CONSTRAINT --

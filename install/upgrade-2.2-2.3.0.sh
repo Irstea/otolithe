@@ -27,10 +27,10 @@ cp otolithe/param/param.inc.php $VERSION/param/
 chgrp www-data $VERSION/param/param.inc.php
 
 # keys for tokens
-if [ -e otolithe/param/otolithe ]
+if [ -e otolithe/param/id_otolithe ]
 then
-cp otolithe/param/otolithe* $VERSION/param/
-chown www-data $VERSION/param/otolithe
+cp otolithe/param/id_otolithe* $VERSION/param/
+chown www-data $VERSION/param/id_otolithe
 fi
 
 #replacement of symbolic link
@@ -47,12 +47,13 @@ chmod 750 /var/www/html/otolithe
 
 # assign rights to new folder
 mkdir $VERSION/display/templates_c
+mkdir img/
 chmod -R 750 $VERSION
 chgrp -R www-data $VERSION
 
 # update rights to specific software folders
 chmod -R 770 $VERSION/display/templates_c
-chmod -R 770 $VERSION/temp
+chmod -R 770 $VERSION/img
 # update php.ini file
 PHPVER=`php -v|head -n 1|cut -c 5-7`
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
