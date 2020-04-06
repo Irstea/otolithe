@@ -1,829 +1,1303 @@
-create schema if not exists otolithe;
-
-set search_path = otolithe, public;
-
-
-CREATE SEQUENCE "espece_espece_id_seq";
-
-CREATE TABLE "espece" (
-                "espece_id" INTEGER NOT NULL DEFAULT nextval('"espece_espece_id_seq"'),
-                "nom_id" VARCHAR NOT NULL,
-                "nom_fr" VARCHAR,
-                CONSTRAINT "espece_pkey" PRIMARY KEY ("espece_id")
-);
-COMMENT ON TABLE "espece" IS 'Liste des especes';
-
-
-ALTER SEQUENCE "espece_espece_id_seq" OWNED BY "espece"."espece_id";
-
-CREATE SEQUENCE "experimentation_exp_id_seq";
-
-CREATE TABLE "experimentation" (
-                "exp_id" INTEGER  NOT NULL DEFAULT nextval('experimentation_exp_id_seq'::regclass)  ,
-                "exp_nom" VARCHAR NOT NULL,
-                "exp_description" VARCHAR,
-                "exp_debut" DATE,
-                "exp_fin" DATE,
-                CONSTRAINT "pk_experimentation" PRIMARY KEY ("exp_id")
-);
-COMMENT ON TABLE "experimentation" IS 'Experimentation a laquelle est rattache le poisson';
-
-
-ALTER SEQUENCE "experimentation_exp_id_seq" OWNED BY "experimentation"."exp_id";
-
-CREATE SEQUENCE "final_stripe_final_stripe_id_seq";
-
-CREATE TABLE "final_stripe" (
-                "final_stripe_id" INTEGER NOT NULL DEFAULT nextval('"final_stripe_final_stripe_id_seq"'),
-                "final_stripe_code" VARCHAR NOT NULL,
-                "final_stripe_libelle" VARCHAR NOT NULL,
-                CONSTRAINT "final_stripe_pk" PRIMARY KEY ("final_stripe_id")
-);
-COMMENT ON TABLE "final_stripe" IS 'Natures de la strie finale';
-COMMENT ON COLUMN "final_stripe"."final_stripe_code" IS 'Code utilisé';
-
-
-ALTER SEQUENCE "final_stripe_final_stripe_id_seq" OWNED BY "final_stripe"."final_stripe_id";
-
-CREATE SEQUENCE "individu_individu_id_seq";
-
-CREATE TABLE "individu" (
-                "individu_id" INTEGER DEFAULT nextval('individu_individu_id_seq'::regclass) NOT NULL,
-                "espece_id" INTEGER NOT NULL,
-                "peche_id" INTEGER,
-                "sexe_id" INTEGER,
-                "codeindividu" VARCHAR,
-                "poids" DOUBLE PRECISION,
-                "remarque" VARCHAR,
-                "parasite" VARCHAR,
-                "age" INTEGER,
-                "longueur" DOUBLE PRECISION,
-                "tag" VARCHAR,
-                CONSTRAINT "pk_individu" PRIMARY KEY ("individu_id")
-);
-
-
-ALTER SEQUENCE "individu_individu_id_seq" OWNED BY "individu"."individu_id";
-
-CREATE TABLE "individu_experimentation" (
-                "individu_id" INTEGER NOT NULL,
-                "exp_id" INTEGER NOT NULL,
-                CONSTRAINT "individu_experimentation_pk" PRIMARY KEY ("individu_id", "exp_id")
-);
-
-
-CREATE SEQUENCE "lecteur_lecteur_id_seq";
-
-CREATE TABLE "lecteur" (
-                "lecteur_id" INTEGER DEFAULT nextval('lecteur_lecteur_id_seq'::regclass) NOT NULL ,
-                "login" VARCHAR NOT NULL,
-                "lecteur_nom" VARCHAR,
-                "lecteur_prenom" VARCHAR,
-                CONSTRAINT "pk_lecteur" PRIMARY KEY ("lecteur_id")
-);
-COMMENT ON TABLE "lecteur" IS 'personne realisant la lecture d''une photo';
-
-
-ALTER SEQUENCE "lecteur_lecteur_id_seq" OWNED BY "lecteur"."lecteur_id";
-
-CREATE TABLE "lecteur_experimentation" (
-                "lecteur_id" INTEGER NOT NULL,
-                "exp_id" INTEGER NOT NULL,
-                CONSTRAINT "lecteur_experimentation_pk" PRIMARY KEY ("lecteur_id", "exp_id")
-);
-COMMENT ON TABLE "lecteur_experimentation" IS 'Table des experimentations autorisees pour un lecteur';
-
-
-CREATE TABLE "lumieretype" (
-                "lumieretype_id" INTEGER NOT NULL,
-                "lumieretype_libelle" VARCHAR NOT NULL,
-                CONSTRAINT "pk_lumieretype" PRIMARY KEY ("lumieretype_id")
-);
-
-
-CREATE SEQUENCE "peche_peche_id_seq";
-
-CREATE TABLE "peche" (
-                "peche_id" INTEGER DEFAULT nextval('peche_peche_id_seq'::regclass) NOT NULL,
-                "site" VARCHAR,
-                "zonesite" VARCHAR,
-                "peche_date" TIMESTAMP,
-                "campagne" VARCHAR,
-                "peche_engin" VARCHAR,
-                "personne" VARCHAR,
-                "operateur" VARCHAR,
-                CONSTRAINT "pk_sitepeche" PRIMARY KEY ("peche_id")
-);
-COMMENT ON TABLE "peche" IS 'Date de peche et lieu de capture';
-
-
-ALTER SEQUENCE "peche_peche_id_seq" OWNED BY "peche"."peche_id";
-
-CREATE SEQUENCE "photo_photo_id_seq";
-
-CREATE TABLE "photo" (
-                "photo_id" INTEGER DEFAULT nextval('photo_photo_id_seq'::regclass) NOT NULL,
-                "piece_id" INTEGER NOT NULL,
-                "lumieretype_id" INTEGER,
-                "photo_nom" VARCHAR,
-                "description" VARCHAR,
-                "photo_filename" VARCHAR,
-                "photo_date" TIMESTAMP,
-                "color" VARCHAR,
-                "grossissement" INTEGER,
-                "repere" DOUBLE PRECISION,
-                "photo_data" BYTEA,
-                "photo_thumbnail" BYTEA,
-                "uri" VARCHAR,
-                "long_reference" DOUBLE PRECISION,
-                "photo_height" INTEGER,
-                "photo_width" INTEGER,
-                "long_ref_pixel" INTEGER,
-                CONSTRAINT "pk_photo" PRIMARY KEY ("photo_id")
-);
-COMMENT ON TABLE "photo" IS 'photos associees a une piece';
-COMMENT ON COLUMN "photo"."photo_height" IS 'Hauteur de la photo originale';
-COMMENT ON COLUMN "photo"."photo_width" IS 'Largeur de la photo originale';
-COMMENT ON COLUMN "photo"."long_ref_pixel" IS 'Longueur de reference en pixels - valeur par defaut pour photolecture, si non lu';
-
-
-ALTER SEQUENCE "photo_photo_id_seq" OWNED BY "photo"."photo_id";
-
-CREATE SEQUENCE "photolecture_photolecture_id_seq";
-
-CREATE TABLE "photolecture" (
-                "photolecture_id" INTEGER NOT NULL DEFAULT nextval('photolecture_photolecture_id_seq'::regclass) ,
-                "photo_id" INTEGER NOT NULL,
-                "lecteur_id" INTEGER NOT NULL,
-                "final_stripe_id" INTEGER,
-                "centre" VARCHAR,
-                "bordure" varchar,
-                "points" geometry,
-                "points_ref_lecture" geometry,
-                "photolecture_date" TIMESTAMP NOT NULL,
-                "long_ref_mesuree" DOUBLE PRECISION,
-                "photolecture_height" INTEGER,
-                "photolecture_width" INTEGER,
-                "long_totale_lue" DOUBLE PRECISION,
-                "long_totale_reel" DOUBLE PRECISION,
-                "rayon_point_initial" REAL,
-                "read_fiability" REAL,
-                "consensual_reading" SMALLINT,
-                "annee_naissance" INTEGER,
-                "commentaire" varchar, 
-                "remarkable_points" json,
-                CONSTRAINT "pk_photolecture" PRIMARY KEY ("photolecture_id"),
-                CONSTRAINT enforce_dims_points CHECK (public.st_ndims(points) = 2),
-                CONSTRAINT enforce_dims_points_ref_lecture CHECK (public.st_ndims(points_ref_lecture) = 2),
-                CONSTRAINT enforce_geotype_points CHECK ((public.geometrytype(points) = 'MULTIPOINT'::text) OR (points IS NULL)),
-                CONSTRAINT enforce_geotype_points_ref_lecture CHECK ((public.geometrytype(points_ref_lecture) = 'MULTIPOINT'::text) OR (points_ref_lecture IS NULL))
-);
-COMMENT ON TABLE "photolecture" IS 'Lecture realisee par une personne';
-COMMENT ON COLUMN "photolecture"."points_ref_lecture" IS 'Emplacement des points utilises pour lire la longueur de reference';
-COMMENT ON COLUMN "photolecture"."photolecture_height" IS 'Hauteur de la photo utilisee pour la lecture';
-COMMENT ON COLUMN "photolecture"."photolecture_width" IS 'Largeur de la photo affichee pour realiser la lecture';
-COMMENT ON COLUMN "photolecture"."long_totale_lue" IS 'Somme des segments entre chacun des points';
-COMMENT ON COLUMN "photolecture"."long_totale_reel" IS 'Longueur totale réelle calculée pour le lecteur
-(long_reference / long_ref_mesuree * long_totale_lue)';
-COMMENT ON COLUMN "photolecture"."read_fiability" IS 'Fiabilité de la lecture';
-COMMENT ON COLUMN "photolecture"."consensual_reading" IS '1 si lecture consensuelle';
-COMMENT ON COLUMN "photolecture"."annee_naissance" IS 'Année de naissance estimée';
-comment on column photolecture.commentaire is 'Commentaires de lecture';
-COMMENT ON COLUMN otolithe.photolecture.remarkable_points IS 'Liste des points remarquables identifiés sur la photo';
-
-
-ALTER SEQUENCE "photolecture_photolecture_id_seq" OWNED BY "photolecture"."photolecture_id";
-
-CREATE SEQUENCE "piece_piece_id_seq";
-
-CREATE TABLE "piece" (
-                "piece_id" INTEGER DEFAULT nextval('piece_piece_id_seq'::regclass) NOT NULL ,
-                "individu_id" INTEGER NOT NULL,
-                "piecetype_id" INTEGER NOT NULL,
-                "traitementpiece_id" INTEGER,
-                "piececode" VARCHAR(255),
-                CONSTRAINT "pk_piece" PRIMARY KEY ("piece_id")
-);
-COMMENT ON TABLE "piece" IS 'Pieces analysees';
-
-
-ALTER SEQUENCE "piece_piece_id_seq" OWNED BY "piece"."piece_id";
-
-CREATE SEQUENCE "piecetype_piecetype_id_seq";
-
-CREATE TABLE "piecetype" (
-                "piecetype_id" INTEGER DEFAULT nextval('piecetype_piecetype_id_seq'::regclass) NOT NULL ,
-                "piecetype_libelle" VARCHAR NOT NULL,
-                CONSTRAINT "pk_piecetype" PRIMARY KEY ("piecetype_id")
-);
-COMMENT ON TABLE "piecetype" IS 'Type de piece';
-
-
-ALTER SEQUENCE "piecetype_piecetype_id_seq" OWNED BY "piecetype"."piecetype_id";
-
-CREATE TABLE "sexe" (
-                "sexe_id" INTEGER NOT NULL,
-                "sexe_libelle" VARCHAR NOT NULL,
-                "sexe_libellecourt" VARCHAR NOT NULL,
-                CONSTRAINT "pk_sexe" PRIMARY KEY ("sexe_id")
-);
-
-
-CREATE SEQUENCE "traitementpiece_traitementpiece_id_seq";
-
-CREATE TABLE "traitementpiece" (
-                "traitementpiece_id" INTEGER DEFAULT nextval('traitementpiece_traitementpiece_id_seq'::regclass) NOT NULL ,
-                "traitementpiece_libelle" VARCHAR NOT NULL,
-                CONSTRAINT "pk_traitementpiece" PRIMARY KEY ("traitementpiece_id")
-);
-
-
-ALTER SEQUENCE "traitementpiece_traitementpiece_id_seq" OWNED BY "traitementpiece"."traitementpiece_id";
-
-ALTER TABLE "individu" ADD CONSTRAINT "espece_individu_fk"
-FOREIGN KEY ("espece_id")
-REFERENCES "espece" ("espece_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "individu_experimentation" ADD CONSTRAINT "experimentation_individu_experimentation_fk"
-FOREIGN KEY ("exp_id")
-REFERENCES "experimentation" ("exp_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "lecteur_experimentation" ADD CONSTRAINT "experimentation_lecteur_experimentation_fk"
-FOREIGN KEY ("exp_id")
-REFERENCES "experimentation" ("exp_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "photolecture" ADD CONSTRAINT "final_stripe_photolecture_fk"
-FOREIGN KEY ("final_stripe_id")
-REFERENCES "final_stripe" ("final_stripe_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "individu_experimentation" ADD CONSTRAINT "individu_individu_experimentation_fk"
-FOREIGN KEY ("individu_id")
-REFERENCES "individu" ("individu_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "piece" ADD CONSTRAINT "individu_piece_fk"
-FOREIGN KEY ("individu_id")
-REFERENCES "individu" ("individu_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "lecteur_experimentation" ADD CONSTRAINT "lecteur_lecteur_experimentation_fk"
-FOREIGN KEY ("lecteur_id")
-REFERENCES "lecteur" ("lecteur_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "photolecture" ADD CONSTRAINT "fk_photolecture_lecteur"
-FOREIGN KEY ("lecteur_id")
-REFERENCES "lecteur" ("lecteur_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "photo" ADD CONSTRAINT "fk_photo_lumieretype"
-FOREIGN KEY ("lumieretype_id")
-REFERENCES "lumieretype" ("lumieretype_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "individu" ADD CONSTRAINT "peche_individu_fk"
-FOREIGN KEY ("peche_id")
-REFERENCES "peche" ("peche_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "photolecture" ADD CONSTRAINT "fk_photolecture_photo"
-FOREIGN KEY ("photo_id")
-REFERENCES "photo" ("photo_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "photo" ADD CONSTRAINT "fk_photo_piece"
-FOREIGN KEY ("piece_id")
-REFERENCES "piece" ("piece_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "piece" ADD CONSTRAINT "fk_piece_piecetype"
-FOREIGN KEY ("piecetype_id")
-REFERENCES "piecetype" ("piecetype_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "individu" ADD CONSTRAINT "sexe_individu_fk"
-FOREIGN KEY ("sexe_id")
-REFERENCES "sexe" ("sexe_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "piece" ADD CONSTRAINT "fk_piece_traitement"
-FOREIGN KEY ("traitementpiece_id")
-REFERENCES "traitementpiece" ("traitementpiece_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-/*
- * Ajout des tables generiques
- */
- CREATE TABLE dbparam
-(
-   dbparam_id     integer   NOT NULL,
-   dbparam_name   varchar   NOT NULL,
-   dbparam_value  varchar
-);
-
-ALTER TABLE dbparam
-   ADD CONSTRAINT dbparam_pk
-   PRIMARY KEY (dbparam_id);
-
-COMMENT ON TABLE dbparam IS 'Table des parametres associes de maniere intrinseque a l''instance';
-COMMENT ON COLUMN dbparam.dbparam_name IS 'Nom du parametre';
-COMMENT ON COLUMN dbparam.dbparam_value IS 'Valeur du paramètre';
-
-CREATE TABLE dbversion
-(
-   dbversion_id      serial      NOT NULL,
-   dbversion_number  varchar     NOT NULL,
-   dbversion_date    timestamp   NOT NULL
-);
-
--- Column dbversion_id is associated with sequence dbversion_dbversion_id_seq
-
-ALTER TABLE dbversion
-   ADD CONSTRAINT dbversion_pk
-   PRIMARY KEY (dbversion_id);
-
-COMMENT ON TABLE dbversion IS 'Table des versions de la base de donnees';
-COMMENT ON COLUMN dbversion.dbversion_number IS 'Numero de la version';
-COMMENT ON COLUMN dbversion.dbversion_date IS 'Date de la version';
-
-/*
- * Ajout des libelles par defaut
- */
- INSERT INTO dbparam
-(
-  dbparam_id,
-  dbparam_name,
-  dbparam_value
-)
-VALUES
-(
-  1,
-  'APPLI_title',
-  'otolithe'
-);
-
-INSERT INTO final_stripe
-  (final_stripe_id, final_stripe_code, final_stripe_libelle)
-VALUES
-  (1, 'SH', 'Strie hyaline'),
-  (2, 'SO', 'Strie obscure'),
-  (3, 'ND', 'non déterminée')
-;
-
-INSERT INTO lumieretype
-  (lumieretype_id, lumieretype_libelle)
-VALUES
-  (1, 'Réfléchie'),
-  (2, 'transmise')
-  ;
-INSERT INTO traitementpiece
-  (traitementpiece_id, traitementpiece_libelle)
-VALUES
-  (1, 'polishing'),
-  (2, 'grinding,polishing'),
-  (3, 'grinding,polishing,staining'),
-  (4, 'burning,cracking,grinding,polishing'),
-  (6, 'burning,cracking'),
-  (5, 'cracking,grinding,polishing'),
-  (9, 'not recorded')
-  ;
-  
-INSERT INTO espece
-  (espece_id, nom_id, nom_fr)
-VALUES
-  (118, 'NoName', NULL),
-  (71, 'Enophrys bubalis', 'chabot buffle'),
-  (68, 'Echiichthys vipera', 'Petite vive'),
-  (11, 'Alosa alosa, Alosa fallax', 'Aloses vraie et feinte'),
-  (295, 'Abramis brama, Blicca bjoerkna', 'Brèmes'),
-  (22, 'Atherina sp.', ' '),
-  (45, 'Clupea sp.', ' '),
-  (187, 'Sprattus sp.', ' '),
-  (2, 'Abramis sp.', 'Brèmes d''eau douce nca'),
-  (26, 'Barbus sp.', ' '),
-  (37, 'Carassius sp.', ' '),
-  (59, 'Cyprinus sp.', ' '),
-  (141, 'Phoxinus sp.', ' '),
-  (196, 'Tinca sp.', ' '),
-  (77, 'Gambusia sp.', ' '),
-  (40, 'Chelon sp.', ' '),
-  (100, 'Lepomis sp.', ' '),
-  (19, 'Argyrosomus sp.', ' '),
-  (143, 'Platichthys flesus flesus', ' '),
-  (144, 'Platichthys flesus italicus', ' '),
-  (145, 'Platichthys flesus luscus', ' '),
-  (146, 'Platichthys sp.', ' '),
-  (148, 'Pleuronectes sp.', ' '),
-  (157, 'Psetta sp.', ' '),
-  (122, 'Osmerus mordax dentex', ' '),
-  (123, 'Osmerus mordax mordax', ' '),
-  (124, 'Osmerus sp.', ' '),
-  (49, 'Cottus sp.', ' '),
-  (175, 'Scyliorhinus canicula', 'Petite roussette'),
-  (179, 'Silurus sp.', ' '),
-  (86, 'Hippocampus ingens', ' '),
-  (88, 'Hippocampus reidi', ' '),
-  (98, 'Lampetra sp.', ' '),
-  (136, 'Petromyzon sp.', ' '),
-  (176, 'Scyliorhinus stellaris', 'Grande roussette'),
-  (134, 'Petromyzon marinus', 'Lamproie marine'),
-  (96, 'Lampetra fluviatilis', 'Lamproie de rivière'),
-  (204, 'Trisopterus minutus', 'Capelan de Méditerranée'),
-  (160, 'Raja naevus', 'Raie fleurie'),
-  (161, 'Raja undulata', 'Raie brunette'),
-  (61, 'Dasyatis sp.', 'Pastenagues nca'),
-  (5, 'Acipenser sturio', 'Esturgeon commun'),
-  (6, 'Acipenseridae', 'Esturgeons nca'),
-  (44, 'Clupea harengus', 'Hareng de l''Atlantique'),
-  (10, 'Alosa alosa', 'Alose vraie (=Grande alose)'),
-  (286, 'Telestes souffia', 'Blageon'),
-  (12, 'Alosa fallax', 'Alose feinte'),
-  (13, 'Alosa sp.', 'Aloses nca'),
-  (169, 'Sardina pilchardus', 'Sardine commune'),
-  (188, 'Sprattus sprattus', 'Sprat'),
-  (69, 'Engraulis encrasicolus', 'Anchois'),
-  (70, 'Engraulis sp.', 'Anchois nca'),
-  (165, 'Salmo salar', 'Saumon de l''Atlantique'),
-  (167, 'Salmo trutta', 'Truite de mer'),
-  (166, 'Salmo sp.', 'Truites nca'),
-  (121, 'Osmerus mordax', 'Eperlan arc-en-ciel'),
-  (125, 'Osmerus sp., Hypomesus sp.', 'Eperlans nca'),
-  (73, 'Esox lucius', 'Brochet du Nord'),
-  (58, 'Cyprinus carpio', 'Carpe commune'),
-  (197, 'Tinca tinca', 'Tanche'),
-  (9, 'Alburnus alburnus', 'Ablette'),
-  (25, 'Barbus barbus', 'Barbeau fluviatile'),
-  (41, 'Chondrostoma nasus', 'Nase commun'),
-  (36, 'Carassius carassius', 'Carassin(=Cyprin)'),
-  (163, 'Rutilus rutilus', 'Gardon'),
-  (164, 'Rutilus sp.', 'Gardons nca'),
-  (178, 'Silurus glanis', 'Silure glane'),
-  (94, 'Ictalurus sp.', 'Barbottes nca'),
-  (15, 'Anguilla anguilla', 'Anguille d''Europe'),
-  (16, 'Anguilla sp.', 'Anguilles nca'),
-  (47, 'Conger conger', 'Congre d''Europe'),
-  (27, 'Belone belone', 'Orphie'),
-  (28, 'Belone sp.', ' '),
-  (74, 'Gadus morhua', 'Morue de l''Atlantique'),
-  (149, 'Pollachius pollachius', 'Lieu jaune'),
-  (203, 'Trisopterus luscus', 'Tacaud commun'),
-  (107, 'Merlangius merlangus', 'Merlan'),
-  (79, 'Gasterosteus sp.', 'Epinoches'),
-  (89, 'Hippocampus sp.', ' '),
-  (111, 'Mugil liza', 'Mulet lebranche'),
-  (112, 'Mugil sp.', ' '),
-  (104, 'Liza ramada', 'Mulet porc'),
-  (105, 'Liza sp.', ' '),
-  (113, 'Mugilidae', 'Mulets nca'),
-  (64, 'Dicentrarchus sp.', 'Bars nca'),
-  (189, 'Stizostedion lucioperca', 'Sandre'),
-  (190, 'Stizostedion sp.', 'Sandres nca'),
-  (199, 'Trachurus trachurus', 'Chinchard d''Europe'),
-  (206, 'Umbrina cirrosa', 'Ombrine côtière'),
-  (205, 'Umbrina canariensis', 'Ombrine bronze'),
-  (55, 'Umbrina sp.', NULL),
-  (18, 'Argyrosomus regius', 'Maigre commun'),
-  (66, 'Diplodus sargus', 'Sar commun'),
-  (186, 'Spondyliosoma cantharus', 'Dorade grise'),
-  (185, 'Sparus aurata', 'Dorade royale'),
-  (30, 'Boops boops', 'Bogue'),
-  (115, 'Mullus surmuletus', 'Rouget de roche'),
-  (114, 'Mullus sp.', 'Rougets nca'),
-  (95, 'Labrus bergylta', 'Vieille commune'),
-  (14, 'Ammodytes tobianus', 'Equille'),
-  (81, 'Gobius niger', 'Gobie noir'),
-  (171, 'Scomber scombrus', 'Maquereau commun'),
-  (201, 'Trigla sp.', 'Grondins nca'),
-  (147, 'Pleuronectes platessa', 'Plie d''Europe'),
-  (142, 'Platichthys flesus', 'Flet d''Europe'),
-  (182, 'Solea solea', 'Sole commune'),
-  (180, 'Solea lascaris', 'Sole-pole'),
-  (183, 'Solea sp.', ' '),
-  (173, 'Scophthalmus rhombus', 'Barbue'),
-  (156, 'Psetta maxima', 'Turbot'),
-  (106, 'Lophius piscatorius', 'Baudroie commune'),
-  (129, 'Palaemon serratus', 'Bouquet commun'),
-  (131, 'Palaemonidae', 'Crevettes d''eau douce nca'),
-  (50, 'Crangon crangon', 'Crevette grise'),
-  (51, 'Crangon sp.', 'Crevettes crangon nca'),
-  (154, 'Procambarus clarkii', 'Ecrevisse rouge de marais'),
-  (155, 'Procambarus sp.', ' '),
-  (38, 'Carcinus maenas', 'Crabe vert'),
-  (126, 'Pachygrapsus transversus', 'Anglette africaine'),
-  (72, 'Eriocheir sinensis', 'Crabe chinois'),
-  (177, 'Sepia officinalis', 'Seiche commune'),
-  (7, 'Acipenseriformes', ' '),
-  (174, 'Scophthalmus sp.', ' '),
-  (318, 'Loligo sp.', 'Calmars nca'),
-  (297, 'Clupeidae', 'Harengs, sardines nca'),
-  (300, 'Sciaena umbra', 'Corb commun'),
-  (302, 'Palaemon macrodactylus', 'Bouquet migrateur'),
-  (266, 'Myxine glutinosa', 'Myxine'),
-  (255, 'Liza saliens', 'Mulet sauteur'),
-  (293, 'Zoarces viviparus', 'Loquette d''Europe'),
-  (232, 'Galeus melastomus', 'Chien espagnol'),
-  (248, 'Leuciscus leuciscus', 'Vandoise'),
-  (265, 'Mustelus mustelus', 'Emissole lisse'),
-  (280, 'Squalus acanthias', 'Aiguillat commun'),
-  (274, 'Raja brachyura', 'Raie lisse'),
-  (301, 'Sardinella aurita', 'Allache'),
-  (269, 'Oncorhynchus mykiss', 'Truite arc-en-ciel'),
-  (287, 'Thymallus thymallus', 'Ombre commun'),
-  (261, 'Molva molva', 'Lingue'),
-  (257, 'Melanogrammus aeglefinus', 'Eglefin'),
-  (276, 'Raniceps raninus', 'Trident'),
-  (272, 'Pollachius virens', 'Lieu noir'),
-  (231, 'Gaidropsarus vulgaris', 'Motelle commune'),
-  (290, 'Trisopterus esmarkii', 'Tacaud norvégien'),
-  (259, 'Micromesistius poutassou', 'Merlan bleu'),
-  (292, 'Zeus faber', 'Saint Pierre'),
-  (225, 'Diplodus annularis', 'Sparaillon commun'),
-  (268, 'Oblada melanura', 'Oblade'),
-  (263, 'Mullus barbatus', 'Rouget de vase'),
-  (241, 'Labrus merula', 'Merle'),
-  (288, 'Trachinus draco', 'Grande vive'),
-  (289, 'Trigla lyra', 'Grondin lyre'),
-  (229, 'Eutrigla gurnardus', 'Grondin gris'),
-  (224, 'Cyclopterus lumpus', 'Lompe'),
-  (250, 'Limanda limanda', 'Limande'),
-  (260, 'Microstomus kitt', 'Limande sole'),
-  (245, 'Lepidorhombus whiffiagonis', 'Cardine franche'),
-  (328, 'Penaeus japonicus', 'Crevette kuruma'),
-  (326, 'Palaemonetes varians', 'Bouquet atlantique des canaux'),
-  (325, 'Palaemon elegans', 'Bouquet flaque'),
-  (130, 'Palaemon sp.', NULL),
-  (336, 'Processa edulis', 'Guernade nica'),
-  (311, 'Dromia personata', 'Crabe dormeur'),
-  (308, 'Cancer pagurus', 'Tourteau'),
-  (327, 'Panopeus africanus', 'Crabe caillou africain'),
-  (335, 'Portumnus latipes', 'Etrille elegante'),
-  (322, 'Necora puber', 'Etrille commune'),
-  (315, 'Liocarcinus depurator', 'Etrille pattes bleues'),
-  (320, 'Loligo vulgaris', 'Encornet'),
-  (304, 'Alloteuthis subulata', 'Casseron commun'),
-  (340, 'Sepiola atlantica', 'Sépiole grandes oreilles'),
-  (317, 'Loliginidae', 'Calmars côtiers nca'),
-  (309, 'Carcinus aestuarii', 'Crabe vert de la Méditerranée'),
-  (275, 'Raja microocellata', 'Raie mélée'),
-  (264, 'Mustelus asterias', 'Emissole tachetée'),
-  (262, 'Mugil cephalus', 'Mulet à grosse tête'),
-  (254, 'Lithognathus mormyrus', 'Marbré'),
-  (247, 'Leuciscus idus', 'Ide mélanote'),
-  (230, 'Gaidropsarus mediterraneus', 'Motelle de Méditerranée'),
-  (227, 'Enchelyopus cimbrius', 'Motelle à quatre barbillons'),
-  (226, 'Diplodus cervinus', 'Sar à grosses lèvres'),
-  (213, 'Arnoglossus laterna', 'Arnoglosse de Méditerranée'),
-  (198, 'Torpedo marmorata', 'Torpille marbrée'),
-  (159, 'Raja clavata', 'Raie bouclée'),
-  (132, 'Perca fluviatilis', 'Perche européenne'),
-  (120, 'Osmerus eperlanus', 'Eperlan européen'),
-  (119, 'Orconectes limosus', 'Ecrevisse américaine'),
-  (108, 'Merluccius merluccius', 'Merlu européen'),
-  (103, 'Liza aurata', 'Mulet doré'),
-  (93, 'Ictalurus punctatus', 'Barbue d''Amérique'),
-  (83, 'Gymnocephalus cernuus', 'Grémille'),
-  (78, 'Gasterosteus aculeatus', 'Epinoche à trois épines'),
-  (75, 'Galeorhinus galeus', 'Requin-hâ'),
-  (67, 'Diplodus vulgaris', 'Sar à tête noire'),
-  (65, 'Dicologlossa cuneata', 'Cèteau'),
-  (63, 'Dicentrarchus punctatus', 'Bar tacheté'),
-  (62, 'Dicentrarchus labrax', 'Bar européen'),
-  (53, 'Crassostrea gigas', 'Huître creuse du Pacifique'),
-  (42, 'Ciliata mustela', 'Motelle à cinq barbillons'),
-  (35, 'Carassius auratus', 'Poisson rouge(=Cyprin doré)'),
-  (20, 'Atherina boyeri', 'Joêl'),
-  (3, 'Acipenser baerii', 'Esturgeon de Sibérie'),
-  (23, 'Atherinidae', 'Athérinidés nca'),
-  (56, 'Cyprinidae', 'Cyprinidés nca'),
-  (57, 'Cypriniformes', ' '),
-  (128, 'Palaemon longirostris, P. serratus', 'crevettes blanche et rose'),
-  (135, 'Petromyzon marinus, Lampetra fluviatilis', 'lamproie marine et lamproie de rivière'),
-  (138, 'Petromyzontidae', 'Lamproies nca'),
-  (137, 'Petromyzontiformes', ' '),
-  (153, 'Pomatoschistus sp.', ' '),
-  (168, 'Salmonidae', ' '),
-  (202, 'Triglidae', 'Grondins, cavillones nca'),
-  (211, 'Ammodytes semisquamatus', 'Lançon aiguille'),
-  (52, 'Crangonidae', 'Crevettes crangonidés nca'),
-  (239, 'Hippocampus guttulatus', 'Cheval marin'),
-  (249, 'Leuroraja naevus', 'Raie fleurie'),
-  (333, 'Pleuronectidae', 'Plies nca'),
-  (29, 'Blicca bjoerkna', 'Brème bordelière'),
-  (214, 'Arnoglossus thori', 'Arnoglosse tacheté'),
-  (8, 'Agonus cataphractus', 'Souris de mer'),
-  (24, 'Barbatula barbatula', 'Loche franche'),
-  (31, 'Buglossidium luteum', 'Petite sole jaune'),
-  (32, 'Callionymus phaeton', 'Callionyme paille-en-queue'),
-  (33, 'Callionymus risso', 'Callionyme bélène'),
-  (34, 'Callionymus sp.', 'Callionymes'),
-  (46, 'Cobitis taenia', 'Loche de rivière'),
-  (54, 'Ctenolabrus rupestris', 'Rouquié'),
-  (60, 'Dasyatis pastinaca', 'Pastenague'),
-  (76, 'Gambusia affinis', 'Gambusie'),
-  (80, 'Gobio gobio', 'Goujon'),
-  (82, 'Gobiusculus flavescens', 'Gobie nageur'),
-  (85, 'Hippocampus hippocampus', 'Hippocampe à museau court'),
-  (84, 'Hippocampus erectus', 'Hippocampe rayé'),
-  (87, 'Hippocampus ramulosus', 'Hippocampe moucheté'),
-  (91, 'Hyperoplus lanceolatus', 'Lançon commun'),
-  (92, 'Ictalurus melas', 'Poisson chat'),
-  (97, 'Lampetra planeri', 'Lamproie de Planer'),
-  (102, 'Leuciscus cephalus', 'Chevaine'),
-  (101, 'Leucaspius delineatus', 'Able de Heckel'),
-  (109, 'Micropterus salmoides', 'Black bass'),
-  (110, 'Misgurnus fossilis', 'Loche d''étang'),
-  (116, 'Myoxocephalus scorpius', 'Chaboisseau à épines courtes'),
-  (117, 'Nerophis ophidion', 'Nérophis tête bleue'),
-  (139, 'Pholis gunnellus', 'Gonelle'),
-  (140, 'Phoxinus phoxinus', 'Arlequin'),
-  (151, 'Pomatoschistus minutus', 'Gobie buhotte'),
-  (150, 'Pomatoschistus microps', 'Gobie tacheté'),
-  (152, 'Pomatoschistus pictus', 'Gobie varié'),
-  (158, 'Pungitius pungitius', 'Epinochette'),
-  (172, 'Scophthalmus maximus', 'Turbot'),
-  (181, 'Solea senegalensis', 'Sole sénégalaise'),
-  (191, 'Symphodus melops', 'Crénilabre melops'),
-  (192, 'Symphodus roissali', 'Crénilabre langaneu'),
-  (193, 'Syngnathus acus', 'Syngnathe aiguille'),
-  (294, 'Zosterisessor ophiocephalus', 'Gobie lotte'),
-  (194, 'Syngnathus rostellatus', 'Syngnathe de Duméril'),
-  (195, 'Syngnathus sp.', 'Syngnathes'),
-  (200, 'Trigla lucerna', 'Grondin perlon'),
-  (207, 'Pseudorasbora parva', 'Pseudorasbora'),
-  (208, 'Callionymus lyra', 'Callionyme lyre'),
-  (209, 'Alburnoides bipunctatus', 'Spirlin'),
-  (210, 'Ammodytes marinus', 'Lançon équille'),
-  (212, 'Aphia minuta', 'Nonnat'),
-  (216, 'Balistes carolinensis', 'Baliste'),
-  (218, 'Callionymus reticulatus', 'Callionyme réticulé'),
-  (215, 'Aspitrigla cuculus', 'Grondin rouge'),
-  (220, 'Centrolabrus exoletus', 'Petite vieille'),
-  (221, 'Ciliata septentrionalis', 'Motelle à moustaches'),
-  (222, 'Coris julis', 'Girelle'),
-  (219, 'Carassius gibelio', 'Carassin argenté'),
-  (223, 'Crystallogobius linearis', 'Gobie cristal'),
-  (228, 'Entelurus aequoreus', 'Entélure'),
-  (233, 'Gobius cobitis', 'Gobie céphalote'),
-  (234, 'Gobius cruentatus', 'Gobie ensanglanté'),
-  (236, 'Gobius paganellus', 'Gobie paganel'),
-  (237, 'Gobius roulei', 'Gobie paganel gros oeil'),
-  (235, 'Gobius geniporus', 'Gobie à joues poreuses'),
-  (240, 'Hippoglossoides platessoides', 'Balai de l''Atlantique'),
-  (242, 'Labrus mixtus', 'Coquette'),
-  (244, 'Lepadogaster lepadogaster', 'Gluette barbier'),
-  (243, 'Lepadogaster candolii', 'Gluette petite queue'),
-  (246, 'Lesueurigobius friesii', 'Gobie raôlet'),
-  (251, 'Liparis liparis', 'Limace de mer'),
-  (252, 'Liparis montagui', 'Limace anicotte'),
-  (256, 'Maurolicus muelleri', 'Brossé améthyste'),
-  (267, 'Nerophis lumbriciformis', 'Nérophis petit nez'),
-  (277, 'Rhodeus amarus', 'Bouvière'),
-  (279, 'Spinachia spinachia', 'Epinoche de mer'),
-  (282, 'Syngnathus abaster', 'Syngnathe gorge claire'),
-  (284, 'Syngnathus typhle', 'Siphonostome'),
-  (217, 'Blennius fluviatilis', 'Blennie fluviatile'),
-  (253, 'Lipophrys pholis', 'Blennie mordocet'),
-  (271, 'Parablennius sanguinolentus', 'Baveuse'),
-  (270, 'Parablennius gattorugine', 'Blennie cabot'),
-  (258, 'Micrenophrys lilljeborgi', 'Chabot têtu'),
-  (329, 'Penaeus kerathurus', 'Caramote'),
-  (310, 'Dromia sp.', '"Dormeur"'),
-  (283, 'Syngnathus taenionotus', 'Syngnathe taenionotus'),
-  (291, 'Zeugopterus punctatus', 'Targeur'),
-  (306, 'Atyaephyra desmaresti,Palemon varians', 'crevettes divers'),
-  (285, 'Taurulus bubalis', 'Chabot buffle'),
-  (312, 'Galathea strigosa', 'Galathée striée'),
-  (307, 'Bivalves', 'bivalves'),
-  (316, 'Liocarcinus holsatus', '"Etrille"'),
-  (313, 'Gammaridae', 'Gammares'),
-  (323, 'Pachygrapsus marmoratus', 'Grapse marbré'),
-  (314, 'Goneplax rhomboides', '"crabe"'),
-  (321, 'Macropodia sp.', '"Macropodia"'),
-  (319, 'Macoma balthica', 'Telline de la Baltique'),
-  (330, 'Pilumnus hirtellus', 'Crabe rouge poilu'),
-  (332, 'Planes minutus', '"crabe"'),
-  (331, 'Pisidia longicornis', '"crabe"'),
-  (334, 'Porcellana platycheles', '"crabe"'),
-  (337, 'Salmo trutta trutta', 'Truite de mer brune'),
-  (338, 'Salmo trutta fario', 'Truite fario'),
-  (341, 'Sepiola sp.', 'Sépioles'),
-  (339, 'Sepia sp.', 'Seiches'),
-  (324, 'Pachygrapsus sp.', '"crabe"'),
-  (305, 'Atelecyclus rotundatus', '"crabe"'),
-  (303, 'Alloteuthis sp.', '"calmar"'),
-  (184, 'Solea vulgaris', 'Sole commune'),
-  (48, 'Cottus gobio', 'Chabot'),
-  (43, 'Ciliata sp.', 'Motelle'),
-  (39, 'Chelon labrosus', 'Mulet lippu'),
-  (21, 'Atherina presbyter', 'Prêtre'),
-  (17, 'Anguillidae', 'Anguilles'),
-  (4, 'Acipenser sp.', 'Esturgeons'),
-  (162, 'Rhodeus sericeus', 'Bouvière'),
-  (299, 'Gobiidae', 'Gobidés'),
-  (343, 'Aphanius fasciatus', 'Aphanius de Corse'),
-  (298, 'Gadidae', 'Gadidés'),
-  (278, 'Salaria pavo', 'Blennie paon'),
-  (344, 'Microchirus variegatus', 'Sole perdrix'),
-  (342, 'Zebrus zebrus', 'Gobie zébré'),
-  (346, 'Pomatoschistus marmoratus', 'Gobie marbré'),
-  (273, 'Pomatoschistus lozanoi', 'Gobie rouillé'),
-  (501, 'Sarpa salpa', 'Saupe'),
-  (170, 'Scardinius erythrophthalmus', 'Rotengle'),
-  (127, 'Palaemon longirostris', 'crevette blanche'),
-  (345, 'Palaemon adspersus', NULL),
-  (99, 'Lepomis gibbosus', 'Perche soleil'),
-  (90, 'Hippocampus zosterae', 'Hippocampe Atlantique ouest'),
-  (500, 'Rajelle fyllae', 'Raie ronde'),
-  (347, 'Symphodus cinereus', 'Crénilabre balafré'),
-  (348, 'Symphodus tinca', 'Crénilabre paon'),
-  (296, 'Syngnathidae', 'Syngnathes'),
-  (502, 'Meduse sp.', 'Meduse'),
-  (1, 'Abramis brama', 'Brème d''eau douce')
-;
-select setval('espece_espece_id_seq', (select max(espece_id) from espece));
-
-insert into piecetype (piecetype_libelle)
-values ('Otolithe');
-
-INSERT INTO sexe
-  (sexe_id, sexe_libelle, sexe_libellecourt)
-VALUES
-  (1, 'Mâle', 'M'),
-  (2, 'Femelle', 'F'),
-  (3, 'Juvénile', 'JUV'),
-  (4, 'Indifférencié', 'IND')
-;
-
--- Ajouts lies a la version 2.2
-
--- object: metadatatype | type: TABLE --
--- DROP TABLE IF EXISTS metadatatype CASCADE;
-create sequence metadatatype_metadatatype_id_seq;
-
-CREATE TABLE metadatatype (
-	metadatatype_id integer DEFAULT nextval('metadatatype_metadatatype_id_seq'::regclass) NOT NULL,
-	metadatatype_name varchar NOT NULL,
-	metadatatype_comment varchar,
-	metadatatype_description bytea,
-	is_array boolean DEFAULT 'f',
-	metadatatype_schema json,
-	CONSTRAINT metadatatype_pk PRIMARY KEY (metadatatype_id)
-
-);
-
-ALTER SEQUENCE "metadatatype_metadatatype_id_seq" OWNED BY "metadatatype"."metadatatype_id";
+-- Database generated with pgModeler (PostgreSQL Database Modeler).
+-- pgModeler  version: 0.9.2
+-- PostgreSQL version: 9.6
+-- Project Site: pgmodeler.io
+-- Model Author: Eric Quinton
+
+
+-- Database creation must be done outside a multicommand file.
+-- These commands were put in this file only as a convenience.
+-- -- object: otolithe | type: DATABASE --
+-- -- DROP DATABASE IF EXISTS otolithe;
+-- CREATE DATABASE otolithe
+-- 	ENCODING = 'UTF8'
+-- 	LC_COLLATE = 'fr_FR.UTF-8'
+-- 	LC_CTYPE = 'fr_FR.UTF-8'
+-- 	TABLESPACE = pg_default
+-- 	OWNER = otolithe;
+-- -- ddl-end --
+-- 
+
+-- object: otolithe | type: SCHEMA --
+-- DROP SCHEMA IF EXISTS otolithe CASCADE;
+CREATE SCHEMA otolithe;
 -- ddl-end --
-COMMENT ON COLUMN metadatatype.metadatatype_name IS 'Nom du type de métadonnées';
--- ddl-end --
-COMMENT ON COLUMN metadatatype.metadatatype_comment IS 'Description du type de métadonnées';
--- ddl-end --
-COMMENT ON COLUMN metadatatype.metadatatype_description IS 'Description externe du jeu de métadonnées (fichier PDF attaché, par exemple)';
--- ddl-end --
-COMMENT ON COLUMN metadatatype.is_array IS 'Définit si les données sont sous forme de tableau ou uniques';
--- ddl-end --
-COMMENT ON COLUMN metadatatype.metadatatype_schema IS 'Description JSON au format AlpacaJS du type de métadonnées';
+ALTER SCHEMA otolithe OWNER TO otolithe;
 -- ddl-end --
 
--- object: piecemetadata | type: TABLE --
--- DROP TABLE IF EXISTS piecemetadata CASCADE;
-create sequence piecemetadata_piecemetadata_id_seq;
+-- object: gacl | type: SCHEMA --
+-- DROP SCHEMA IF EXISTS gacl CASCADE;
+CREATE SCHEMA gacl;
+-- ddl-end --
+ALTER SCHEMA gacl OWNER TO otolithe;
+-- ddl-end --
 
-CREATE TABLE piecemetadata (
-	piecemetadata_id integer DEFAULT nextval('piecemetadata_piecemetadata_id_seq'::regclass) NOT NULL,
+SET search_path TO pg_catalog,public,otolithe,gacl;
+-- ddl-end --
+
+-- object: otolithe.espece_espece_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS otolithe.espece_espece_id_seq CASCADE;
+CREATE SEQUENCE otolithe.espece_espece_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE otolithe.espece_espece_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.espece | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.espece CASCADE;
+CREATE TABLE otolithe.espece (
+	espece_id integer NOT NULL DEFAULT nextval('otolithe.espece_espece_id_seq'::regclass),
+	nom_id character varying NOT NULL,
+	nom_fr character varying,
+	CONSTRAINT espece_pkey PRIMARY KEY (espece_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE otolithe.espece IS E'Liste des especes';
+-- ddl-end --
+ALTER TABLE otolithe.espece OWNER TO otolithe;
+-- ddl-end --
+
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Abramis brama', E'Brème d''eau douce');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Abramis sp.', E'Brèmes d''eau douce nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Acipenser baerii', E'Esturgeon de Sibérie');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Acipenser sp.', E'Esturgeons');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Acipenser sturio', E'Esturgeon commun');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Acipenseridae', E'Esturgeons nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Acipenseriformes', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Agonus cataphractus', E'Souris de mer');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Alburnus alburnus', E'Ablette');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Alosa alosa', E'Alose vraie (=Grande alose)');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Alosa alosa, Alosa fallax', E'Aloses vraie et feinte');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Alosa fallax', E'Alose feinte');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Alosa sp.', E'Aloses nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Ammodytes tobianus', E'Equille');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Anguilla anguilla', E'Anguille d''Europe');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Anguilla sp.', E'Anguilles nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Anguillidae', E'Anguilles');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Argyrosomus regius', E'Maigre commun');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Argyrosomus sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Atherina boyeri', E'Joêl');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Atherina presbyter', E'Prêtre');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Atherina sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Atherinidae', E'Athérinidés nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Barbatula barbatula', E'Loche franche');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Barbus barbus', E'Barbeau fluviatile');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Barbus sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Belone belone', E'Orphie');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Belone sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Blicca bjoerkna', E'Brème bordelière');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Boops boops', E'Bogue');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Buglossidium luteum', E'Petite sole jaune');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Callionymus phaeton', E'Callionyme paille-en-queue');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Callionymus risso', E'Callionyme bélène');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Callionymus sp.', E'Callionymes');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Carassius auratus', E'Poisson rouge(=Cyprin doré)');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Carassius carassius', E'Carassin(=Cyprin)');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Carassius sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Carcinus maenas', E'Crabe vert');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Chelon labrosus', E'Mulet lippu');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Chelon sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Chondrostoma nasus', E'Nase commun');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Ciliata mustela', E'Motelle à cinq barbillons');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Ciliata sp.', E'Motelle');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Clupea harengus', E'Hareng de l''Atlantique');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Clupea sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Cobitis taenia', E'Loche de rivière');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Conger conger', E'Congre d''Europe');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Cottus gobio', E'Chabot');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Cottus sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Crangon crangon', E'Crevette grise');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Crangon sp.', E'Crevettes crangon nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Crangonidae', E'Crevettes crangonidés nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Crassostrea gigas', E'Huître creuse du Pacifique');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Ctenolabrus rupestris', E'Rouquié');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Umbrina sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Cyprinidae', E'Cyprinidés nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Cypriniformes', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Cyprinus carpio', E'Carpe commune');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Cyprinus sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Dasyatis pastinaca', E'Pastenague');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Dasyatis sp.', E'Pastenagues nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Dicentrarchus labrax', E'Bar européen');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Dicentrarchus punctatus', E'Bar tacheté');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Dicentrarchus sp.', E'Bars nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Dicologlossa cuneata', E'Cèteau');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Diplodus sargus', E'Sar commun');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Diplodus vulgaris', E'Sar à tête noire');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Echiichthys vipera', E'Petite vive');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Engraulis encrasicolus', E'Anchois');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Engraulis sp.', E'Anchois nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Enophrys bubalis', E'chabot buffle');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Eriocheir sinensis', E'Crabe chinois');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Esox lucius', E'Brochet du Nord');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gadus morhua', E'Morue de l''Atlantique');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Galeorhinus galeus', E'Requin-hâ');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gambusia affinis', E'Gambusie');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gambusia sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gasterosteus aculeatus', E'Epinoche à trois épines');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gasterosteus sp.', E'Epinoches');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gobio gobio', E'Goujon');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gobius niger', E'Gobie noir');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gobiusculus flavescens', E'Gobie nageur');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gymnocephalus cernuus', E'Grémille');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Hippocampus erectus', E'Hippocampe rayé');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Hippocampus hippocampus', E'Hippocampe à museau court');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Hippocampus ingens', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Hippocampus ramulosus', E'Hippocampe moucheté');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Hippocampus reidi', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Hippocampus sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Hippocampus zosterae', E'Hippocampe Atlantique ouest');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Hyperoplus lanceolatus', E'Lançon commun');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Ictalurus melas', E'Poisson chat');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Ictalurus punctatus', E'Barbue d''Amérique');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Ictalurus sp.', E'Barbottes nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Labrus bergylta', E'Vieille commune');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Lampetra fluviatilis', E'Lamproie de rivière');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Lampetra planeri', E'Lamproie de Planer');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Lampetra sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Lepomis gibbosus', E'Perche soleil');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Lepomis sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Leucaspius delineatus', E'Able de Heckel');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Leuciscus cephalus', E'Chevaine');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Liza aurata', E'Mulet doré');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Liza ramada', E'Mulet porc');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Liza sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Lophius piscatorius', E'Baudroie commune');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Merlangius merlangus', E'Merlan');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Merluccius merluccius', E'Merlu européen');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Micropterus salmoides', E'Black bass');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Misgurnus fossilis', E'Loche d''étang');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Mugil liza', E'Mulet lebranche');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Mugil sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Mugilidae', E'Mulets nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Mullus sp.', E'Rougets nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Mullus surmuletus', E'Rouget de roche');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Myoxocephalus scorpius', E'Chaboisseau à épines courtes');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Nerophis ophidion', E'Nérophis tête bleue');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'NoName', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Orconectes limosus', E'Ecrevisse américaine');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Osmerus eperlanus', E'Eperlan européen');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Osmerus mordax', E'Eperlan arc-en-ciel');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Osmerus mordax dentex', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Osmerus mordax mordax', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Osmerus sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Osmerus sp., Hypomesus sp.', E'Eperlans nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pachygrapsus transversus', E'Anglette africaine');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Palaemon longirostris', E'crevette blanche');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Palaemon longirostris, P. serratus', E'crevettes blanche et rose');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Palaemon serratus', E'Bouquet commun');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Palaemon sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Palaemonidae', E'Crevettes d''eau douce nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Perca fluviatilis', E'Perche européenne');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Petromyzon marinus', E'Lamproie marine');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Petromyzon marinus, Lampetra fluviatilis', E'lamproie marine et lamproie de rivière');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Petromyzon sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Petromyzontiformes', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Petromyzontidae', E'Lamproies nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pholis gunnellus', E'Gonelle');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Phoxinus phoxinus', E'Arlequin');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Phoxinus sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Platichthys flesus', E'Flet d''Europe');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Platichthys flesus flesus', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Platichthys flesus italicus', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Platichthys flesus luscus', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Platichthys sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pleuronectes platessa', E'Plie d''Europe');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pleuronectes sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pollachius pollachius', E'Lieu jaune');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pomatoschistus microps', E'Gobie tacheté');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pomatoschistus minutus', E'Gobie buhotte');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pomatoschistus pictus', E'Gobie varié');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pomatoschistus sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Procambarus clarkii', E'Ecrevisse rouge de marais');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Procambarus sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Psetta maxima', E'Turbot');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Psetta sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pungitius pungitius', E'Epinochette');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Raja clavata', E'Raie bouclée');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Raja naevus', E'Raie fleurie');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Raja undulata', E'Raie brunette');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Rhodeus sericeus', E'Bouvière');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Rutilus rutilus', E'Gardon');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Rutilus sp.', E'Gardons nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Salmo salar', E'Saumon de l''Atlantique');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Salmo sp.', E'Truites nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Salmo trutta', E'Truite de mer');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Salmonidae', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Sardina pilchardus', E'Sardine commune');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Scardinius erythrophthalmus', E'Rotengle');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Scomber scombrus', E'Maquereau commun');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Scophthalmus maximus', E'Turbot');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Scophthalmus rhombus', E'Barbue');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Scophthalmus sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Scyliorhinus canicula', E'Petite roussette');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Scyliorhinus stellaris', E'Grande roussette');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Sepia officinalis', E'Seiche commune');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Silurus glanis', E'Silure glane');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Silurus sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Solea lascaris', E'Sole-pole');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Solea senegalensis', E'Sole sénégalaise');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Solea solea', E'Sole commune');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Solea sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Solea vulgaris', E'Sole commune');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Sparus aurata', E'Dorade royale');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Spondyliosoma cantharus', E'Dorade grise');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Sprattus sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Sprattus sprattus', E'Sprat');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Stizostedion lucioperca', E'Sandre');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Stizostedion sp.', E'Sandres nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Symphodus melops', E'Crénilabre melops');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Symphodus roissali', E'Crénilabre langaneu');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Syngnathus acus', E'Syngnathe aiguille');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Syngnathus rostellatus', E'Syngnathe de Duméril');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Syngnathus sp.', E'Syngnathes');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Tinca sp.', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Tinca tinca', E'Tanche');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Torpedo marmorata', E'Torpille marbrée');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Trachurus trachurus', E'Chinchard d''Europe');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Trigla lucerna', E'Grondin perlon');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Trigla sp.', E'Grondins nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Triglidae', E'Grondins, cavillones nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Trisopterus luscus', E'Tacaud commun');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Trisopterus minutus', E'Capelan de Méditerranée');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Umbrina canariensis', E'Ombrine bronze');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Umbrina cirrosa', E'Ombrine côtière');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pseudorasbora parva', E'Pseudorasbora');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Callionymus lyra', E'Callionyme lyre');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Alburnoides bipunctatus', E'Spirlin');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Ammodytes marinus', E'Lançon équille');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Ammodytes semisquamatus', E'Lançon aiguille');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Aphia minuta', E'Nonnat');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Arnoglossus laterna', E'Arnoglosse de Méditerranée');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Arnoglossus thori', E'Arnoglosse tacheté');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Aspitrigla cuculus', E'Grondin rouge');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Balistes carolinensis', E'Baliste');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Blennius fluviatilis', E'Blennie fluviatile');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Callionymus reticulatus', E'Callionyme réticulé');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Carassius gibelio', E'Carassin argenté');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Centrolabrus exoletus', E'Petite vieille');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Ciliata septentrionalis', E'Motelle à moustaches');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Coris julis', E'Girelle');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Crystallogobius linearis', E'Gobie cristal');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Cyclopterus lumpus', E'Lompe');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Diplodus annularis', E'Sparaillon commun');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Diplodus cervinus', E'Sar à grosses lèvres');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Enchelyopus cimbrius', E'Motelle à quatre barbillons');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Entelurus aequoreus', E'Entélure');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Eutrigla gurnardus', E'Grondin gris');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gaidropsarus mediterraneus', E'Motelle de Méditerranée');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gaidropsarus vulgaris', E'Motelle commune');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Galeus melastomus', E'Chien espagnol');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gobius cobitis', E'Gobie céphalote');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gobius cruentatus', E'Gobie ensanglanté');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gobius geniporus', E'Gobie à joues poreuses');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gobius paganellus', E'Gobie paganel');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gobius roulei', E'Gobie paganel gros oeil');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Hippocampus guttulatus', E'Cheval marin');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Hippoglossoides platessoides', E'Balai de l''Atlantique');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Labrus merula', E'Merle');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Labrus mixtus', E'Coquette');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Lepadogaster candolii', E'Gluette petite queue');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Lepadogaster lepadogaster', E'Gluette barbier');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Lepidorhombus whiffiagonis', E'Cardine franche');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Lesueurigobius friesii', E'Gobie raôlet');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Leuciscus idus', E'Ide mélanote');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Leuciscus leuciscus', E'Vandoise');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Leuroraja naevus', E'Raie fleurie');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Limanda limanda', E'Limande');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Liparis liparis', E'Limace de mer');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Liparis montagui', E'Limace anicotte');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Lipophrys pholis', E'Blennie mordocet');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Lithognathus mormyrus', E'Marbré');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Liza saliens', E'Mulet sauteur');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Maurolicus muelleri', E'Brossé améthyste');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Melanogrammus aeglefinus', E'Eglefin');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Micrenophrys lilljeborgi', E'Chabot têtu');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Micromesistius poutassou', E'Merlan bleu');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Microstomus kitt', E'Limande sole');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Molva molva', E'Lingue');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Mugil cephalus', E'Mulet à grosse tête');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Mullus barbatus', E'Rouget de vase');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Mustelus asterias', E'Emissole tachetée');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Mustelus mustelus', E'Emissole lisse');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Myxine glutinosa', E'Myxine');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Nerophis lumbriciformis', E'Nérophis petit nez');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Oblada melanura', E'Oblade');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Oncorhynchus mykiss', E'Truite arc-en-ciel');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Parablennius gattorugine', E'Blennie cabot');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Parablennius sanguinolentus', E'Baveuse');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pollachius virens', E'Lieu noir');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pomatoschistus lozanoi', E'Gobie rouillé');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Raja brachyura', E'Raie lisse');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Raja microocellata', E'Raie mélée');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Raniceps raninus', E'Trident');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Rhodeus amarus', E'Bouvière');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Salaria pavo', E'Blennie paon');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Spinachia spinachia', E'Epinoche de mer');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Squalus acanthias', E'Aiguillat commun');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Syngnathus abaster', E'Syngnathe gorge claire');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Syngnathus taenionotus', E'Syngnathe taenionotus');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Syngnathus typhle', E'Siphonostome');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Taurulus bubalis', E'Chabot buffle');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Telestes souffia', E'Blageon');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Thymallus thymallus', E'Ombre commun');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Trachinus draco', E'Grande vive');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Trigla lyra', E'Grondin lyre');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Trisopterus esmarkii', E'Tacaud norvégien');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Zeugopterus punctatus', E'Targeur');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Zeus faber', E'Saint Pierre');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Zoarces viviparus', E'Loquette d''Europe');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Zosterisessor ophiocephalus', E'Gobie lotte');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Abramis brama, Blicca bjoerkna', E'Brèmes');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Syngnathidae', E'Syngnathes');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Clupeidae', E'Harengs, sardines nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gadidae', E'Gadidés');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gobiidae', E'Gobidés');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Sciaena umbra', E'Corb commun');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Sardinella aurita', E'Allache');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Palaemon macrodactylus', E'Bouquet migrateur');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Alloteuthis sp.', E'"calmar"');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Alloteuthis subulata', E'Casseron commun');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Atelecyclus rotundatus', E'"crabe"');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Atyaephyra desmaresti,Palemon varians', E'crevettes divers');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Bivalves', E'bivalves');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Cancer pagurus', E'Tourteau');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Carcinus aestuarii', E'Crabe vert de la Méditerranée');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Dromia sp.', E'"Dormeur"');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Dromia personata', E'Crabe dormeur');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Galathea strigosa', E'Galathée striée');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Gammaridae', E'Gammares');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Goneplax rhomboides', E'"crabe"');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Liocarcinus depurator', E'Etrille pattes bleues');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Liocarcinus holsatus', E'"Etrille"');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Loliginidae', E'Calmars côtiers nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Loligo sp.', E'Calmars nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Macoma balthica', E'Telline de la Baltique');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Loligo vulgaris', E'Encornet');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Macropodia sp.', E'"Macropodia"');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Necora puber', E'Etrille commune');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pachygrapsus marmoratus', E'Grapse marbré');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pachygrapsus sp.', E'"crabe"');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Palaemon elegans', E'Bouquet flaque');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Palaemonetes varians', E'Bouquet atlantique des canaux');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Panopeus africanus', E'Crabe caillou africain');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Penaeus japonicus', E'Crevette kuruma');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Penaeus kerathurus', E'Caramote');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pilumnus hirtellus', E'Crabe rouge poilu');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pisidia longicornis', E'"crabe"');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Planes minutus', E'"crabe"');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pleuronectidae', E'Plies nca');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Porcellana platycheles', E'"crabe"');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Portumnus latipes', E'Etrille elegante');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Processa edulis', E'Guernade nica');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Salmo trutta trutta', E'Truite de mer brune');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Salmo trutta fario', E'Truite fario');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Sepia sp.', E'Seiches');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Sepiola atlantica', E'Sépiole grandes oreilles');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Sepiola sp.', E'Sépioles');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Zebrus zebrus', E'Gobie zébré');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Aphanius fasciatus', E'Aphanius de Corse');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Microchirus variegatus', E'Sole perdrix');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Palaemon adspersus', DEFAULT);
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Pomatoschistus marmoratus', E'Gobie marbré');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Symphodus cinereus', E'Crénilabre balafré');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Symphodus tinca', E'Crénilabre paon');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Rajelle fyllae', E'Raie ronde');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Sarpa salpa', E'Saupe');
+-- ddl-end --
+INSERT INTO otolithe.espece (nom_id, nom_fr) VALUES (E'Meduse sp.', E'Meduse');
+-- ddl-end --
+
+-- object: otolithe.experimentation_exp_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS otolithe.experimentation_exp_id_seq CASCADE;
+CREATE SEQUENCE otolithe.experimentation_exp_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE otolithe.experimentation_exp_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.experimentation | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.experimentation CASCADE;
+CREATE TABLE otolithe.experimentation (
+	exp_id integer NOT NULL DEFAULT nextval('otolithe.experimentation_exp_id_seq'::regclass),
+	exp_nom character varying NOT NULL,
+	exp_description character varying,
+	exp_debut date,
+	exp_fin date,
+	CONSTRAINT pk_experimentation PRIMARY KEY (exp_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE otolithe.experimentation IS E'Experimentation a laquelle est rattache le poisson';
+-- ddl-end --
+ALTER TABLE otolithe.experimentation OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.final_stripe_final_stripe_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS otolithe.final_stripe_final_stripe_id_seq CASCADE;
+CREATE SEQUENCE otolithe.final_stripe_final_stripe_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE otolithe.final_stripe_final_stripe_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.final_stripe | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.final_stripe CASCADE;
+CREATE TABLE otolithe.final_stripe (
+	final_stripe_id integer NOT NULL DEFAULT nextval('otolithe.final_stripe_final_stripe_id_seq'::regclass),
+	final_stripe_code character varying NOT NULL,
+	final_stripe_libelle character varying NOT NULL,
+	CONSTRAINT final_stripe_pk PRIMARY KEY (final_stripe_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE otolithe.final_stripe IS E'Natures de la strie finale';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.final_stripe.final_stripe_code IS E'Code utilisé';
+-- ddl-end --
+ALTER TABLE otolithe.final_stripe OWNER TO otolithe;
+-- ddl-end --
+
+INSERT INTO otolithe.final_stripe (final_stripe_code, final_stripe_libelle) VALUES (E'HS', E'Hialine stripe');
+-- ddl-end --
+INSERT INTO otolithe.final_stripe (final_stripe_code, final_stripe_libelle) VALUES (E'DS', E'Dark stripe');
+-- ddl-end --
+INSERT INTO otolithe.final_stripe (final_stripe_code, final_stripe_libelle) VALUES (E'IN', E'Indefinite');
+-- ddl-end --
+
+-- object: otolithe.individu_individu_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS otolithe.individu_individu_id_seq CASCADE;
+CREATE SEQUENCE otolithe.individu_individu_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE otolithe.individu_individu_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.individu | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.individu CASCADE;
+CREATE TABLE otolithe.individu (
+	individu_id integer NOT NULL DEFAULT nextval('otolithe.individu_individu_id_seq'::regclass),
+	espece_id integer NOT NULL,
+	peche_id integer,
+	sexe_id integer,
+	codeindividu character varying,
+	poids double precision,
+	remarque character varying,
+	parasite character varying,
+	age integer,
+	longueur double precision,
+	tag character varying,
+	uuid uuid DEFAULT gen_random_uuid(),
+	wgs84_x double precision,
+	wgs84_y double precision,
+	CONSTRAINT pk_individu PRIMARY KEY (individu_id)
+
+);
+-- ddl-end --
+COMMENT ON COLUMN otolithe.individu.wgs84_x IS E'Longitude of the capture, in wgs84';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.individu.wgs84_y IS E'Latitude of the capture, in wgs84';
+-- ddl-end --
+ALTER TABLE otolithe.individu OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.individu_experimentation | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.individu_experimentation CASCADE;
+CREATE TABLE otolithe.individu_experimentation (
+	individu_id integer NOT NULL,
+	exp_id integer NOT NULL,
+	CONSTRAINT individu_experimentation_pk PRIMARY KEY (individu_id,exp_id)
+
+);
+-- ddl-end --
+ALTER TABLE otolithe.individu_experimentation OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.lecteur_lecteur_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS otolithe.lecteur_lecteur_id_seq CASCADE;
+CREATE SEQUENCE otolithe.lecteur_lecteur_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE otolithe.lecteur_lecteur_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.lecteur | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.lecteur CASCADE;
+CREATE TABLE otolithe.lecteur (
+	lecteur_id integer NOT NULL DEFAULT nextval('otolithe.lecteur_lecteur_id_seq'::regclass),
+	login character varying NOT NULL,
+	lecteur_nom character varying,
+	lecteur_prenom character varying,
+	CONSTRAINT pk_lecteur PRIMARY KEY (lecteur_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE otolithe.lecteur IS E'personne realisant la lecture d''une photo';
+-- ddl-end --
+ALTER TABLE otolithe.lecteur OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.lecteur_experimentation | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.lecteur_experimentation CASCADE;
+CREATE TABLE otolithe.lecteur_experimentation (
+	lecteur_id integer NOT NULL,
+	exp_id integer NOT NULL,
+	CONSTRAINT lecteur_experimentation_pk PRIMARY KEY (lecteur_id,exp_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE otolithe.lecteur_experimentation IS E'Table des experimentations autorisees pour un lecteur';
+-- ddl-end --
+ALTER TABLE otolithe.lecteur_experimentation OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.lumieretype | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.lumieretype CASCADE;
+CREATE TABLE otolithe.lumieretype (
+	lumieretype_id integer NOT NULL,
+	lumieretype_libelle character varying NOT NULL,
+	CONSTRAINT pk_lumieretype PRIMARY KEY (lumieretype_id)
+
+);
+-- ddl-end --
+ALTER TABLE otolithe.lumieretype OWNER TO otolithe;
+-- ddl-end --
+
+INSERT INTO otolithe.lumieretype (lumieretype_libelle) VALUES (E'Reflected light');
+-- ddl-end --
+INSERT INTO otolithe.lumieretype (lumieretype_libelle) VALUES (E'Transmitted light');
+-- ddl-end --
+
+-- object: otolithe.peche_peche_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS otolithe.peche_peche_id_seq CASCADE;
+CREATE SEQUENCE otolithe.peche_peche_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE otolithe.peche_peche_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.peche | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.peche CASCADE;
+CREATE TABLE otolithe.peche (
+	peche_id integer NOT NULL DEFAULT nextval('otolithe.peche_peche_id_seq'::regclass),
+	site character varying,
+	zonesite character varying,
+	peche_date timestamp,
+	campagne character varying,
+	peche_engin character varying,
+	personne character varying,
+	operateur character varying,
+	CONSTRAINT pk_sitepeche PRIMARY KEY (peche_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE otolithe.peche IS E'Date de peche et lieu de capture';
+-- ddl-end --
+ALTER TABLE otolithe.peche OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.photo_photo_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS otolithe.photo_photo_id_seq CASCADE;
+CREATE SEQUENCE otolithe.photo_photo_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE otolithe.photo_photo_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.photo | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.photo CASCADE;
+CREATE TABLE otolithe.photo (
+	photo_id integer NOT NULL DEFAULT nextval('otolithe.photo_photo_id_seq'::regclass),
+	piece_id integer NOT NULL,
+	lumieretype_id integer,
+	photo_nom character varying,
+	description character varying,
+	photo_filename character varying,
+	photo_date timestamp,
+	color character varying,
+	grossissement integer,
+	repere double precision,
+	photo_data bytea,
+	photo_thumbnail bytea,
+	uri character varying,
+	long_reference double precision,
+	photo_height integer,
+	photo_width integer,
+	long_ref_pixel integer,
+	CONSTRAINT pk_photo PRIMARY KEY (photo_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE otolithe.photo IS E'photos associees a une piece';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.photo.photo_height IS E'Hauteur de la photo originale';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.photo.photo_width IS E'Largeur de la photo originale';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.photo.long_ref_pixel IS E'Longueur de reference en pixels - valeur par defaut pour photolecture, si non lu';
+-- ddl-end --
+ALTER TABLE otolithe.photo OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.photolecture_photolecture_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS otolithe.photolecture_photolecture_id_seq CASCADE;
+CREATE SEQUENCE otolithe.photolecture_photolecture_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE otolithe.photolecture_photolecture_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.photolecture | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.photolecture CASCADE;
+CREATE TABLE otolithe.photolecture (
+	photolecture_id integer NOT NULL DEFAULT nextval('otolithe.photolecture_photolecture_id_seq'::regclass),
+	photo_id integer NOT NULL,
+	lecteur_id integer NOT NULL,
+	final_stripe_id integer,
+	centre character varying,
+	bordure varchar,
+	points geometry,
+	points_ref_lecture geometry,
+	photolecture_date timestamp NOT NULL,
+	long_ref_mesuree double precision,
+	photolecture_height integer,
+	photolecture_width integer,
+	long_totale_lue double precision,
+	long_totale_reel double precision,
+	rayon_point_initial real,
+	read_fiability real,
+	consensual_reading smallint,
+	annee_naissance integer,
+	commentaire varchar,
+	remarkable_points json,
+	CONSTRAINT enforce_dims_points CHECK ((st_ndims(points) = 2)),
+	CONSTRAINT enforce_dims_points_ref_lecture CHECK ((st_ndims(points_ref_lecture) = 2)),
+	CONSTRAINT enforce_geotype_points CHECK (((geometrytype(points) = 'MULTIPOINT'::text) OR (points IS NULL))),
+	CONSTRAINT enforce_geotype_points_ref_lecture CHECK (((geometrytype(points_ref_lecture) = 'MULTIPOINT'::text) OR (points_ref_lecture IS NULL))),
+	CONSTRAINT pk_photolecture PRIMARY KEY (photolecture_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE otolithe.photolecture IS E'Lecture realisee par une personne';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.photolecture.points_ref_lecture IS E'Emplacement des points utilises pour lire la longueur de reference';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.photolecture.photolecture_height IS E'Hauteur de la photo utilisee pour la lecture';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.photolecture.photolecture_width IS E'Largeur de la photo affichee pour realiser la lecture';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.photolecture.long_totale_lue IS E'Somme des segments entre chacun des points';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.photolecture.long_totale_reel IS E'Longueur totale réelle calculée pour le lecteur\n(long_reference / long_ref_mesuree * long_totale_lue)';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.photolecture.read_fiability IS E'Fiabilité de la lecture';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.photolecture.consensual_reading IS E'1 si lecture consensuelle';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.photolecture.annee_naissance IS E'Année de naissance estimée';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.photolecture.commentaire IS E'Commentaire sur la lecture';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.photolecture.remarkable_points IS E'Liste des points remarquables identifiés sur la photo';
+-- ddl-end --
+ALTER TABLE otolithe.photolecture OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.piece_piece_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS otolithe.piece_piece_id_seq CASCADE;
+CREATE SEQUENCE otolithe.piece_piece_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE otolithe.piece_piece_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.piece | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.piece CASCADE;
+CREATE TABLE otolithe.piece (
+	piece_id integer NOT NULL DEFAULT nextval('otolithe.piece_piece_id_seq'::regclass),
+	individu_id integer NOT NULL,
+	piecetype_id integer NOT NULL,
+	traitementpiece_id integer,
+	piececode character varying(255),
+	uuid uuid DEFAULT gen_random_uuid(),
+	CONSTRAINT pk_piece PRIMARY KEY (piece_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE otolithe.piece IS E'Pieces analysees';
+-- ddl-end --
+ALTER TABLE otolithe.piece OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.piecetype_piecetype_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS otolithe.piecetype_piecetype_id_seq CASCADE;
+CREATE SEQUENCE otolithe.piecetype_piecetype_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE otolithe.piecetype_piecetype_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.piecetype | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.piecetype CASCADE;
+CREATE TABLE otolithe.piecetype (
+	piecetype_id integer NOT NULL DEFAULT nextval('otolithe.piecetype_piecetype_id_seq'::regclass),
+	piecetype_libelle character varying NOT NULL,
+	CONSTRAINT pk_piecetype PRIMARY KEY (piecetype_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE otolithe.piecetype IS E'Type de piece';
+-- ddl-end --
+ALTER TABLE otolithe.piecetype OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.sexe | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.sexe CASCADE;
+CREATE TABLE otolithe.sexe (
+	sexe_id integer NOT NULL,
+	sexe_libelle character varying NOT NULL,
+	sexe_libellecourt character varying NOT NULL,
+	CONSTRAINT pk_sexe PRIMARY KEY (sexe_id)
+
+);
+-- ddl-end --
+ALTER TABLE otolithe.sexe OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.traitementpiece_traitementpiece_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS otolithe.traitementpiece_traitementpiece_id_seq CASCADE;
+CREATE SEQUENCE otolithe.traitementpiece_traitementpiece_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE otolithe.traitementpiece_traitementpiece_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.traitementpiece | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.traitementpiece CASCADE;
+CREATE TABLE otolithe.traitementpiece (
+	traitementpiece_id integer NOT NULL DEFAULT nextval('otolithe.traitementpiece_traitementpiece_id_seq'::regclass),
+	traitementpiece_libelle character varying NOT NULL,
+	CONSTRAINT pk_traitementpiece PRIMARY KEY (traitementpiece_id)
+
+);
+-- ddl-end --
+ALTER TABLE otolithe.traitementpiece OWNER TO otolithe;
+-- ddl-end --
+
+INSERT INTO otolithe.traitementpiece (traitementpiece_libelle) VALUES (E'polishing');
+-- ddl-end --
+INSERT INTO otolithe.traitementpiece (traitementpiece_libelle) VALUES (E'grinding,polishing');
+-- ddl-end --
+INSERT INTO otolithe.traitementpiece (traitementpiece_libelle) VALUES (E'grinding,polishing,staining');
+-- ddl-end --
+INSERT INTO otolithe.traitementpiece (traitementpiece_libelle) VALUES (E'burning,cracking,grinding,polishing');
+-- ddl-end --
+INSERT INTO otolithe.traitementpiece (traitementpiece_libelle) VALUES (E'burning,cracking');
+-- ddl-end --
+INSERT INTO otolithe.traitementpiece (traitementpiece_libelle) VALUES (E'cracking,grinding,polishing');
+-- ddl-end --
+INSERT INTO otolithe.traitementpiece (traitementpiece_libelle) VALUES (E'not recorded');
+-- ddl-end --
+
+-- object: otolithe.dbparam | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.dbparam CASCADE;
+CREATE TABLE otolithe.dbparam (
+	dbparam_id integer NOT NULL,
+	dbparam_name character varying NOT NULL,
+	dbparam_value character varying,
+	CONSTRAINT dbparam_pk PRIMARY KEY (dbparam_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE otolithe.dbparam IS E'Table des parametres associes de maniere intrinseque a l''instance';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.dbparam.dbparam_name IS E'Nom du parametre';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.dbparam.dbparam_value IS E'Valeur du paramètre';
+-- ddl-end --
+ALTER TABLE otolithe.dbparam OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.dbversion_dbversion_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS otolithe.dbversion_dbversion_id_seq CASCADE;
+CREATE SEQUENCE otolithe.dbversion_dbversion_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE otolithe.dbversion_dbversion_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.dbversion | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.dbversion CASCADE;
+CREATE TABLE otolithe.dbversion (
+	dbversion_id integer NOT NULL DEFAULT nextval('otolithe.dbversion_dbversion_id_seq'::regclass),
+	dbversion_number character varying NOT NULL,
+	dbversion_date timestamp NOT NULL,
+	CONSTRAINT dbversion_pk PRIMARY KEY (dbversion_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE otolithe.dbversion IS E'Table des versions de la base de donnees';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.dbversion.dbversion_number IS E'Numero de la version';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.dbversion.dbversion_date IS E'Date de la version';
+-- ddl-end --
+ALTER TABLE otolithe.dbversion OWNER TO otolithe;
+-- ddl-end --
+
+INSERT INTO otolithe.dbversion (dbversion_number, dbversion_date) VALUES (E'2.4', E'2020-04-06');
+-- ddl-end --
+
+-- object: otolithe.metadatatype_metadatatype_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS otolithe.metadatatype_metadatatype_id_seq CASCADE;
+CREATE SEQUENCE otolithe.metadatatype_metadatatype_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE otolithe.metadatatype_metadatatype_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.piecemetadata_piecemetadata_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS otolithe.piecemetadata_piecemetadata_id_seq CASCADE;
+CREATE SEQUENCE otolithe.piecemetadata_piecemetadata_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE otolithe.piecemetadata_piecemetadata_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: otolithe.piecemetadata | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.piecemetadata CASCADE;
+CREATE TABLE otolithe.piecemetadata (
+	piecemetadata_id integer NOT NULL DEFAULT nextval('otolithe.piecemetadata_piecemetadata_id_seq'::regclass),
 	piece_id integer NOT NULL,
 	metadatatype_id integer NOT NULL,
 	metadata json,
@@ -832,38 +1306,524 @@ CREATE TABLE piecemetadata (
 	CONSTRAINT piecemetadata_pk PRIMARY KEY (piecemetadata_id)
 
 );
+-- ddl-end --
+COMMENT ON TABLE otolithe.piecemetadata IS E'Métadonnées rattachées à une pièce calcifiée';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.piecemetadata.metadata IS E'Valeurs associées, au format Json';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.piecemetadata.piecemetadata_date IS E'Date d''acquisition des informations';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.piecemetadata.piecemetadata_comment IS E'Commentaires libres';
+-- ddl-end --
+ALTER TABLE otolithe.piecemetadata OWNER TO otolithe;
+-- ddl-end --
 
-alter sequence "piecemetadata_piecemetadata_id_seq" OWNED BY piecemetadata.piecemetadata_id;
+-- object: otolithe.metadatatype | type: TABLE --
+-- DROP TABLE IF EXISTS otolithe.metadatatype CASCADE;
+CREATE TABLE otolithe.metadatatype (
+	metadatatype_id integer NOT NULL DEFAULT nextval('otolithe.metadatatype_metadatatype_id_seq'::regclass),
+	metadatatype_name varchar NOT NULL,
+	metadatatype_comment varchar,
+	metadatatype_description bytea,
+	is_array boolean DEFAULT false,
+	metadatatype_schema json,
+	CONSTRAINT metadatatype_pk PRIMARY KEY (metadatatype_id)
 
+);
 -- ddl-end --
-COMMENT ON TABLE piecemetadata IS 'Métadonnées rattachées à une pièce calcifiée';
+COMMENT ON COLUMN otolithe.metadatatype.metadatatype_name IS E'Nom du type de métadonnées';
 -- ddl-end --
-COMMENT ON COLUMN piecemetadata.metadata IS 'Valeurs associées, au format Json';
+COMMENT ON COLUMN otolithe.metadatatype.metadatatype_comment IS E'Description du type de métadonnées';
 -- ddl-end --
-COMMENT ON COLUMN piecemetadata.piecemetadata_date IS 'Date d''acquisition des informations';
+COMMENT ON COLUMN otolithe.metadatatype.metadatatype_description IS E'Description externe du jeu de métadonnées (fichier PDF attaché, par exemple)';
 -- ddl-end --
-COMMENT ON COLUMN piecemetadata.piecemetadata_comment IS 'Commentaires libres';
+COMMENT ON COLUMN otolithe.metadatatype.is_array IS E'Définit si les données sont sous forme de tableau ou uniques';
+-- ddl-end --
+COMMENT ON COLUMN otolithe.metadatatype.metadatatype_schema IS E'Description JSON au format AlpacaJS du type de métadonnées';
+-- ddl-end --
+ALTER TABLE otolithe.metadatatype OWNER TO otolithe;
 -- ddl-end --
 
--- [ Created foreign keys ] --
+-- object: gacl.aclacl | type: TABLE --
+-- DROP TABLE IF EXISTS gacl.aclacl CASCADE;
+CREATE TABLE gacl.aclacl (
+	aclaco_id integer NOT NULL,
+	aclgroup_id integer NOT NULL,
+	CONSTRAINT aclacl_pk PRIMARY KEY (aclaco_id,aclgroup_id) DEFERRABLE INITIALLY IMMEDIATE
+
+);
+-- ddl-end --
+COMMENT ON TABLE gacl.aclacl IS E'Rights table';
+-- ddl-end --
+ALTER TABLE gacl.aclacl OWNER TO otolithe;
+-- ddl-end --
+
+INSERT INTO gacl.aclacl (aclaco_id, aclgroup_id) VALUES (E'1', E'1');
+-- ddl-end --
+INSERT INTO gacl.aclacl (aclaco_id, aclgroup_id) VALUES (E'2', E'2');
+-- ddl-end --
+INSERT INTO gacl.aclacl (aclaco_id, aclgroup_id) VALUES (E'3', E'3');
+-- ddl-end --
+INSERT INTO gacl.aclacl (aclaco_id, aclgroup_id) VALUES (E'4', E'4');
+-- ddl-end --
+
+-- object: gacl.aclaco | type: TABLE --
+-- DROP TABLE IF EXISTS gacl.aclaco CASCADE;
+CREATE TABLE gacl.aclaco (
+	aclaco_id integer NOT NULL DEFAULT nextval('gacl.aclaco_aclaco_id_seq'::regclass),
+	aclappli_id integer NOT NULL,
+	aco character varying NOT NULL,
+	CONSTRAINT aclaco_pk PRIMARY KEY (aclaco_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE gacl.aclaco IS E'List of managed rights';
+-- ddl-end --
+ALTER TABLE gacl.aclaco OWNER TO otolithe;
+-- ddl-end --
+
+INSERT INTO gacl.aclaco (aclaco_id, aclappli_id, aco) VALUES (E'1', E'1', E'admin');
+-- ddl-end --
+INSERT INTO gacl.aclaco (aclaco_id, aclappli_id, aco) VALUES (E'2', E'1', E'gestion');
+-- ddl-end --
+INSERT INTO gacl.aclaco (aclaco_id, aclappli_id, aco) VALUES (E'3', E'1', E'consult');
+-- ddl-end --
+INSERT INTO gacl.aclaco (aclaco_id, aclappli_id, aco) VALUES (E'4', E'1', E'gestionCompte');
+-- ddl-end --
+INSERT INTO gacl.aclaco (aclaco_id, aclappli_id, aco) VALUES (E'5', E'1', E'lecture');
+-- ddl-end --
+
+-- object: gacl.aclaco_aclaco_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS gacl.aclaco_aclaco_id_seq CASCADE;
+CREATE SEQUENCE gacl.aclaco_aclaco_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 6
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE gacl.aclaco_aclaco_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: gacl.aclappli | type: TABLE --
+-- DROP TABLE IF EXISTS gacl.aclappli CASCADE;
+CREATE TABLE gacl.aclappli (
+	aclappli_id integer NOT NULL DEFAULT nextval('gacl.aclappli_aclappli_id_seq'::regclass),
+	appli character varying NOT NULL,
+	applidetail character varying,
+	CONSTRAINT aclappli_pk PRIMARY KEY (aclappli_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE gacl.aclappli IS E'Managed software table';
+-- ddl-end --
+COMMENT ON COLUMN gacl.aclappli.appli IS E'Software name from rights management';
+-- ddl-end --
+COMMENT ON COLUMN gacl.aclappli.applidetail IS E'Software description';
+-- ddl-end --
+ALTER TABLE gacl.aclappli OWNER TO otolithe;
+-- ddl-end --
+
+INSERT INTO gacl.aclappli (aclappli_id, appli, applidetail) VALUES (E'1', E'otolithe', DEFAULT);
+-- ddl-end --
+
+-- object: gacl.aclappli_aclappli_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS gacl.aclappli_aclappli_id_seq CASCADE;
+CREATE SEQUENCE gacl.aclappli_aclappli_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 2
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE gacl.aclappli_aclappli_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: gacl.aclgroup | type: TABLE --
+-- DROP TABLE IF EXISTS gacl.aclgroup CASCADE;
+CREATE TABLE gacl.aclgroup (
+	aclgroup_id integer NOT NULL DEFAULT nextval('gacl.aclgroup_aclgroup_id_seq'::regclass),
+	groupe character varying NOT NULL,
+	aclgroup_id_parent integer,
+	CONSTRAINT aclgroup_pk PRIMARY KEY (aclgroup_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE gacl.aclgroup IS E'Login groups';
+-- ddl-end --
+ALTER TABLE gacl.aclgroup OWNER TO otolithe;
+-- ddl-end --
+
+INSERT INTO gacl.aclgroup (aclgroup_id, groupe, aclgroup_id_parent) VALUES (E'1', E'admin', DEFAULT);
+-- ddl-end --
+INSERT INTO gacl.aclgroup (aclgroup_id, groupe, aclgroup_id_parent) VALUES (E'2', E'consult', DEFAULT);
+-- ddl-end --
+INSERT INTO gacl.aclgroup (aclgroup_id, groupe, aclgroup_id_parent) VALUES (E'3', E'gestion', E'2');
+-- ddl-end --
+INSERT INTO gacl.aclgroup (aclgroup_id, groupe, aclgroup_id_parent) VALUES (E'4', E'gestionCompte', E'3');
+-- ddl-end --
+
+-- object: gacl.aclgroup_aclgroup_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS gacl.aclgroup_aclgroup_id_seq CASCADE;
+CREATE SEQUENCE gacl.aclgroup_aclgroup_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 5
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE gacl.aclgroup_aclgroup_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: gacl.acllogin | type: TABLE --
+-- DROP TABLE IF EXISTS gacl.acllogin CASCADE;
+CREATE TABLE gacl.acllogin (
+	acllogin_id integer NOT NULL DEFAULT nextval('gacl.acllogin_acllogin_id_seq'::regclass),
+	login character varying NOT NULL,
+	logindetail character varying NOT NULL,
+	CONSTRAINT acllogin_pk PRIMARY KEY (acllogin_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE gacl.acllogin IS E'Users login';
+-- ddl-end --
+COMMENT ON COLUMN gacl.acllogin.logindetail IS E'Nom affiché';
+-- ddl-end --
+ALTER TABLE gacl.acllogin OWNER TO otolithe;
+-- ddl-end --
+
+INSERT INTO gacl.acllogin (acllogin_id, login, logindetail) VALUES (E'1', E'admin', E'admin');
+-- ddl-end --
+
+-- object: gacl.acllogin_acllogin_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS gacl.acllogin_acllogin_id_seq CASCADE;
+CREATE SEQUENCE gacl.acllogin_acllogin_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 2
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE gacl.acllogin_acllogin_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: gacl.acllogingroup | type: TABLE --
+-- DROP TABLE IF EXISTS gacl.acllogingroup CASCADE;
+CREATE TABLE gacl.acllogingroup (
+	acllogin_id integer NOT NULL,
+	aclgroup_id integer NOT NULL,
+	CONSTRAINT acllogingroup_pk PRIMARY KEY (acllogin_id,aclgroup_id) DEFERRABLE INITIALLY IMMEDIATE
+
+);
+-- ddl-end --
+COMMENT ON TABLE gacl.acllogingroup IS E'Relationship between logins and groups';
+-- ddl-end --
+ALTER TABLE gacl.acllogingroup OWNER TO otolithe;
+-- ddl-end --
+
+INSERT INTO gacl.acllogingroup (acllogin_id, aclgroup_id) VALUES (E'1', E'1');
+-- ddl-end --
+INSERT INTO gacl.acllogingroup (acllogin_id, aclgroup_id) VALUES (E'1', E'4');
+-- ddl-end --
+
+-- object: gacl.logingestion | type: TABLE --
+-- DROP TABLE IF EXISTS gacl.logingestion CASCADE;
+CREATE TABLE gacl.logingestion (
+	id integer NOT NULL DEFAULT nextval('gacl.seq_logingestion_id'::regclass),
+	login character varying(32) NOT NULL,
+	password character varying(255),
+	nom character varying(32),
+	prenom character varying(32),
+	mail character varying(255),
+	datemodif date,
+	actif smallint DEFAULT 1,
+	is_clientws boolean NOT NULL DEFAULT false,
+	tokenws character varying,
+	is_expired boolean DEFAULT false,
+	CONSTRAINT logingestion_pk PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE gacl.logingestion OWNER TO otolithe;
+-- ddl-end --
+
+INSERT INTO gacl.logingestion (id, login, password, nom, prenom, mail, datemodif, actif, is_clientws, tokenws, is_expired) VALUES (E'1', E'admin', E'cd916028a2d8a1b901e831246dd5b9b4d3832786ddc63bbf5af4b50d9fc98f50', E'admin', DEFAULT, DEFAULT, DEFAULT, E'1', E'false', DEFAULT, E'false');
+-- ddl-end --
+
+-- object: gacl.seq_logingestion_id | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS gacl.seq_logingestion_id CASCADE;
+CREATE SEQUENCE gacl.seq_logingestion_id
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 999999
+	START WITH 2
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE gacl.seq_logingestion_id OWNER TO otolithe;
+-- ddl-end --
+
+-- object: gacl.log | type: TABLE --
+-- DROP TABLE IF EXISTS gacl.log CASCADE;
+CREATE TABLE gacl.log (
+	log_id integer NOT NULL DEFAULT nextval('gacl.log_log_id_seq'::regclass),
+	login character varying(32) NOT NULL,
+	nom_module character varying,
+	log_date timestamp NOT NULL,
+	commentaire character varying,
+	ipaddress character varying,
+	CONSTRAINT log_pk PRIMARY KEY (log_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE gacl.log IS E'list of connexions and actions recorded';
+-- ddl-end --
+COMMENT ON COLUMN gacl.log.log_date IS E'Connexion time';
+-- ddl-end --
+COMMENT ON COLUMN gacl.log.commentaire IS E'others data';
+-- ddl-end --
+COMMENT ON COLUMN gacl.log.ipaddress IS E'ip address of client';
+-- ddl-end --
+ALTER TABLE gacl.log OWNER TO otolithe;
+-- ddl-end --
+
+-- object: gacl.log_log_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS gacl.log_log_id_seq CASCADE;
+CREATE SEQUENCE gacl.log_log_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE gacl.log_log_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: log_date_idx | type: INDEX --
+-- DROP INDEX IF EXISTS gacl.log_date_idx CASCADE;
+CREATE INDEX log_date_idx ON gacl.log
+	USING btree
+	(
+	  log_date
+	)
+	WITH (FILLFACTOR = 90);
+-- ddl-end --
+
+-- object: log_login_idx | type: INDEX --
+-- DROP INDEX IF EXISTS gacl.log_login_idx CASCADE;
+CREATE INDEX log_login_idx ON gacl.log
+	USING btree
+	(
+	  login
+	)
+	WITH (FILLFACTOR = 90);
+-- ddl-end --
+
+-- object: gacl.passwordlost | type: TABLE --
+-- DROP TABLE IF EXISTS gacl.passwordlost CASCADE;
+CREATE TABLE gacl.passwordlost (
+	passwordlost_id integer NOT NULL DEFAULT nextval('gacl.passwordlost_passwordlost_id_seq'::regclass),
+	id integer NOT NULL,
+	token character varying NOT NULL,
+	expiration timestamp NOT NULL,
+	usedate timestamp,
+	CONSTRAINT passwordlost_pk PRIMARY KEY (passwordlost_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE gacl.passwordlost IS E'password lost table';
+-- ddl-end --
+COMMENT ON COLUMN gacl.passwordlost.token IS E'token used for renewal';
+-- ddl-end --
+COMMENT ON COLUMN gacl.passwordlost.expiration IS E'Token expiration date';
+-- ddl-end --
+ALTER TABLE gacl.passwordlost OWNER TO otolithe;
+-- ddl-end --
+
+-- object: gacl.passwordlost_passwordlost_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS gacl.passwordlost_passwordlost_id_seq CASCADE;
+CREATE SEQUENCE gacl.passwordlost_passwordlost_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE gacl.passwordlost_passwordlost_id_seq OWNER TO otolithe;
+-- ddl-end --
+
+-- object: aclaco_fk | type: CONSTRAINT --
+-- ALTER TABLE gacl.aclacl DROP CONSTRAINT IF EXISTS aclaco_fk CASCADE;
+ALTER TABLE gacl.aclacl ADD CONSTRAINT aclaco_fk FOREIGN KEY (aclaco_id)
+REFERENCES gacl.aclaco (aclaco_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+-- ddl-end --
+
+-- object: aclappli_fk | type: CONSTRAINT --
+-- ALTER TABLE gacl.aclaco DROP CONSTRAINT IF EXISTS aclappli_fk CASCADE;
+ALTER TABLE gacl.aclaco ADD CONSTRAINT aclappli_fk FOREIGN KEY (aclappli_id)
+REFERENCES gacl.aclappli (aclappli_id) MATCH FULL
+ON DELETE NO ACTION ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+-- ddl-end --
+
+-- object: aclgroup_fk | type: CONSTRAINT --
+-- ALTER TABLE gacl.aclacl DROP CONSTRAINT IF EXISTS aclgroup_fk CASCADE;
+ALTER TABLE gacl.aclacl ADD CONSTRAINT aclgroup_fk FOREIGN KEY (aclgroup_id)
+REFERENCES gacl.aclgroup (aclgroup_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+-- ddl-end --
+
+-- object: acllogin_fk | type: CONSTRAINT --
+-- ALTER TABLE gacl.acllogingroup DROP CONSTRAINT IF EXISTS acllogin_fk CASCADE;
+ALTER TABLE gacl.acllogingroup ADD CONSTRAINT acllogin_fk FOREIGN KEY (acllogin_id)
+REFERENCES gacl.acllogin (acllogin_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+-- ddl-end --
+
+-- object: aclgroup_fk | type: CONSTRAINT --
+-- ALTER TABLE gacl.acllogingroup DROP CONSTRAINT IF EXISTS aclgroup_fk CASCADE;
+ALTER TABLE gacl.acllogingroup ADD CONSTRAINT aclgroup_fk FOREIGN KEY (aclgroup_id)
+REFERENCES gacl.aclgroup (aclgroup_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+-- ddl-end --
+
+-- object: logingestion_fk | type: CONSTRAINT --
+-- ALTER TABLE gacl.passwordlost DROP CONSTRAINT IF EXISTS logingestion_fk CASCADE;
+ALTER TABLE gacl.passwordlost ADD CONSTRAINT logingestion_fk FOREIGN KEY (id)
+REFERENCES gacl.logingestion (id) MATCH FULL
+ON DELETE NO ACTION ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+-- ddl-end --
+
+-- object: espece_individu_fk | type: CONSTRAINT --
+-- ALTER TABLE otolithe.individu DROP CONSTRAINT IF EXISTS espece_individu_fk CASCADE;
+ALTER TABLE otolithe.individu ADD CONSTRAINT espece_individu_fk FOREIGN KEY (espece_id)
+REFERENCES otolithe.espece (espece_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: peche_individu_fk | type: CONSTRAINT --
+-- ALTER TABLE otolithe.individu DROP CONSTRAINT IF EXISTS peche_individu_fk CASCADE;
+ALTER TABLE otolithe.individu ADD CONSTRAINT peche_individu_fk FOREIGN KEY (peche_id)
+REFERENCES otolithe.peche (peche_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: sexe_individu_fk | type: CONSTRAINT --
+-- ALTER TABLE otolithe.individu DROP CONSTRAINT IF EXISTS sexe_individu_fk CASCADE;
+ALTER TABLE otolithe.individu ADD CONSTRAINT sexe_individu_fk FOREIGN KEY (sexe_id)
+REFERENCES otolithe.sexe (sexe_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: experimentation_individu_experimentation_fk | type: CONSTRAINT --
+-- ALTER TABLE otolithe.individu_experimentation DROP CONSTRAINT IF EXISTS experimentation_individu_experimentation_fk CASCADE;
+ALTER TABLE otolithe.individu_experimentation ADD CONSTRAINT experimentation_individu_experimentation_fk FOREIGN KEY (exp_id)
+REFERENCES otolithe.experimentation (exp_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: individu_individu_experimentation_fk | type: CONSTRAINT --
+-- ALTER TABLE otolithe.individu_experimentation DROP CONSTRAINT IF EXISTS individu_individu_experimentation_fk CASCADE;
+ALTER TABLE otolithe.individu_experimentation ADD CONSTRAINT individu_individu_experimentation_fk FOREIGN KEY (individu_id)
+REFERENCES otolithe.individu (individu_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: experimentation_lecteur_experimentation_fk | type: CONSTRAINT --
+-- ALTER TABLE otolithe.lecteur_experimentation DROP CONSTRAINT IF EXISTS experimentation_lecteur_experimentation_fk CASCADE;
+ALTER TABLE otolithe.lecteur_experimentation ADD CONSTRAINT experimentation_lecteur_experimentation_fk FOREIGN KEY (exp_id)
+REFERENCES otolithe.experimentation (exp_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: lecteur_lecteur_experimentation_fk | type: CONSTRAINT --
+-- ALTER TABLE otolithe.lecteur_experimentation DROP CONSTRAINT IF EXISTS lecteur_lecteur_experimentation_fk CASCADE;
+ALTER TABLE otolithe.lecteur_experimentation ADD CONSTRAINT lecteur_lecteur_experimentation_fk FOREIGN KEY (lecteur_id)
+REFERENCES otolithe.lecteur (lecteur_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: fk_photo_lumieretype | type: CONSTRAINT --
+-- ALTER TABLE otolithe.photo DROP CONSTRAINT IF EXISTS fk_photo_lumieretype CASCADE;
+ALTER TABLE otolithe.photo ADD CONSTRAINT fk_photo_lumieretype FOREIGN KEY (lumieretype_id)
+REFERENCES otolithe.lumieretype (lumieretype_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: fk_photo_piece | type: CONSTRAINT --
+-- ALTER TABLE otolithe.photo DROP CONSTRAINT IF EXISTS fk_photo_piece CASCADE;
+ALTER TABLE otolithe.photo ADD CONSTRAINT fk_photo_piece FOREIGN KEY (piece_id)
+REFERENCES otolithe.piece (piece_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: final_stripe_photolecture_fk | type: CONSTRAINT --
+-- ALTER TABLE otolithe.photolecture DROP CONSTRAINT IF EXISTS final_stripe_photolecture_fk CASCADE;
+ALTER TABLE otolithe.photolecture ADD CONSTRAINT final_stripe_photolecture_fk FOREIGN KEY (final_stripe_id)
+REFERENCES otolithe.final_stripe (final_stripe_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: fk_photolecture_lecteur | type: CONSTRAINT --
+-- ALTER TABLE otolithe.photolecture DROP CONSTRAINT IF EXISTS fk_photolecture_lecteur CASCADE;
+ALTER TABLE otolithe.photolecture ADD CONSTRAINT fk_photolecture_lecteur FOREIGN KEY (lecteur_id)
+REFERENCES otolithe.lecteur (lecteur_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: fk_photolecture_photo | type: CONSTRAINT --
+-- ALTER TABLE otolithe.photolecture DROP CONSTRAINT IF EXISTS fk_photolecture_photo CASCADE;
+ALTER TABLE otolithe.photolecture ADD CONSTRAINT fk_photolecture_photo FOREIGN KEY (photo_id)
+REFERENCES otolithe.photo (photo_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: individu_piece_fk | type: CONSTRAINT --
+-- ALTER TABLE otolithe.piece DROP CONSTRAINT IF EXISTS individu_piece_fk CASCADE;
+ALTER TABLE otolithe.piece ADD CONSTRAINT individu_piece_fk FOREIGN KEY (individu_id)
+REFERENCES otolithe.individu (individu_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: fk_piece_piecetype | type: CONSTRAINT --
+-- ALTER TABLE otolithe.piece DROP CONSTRAINT IF EXISTS fk_piece_piecetype CASCADE;
+ALTER TABLE otolithe.piece ADD CONSTRAINT fk_piece_piecetype FOREIGN KEY (piecetype_id)
+REFERENCES otolithe.piecetype (piecetype_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: fk_piece_traitement | type: CONSTRAINT --
+-- ALTER TABLE otolithe.piece DROP CONSTRAINT IF EXISTS fk_piece_traitement CASCADE;
+ALTER TABLE otolithe.piece ADD CONSTRAINT fk_piece_traitement FOREIGN KEY (traitementpiece_id)
+REFERENCES otolithe.traitementpiece (traitementpiece_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
 -- object: piece_fk | type: CONSTRAINT --
--- ALTER TABLE piecemetadata DROP CONSTRAINT IF EXISTS piece_fk CASCADE;
-ALTER TABLE piecemetadata ADD CONSTRAINT piece_fk FOREIGN KEY (piece_id)
-REFERENCES piece (piece_id) MATCH FULL
+-- ALTER TABLE otolithe.piecemetadata DROP CONSTRAINT IF EXISTS piece_fk CASCADE;
+ALTER TABLE otolithe.piecemetadata ADD CONSTRAINT piece_fk FOREIGN KEY (piece_id)
+REFERENCES otolithe.piece (piece_id) MATCH FULL
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
 -- object: metadatatype_fk | type: CONSTRAINT --
--- ALTER TABLE piecemetadata DROP CONSTRAINT IF EXISTS metadatatype_fk CASCADE;
-ALTER TABLE piecemetadata ADD CONSTRAINT metadatatype_fk FOREIGN KEY (metadatatype_id)
-REFERENCES metadatatype (metadatatype_id) MATCH FULL
+-- ALTER TABLE otolithe.piecemetadata DROP CONSTRAINT IF EXISTS metadatatype_fk CASCADE;
+ALTER TABLE otolithe.piecemetadata ADD CONSTRAINT metadatatype_fk FOREIGN KEY (metadatatype_id)
+REFERENCES otolithe.metadatatype (metadatatype_id) MATCH FULL
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
-/*
- * Fin de script
-  * Mise a jour du numero de version
- */
-insert into dbversion ("dbversion_number", "dbversion_date")
-values 
-('2.2','2019-01-07');
+
 

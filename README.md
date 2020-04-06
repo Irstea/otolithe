@@ -6,9 +6,15 @@ The code of version 2.0 has been desposited from Agence pour la Protection des P
 For install this software:
 - install a linux server (Ubuntu or Debian)
 - download install/deploy_new_instance.sh
-- verify the content of the script, particulary the variable phpinifile (version of php). It may be 7.2 for Ubuntu 18.04.
+- verify the content of the script, particulary the variable phpinifile (version of php). It must be 7.2 or above.
 - execute this script : it will install all necessary packages, create the database, etc.
 - edit the file /etc/apache2/sites-available/otolithe.conf and adapt it to your configuration
 - reload apache server
+
+For upgrade:
+- backup your database
+- if  the database is in the same server than the application, go to the folder https://github.com/Irstea/otolithe/install and download with wget the script corresponding to your version (example: upgrade-2.2-2.3.0.sh to upgrade from version 2.2. to version 2.3.0)
+- execute this script.
+- if your database and your application is not in the same server, adapt the script.
 
 A manual of installation and usage is available in french at https://github.com/Irstea/otolithe/raw/master/database/documentation/otolithe_documentation.pdf

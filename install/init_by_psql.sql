@@ -26,15 +26,10 @@
   * Creation du compte de connexion et de la base de donnees
   * creation of connection account
   */
-CREATE USER otolithe WITH
-  LOGIN
-  NOSUPERUSER
-  INHERIT
-  NOCREATEDB
-  NOCREATEROLE
-  NOREPLICATION
- PASSWORD 'otolithePassword'  
-;
+CREATE ROLE otolithe WITH 
+	INHERIT
+	LOGIN
+	ENCRYPTED PASSWORD 'b94866f346fc0b2478904d086f909c4e';
 
 /*
  * Database creation
@@ -42,6 +37,11 @@ CREATE USER otolithe WITH
 create database otolithe owner otolithe;
 \c "dbname=otolithe"
 create extension postgis schema public;
+-- object: pgcrypto | type: EXTENSION --
+-- DROP EXTENSION IF EXISTS pgcrypto CASCADE;
+CREATE EXTENSION pgcrypto
+WITH SCHEMA public;
+-- ddl-end --
 
 /*
  * connexion a la base otolithe, avec l'utilisateur otolithe, en localhost,
@@ -50,14 +50,8 @@ create extension postgis schema public;
  */
 \c "dbname=otolithe user=otolithe password=otolithePassword host=localhost"
 
-/*
- * Creation des tables dans le schema gacl
- * Tables creation in schema gacl
- */
-\ir pgsql/gacl_create.sql
 
 /*
- * Creation des tables dans le schema col
- * Tables creation in schema col
+ * Creation des tables
  */
 \ir pgsql/otolithe_create.sql
