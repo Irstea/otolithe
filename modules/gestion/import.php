@@ -7,12 +7,17 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-require_once 'modules/classes/import.class.php';
-require_once 'modules/classes/individu.class.php';
-require_once 'modules/classes/piece.class.php';
-require_once 'modules/classes/peche.class.php';
-require_once 'modules/classes/piecemetadata.class.php';
-require_once 'modules/classes/metadatatype.class.php';
+include_once 'modules/classes/import.class.php';
+include_once 'modules/classes/individu.class.php';
+include_once 'modules/classes/piece.class.php';
+include_once 'modules/classes/peche.class.php';
+include_once 'modules/classes/piecemetadata.class.php';
+include_once 'modules/classes/metadatatype.class.php';
+include_once 'modules/classes/piecestype.class.php';
+include_once 'modules/classes/espece.class.php';
+include_once 'modules/classes/individu_experimentation.class.php';
+include_once 'modules/classes/sexe.class.php';
+include_once 'modules/classes/piecetype.class.php';
 /*
  * Initialisations
  */

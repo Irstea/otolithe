@@ -83,8 +83,12 @@
 <li><b>remarque</b> : {t}remarques concernant le poisson{/t}</li>
 <li><b>parasite</b> : {t}parasites éventuels rencontrés{/t}</li>
 <li><b>age</b> : {t}âge du poisson{/t}</li>
+<li><b>wgs84_x</b> : {t}Longitude du point de capture, en WGS84{/t}</li>
+<li><b>wgs84_y</b> : {t}Latitude du point de capture, en WGS84{/t}</li>
+<li><b>individu_uuid</b> : {t}UUID de l'individu{/t}</li>
 <li><b>piecetype_id</b> : {t}code du type de pièce calcifiée à analyser{/t} <a href="index.php?module=piecetypeList">{t}Consultez la liste des types de pièces{/t}</a></li>
 <li><b>piececode</b> : {t}si le type de pièce est indiqué, vous pouvez renseigner un code spécifique attaché à la pièce{/t}</li>
+<li><b>piece_uuid</b> : {t}UUID de la pièce{/t}</li>
 <li><b>peche_date</b> : {t}date de la pêche, au format aaaa-mm-dd ou dd/mm/aaaa{/t}</li>
 <li><b>site</b> : {t}site de la pêche{/t}</li>
 <li><b>zonesite</b> : {t}zone précise de la pêche (précision concernant le site){/t}</li>
