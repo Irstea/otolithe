@@ -1,5 +1,15 @@
 Nouveautés
 ===========
+Version 2.3.0 du 6 avril 2020
+--------------------------
+Correction de bugs :
+- dans la liste des modèles de métadonnées, il manquait l'identifiant
+
+Nouveautés :
+- intégration de l'UUID pour le poisson et la pièce
+- ajout d'une liste des pièces par expérimentation
+- ajout d'un export des pièces compatible avec Collec-Science (https://www.collec-science.org)
+
 Version 2.2.1 du 22 février 2019
 ---------------------------
 Nouveautés :
