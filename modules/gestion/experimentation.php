@@ -39,7 +39,7 @@ switch ($t_module["param"]) {
             /*
              * Rechargement des experimentations autorisees pour l'operateur apres modification
              */
-            require_once 'modules/classes/photo.class.php';
+            include_once 'modules/classes/lecteur.class.php';
             $lecteur = new Lecteur($bdd, $ObjetBDDParam);
             $lecteur_id = $lecteur->getIdFromLogin($_SESSION['login']);
             if ($lecteur_id > 0) {

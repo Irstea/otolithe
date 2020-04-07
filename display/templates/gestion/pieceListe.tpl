@@ -16,7 +16,7 @@ $(document).ready(function() {
       <div class="col-sm-6">
         <select class="auto form-control" name="exp_id" id="exp_id">
           {section name="lst" loop=$experimentation}
-          <option value="{$experimentation[lst].exp_id}" {if $experimentation[lst].exp_id == $individuSearch.exp_id}selected{/if}>
+          <option value="{$experimentation[lst].exp_id}" {if $experimentation[lst].exp_id == $exp_id}selected{/if}>
           {$experimentation[lst].exp_nom}
           </option>
           {/section}
