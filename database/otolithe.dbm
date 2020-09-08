@@ -70,7 +70,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="otolithe"/>
 </sequence>
 
-<table name="espece" layer="0" collapse-mode="2" max-obj-count="3">
+<table name="espece" layer="0" collapse-mode="1" max-obj-count="3">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Liste des especes]]></comment>
@@ -446,7 +446,7 @@ Meduse sp.•Meduse]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="experimentation" layer="0" collapse-mode="2" max-obj-count="6">
+<table name="experimentation" layer="0" collapse-mode="1" max-obj-count="6">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Experimentation a laquelle est rattache le poisson]]></comment>
@@ -477,7 +477,7 @@ Meduse sp.•Meduse]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="final_stripe" layer="0" collapse-mode="2" max-obj-count="3">
+<table name="final_stripe" layer="0" collapse-mode="1" max-obj-count="3">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Natures de la strie finale]]></comment>
@@ -509,7 +509,7 @@ IN•Indefinite]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="individu" layer="0" collapse-mode="2" max-obj-count="16">
+<table name="individu" layer="0" collapse-mode="1" max-obj-count="16">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="individu"/>
@@ -563,7 +563,7 @@ IN•Indefinite]]>
 	</constraint>
 </table>
 
-<table name="individu_experimentation" layer="0" collapse-mode="2" max-obj-count="3">
+<table name="individu_experimentation" layer="0" collapse-mode="1" max-obj-count="3">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="experimentation"/>
@@ -584,7 +584,7 @@ IN•Indefinite]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="lecteur" layer="0" collapse-mode="2" max-obj-count="4">
+<table name="lecteur" layer="0" collapse-mode="1" max-obj-count="4">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[personne realisant la lecture d'une photo]]></comment>
@@ -607,7 +607,7 @@ IN•Indefinite]]>
 	</constraint>
 </table>
 
-<table name="lecteur_experimentation" layer="0" collapse-mode="2" max-obj-count="3">
+<table name="lecteur_experimentation" layer="0" collapse-mode="1" max-obj-count="3">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Table des experimentations autorisees pour un lecteur]]></comment>
@@ -624,7 +624,7 @@ IN•Indefinite]]>
 	</constraint>
 </table>
 
-<table name="lumieretype" layer="0" collapse-mode="2" max-obj-count="2">
+<table name="lumieretype" layer="0" collapse-mode="1" max-obj-count="2">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="photo"/>
@@ -650,7 +650,7 @@ Transmitted light]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="peche" layer="0" collapse-mode="2" max-obj-count="9">
+<table name="peche" layer="0" collapse-mode="1" max-obj-count="9">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Date de peche et lieu de capture]]></comment>
@@ -690,7 +690,7 @@ Transmitted light]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="photo" layer="0" collapse-mode="2" max-obj-count="20">
+<table name="photo" layer="0" collapse-mode="1" max-obj-count="20">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[photos associees a une piece]]></comment>
@@ -760,7 +760,7 @@ Transmitted light]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="photolecture" layer="0" collapse-mode="2" max-obj-count="24">
+<table name="photolecture" layer="0" collapse-mode="1" max-obj-count="24">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Lecture realisee par une personne]]></comment>
@@ -859,7 +859,7 @@ Transmitted light]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="piece" layer="0" collapse-mode="2" max-obj-count="7">
+<table name="piece" layer="0" collapse-mode="1" max-obj-count="7">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Pieces analysees]]></comment>
@@ -893,7 +893,7 @@ Transmitted light]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="piecetype" layer="0" collapse-mode="2" max-obj-count="2">
+<table name="piecetype" layer="0" collapse-mode="1" max-obj-count="2">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Type de piece]]></comment>
@@ -910,7 +910,7 @@ Transmitted light]]>
 	</constraint>
 </table>
 
-<table name="sexe" layer="0" collapse-mode="2" max-obj-count="3">
+<table name="sexe" layer="0" collapse-mode="1" max-obj-count="3">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="individu"/>
@@ -934,7 +934,7 @@ Transmitted light]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="traitementpiece" layer="0" collapse-mode="2" max-obj-count="2">
+<table name="traitementpiece" layer="0" collapse-mode="1" max-obj-count="2">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="piece"/>
@@ -960,7 +960,7 @@ not recorded]]>
 	</initial-data>
 </table>
 
-<table name="dbparam" layer="0" collapse-mode="2" max-obj-count="3">
+<table name="dbparam" layer="0" collapse-mode="1" max-obj-count="3">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Table des parametres associes de maniere intrinseque a l'instance]]></comment>
@@ -986,7 +986,7 @@ not recorded]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="dbversion" layer="0" collapse-mode="2" max-obj-count="3">
+<table name="dbversion" layer="0" collapse-mode="1" max-obj-count="3">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Table des versions de la base de donnees]]></comment>
@@ -1021,7 +1021,7 @@ not recorded]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="piecemetadata" layer="0" collapse-mode="2" max-obj-count="7">
+<table name="piecemetadata" layer="0" collapse-mode="1" max-obj-count="7">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Métadonnées rattachées à une pièce calcifiée]]></comment>
@@ -1053,7 +1053,7 @@ not recorded]]>
 	</constraint>
 </table>
 
-<table name="metadatatype" layer="0" collapse-mode="2" max-obj-count="7">
+<table name="metadatatype" layer="0" collapse-mode="1" max-obj-count="7">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="piece"/>
@@ -1094,7 +1094,7 @@ not recorded]]>
 	<role name="otolithe"/>
 </schema>
 
-<table name="aclacl" layer="1" collapse-mode="2" max-obj-count="3">
+<table name="aclacl" layer="1" collapse-mode="1" max-obj-count="3">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Rights table]]></comment>
@@ -1120,7 +1120,7 @@ not recorded]]>
 	</initial-data>
 </table>
 
-<table name="aclaco" layer="1" collapse-mode="2" max-obj-count="3">
+<table name="aclaco" layer="1" collapse-mode="1" max-obj-count="3">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[List of managed rights]]></comment>
@@ -1158,7 +1158,7 @@ not recorded]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="aclappli" layer="1" collapse-mode="2" max-obj-count="3">
+<table name="aclappli" layer="1" collapse-mode="1" max-obj-count="3">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Managed software table]]></comment>
@@ -1189,7 +1189,7 @@ not recorded]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="aclgroup" layer="1" collapse-mode="2" max-obj-count="3">
+<table name="aclgroup" layer="1" collapse-mode="1" max-obj-count="3">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Login groups]]></comment>
@@ -1221,7 +1221,7 @@ not recorded]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="acllogin" layer="1" collapse-mode="2" max-obj-count="3">
+<table name="acllogin" layer="1" collapse-mode="1" max-obj-count="3">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Users login]]></comment>
@@ -1251,7 +1251,7 @@ not recorded]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="acllogingroup" layer="1" collapse-mode="2" max-obj-count="3">
+<table name="acllogingroup" layer="1" collapse-mode="1" max-obj-count="3">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Relationship between logins and groups]]></comment>
@@ -1275,7 +1275,7 @@ not recorded]]>
 	</initial-data>
 </table>
 
-<table name="logingestion" layer="1" collapse-mode="2" max-obj-count="13">
+<table name="logingestion" layer="1" collapse-mode="1" max-obj-count="13">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<tag name="acl"/>
@@ -1327,7 +1327,7 @@ not recorded]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="log" layer="1" collapse-mode="2" max-obj-count="7">
+<table name="log" layer="1" collapse-mode="1" max-obj-count="7">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[list of connexions and actions recorded]]></comment>
@@ -1380,7 +1380,7 @@ not recorded]]>
 		</idxelement>
 </index>
 
-<table name="passwordlost" layer="1" collapse-mode="2" max-obj-count="6">
+<table name="passwordlost" layer="1" collapse-mode="1" max-obj-count="6">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[password lost table]]></comment>

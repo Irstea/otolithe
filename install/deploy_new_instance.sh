@@ -5,8 +5,8 @@
 VERSION=2.3.1
 PHPVER=7.3
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
-echo "Installation of Collec-Science version " $VERSION
-echo "this script will install apache server and php, postgresql and deploy the current version of Collec-Science"
+echo "Installation of otolithe version " $VERSION
+echo "this script will install apache server and php, postgresql and deploy the current version of otolithe"
 read -p "Do you want to continue [y/n]?" response
 if [ "$response" = "y" ]
 then
@@ -37,24 +37,24 @@ a2ensite 000-default
 
 # creation of directory
 cd /var/www/html
-mkdir collec-science
-cd collec-science
+mkdir otolithe
+cd otolithe
 
 # download software
 echo "download software"
-wget https://github.com/Irstea/collec/archive/master.zip
+wget https://github.com/Irstea/otolithe/archive/master.zip
 unzip master.zip
-mv collec-master collec-$VERSION
-ln -s collec-$VERSION collec
+mv otolithe-master otolithe-$VERSION
+ln -s otolithe-$VERSION otolithe
 
 # update rights on files
 chmod -R 755 .
 
 # create param.inc.php file
-mv collec/param/param.inc.php.dist collec/param/param.inc.php
+mv otolithe/param/param.inc.php.dist otolithe/param/param.inc.php
 # creation of database
 echo "creation of the database"
-cd collec/install
+cd otolithe/install
 su postgres -c "psql -f init_by_psql.sql"
 cd ../..
 echo "you may verify the configuration of access to postgresql"
@@ -71,7 +71,7 @@ read -p "Enter to continue" answer
 # install backup program
 echo "backup configuration - dump at 20:00 into /var/lib/postgresql/backup"
 echo "please, set up a data transfert mechanism to deport them to another medium"
-cp collec/install/pgsql/backup.sh /var/lib/postgresql/
+cp otolithe/install/pgsql/backup.sh /var/lib/postgresql/
 chown postgres /var/lib/postgresql/backup.sh
 line="0 20 * * * /var/lib/postgresql/backup.sh"
 #(crontab -u postgres -l; echo "$line" ) | crontab -u postgres -
@@ -79,16 +79,16 @@ echo "$line" | crontab -u postgres -
 
 # update rights to specific software folders
 chmod -R 750 .
-mkdir collec/display/templates_c
+mkdir otolithe/display/templates_c
 chgrp -R www-data .
-chmod -R 770 collec/display/templates_c
-chmod -R 770 collec/temp
+chmod -R 770 otolithe/display/templates_c
+chmod -R 770 otolithe/img
 
 # generate rsa key for encrypted tokens
 echo "generate encryption keys for identification tokens"
-openssl genpkey -algorithm rsa -out collec/param/id_collec -pkeyopt rsa_keygen_bits:2048
-openssl rsa -in collec/param/id_collec -pubout -out collec/param/id_collec.pub
-chown www-data collec/param/id_collec
+openssl genpkey -algorithm rsa -out otolithe/param/id_otolithe -pkeyopt rsa_keygen_bits:2048
+openssl rsa -in otolithe/param/id_otolithe -pubout -out otolithe/param/id_otolithe.pub
+chown www-data otolithe/param/id_otolithe
 
 # adjust php.ini values
 upload_max_filesize="=100M"
@@ -109,9 +109,9 @@ cp /tmp/policy.xml /etc/ImageMagick-6/
 
 # creation of virtual host
 echo "creation of virtual site"
-cp collec/install/apache2/collec-science.conf /etc/apache2/sites-available/
-a2ensite collec-science
-echo "you must modify the file /etc/apache2/sites-available/collec-science.conf"
+cp otolithe/install/apache2/otolithe.conf /etc/apache2/sites-available/
+a2ensite otolithe
+echo "you must modify the file /etc/apache2/sites-available/otolithe.conf"
 echo "address of your instance, ssl parameters),"
 echo "then run this command:"
 echo "service apache2 reload"
