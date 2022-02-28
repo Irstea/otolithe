@@ -413,7 +413,7 @@ class Import
     /**
      * Verification de l'UUID de l'individu
      */
-    if (strlen($data["individu_uuid"]) == 0 && !testUUID($data["individu_uuid"])) {
+    if (strlen($data["individu_uuid"]) > 0 && !$this->testUUID($data["individu_uuid"])) {
       $retour["code"] = false;
       $retour["message"] .= " " . _("L'UUID de l'individu n'est pas correct.");
     }
@@ -444,7 +444,7 @@ class Import
       /**
        * Verification de l'UUID de la piece
        */
-      if (strlen($data["piece_uuid"]) == 0 && !testUUID($data["piece_uuid"])) {
+      if (strlen($data["piece_uuid"]) > 0 && !$this->testUUID($data["piece_uuid"])) {
         $retour["code"] = false;
         $retour["message"] .= " " . _("L'UUID de la pièce n'est pas correct.");
       }
