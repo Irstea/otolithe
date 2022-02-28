@@ -1,5 +1,5 @@
 <?php
-
+include_once "modules/classes/photolecture.class.php";
 /**
  * Traitement des exceptions
  */
