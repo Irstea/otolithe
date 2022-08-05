@@ -9,4 +9,5 @@ $LANG["date"]["locale"] = "en";
 $LANG["date"]["formatdate"] = "MM-DD-YYYY";
 $LANG["date"]["formatdatetime"] = "MM-DD-YYYY HH:mm:ss";
 $LANG["date"]["formatdatecourt"] = "mm-dd-yy";
+
 ?>
