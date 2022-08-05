@@ -16,7 +16,8 @@ $APPLI_languageList = array("fr", "en");
 /*
  * Navigation a partir du fichier xml
  */
-$navigationxml = "param/actions.xml";
+$navigationxml = array("framework/actions.xml", "param/actions.xml");
+
 /*
  * Duree de la session par defaut
  * @var unknown_type
@@ -47,13 +48,25 @@ $LOG_duree = 365;
  * HEADER : l'identification est fournie dans une variable HEADER (derriere un proxy comme
  * LemonLdap, par exemple)
  */
-$ident_header_login_var = "AUTH_USER";
+$ident_header_vars = array(
+	"radical" => "MELLON",
+	"login" => "MELLON_MAIL",
+	"mail" => "MELLON_MAIL",
+	"cn" => "MELLON_CN",
+	"organization" => "MELLON_SHACHOMEORGANIZATION",
+	"organizationGranted" => array(),
+	"createUser" => true
+);
 $ident_header_logout_address = "";
 $ident_type = "BDD";
 /* CAS parameters */
-$CAS_address = "http://localhost/CAS";
+$CAS_address = "localhost";
+$CAS_uri = "/cas";
 $CAS_port = 443;
-$CAS_CApath="";
+$CAS_debug = false;
+$CAS_CApath = "";
+$CAS_get_groups = 1;
+$CAS_group_attribute = "supannEntiteAffectation";
 /* LDAP parameters */
 $LDAP = array(
     "address" => "localhost",
@@ -104,7 +117,7 @@ $APPLI_modeDeveloppement = false;
 $APPLI_modeDeveloppementDroit = false;
 $APPLI_utf8 = true;
 $APPLI_menufile = "param/menu.xml";
-$APPLI_temp = "temp";
+$APPLI_temp = "img";
 $APPLI_assist_address = "https://github.com/Irstea/otolithe/issues/new";
 /*
  * Variables systematiques pour SMARTY
@@ -188,4 +201,3 @@ $APPLI_virusscan = false;
  * Stockage des photos temporaires
  */
 $APPLI_photoStockage = "img";
-?>

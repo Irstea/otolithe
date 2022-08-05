@@ -1,21 +1,20 @@
 <?php
-
-/** Fichier cree le 10 mai 07 par quinton
- *
- *UTF-8
- */
-$login = $_SESSION["login"];
-$message->setSyslog("Deconnexion from $login - address " . getIPClientAddress());
-if ($identification->disconnect($APPLI_address) == 1) {
-    $message->set(_("Vous êtes maintenant déconnecté"));
-    /*
-     * Rechargement des variables stockees en base de donnees
-     */
-    require_once 'framework/dbparam/dbparam.class.php';
-    $dbparam = new DbParam($bdd, $ObjetBDDParam);
-    $dbparam->sessionSet();
+$message->setSyslog("Deconnexion from " . $_SESSION["login"] . " - address " . getIPClientAddress());
+if ($ident_type != "HEADER") {
+  require_once "framework/identification/login.class.php";
+  $login = new Login($bdd_gacl, $ObjetBDDParam);
+  $login->disconnect($APPLI_address);
+  $message->set(_("Vous êtes maintenant déconnecté"));
+  /**
+   * Rechargement des variables stockees en base de donnees
+   */
+  require_once 'framework/dbparam/dbparam.class.php';
+  $dbparam = new DbParam($bdd, $ObjetBDDParam);
+  $dbparam->sessionSet();
+  if ($ident_type == "CAS") {
+    $message->set("Pour vous déconnecter complètement, fermez totalement votre navigateur");
+  }
 } else {
-    $message->set(_("Connexion"));
+  $message->set("Pour vous déconnecter, fermez totalement votre navigateur", true);
 }
-
-?>
+$module_coderetour = 1;

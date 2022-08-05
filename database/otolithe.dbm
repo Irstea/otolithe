@@ -1,22 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 CAUTION: Do not modify this file unless you know what you are doing.
-         Unexpected results may occur if the code is changed deliberately.
+ Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,0" last-zoom="1" max-obj-count="33"
-	 default-schema="public" default-owner="otolithe"
-	 layers="gacl" active-layers="0;1">
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="33"
+	 default-owner="postgres"
+	 layers="gacl"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
 <role name="otolithe"
-      inherit="true"
-      login="true"
-      encrypted="true"
-      password="b94866f346fc0b2478904d086f909c4e">
+ inherit="true"
+ login="true"
+ encrypted="true"
+ password="b94866f346fc0b2478904d086f909c4e">
 </role>
 
-<database name="otolithe" encoding="UTF8" lc-collate="fr_FR.UTF-8" lc-ctype="fr_FR.UTF-8" is-template="false" allow-conns="true">
-	<role name="otolithe"/>
+<role name="alosa_r"
+ inherit="true"
+ encrypted="true"
+ password="********">
+</role>
+
+<role name="quinton"
+ superuser="true"
+ createdb="true"
+ createrole="true"
+ inherit="true"
+ login="true"
+ encrypted="true"
+ password="********">
+	<roles names="alosa_r" role-type="member" />
+</role>
+
+<database name="diadanalyse" encoding="UTF8" lc-collate="fr_FR.UTF-8" lc-ctype="fr_FR.UTF-8" is-template="false" allow-conns="true">
+	<role name="postgres"/>
 	<tablespace name="pg_default"/>
+	<comment><![CDATA[Analyses réalisées sur des poissons migrateurs]]></comment>
 </database>
+
+<schema name="public" layers="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="otolithe" layers="0" rect-visible="true" fill-color="#7ad7cd">
+	<role name="otolithe"/>
+</schema>
+
+<schema name="gacl" layers="0" rect-visible="true" fill-color="#ff00ff">
+	<role name="otolithe"/>
+</schema>
 
 <tag name="individu">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
@@ -24,6 +57,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#0000ff,#0000ff,#20486f"/>
+	<style id="table-toggler-body" colors="#ffffff,#ffffff,#000000"/>
+	<style id="table-toggler-btns" colors="#ffffff,#ffffff,#000000"/>
 </tag>
 <tag name="piece">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
@@ -31,6 +66,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#ff5500,#ff5500,#20486f"/>
+	<style id="table-toggler-body" colors="#ffffff,#ffffff,#000000"/>
+	<style id="table-toggler-btns" colors="#ffffff,#ffffff,#000000"/>
 </tag>
 <tag name="photo">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
@@ -38,6 +75,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#55aa00,#55aa00,#20486f"/>
+	<style id="table-toggler-body" colors="#ffffff,#ffffff,#000000"/>
+	<style id="table-toggler-btns" colors="#ffffff,#ffffff,#000000"/>
 </tag>
 <tag name="experimentation">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
@@ -45,6 +84,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#ff0000,#ff0000,#20486f"/>
+	<style id="table-toggler-body" colors="#ffffff,#ffffff,#000000"/>
+	<style id="table-toggler-btns" colors="#ffffff,#ffffff,#000000"/>
 </tag>
 <tag name="acl">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
@@ -52,14 +93,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#aa0000,#aa0000,#20486f"/>
+	<style id="table-toggler-body" colors="#ffffff,#ffffff,#000000"/>
+	<style id="table-toggler-btns" colors="#ffffff,#ffffff,#000000"/>
 </tag>
-<schema name="public" layer="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
-</schema>
-
-<schema name="otolithe" layer="0" rect-visible="true" fill-color="#7ad7cd">
-	<role name="otolithe"/>
-</schema>
-
 <extension name="postgis" cur-version="2.3.3">
 	<schema name="public"/>
 	<comment><![CDATA[PostGIS geometry, geography, and raster spatial types and functions]]></comment>
@@ -70,12 +106,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="otolithe"/>
 </sequence>
 
-<table name="espece" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="espece" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Liste des especes]]></comment>
 	<tag name="individu"/>
-	<position x="1000" y="740"/>
+	<position x="1180" y="500"/>
 	<column name="espece_id" not-null="true" sequence="otolithe.espece_espece_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -446,12 +482,12 @@ Meduse sp.•Meduse]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="experimentation" layer="0" collapse-mode="1" max-obj-count="6">
+<table name="experimentation" layers="0" collapse-mode="1" max-obj-count="6" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Experimentation a laquelle est rattache le poisson]]></comment>
 	<tag name="experimentation"/>
-	<position x="700" y="740"/>
+	<position x="40" y="500"/>
 	<column name="exp_id" not-null="true" sequence="otolithe.experimentation_exp_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -477,12 +513,12 @@ Meduse sp.•Meduse]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="final_stripe" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="final_stripe" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Natures de la strie finale]]></comment>
 	<tag name="photo"/>
-	<position x="60" y="60"/>
+	<position x="40" y="1520"/>
 	<column name="final_stripe_id" not-null="true" sequence="otolithe.final_stripe_final_stripe_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -509,11 +545,11 @@ IN•Indefinite]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="individu" layer="0" collapse-mode="1" max-obj-count="16">
+<table name="individu" layers="0" collapse-mode="1" max-obj-count="16" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="individu"/>
-	<position x="1000" y="400"/>
+	<position x="820" y="500"/>
 	<column name="individu_id" not-null="true" sequence="otolithe.individu_individu_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -563,11 +599,11 @@ IN•Indefinite]]>
 	</constraint>
 </table>
 
-<table name="individu_experimentation" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="individu_experimentation" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="experimentation"/>
-	<position x="700" y="600"/>
+	<position x="420" y="500"/>
 	<column name="individu_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -584,12 +620,12 @@ IN•Indefinite]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="lecteur" layer="0" collapse-mode="1" max-obj-count="4">
+<table name="lecteur" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[personne realisant la lecture d'une photo]]></comment>
 	<tag name="photo"/>
-	<position x="60" y="740"/>
+	<position x="40" y="880"/>
 	<column name="lecteur_id" not-null="true" sequence="otolithe.lecteur_lecteur_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -607,12 +643,12 @@ IN•Indefinite]]>
 	</constraint>
 </table>
 
-<table name="lecteur_experimentation" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="lecteur_experimentation" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Table des experimentations autorisees pour un lecteur]]></comment>
 	<tag name="experimentation"/>
-	<position x="400" y="740"/>
+	<position x="40" y="680"/>
 	<column name="lecteur_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -624,11 +660,11 @@ IN•Indefinite]]>
 	</constraint>
 </table>
 
-<table name="lumieretype" layer="0" collapse-mode="1" max-obj-count="2">
+<table name="lumieretype" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="photo"/>
-	<position x="400" y="60"/>
+	<position x="820" y="1520"/>
 	<column name="lumieretype_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -650,12 +686,12 @@ Transmitted light]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="peche" layer="0" collapse-mode="1" max-obj-count="9">
+<table name="peche" layers="0" collapse-mode="1" max-obj-count="9" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Date de peche et lieu de capture]]></comment>
 	<tag name="individu"/>
-	<position x="1320" y="600"/>
+	<position x="1180" y="880"/>
 	<column name="peche_id" not-null="true" sequence="otolithe.peche_peche_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -690,12 +726,12 @@ Transmitted light]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="photo" layer="0" collapse-mode="1" max-obj-count="20">
+<table name="photo" layers="0" collapse-mode="1" max-obj-count="20" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[photos associees a une piece]]></comment>
 	<tag name="photo"/>
-	<position x="400" y="220"/>
+	<position x="820" y="1100"/>
 	<column name="photo_id" not-null="true" sequence="otolithe.photo_photo_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -760,12 +796,12 @@ Transmitted light]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="photolecture" layer="0" collapse-mode="1" max-obj-count="24">
+<table name="photolecture" layers="0" collapse-mode="1" max-obj-count="24" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Lecture realisee par une personne]]></comment>
 	<tag name="photo"/>
-	<position x="60" y="220"/>
+	<position x="40" y="1100"/>
 	<column name="photolecture_id" not-null="true" sequence="otolithe.photolecture_photolecture_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -859,12 +895,12 @@ Transmitted light]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="piece" layer="0" collapse-mode="1" max-obj-count="7">
+<table name="piece" layers="0" collapse-mode="1" max-obj-count="7" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Pieces analysees]]></comment>
 	<tag name="piece"/>
-	<position x="700" y="220"/>
+	<position x="820" y="880"/>
 	<column name="piece_id" not-null="true" sequence="otolithe.piece_piece_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -893,12 +929,12 @@ Transmitted light]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="piecetype" layer="0" collapse-mode="1" max-obj-count="2">
+<table name="piecetype" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Type de piece]]></comment>
 	<tag name="piece"/>
-	<position x="700" y="60"/>
+	<position x="420" y="880"/>
 	<column name="piecetype_id" not-null="true" sequence="otolithe.piecetype_piecetype_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -910,11 +946,11 @@ Transmitted light]]>
 	</constraint>
 </table>
 
-<table name="sexe" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="sexe" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="individu"/>
-	<position x="700" y="400"/>
+	<position x="1180" y="680"/>
 	<column name="sexe_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -934,11 +970,11 @@ Transmitted light]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="traitementpiece" layer="0" collapse-mode="1" max-obj-count="2">
+<table name="traitementpiece" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="piece"/>
-	<position x="1000" y="60"/>
+	<position x="420" y="980"/>
 	<column name="traitementpiece_id" not-null="true" sequence="otolithe.traitementpiece_traitementpiece_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -960,11 +996,11 @@ not recorded]]>
 	</initial-data>
 </table>
 
-<table name="dbparam" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="dbparam" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Table des parametres associes de maniere intrinseque a l'instance]]></comment>
-	<position x="1320" y="220"/>
+	<position x="400" y="1520"/>
 	<column name="dbparam_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -986,11 +1022,11 @@ not recorded]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="dbversion" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="dbversion" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Table des versions de la base de donnees]]></comment>
-	<position x="1320" y="60"/>
+	<position x="400" y="1400"/>
 	<column name="dbversion_id" not-null="true" sequence="otolithe.dbversion_dbversion_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1021,12 +1057,12 @@ not recorded]]>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="piecemetadata" layer="0" collapse-mode="1" max-obj-count="7">
+<table name="piecemetadata" layers="0" collapse-mode="1" max-obj-count="7" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Métadonnées rattachées à une pièce calcifiée]]></comment>
 	<tag name="piece"/>
-	<position x="1000" y="220"/>
+	<position x="1180" y="1100"/>
 	<column name="piecemetadata_id" not-null="true" sequence="otolithe.piecemetadata_piecemetadata_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1053,11 +1089,11 @@ not recorded]]>
 	</constraint>
 </table>
 
-<table name="metadatatype" layer="0" collapse-mode="1" max-obj-count="7">
+<table name="metadatatype" layers="0" collapse-mode="1" max-obj-count="7" z-value="0">
 	<schema name="otolithe"/>
 	<role name="otolithe"/>
 	<tag name="piece"/>
-	<position x="1320" y="400"/>
+	<position x="1180" y="1280"/>
 	<column name="metadatatype_id" not-null="true" sequence="otolithe.metadatatype_metadatatype_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1090,26 +1126,20 @@ not recorded]]>
 	<schema name="public"/>
 </extension>
 
-<schema name="gacl" layer="1" rect-visible="true" fill-color="#ff00ff">
-	<role name="otolithe"/>
-</schema>
-
-<table name="aclacl" layer="1" collapse-mode="1" max-obj-count="3">
+<table name="aclacl" layers="0" collapse-mode="1" max-obj-count="6" z-value="0">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Rights table]]></comment>
 	<tag name="acl"/>
-	<position x="60" y="1040"/>
+	<position x="420" y="320"/>
 
 	<customidxs object-type="column">
 		<object name="aclaco_id" index="0"/>
-		<object name="aclgroup_id" index="1"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
 		<object name="aclacl_pk" index="0"/>
 		<object name="aclaco_fk" index="1"/>
-		<object name="aclgroup_fk" index="2"/>
 	</customidxs>
 	<initial-data>
 <![CDATA[aclaco_id•aclgroup_id⸣
@@ -1120,13 +1150,18 @@ not recorded]]>
 	</initial-data>
 </table>
 
-<table name="aclaco" layer="1" collapse-mode="1" max-obj-count="3">
+<sequence name="aclaco_aclaco_id_seq" cycle="false" start="6" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
+	<schema name="gacl"/>
+	<role name="otolithe"/>
+</sequence>
+
+<table name="aclaco" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[List of managed rights]]></comment>
 	<tag name="acl"/>
-	<position x="60" y="920"/>
-	<column name="aclaco_id" not-null="true" default-value="nextval('gacl.aclaco_aclaco_id_seq'::regclass)">
+	<position x="420" y="180"/>
+	<column name="aclaco_id" not-null="true" sequence="gacl.aclaco_aclaco_id_seq">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="aco" not-null="true">
@@ -1135,14 +1170,6 @@ not recorded]]>
 	<constraint name="aclaco_pk" type="pk-constr" table="gacl.aclaco">
 		<columns names="aclaco_id" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="aclappli_id" index="1"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="aclappli_fk" index="1"/>
-	</customidxs>
 	<initial-data>
 <![CDATA[aclaco_id•aclappli_id•aco⸣
 1•1•admin⸣
@@ -1153,18 +1180,18 @@ not recorded]]>
 	</initial-data>
 </table>
 
-<sequence name="aclaco_aclaco_id_seq" cycle="false" start="6" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
+<sequence name="aclappli_aclappli_id_seq" cycle="false" start="2" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="aclappli" layer="1" collapse-mode="1" max-obj-count="3">
+<table name="aclappli" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Managed software table]]></comment>
 	<tag name="acl"/>
-	<position x="400" y="920"/>
-	<column name="aclappli_id" not-null="true" default-value="nextval('gacl.aclappli_aclappli_id_seq'::regclass)">
+	<position x="820" y="20"/>
+	<column name="aclappli_id" not-null="true" sequence="gacl.aclappli_aclappli_id_seq">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="appli" not-null="true">
@@ -1184,18 +1211,18 @@ not recorded]]>
 	</initial-data>
 </table>
 
-<sequence name="aclappli_aclappli_id_seq" cycle="false" start="2" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
+<sequence name="aclgroup_aclgroup_id_seq" cycle="false" start="5" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="aclgroup" layer="1" collapse-mode="1" max-obj-count="3">
+<table name="aclgroup" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Login groups]]></comment>
 	<tag name="acl"/>
-	<position x="60" y="1180"/>
-	<column name="aclgroup_id" not-null="true" default-value="nextval('gacl.aclgroup_aclgroup_id_seq'::regclass)">
+	<position x="40" y="320"/>
+	<column name="aclgroup_id" not-null="true" sequence="gacl.aclgroup_aclgroup_id_seq">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="groupe" not-null="true">
@@ -1216,18 +1243,18 @@ not recorded]]>
 	</initial-data>
 </table>
 
-<sequence name="aclgroup_aclgroup_id_seq" cycle="false" start="5" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
+<sequence name="acllogin_acllogin_id_seq" cycle="false" start="2" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="acllogin" layer="1" collapse-mode="1" max-obj-count="3">
+<table name="acllogin" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Users login]]></comment>
 	<tag name="acl"/>
-	<position x="400" y="1180"/>
-	<column name="acllogin_id" not-null="true" default-value="nextval('gacl.acllogin_acllogin_id_seq'::regclass)">
+	<position x="420" y="20"/>
+	<column name="acllogin_id" not-null="true" sequence="gacl.acllogin_acllogin_id_seq">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="login" not-null="true">
@@ -1246,28 +1273,12 @@ not recorded]]>
 	</initial-data>
 </table>
 
-<sequence name="acllogin_acllogin_id_seq" cycle="false" start="2" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
-	<schema name="gacl"/>
-	<role name="otolithe"/>
-</sequence>
-
-<table name="acllogingroup" layer="1" collapse-mode="1" max-obj-count="3">
+<table name="acllogingroup" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[Relationship between logins and groups]]></comment>
 	<tag name="acl"/>
-	<position x="400" y="1040"/>
-
-	<customidxs object-type="column">
-		<object name="aclgroup_id" index="1"/>
-		<object name="acllogin_id" index="0"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="aclgroup_fk" index="2"/>
-		<object name="acllogin_fk" index="1"/>
-		<object name="acllogingroup_pk" index="0"/>
-	</customidxs>
+	<position x="40" y="20"/>
 	<initial-data>
 <![CDATA[acllogin_id•aclgroup_id⸣
 1•1⸣
@@ -1275,12 +1286,17 @@ not recorded]]>
 	</initial-data>
 </table>
 
-<table name="logingestion" layer="1" collapse-mode="1" max-obj-count="13">
+<sequence name="seq_logingestion_id" cycle="false" start="2" increment="1" min-value="1" max-value="999999" cache="1">
+	<schema name="gacl"/>
+	<role name="otolithe"/>
+</sequence>
+
+<table name="logingestion" layers="0" collapse-mode="1" max-obj-count="13" z-value="0">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<tag name="acl"/>
-	<position x="700" y="920"/>
-	<column name="id" not-null="true" default-value="nextval('gacl.seq_logingestion_id'::regclass)">
+	<position x="1180" y="20"/>
+	<column name="id" not-null="true" sequence="gacl.seq_logingestion_id">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="login" not-null="true">
@@ -1322,18 +1338,18 @@ not recorded]]>
 	</initial-data>
 </table>
 
-<sequence name="seq_logingestion_id" cycle="false" start="2" increment="1" min-value="1" max-value="999999" cache="1">
+<sequence name="log_log_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 </sequence>
 
-<table name="log" layer="1" collapse-mode="1" max-obj-count="7">
+<table name="log" layers="0" collapse-mode="1" max-obj-count="7" z-value="0">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[list of connexions and actions recorded]]></comment>
 	<tag name="acl"/>
-	<position x="1320" y="920"/>
-	<column name="log_id" not-null="true" default-value="nextval('gacl.log_log_id_seq'::regclass)">
+	<position x="820" y="320"/>
+	<column name="log_id" not-null="true" sequence="gacl.log_log_id_seq">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="login" not-null="true">
@@ -1359,11 +1375,6 @@ not recorded]]>
 	</constraint>
 </table>
 
-<sequence name="log_log_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
-	<schema name="gacl"/>
-	<role name="otolithe"/>
-</sequence>
-
 <index name="log_date_idx" table="gacl.log"
 	 concurrent="false" unique="false" fast-update="false" buffering="false"
 	 index-type="btree" factor="90">
@@ -1380,13 +1391,18 @@ not recorded]]>
 		</idxelement>
 </index>
 
-<table name="passwordlost" layer="1" collapse-mode="1" max-obj-count="6">
+<sequence name="passwordlost_passwordlost_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
+	<schema name="gacl"/>
+	<role name="otolithe"/>
+</sequence>
+
+<table name="passwordlost" layers="0" collapse-mode="1" max-obj-count="6" z-value="0">
 	<schema name="gacl"/>
 	<role name="otolithe"/>
 	<comment><![CDATA[password lost table]]></comment>
 	<tag name="acl"/>
-	<position x="1000" y="920"/>
-	<column name="passwordlost_id" not-null="true" default-value="nextval('gacl.passwordlost_passwordlost_id_seq'::regclass)">
+	<position x="1180" y="320"/>
+	<column name="passwordlost_id" not-null="true" sequence="gacl.passwordlost_passwordlost_id_seq">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="token" not-null="true">
@@ -1403,26 +1419,13 @@ not recorded]]>
 	<constraint name="passwordlost_pk" type="pk-constr" table="gacl.passwordlost">
 		<columns names="passwordlost_id" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="id" index="1"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="logingestion_fk" index="1"/>
-	</customidxs>
 </table>
 
-<sequence name="passwordlost_passwordlost_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
-	<schema name="gacl"/>
-	<role name="otolithe"/>
-</sequence>
-
-<relationship name="aclaco_has_many_aclacl" type="rel1n" layer="0"
+<relationship name="aclaco_has_many_aclacl" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 custom-color="#6bbe51"
+	 custom-color="#a40000"
 	 src-table="gacl.aclaco"
 	 dst-table="gacl.aclacl"
 	 src-required="true" dst-required="false"
@@ -1430,21 +1433,21 @@ not recorded]]>
 
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<relationship name="aclappli_has_many_aclaco" type="rel1n" layer="0"
+<relationship name="aclappli_has_many_aclaco" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 custom-color="#31cf3f"
+	 custom-color="#a40000"
 	 src-table="gacl.aclappli"
 	 dst-table="gacl.aclaco"
 	 src-required="true" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<relationship name="aclgroup_has_many_aclacl" type="rel1n" layer="0"
+<relationship name="aclgroup_has_many_aclacl" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 custom-color="#44dae8"
+	 custom-color="#a40000"
 	 src-table="gacl.aclgroup"
 	 dst-table="gacl.aclacl"
 	 src-required="true" dst-required="false"
@@ -1452,11 +1455,11 @@ not recorded]]>
 
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<relationship name="acllogin_has_many_acllogingroup" type="rel1n" layer="0"
+<relationship name="acllogin_has_many_acllogingroup" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 custom-color="#3d0961"
+	 custom-color="#a40000"
 	 src-table="gacl.acllogin"
 	 dst-table="gacl.acllogingroup"
 	 src-required="true" dst-required="false"
@@ -1464,25 +1467,33 @@ not recorded]]>
 
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<relationship name="aclgroup_has_many_acllogingroup" type="rel1n" layer="0"
+<relationship name="logingestion_has_many_passwordlost" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 custom-color="#f6215f"
-	 src-table="gacl.aclgroup"
-	 dst-table="gacl.acllogingroup"
-	 src-required="true" dst-required="false"
-	 identifier="true"
-
-	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
-
-<relationship name="logingestion_has_many_passwordlost" type="rel1n" layer="0"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#b72ae9"
+	 custom-color="#a40000"
 	 src-table="gacl.logingestion"
 	 dst-table="gacl.passwordlost"
+	 src-required="true" dst-required="false"
+	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
+
+<extension name="tablefunc" cur-version="1.0">
+	<schema name="public"/>
+	<comment><![CDATA[functions that manipulate whole tables, including crosstab]]></comment>
+</extension>
+
+<sequence name="login_oldpassword_login_oldpassword_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
+	<schema name="gacl"/>
+	<role name="quinton"/>
+</sequence>
+
+<relationship name="aclgroup_has_many_acllogingroup" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}"
+	 custom-color="#a40000"
+	 src-table="gacl.aclgroup"
+	 dst-table="gacl.acllogingroup"
 	 src-required="true" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
@@ -1588,104 +1599,176 @@ not recorded]]>
 	<columns names="metadatatype_id" ref-type="dst-columns"/>
 </constraint>
 
-<relationship name="rel_individu_espece" type="relfk" layer="0"
-	 custom-color="#68e232"
+<constraint name="aclaco_aclacl_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="gacl.aclaco" table="gacl.aclacl">
+	<columns names="aclaco_id" ref-type="src-columns"/>
+	<columns names="aclaco_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="aclgroup_aclacl_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="gacl.aclgroup" table="gacl.aclacl">
+	<columns names="aclgroup_id" ref-type="src-columns"/>
+	<columns names="aclgroup_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="aclappli_aclaco_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="gacl.aclappli" table="gacl.aclaco">
+	<columns names="aclappli_id" ref-type="src-columns"/>
+	<columns names="aclappli_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="aclgroup_aclgroup_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="gacl.aclgroup" table="gacl.aclgroup">
+	<columns names="aclgroup_id_parent" ref-type="src-columns"/>
+	<columns names="aclgroup_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="acllogin_acllogingroup_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="gacl.acllogin" table="gacl.acllogingroup">
+	<columns names="acllogin_id" ref-type="src-columns"/>
+	<columns names="acllogin_id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_individu_espece" type="relfk" layers="0"
 	 src-table="otolithe.individu"
 	 dst-table="otolithe.espece" reference-fk="espece_individu_fk"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_individu_peche" type="relfk" layer="0"
-	 custom-color="#d343f5"
+<relationship name="rel_individu_peche" type="relfk" layers="0"
 	 src-table="otolithe.individu"
 	 dst-table="otolithe.peche" reference-fk="peche_individu_fk"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="rel_individu_sexe" type="relfk" layer="0"
-	 custom-color="#df0dd4"
+<relationship name="rel_individu_sexe" type="relfk" layers="0"
 	 src-table="otolithe.individu"
 	 dst-table="otolithe.sexe" reference-fk="sexe_individu_fk"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="rel_individu_experimentation_experimentation" type="relfk" layer="0"
-	 custom-color="#93147d"
+<relationship name="rel_individu_experimentation_experimentation" type="relfk" layers="0"
 	 src-table="otolithe.individu_experimentation"
 	 dst-table="otolithe.experimentation" reference-fk="experimentation_individu_experimentation_fk"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_individu_experimentation_individu" type="relfk" layer="0"
-	 custom-color="#38ca00"
+<relationship name="rel_individu_experimentation_individu" type="relfk" layers="0"
 	 src-table="otolithe.individu_experimentation"
 	 dst-table="otolithe.individu" reference-fk="individu_individu_experimentation_fk"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_lecteur_experimentation_experimentation" type="relfk" layer="0"
-	 custom-color="#04870a"
+<relationship name="rel_lecteur_experimentation_experimentation" type="relfk" layers="0"
 	 src-table="otolithe.lecteur_experimentation"
 	 dst-table="otolithe.experimentation" reference-fk="experimentation_lecteur_experimentation_fk"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_lecteur_experimentation_lecteur" type="relfk" layer="0"
-	 custom-color="#ea585a"
+<relationship name="rel_lecteur_experimentation_lecteur" type="relfk" layers="0"
 	 src-table="otolithe.lecteur_experimentation"
 	 dst-table="otolithe.lecteur" reference-fk="lecteur_lecteur_experimentation_fk"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_photo_lumieretype" type="relfk" layer="0"
-	 custom-color="#0c9cad"
+<relationship name="rel_photo_lumieretype" type="relfk" layers="0"
 	 src-table="otolithe.photo"
 	 dst-table="otolithe.lumieretype" reference-fk="fk_photo_lumieretype"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="rel_photo_piece" type="relfk" layer="0"
-	 custom-color="#d5ac4c"
+<relationship name="rel_photo_piece" type="relfk" layers="0"
 	 src-table="otolithe.photo"
 	 dst-table="otolithe.piece" reference-fk="fk_photo_piece"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_photolecture_final_stripe" type="relfk" layer="0"
-	 custom-color="#ea6e08"
+<relationship name="rel_photolecture_final_stripe" type="relfk" layers="0"
 	 src-table="otolithe.photolecture"
 	 dst-table="otolithe.final_stripe" reference-fk="final_stripe_photolecture_fk"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="rel_photolecture_lecteur" type="relfk" layer="0"
-	 custom-color="#23e9f8"
+<relationship name="rel_photolecture_lecteur" type="relfk" layers="0"
 	 src-table="otolithe.photolecture"
 	 dst-table="otolithe.lecteur" reference-fk="fk_photolecture_lecteur"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_photolecture_photo" type="relfk" layer="0"
-	 custom-color="#36b658"
+<relationship name="rel_photolecture_photo" type="relfk" layers="0"
 	 src-table="otolithe.photolecture"
 	 dst-table="otolithe.photo" reference-fk="fk_photolecture_photo"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_piece_individu" type="relfk" layer="0"
-	 custom-color="#2f781f"
+<relationship name="rel_piece_individu" type="relfk" layers="0"
 	 src-table="otolithe.piece"
 	 dst-table="otolithe.individu" reference-fk="individu_piece_fk"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_piece_piecetype" type="relfk" layer="0"
-	 custom-color="#0eb01a"
+<relationship name="rel_piece_piecetype" type="relfk" layers="0"
 	 src-table="otolithe.piece"
 	 dst-table="otolithe.piecetype" reference-fk="fk_piece_piecetype"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_piece_traitementpiece" type="relfk" layer="0"
-	 custom-color="#493725"
+<relationship name="rel_piece_traitementpiece" type="relfk" layers="0"
 	 src-table="otolithe.piece"
 	 dst-table="otolithe.traitementpiece" reference-fk="fk_piece_traitement"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="rel_piecemetadata_piece" type="relfk" layer="0"
+<relationship name="rel_piecemetadata_piece" type="relfk" layers="0"
 	 src-table="otolithe.piecemetadata"
 	 dst-table="otolithe.piece" reference-fk="piece_fk"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_piecemetadata_metadatatype" type="relfk" layer="0"
+<relationship name="rel_piecemetadata_metadatatype" type="relfk" layers="0"
 	 src-table="otolithe.piecemetadata"
 	 dst-table="otolithe.metadatatype" reference-fk="metadatatype_fk"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="true"/>
 
+<relationship name="rel_aclgroup_aclgroup" type="relfk" layers="0"
+	 custom-color="#a40000"
+	 src-table="gacl.aclgroup"
+	 dst-table="gacl.aclgroup" reference-fk="aclgroup_aclgroup_fk"
+	 src-required="false" dst-required="false">
+	<line>
+		<position x="376.052" y="350.45"/>
+	<position x="376.052" y="299.3"/>
+	<position x="250.234" y="299.3"/>
+	</line>
+</relationship>
+
+<permission>
+	<object name="gacl" type="schema"/>
+	<roles names="postgres"/>
+	<privileges create="true" usage="true"/>
+</permission>
+<permission>
+	<object name="gacl.aclacl" type="table"/>
+	<roles names="quinton"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="gacl.aclaco" type="table"/>
+	<roles names="quinton"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="gacl.aclappli" type="table"/>
+	<roles names="quinton"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="gacl.aclgroup" type="table"/>
+	<roles names="quinton"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="gacl.acllogin" type="table"/>
+	<roles names="quinton"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="gacl.acllogingroup" type="table"/>
+	<roles names="quinton"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="gacl.log" type="table"/>
+	<roles names="quinton"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="gacl.logingestion" type="table"/>
+	<roles names="postgres"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
 </dbmodel>
