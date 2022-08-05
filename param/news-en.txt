@@ -1,5 +1,11 @@
 News
 ===========
+Version 2.4.0 of August 5, 2022
+---------------------------
+Framework upgrade:
+- added CAS-BDD identification
+- support of dual identification with TOTP
+
 Version 2.3.0 of April 6, 2020
 --------------------------
 Bug fixes :
@@ -87,7 +93,7 @@ Data added to complete the reading of the parts (positioning of the points) :
 The last 3 pieces of information are not displayed by default when viewing a photo (reading table).
 
 Bug fixes :
-- following the June modifications, and in particular the reinforcement of the global security of the application, it was no longer possible to modify a reading by consulting other readings. 
+- following the June modifications, and in particular the reinforcement of the global security of the application, it was no longer possible to modify a reading by consulting other readings.
 
 Version 1.3 of June 15, 2015
 ---------------------------
@@ -133,7 +139,7 @@ Version 1.1, December 4, 2013
 -------------------------------
 - Changing the display of photos: Photos are generated in a temporary folder and then loaded from the browser from that temporary folder. This speeds up the upload time when the photo has been processed at least once. The program deletes photos automatically if they have not been played back in the last 24 hours.
 - When entering points, the program now automatically recalculates the order of the points (smallest distance to the previous point). This automatic recalculation can be inhibited.
-- When displaying a part, clicking on a thumbnail will display the photo detail, not the original photo. 
+- When displaying a part, clicking on a thumbnail will display the photo detail, not the original photo.
 
 Version 1.0 of December 2, 2013
 ------------------------------

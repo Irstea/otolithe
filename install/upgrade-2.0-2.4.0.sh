@@ -1,11 +1,11 @@
 #!/bin/bash
 # upgrade an instance 2.0 to 2.1
 OLDVERSION=otolithe-2.0
-VERSION=otolithe-2.3.0
+VERSION=otolithe-2.4.0
 echo "This script will install the release $VERSION"
 echo "have you a backup of your database and a copy of param/param.inc.php?"
 echo "Is your actual version of otolithe is $OLDVERSION ?"
-echo "Is your actual version is in the folder /var/www/otolithe/$OLDVERSION, and the symbolic link otolithe point to $OLDVERSION?" 
+echo "Is your actual version is in the folder /var/www/otolithe/$OLDVERSION, and the symbolic link otolithe point to $OLDVERSION?"
 read -p "Do you want to continue [Y/n]?" answer
 if [[ $answer = "y"  ||  $answer = "Y"  ||   -z $answer ]];
 then
@@ -47,6 +47,7 @@ cd otolithe/install
 su postgres -c "psql -f upgradedb-2.0-2.1.sql"
 su postgres -c "psql -f upgradedb-2.1-2.2.sql"
 su postgres -c "psql -f upgradedb-2.2-2.3.sql"
+su postgres -c "psql -f upgradedb-2.3-2.4.sql"
 cd ../..
 chmod 750 /var/www/html/otolithe
 
@@ -70,6 +71,6 @@ PHPOLDVERSION=`php -v|grep ^PHP|cut -d " " -f 2|cut -d "." -f 1-2`
 echo "Your version of PHP is $PHPOLDVERSION. If it < 7.2, you must upgrade it with the script:"
 echo "./php_upgrade.sh"
 
-echo "Upgrade completed. Check, in the messages, if unexpected behavior occurred during the process" 
+echo "Upgrade completed. Check, in the messages, if unexpected behavior occurred during the process"
 fi
 fi

@@ -1,5 +1,11 @@
 Nouveautés
 ===========
+Version 2.4.0 du 5 août 2022
+---------------------------
+Mise à niveau du framework :
+- ajout de l'identification CAS-BDD
+- support de la double identification avec TOTP
+
 Version 2.3.0 du 6 avril 2020
 --------------------------
 Correction de bugs :
@@ -88,7 +94,7 @@ Données rajoutées pour compléter la lecture des pièces (positionnement des p
 Ces 3 dernières informations ne sont pas affichées par défaut lors de la consultation d'une photo (tableau des lectures)
 
 Corrections de bugs :
-- suite aux modifications de juin, et en particulier le renforcement de la sécurité globale de l'application, il n'était plus possible de modifier une lecture en en consultant d'autres 
+- suite aux modifications de juin, et en particulier le renforcement de la sécurité globale de l'application, il n'était plus possible de modifier une lecture en en consultant d'autres
 
 Version 1.3 du 15 juin 2015
 ---------------------------
@@ -134,7 +140,7 @@ Version 1.1, du 4 décembre 2013
 -------------------------------
 - Modification de l'affichage des photos : les photos sont générées dans un dossier temporaire, puis chargées depuis le navigateur à partir de ce dossier temporaire. Cela permet d'accélérer le temps de téléchargement quand la photo a été traitée au moins une fois. Le programme supprime les photos automatiquement si elles n'ont pas été lues dans les dernières 24 heures.
 - Lors de la saisie des points, le programme recalcule maintenant automatiquement l'ordre des points (plus faible distance par rapport au point précédent). Ce recalcul automatique peut être inhibé.
-- Lors de l'affichage d'une pièce, un clic sur une miniature entraîne l'affichage du détail de la photo, et non plus l'affichage de la photo originale. 
+- Lors de l'affichage d'une pièce, un clic sur une miniature entraîne l'affichage du détail de la photo, et non plus l'affichage de la photo originale.
 
 Version 1.0 du 2 décembre 2013
 ------------------------------

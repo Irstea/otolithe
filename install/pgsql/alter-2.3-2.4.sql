@@ -11,3 +11,5 @@ create sequence otolithe.dbparam_dbparam_id_seq;
 select setval( 'otolithe.dbparam_dbparam_id_seq', (select max(dbparam_id) from otolithe.dbparam));
 alter table otolithe.dbparam alter column dbparam_id set default nextval('metabo.dbparam_dbparam_id_seq');
 insert into otolithe.dbparam (dbparam_name, dbparam_value) values ('otp_issuer', 'otolithe');
+
+insert into otolithe.dbversion (dbversion_number, dbversion_date) values ('2.4', '2022-08-05');
