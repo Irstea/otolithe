@@ -26,6 +26,7 @@ header("X-Frame-Options: SAMEORIGIN");
 ini_set("session.use_strict_mode", true);
 ini_set('session.gc_probability', 1);
 ini_set('session.gc_maxlifetime', $APPLI_session_ttl);
+ini_set("session.cookie_samesite", "strict");
 /**
  * Integration of external libraries
  */
@@ -49,11 +50,6 @@ require_once 'framework/log/log.class.php';
  * Integration de la classe gerant la navigation dans les modules
  */
 require_once "framework/navigation/navigation.class.php";
-
-/**
- * Preparation de l'identification
- */
-require_once "framework/identification/identification.class.php";
 
 /**
  * Initialisation des parametres generaux
@@ -96,9 +92,7 @@ if (!isset($_SESSION['CREATED'])) {
  */
 $cookieParam = session_get_cookie_params();
 $cookieParam["lifetime"] = $APPLI_session_ttl;
-if (!$APPLI_modeDeveloppement) {
-    $cookieParam["secure"] = true;
-}
+$cookieParam["secure"] = true;
 $cookieParam["httponly"] = true;
 setcookie(
     session_name(),
@@ -134,27 +128,7 @@ if (isset($_SESSION["ObjetBDDParam"])) {
 require_once 'framework/vue.class.php';
 $ERROR_display == 1 ? $displaySyslog = true : $displaySyslog = false;
 $message = new Message($displaySyslog);
-/*
- * Lancement de l'identification
- */
 
-$identification = new Identification();
-
-$identification->setidenttype($ident_type);
-if ($ident_type == "CAS") {
-    include_once "vendor/jasig/phpcas/CAS.php";
-    $identification->init_CAS($CAS_address, $CAS_port, "", $CAS_debug, $CAS_CApath);
-} elseif ($ident_type == "LDAP" || $ident_type == "LDAP-BDD") {
-    $identification->init_LDAP(
-        $LDAP["address"],
-        $LDAP["port"],
-        $LDAP["basedn"],
-        $LDAP["user_attrib"],
-        $LDAP["v3"],
-        $LDAP["tls"],
-        $LDAP["upn_suffix"]
-    );
-}
 /*
  * Chargement des fonction generiques
  */
@@ -207,18 +181,6 @@ if (!isset($bdd)) {
          */
         if (strlen($BDD_schema) > 0) {
             $bdd->exec("set search_path = " . $BDD_schema);
-            /*
-             * Positionnement des messages dans la langue courante
-             */
-            switch ($LANG["date"]["locale"]) {
-                case "en":
-                    $bdd->exec("set lc_messages to 'en_US.UTF-8'");
-                    break;
-                case "fr":
-                default:
-                    $bdd->exec("set lc_messages to 'fr_FR.UTF-8'");
-                    break;
-            }
         }
         /*
          * Connexion a la base de gestion des droits
@@ -240,18 +202,6 @@ if (!isset($bdd)) {
             if (strlen($GACL_schema) > 0) {
                 $bdd_gacl->exec("set search_path = " . $GACL_schema);
             }
-            /*
-             * Positionnement des messages dans la langue courante
-             */
-            switch ($LANG["date"]["locale"]) {
-                case "en":
-                    $bdd_gacl->exec("set lc_messages to 'en_US.UTF-8'");
-                    break;
-                case "fr":
-                default:
-                    $bdd_gacl->exec("set lc_messages to 'fr_FR.UTF-8'");
-                    break;
-            }
         } else {
             $message->set(_("Echec de connexion à la base de données de gestion des droits (GACL)"),true);
         }
@@ -269,7 +219,7 @@ $log = new Log($bdd_gacl, $ObjetBDDParam);
  */
 if (time() - $_SESSION['ABSOLUTE_START'] > $APPLI_absolute_session) {
     $log->setLog($_SESSION["login"], "disconnect-absolute-time");
-    $identification->disconnect($APPLI_address);
+    include "framework/identification/disconnect.php";
     $message->set(_("Vous avez été déconnecté, votre session était ouverte depuis trop longtemps"),true);
     /*
      * Desactivation du cookie d'identification deja charge le cas echeant
@@ -287,11 +237,7 @@ if (isset($_SESSION["remoteIP"])) {
             $_SESSION["login"], "disconnect-ipaddress-changed",
             "old:" . $_SESSION["remoteIP"] . "-new:" . $ipaddress
         );
-        if ($identification->disconnect($APPLI_address) == 1) {
-            $message->set(_("Vous êtes maintenant déconnecté"));
-        } else {
-            $message->set(_("Connexion"));
-        }
+        include "framework/identification/disconnect.php";
     }
 } else {
     $_SESSION["remoteIP"] = $ipaddress;

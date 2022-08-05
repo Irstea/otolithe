@@ -23,7 +23,7 @@ if ($lecteur_id > 0) {
     $_SESSION["lecteur_id"] = $lecteur_id;
     $_SESSION["searchIndividu"]->setParam(array("lecteur_id" => $lecteur_id));
     $_SESSION["searchLecture"]->setParam(array("lecteur_id" => $lecteur_id));
-    $vue->set($_SESSION["droits"], "droits");
+    //$vue->set($_SESSION["droits"], "droits");
 
     /*
      * Recuperation des experimentations autorisees
