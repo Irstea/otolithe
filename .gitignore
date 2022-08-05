@@ -109,3 +109,5 @@ _minted*
 /database/otolithe_fixed.dbm
 /locales/C/LC_MESSAGES/_old.po
 /param/param.default.inc.php.orig
+/img/*png
+/img/*jpg
