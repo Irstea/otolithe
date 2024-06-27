@@ -1,6 +1,8 @@
 # otolithe
 Otolith is an application which allows you to place points referenced XY on photos to calculate specific indicators. It was designed specifically to analyze specific parts of fish, such as otoliths (ear bones), but can also be used to treat scaly, or possibly also of fin rays.
 
+You must use https://github.com/inrae.otolithe to obtain the last release.
+
 The code of version 2.0 has been desposited from Agence pour la Protection des Programmes under the number IDDN.FR.001.440010.000.S.C.2018.000.20900
 
 For install this software:
